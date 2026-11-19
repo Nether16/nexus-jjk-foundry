@@ -23,10 +23,13 @@ Para atualizar, use **Check for Updates** na lista de sistemas do Foundry. O lin
 - Ficha de personagem com atributos, nível, XP, HP, EA e CA.
 - Ficha de maldição com classificação de Grau 4 a Grau Especial.
 - Movimentos com rolagem no chat e custo de Energia Amaldiçoada.
+- Movimentos na barra de macros: clique no teclado ao lado do dado para escolher página e tecla, ou arraste esse botão para um slot.
 - Talentos, técnicas, conhecimentos, inventário, história e anotações.
 - Cores personalizadas e importação de wallpaper por personagem.
 - Arte dos tokens acompanha a foto da ficha, incluindo tokens já colocados nas cenas.
-- Compêndio **Livro de Regras e Mundo**, com regras de combate, personagem, treinamento e técnicas, ilustrado com GIFs e tabelas; demais seções preparadas para receber conteúdo.
+- Compêndio **Sistemática**, com banner animado de Higuruma, regras de combate, personagem, treinamento e técnicas, ilustrado com GIFs e tabelas; demais seções preparadas para receber conteúdo.
+
+Os atalhos ficam na barra do usuário conectado. As teclas 1–9 e 0 executam os movimentos da página ativa da barra. A macro usa os dados atuais do movimento e a mesma rolagem da ficha, incluindo imagem, efeitos, custo e verificação de EA disponível.
 
 ## Desenvolvimento
 

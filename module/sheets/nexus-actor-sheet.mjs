@@ -5,7 +5,7 @@ import {
   NEXUS_TALENTS
 } from "../config.mjs";
 import { NEXUS_CURSE_ORIGINS } from "../curse-config.mjs";
-import { NexusFormulaEngine } from "../formula-engine.mjs";
+import { movementWrites, promptMovementMacro, rollMovement } from "../movement-macros.mjs";
 import { NEXUS_KNOWLEDGE } from "../knowledge.mjs";
 import { NexusSheetUI } from "./nexus-sheet-ui.mjs";
 import { applyAppearance, readAppearance } from "./nexus-appearance.mjs";
@@ -18,8 +18,6 @@ const TALENT_SLOT_COUNT = TALENT_SLOT_LEVELS.length;
 const LOCKED_TALENT_SLOTS = 2;
 const TALENT_SLOT_FLAG = "talentSlot";
 const DEFAULT_MOVEMENT_IMAGE = "systems/nexus-jjk/assets/icons/d20Icon.png";
-const rollingActors = new WeakSet();
-const movementWrites = new WeakMap();
 
 export class NexusActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   static DEFAULT_OPTIONS = {
@@ -39,6 +37,7 @@ export class NexusActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       createItem: this.#createItem,
       deleteItem: this.#deleteItem,
       rollAttack: this.#rollAttack,
+      assignMovementMacro: this.#assignMovementMacro,
       openPopup: this.#openPopup,
       setKnowledgeLevel: this.#setKnowledgeLevel,
       selectItem: this.#selectItem,
@@ -568,20 +567,45 @@ export class NexusActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   }
 
   static async #rollAttack(_event, target) {
-    if (!this.isEditable || rollingActors.has(this.actor)) return;
+    if (!this.isEditable) return;
     const row = target.closest("[data-item-id]");
     const item = this.actor.items.get(row?.dataset.itemId);
     if (item?.type !== "attack") return;
 
-    rollingActors.add(this.actor);
     target.disabled = true;
     try {
-      if (await movementWrites.get(item) === false) return;
-      await NexusFormulaEngine.rollItem(this.actor, item);
+      await rollMovement(this.actor, item);
     } finally {
-      rollingActors.delete(this.actor);
       target.disabled = !this.isEditable;
     }
+  }
+
+  static async #assignMovementMacro(_event, target) {
+    if (!this.isEditable) return;
+    const item = this.actor.items.get(target.closest("[data-item-id]")?.dataset.itemId);
+    if (item?.type !== "attack") return;
+    target.disabled = true;
+    try {
+      await promptMovementMacro(item);
+    } finally {
+      target.disabled = !this.isEditable;
+    }
+  }
+
+  async _onDragStart(event) {
+    const target = event.currentTarget;
+    if (!target.matches("[data-movement-macro]")) return super._onDragStart(event);
+    const item = this.actor.items.get(target.dataset.itemId);
+    if (!this.isEditable || item?.type !== "attack") {
+      event.preventDefault();
+      return;
+    }
+    event.dataTransfer.effectAllowed = "copy";
+    event.dataTransfer.setData("text/plain", JSON.stringify({
+      type: "Item",
+      uuid: item.uuid,
+      nexusMovement: true
+    }));
   }
 
   static #configureAppearance() {

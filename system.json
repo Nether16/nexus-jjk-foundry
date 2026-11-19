@@ -2,7 +2,7 @@
   "id": "nexus-jjk",
   "title": "Nexus — Jujutsu RPG",
   "description": "Sistema Nexus convertido da ficha Firecast para Foundry Virtual Tabletop V14.",
-  "version": "0.4.9",
+  "version": "0.4.10",
   "compatibility": {
     "minimum": 14,
     "verified": 14,
@@ -101,7 +101,8 @@
   "packs": [
     {
       "name": "livro-de-regras",
-      "label": "Livro de Regras e Mundo",
+      "label": "Sistemática",
+      "banner": "systems/nexus-jjk/assets/journal/banner-sistematica-higuruma.gif",
       "path": "packs/livro-de-regras",
       "type": "JournalEntry",
       "system": "nexus-jjk",
@@ -113,5 +114,5 @@
   ],
   "url": "https://github.com/Nether16/nexus-jjk-foundry",
   "manifest": "https://github.com/Nether16/nexus-jjk-foundry/releases/latest/download/system.json",
-  "download": "https://github.com/Nether16/nexus-jjk-foundry/releases/download/v0.4.9/nexus-jjk-0.4.9.zip"
+  "download": "https://github.com/Nether16/nexus-jjk-foundry/releases/download/v0.4.10/nexus-jjk-0.4.10.zip"
 }

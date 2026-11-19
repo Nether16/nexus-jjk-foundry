@@ -1471,6 +1471,30 @@
   width: 36px;
 }
 
+.nexus-jjk .tabela-movimentos :is(th, td).coluna-dado {
+  width: 70px;
+}
+
+.nexus-jjk .movimento-acoes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.nexus-jjk .movimento-acoes > i {
+  width: 28px;
+  flex: 0 0 28px;
+}
+
+.nexus-jjk .movimento-acoes > button {
+  flex: 0 0 28px;
+}
+
+.nexus-jjk .botao-macro.draggable {
+  cursor: grab;
+}
+
 .nexus-jjk .tabela-movimentos th:is(:first-child, :nth-child(2), :last-child) {
   padding-inline: 4px;
   text-align: center;

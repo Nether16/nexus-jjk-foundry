@@ -10,6 +10,7 @@ import {
 } from "./module/sheets/nexus-appearance.mjs";
 import { registerRichTextAutosave } from "./module/sheets/nexus-rich-text.mjs";
 import { registerTokenPortraitSync } from "./module/token-portraits.mjs";
+import { registerMovementMacros } from "./module/movement-macros.mjs";
 
 const NEXUS_LOGO = "systems/nexus-jjk/assets/images/nexus-logo.png";
 
@@ -18,6 +19,7 @@ Hooks.once("init", () => {
   registerAppearanceSettings();
   registerRichTextAutosave();
   registerTokenPortraitSync();
+  registerMovementMacros();
 
   CONFIG.NEXUS = {
     attributes: NEXUS_ATTRIBUTES,
