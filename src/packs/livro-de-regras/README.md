@@ -1,4 +1,6 @@
-# Livro de Regras e Mundo
+# Sistemática
+
+O nome exibido e o banner do compêndio são configurados em `system.json`. O banner usa o GIF local `assets/journal/banner-sistematica-higuruma.gif`, fornecido em https://media1.tenor.com/m/nIpT2Jh32qsAAAAd/higuruma-hiromi-higuruma.gif. O identificador `livro-de-regras` é mantido para preservar os links existentes.
 
 Este compêndio contém dois grupos de diários: Mundo e Sistemática. Combate inclui Condições Ofensivas, Críticos, Kokusen e Morte; Personagem inclui Status, Atributos, especializações de Origem, Level Up, Perícias e Itens Amaldiçoados. Treinamento reúne Sistema de Aprendizado e Conhecimentos. Técnicas reúne Técnicas Treináveis, Barreiras, Anti-Domínios, EAR e Shikigamis; Inata contém Técnicas Inatas. O Catálogo foi removido. Os três diários de Mundo ainda não possuem páginas.
 
