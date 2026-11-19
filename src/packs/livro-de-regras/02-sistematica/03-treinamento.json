@@ -1,10 +1,10 @@
 {
   "_id": "596101195fb028db",
-  "name": "03 - Treinamento",
+  "name": "Treinamento",
   "pages": [
     {
-      "_id": "d2f367ff23acf6bf",
-      "name": "01 - Sistema de Aprendizado",
+      "_id": "fd77bae66ec5bbb3",
+      "name": "Treinamento",
       "type": "text",
       "sort": 100000,
       "title": {
@@ -13,37 +13,18 @@
       },
       "text": {
         "format": 1,
-        "content": "<div class=\"nexus-wiki\"> \n <h1 style=\"color: #4DA6FF; letter-spacing: 6px;\">APRENDIZADO</h1> \n\n <div style=\"text-align: left;\"> \n   <p> \n           Um feiticeiro não é forjado apenas no campo de batalha. O colégio jujutsu é estruturado para formar feiticeiros tanto em <em>habilidades práticas</em> quanto <em>acadêmicas</em>. Para isso, uma rotina de estudos e treinamentos é estabelecida antes e depois de cada missão, visando ensinar desde <strong>conhecimentos básicos</strong> sobre as maldições até <strong>formações avançadas</strong> que serão levadas para o resto da vida do aluno. \n   </p> \n\n   <p> \n           Através desse sistema que serão estruturadas as aulas que ensinarão as técnicas aprendidas e conhecimentos básicos do jujutsu, mas a partir daí, os alunos poderão escolher sobre <strong><em>quais conhecimentos poderão estudar</em></strong> e treinar, adquirindo habilidades distintas de utilidades que se encaixem melhor aos estilos e gostos dos alunos. \n   </p> \n\n   <p> \n           Para tal, <em>além das aulas introdutórias</em>, haverá um tempo em que os alunos devem <strong>treinar</strong> e <strong>dominar</strong> cada habilidade aprendida. O tempo dedicado a rotina escolar comum, tanto de estudo quanto treino e até <em>atividades extracurriculares</em> e o <em>tempo livre</em> dos alunos, será aplicado no que chamamos de <strong>Jornada de Aprendizagem</strong>. \n   </p> \n </div> \n\n <hr style=\"width: 5%;\"> \n\n <h2 style=\"color: #4DA6FF;\">Jornada de Aprendizagem</h2> \n\n <div style=\"text-align: left;\"> \n   <p> \n           A <em>Jornada de Aprendizagem</em> representa o <strong>crescimento contínuo</strong> dos alunos através de estudo, treinamento e experiências vividas durante sua formação. O tempo dos personagens fora das Missões e aulas dignas de interpretação numa sessão será dedicado a rotina comum e descrito pelo jogador como preferir. Mas durante esse interlúdio, o foco dos estudos do aluno será dedicado a um <em>conhecimento ou prática específico</em>, rendendo habilidades conquistadas através do <strong>Conhecimento</strong> adquirido. O <strong>tempo médio</strong> de aprendizagem e <strong>treinamento</strong> de cada <strong>Técnica Aprendida</strong> e <strong>Conhecimento</strong> é de <strong>1 semana</strong> (<em>5 dias de aulas e 2 livres</em>). Após isso o personagem terá as habilidades e técnicas a qual se dedicou em seu repertório, dependendo do nível do conhecimento que tem dos mesmos. \n   </p> \n </div> \n\n <hr style=\"width: 5%;\"> \n</div>"
+        "content": "<div class=\"nexus-wiki\">\n  <h1>TREINAMENTO</h1>\n</div>"
       },
       "ownership": {
         "default": -1
       },
       "flags": {},
-      "_key": "!journal.pages!596101195fb028db.d2f367ff23acf6bf"
-    },
-    {
-      "_id": "850f8d9aaa78f8a8",
-      "name": "02 - Conhecimentos",
-      "type": "text",
-      "sort": 200000,
-      "title": {
-        "show": false,
-        "level": 1
-      },
-      "text": {
-        "format": 1,
-        "content": "<div class=\"nexus-wiki\"> \n <h1 style=\"letter-spacing: 6px;\">CONHECIMENTOS</h1> \n\n <div style=\"text-align: left;\"> \n   <p> \n           Cada conhecimento é dividido em <strong>3 níveis de domínio</strong>. Ao adquirir um conhecimento, o personagem começa aprendendo os fundamentos, depois aprimora suas técnicas e, por fim, alcança um nível avançado de especialização. Cada nível libera novas sistemáticas, que representam aplicações práticas desse conhecimento, permitindo novas possibilidades para ações e interações com o mundo. \n   </p> \n\n   <p> \n     <span class=\"cor-vermelha\"><strong>Estrutura:</strong></span><br> \n     <strong>Conhecimento:</strong> Uma área de estudo ou treinamento que representa uma habilidade geral do personagem. \n   </p> \n\n   <p> \n     <span class=\"cor-vermelha\"><strong>Nível 1 - Fundamentos:</strong></span><br> \n     O personagem aprende os conceitos básicos e consegue realizar ações simples relacionadas ao conhecimento. \n   </p> \n\n   <p> \n     <span class=\"cor-vermelha\"><strong>Nível 2 - Aprimoramento:</strong></span><br> \n     O personagem desenvolve maior compreensão e consegue lidar com situações mais complexas. \n   </p> \n\n   <p> \n     <span class=\"cor-vermelha\"><strong>Nível 3 - Especialização:</strong></span><br> \n     O personagem domina o conhecimento, podendo realizar feitos avançados e utilizar sua experiência de forma estratégica. \n   </p> \n </div> \n\n <hr> \n</div>"
-      },
-      "ownership": {
-        "default": -1
-      },
-      "flags": {},
-      "_key": "!journal.pages!596101195fb028db.850f8d9aaa78f8a8"
+      "_key": "!journal.pages!596101195fb028db.fd77bae66ec5bbb3"
     }
   ],
   "categories": [],
   "folder": "fc67c4cfee5ace14",
-  "sort": 300000,
+  "sort": 500000,
   "ownership": {
     "default": 2
   },

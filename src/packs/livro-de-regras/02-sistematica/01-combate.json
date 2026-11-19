@@ -1,10 +1,10 @@
 {
   "_id": "6e5b5f54bacde913",
-  "name": "01 - Combate",
+  "name": "Combate",
   "pages": [
     {
       "_id": "f9adc21ed6687160",
-      "name": "01 - Ações",
+      "name": "Ações",
       "type": "text",
       "sort": 100000,
       "title": {
@@ -13,7 +13,7 @@
       },
       "text": {
         "format": 1,
-        "content": "<div class=\"nexus-wiki\">\n  <h1>AÇÕES</h1>\n  <h2>Ação Principal</h2>\n  <img src=\"systems/nexus-jjk/assets/journal/acao-principal.gif\" alt=\"Ação Principal\">\n\n  <h2>Ação de Movimento</h2>\n  <img src=\"systems/nexus-jjk/assets/journal/acao-movimento.gif\" alt=\"Ação de Movimento\">\n\n  <h2>Ação Bônus</h2>\n  <img src=\"systems/nexus-jjk/assets/journal/acao-bonus.gif\" alt=\"Ação Bônus\">\n\n  <h2>Ação Reativa</h2>\n  <img src=\"systems/nexus-jjk/assets/journal/acao-reativa.gif\" alt=\"Ação Reativa\">\n\n  <h2>Ação Livre</h2>\n  <img src=\"systems/nexus-jjk/assets/journal/acao-livre.gif\" alt=\"Ação Livre\">\n</div>"
+        "content": "<div class=\"nexus-wiki\">\n  <h1 style=\"color: #E53935; letter-spacing: 6px;\">AÇÕES</h1>\n\n  <h2 style=\"color: #E53935;\">Ação Principal</h2>\n  <img src=\"systems/nexus-jjk/assets/journal/acao-principal.gif\" alt=\"Ação Principal\">\n  <div style=\"text-align: left;\">\n    <p>\n            A <strong>Ação Principal</strong> representa o movimento central do personagem durante seu turno em combate. É por meio dela que o feiticeiro executa suas manobras mais complexas e decisivas, como realizar um ataque físico, conjurar uma Técnica Inata, ativar uma Expansão de Domínio, empregar Energia Amaldiçoada Reversa (EAR) de forma externa ou utilizar itens complexos. Por padrão, cada personagem dispõe de <strong>1 Ação Principal por turno</strong>.\n    </p>\n  </div>\n\n  <hr style=\"width: 15%;\">\n\n  <h2 style=\"color: #E53935;\">Ação de Movimento</h2>\n  <img src=\"systems/nexus-jjk/assets/journal/acao-movimento.gif\" alt=\"Ação de Movimento\">\n  <div style=\"text-align: left;\">\n    <p>\n            A <strong>Ação de Movimento</strong> é utilizada para deslocar o personagem pelo campo de batalha, permitindo reposicionamento estratégico, aproximação de alvos, recuo ou superação de obstáculos no terreno, respeitando o limite de deslocamento definido pelo atributo de Agilidade (AGI). Caso deseje, o personagem pode abrir mão de sua <em>Ação Principal</em> para realizar uma segunda <em>Ação de Movimento</em> no mesmo turno.\n    </p>\n  </div>\n\n  <hr style=\"width: 15%;\">\n\n  <h2 style=\"color: #E53935;\">Ação Bônus</h2>\n  <img src=\"systems/nexus-jjk/assets/journal/acao-bonus.gif\" alt=\"Ação Bônus\">\n  <div style=\"text-align: left;\">\n    <p>\n            A <strong>Ação Bônus</strong> (também referida como <em>Ação Suplementar</em>) consiste em uma manobra rápida que complementa o turno do combatente sem comprometer sua ação principal. É utilizada para ativar habilidades específicas, aplicar Reforço Amaldiçoado, utilizar EAR interna no próprio corpo, sustentar técnicas ativas ou apagar chamas da condição <em>Queimando</em>. Cada personagem possui <strong>1 Ação Bônus por turno</strong>, só podendo utilizá-la quando alguma habilidade ou regra permitir.\n    </p>\n  </div>\n\n  <hr style=\"width: 15%;\">\n\n  <h2 style=\"color: #E53935;\">Ação Reativa</h2>\n  <img src=\"systems/nexus-jjk/assets/journal/acao-reativa.gif\" alt=\"Ação Reativa\">\n  <div style=\"text-align: left;\">\n    <p>\n            A <strong>Ação Reativa</strong> é uma resposta instantânea executada fora do turno do personagem, engatilhada por uma ação inimiga ou evento específico no combate. É utilizada para realizar testes de Esquiva, Bloqueio, Contra-Ataque, ativar técnicas Anti-Domínio (como <em>Domínio Simples</em>, <em>Cesta de Vime Oca</em> ou <em>Emoção da Pétala Caída</em>) ou iniciar uma Disputa de Domínio. Cada personagem possui <strong>1 Ação Reativa por rodada</strong>, recuperando-a no início de seu próximo turno.\n    </p>\n  </div>\n\n  <hr style=\"width: 15%;\">\n\n  <h2 style=\"color: #E53935;\">Ação Livre</h2>\n  <img src=\"systems/nexus-jjk/assets/journal/acao-livre.gif\" alt=\"Ação Livre\">\n  <div style=\"text-align: left;\">\n    <p>\n            A <strong>Ação Livre</strong> engloba gestos simples e instantâneos que não exigem esforço significativo nem consomem os recursos principais do turno. Inclui proferir frases curtas em combate, realizar selos de mão simples para sustentar técnicas, soltar um objeto ou observar rapidamente o ambiente. Embora não possua um limite numérico rígido, seu uso permanece sujeito ao bom senso e à aprovação do Mestre.\n    </p>\n  </div>\n</div>"
       },
       "ownership": {
         "default": -1
@@ -23,7 +23,7 @@
     },
     {
       "_id": "e019d07ebd767c98",
-      "name": "01.1 - Tabela de Ações",
+      "name": "Tabela de Ações",
       "type": "text",
       "sort": 200000,
       "title": {
@@ -32,7 +32,7 @@
       },
       "text": {
         "format": 1,
-        "content": "<div class=\"nexus-wiki\">\n  <h1>TABELA DE AÇÕES</h1>\n  <img class=\"tabela-img\" src=\"systems/nexus-jjk/assets/journal/tabela-acoes-1.png\" alt=\"Tabela de Ações 1\">\n  <img class=\"tabela-img\" src=\"systems/nexus-jjk/assets/journal/tabela-acoes-2.png\" alt=\"Tabela de Ações 2\">\n  <img class=\"tabela-img\" src=\"systems/nexus-jjk/assets/journal/tabela-acoes-3.png\" alt=\"Tabela de Ações 3\">\n</div>"
+        "content": "<div class=\"nexus-wiki\">\n  <h1>TABELA DE AÇÕES</h1>\n</div>"
       },
       "ownership": {
         "default": -1
@@ -42,7 +42,7 @@
     },
     {
       "_id": "34a5265b68649e9c",
-      "name": "02 - Condições",
+      "name": "Condições",
       "type": "text",
       "sort": 300000,
       "title": {
@@ -51,7 +51,7 @@
       },
       "text": {
         "format": 1,
-        "content": "<div class=\"nexus-wiki\">\n  <h1>CONDIÇÕES</h1>\n  <img class=\"tabela-img\" src=\"systems/nexus-jjk/assets/journal/tabela-condicoes.png\" alt=\"Condições\">\n</div>"
+        "content": "<div class=\"nexus-wiki\">\n  <h1>CONDIÇÕES</h1>\n</div>"
       },
       "ownership": {
         "default": -1
@@ -61,7 +61,7 @@
     },
     {
       "_id": "d220fdff574001c5",
-      "name": "02.1 - Condições Ofensivas",
+      "name": "Condições Ofensivas",
       "type": "text",
       "sort": 400000,
       "title": {
@@ -70,7 +70,7 @@
       },
       "text": {
         "format": 1,
-        "content": "<div class=\"nexus-wiki\">\n  <h1 style=\"color: #FFFFFF;\">CONDIÇÕES OFENSIVAS</h1>\n\n  <div style=\"text-align: left;\">\n    <p>\n      As Condições Ofensivas representam efeitos negativos aplicados por técnicas, armas, maldições ou outros recursos durante o combate. Esses efeitos podem causar Dano Por Turno (DPT), limitar ações ou impor penalidades específicas, variando de acordo com a habilidade que os originou.\n    </p>\n\n    <p>\n      Cada condição possui suas próprias regras, duração e Classe de Dificuldade (CD) para ser resistida, tratada ou removida. Em regra, essas condições podem ser curadas por meio da Energia Amaldiçoada Reversa (EAR) ou através de testes de Primeiros Socorros e Tratamento, utilizando <strong>Conhecimentos Médicos</strong>. A CD necessária para remover ou reduzir seus efeitos é definida pela técnica, item ou habilidade que aplicou a condição.\n    </p>\n\n    <hr style=\"width: 15%;\">\n\n    <h2>Queimando e Queimadura</h2>\n    <p>\n      Apesar de semelhantes, <em>Queimando</em> e <em>Queimadura</em> são condições diferentes.\n    </p>\n    <ul>\n      <li>\n        <strong>Queimando:</strong> representa o personagem em chamas, sofrendo DPT enquanto o fogo permanecer ativo. Para encerrar essa condição, o personagem deve utilizar uma <strong>Ação Bônus</strong> para apagar as chamas.\n      </li>\n      <li>\n        <strong>Queimadura:</strong> representa os danos deixados pelo calor intenso após o fogo ser extinto. Essa condição não desaparece ao apagar as chamas e normalmente exige EAR ou tratamento médico para ser removida.\n      </li>\n    </ul>\n\n    <blockquote style=\"border-left: 3px solid #72767D; padding-left: 12px; margin: 14px 0; color: #DCDDDE;\">\n      Exemplo: <strong>Jogo</strong> utiliza uma técnica de fogo contra <strong>Maki</strong>, que entra na <strong><em>condição Queimando</em></strong>, sofrendo 30 de DPT. Em seu turno, Maki utiliza sua <strong>Ação Bônus</strong> para apagar as chamas. Entretanto, devido à intensidade da técnica, ela <em>permanece</em> com a condição Queimadura, que posteriormente é <strong>tratada por Shoko</strong> utilizando EAR e Conhecimentos Médicos.\n    </blockquote>\n  </div>\n\n  <img src=\"systems/nexus-jjk/assets/journal/condicao-queimadura-maki.gif\" alt=\"Queimando e Queimadura\">\n\n  <hr style=\"width: 15%;\">\n\n  <div style=\"text-align: left;\">\n    <h2>Envenenamento</h2>\n    <p>\n      Quando um personagem é afetado por uma técnica baseada em veneno, ele entra na <strong><em>condição Envenenado</em></strong>, sofrendo os efeitos descritos pela habilidade.\n    </p>\n    <p>\n      Caso possua <strong>Conhecimentos Médicos</strong>, o personagem ou um aliado pode tentar neutralizar o veneno utilizando medicamentos ou tratamento adequado. Salvo quando a técnica especificar outro valor, a CD base para resistir ou tratar um veneno é 10, modificada conforme a habilidade do usuário que aplicou o efeito.\n    </p>\n\n    <hr style=\"width: 15%;\">\n\n    <h2>Regras Gerais</h2>\n    <p>\n      As Condições Ofensivas são criadas de forma dinâmica, levando em consideração a técnica utilizada, o usuário, o item empregado e o contexto da situação. Por esse motivo, cada condição pode possuir efeitos, duração e CDs diferentes.\n    </p>\n    <p>\n      Ao longo da jornada, os personagens terão acesso a recursos cada vez mais eficientes para lidar com essas condições. No entanto, feiticeiros excepcionalmente habilidosos podem aplicar efeitos extremamente difíceis de remover, seja por meio de suas Técnicas Inatas, Extensões de Técnica ou outras habilidades especiais.\n    </p>\n  </div>\n\n  <img src=\"systems/nexus-jjk/assets/journal/condicao-cura-yuta.gif\" alt=\"Cura de Condições\">\n</div>"
+        "content": "<div class=\"nexus-wiki\">\n  <h1 style=\"color: #FFFFFF;\">CONDIÇÕES<br>OFENSIVAS</h1>\n\n  <div style=\"text-align: left;\">\n    <p>\n              Algumas condições ofensivas podem atribuir efeitos diversos, causando Danos Por Turno (DPT)<br>\n         O DPT possui valor proprios e todos são revertidos por Energia Amaldiçoada Reversa (EAR) ou Através de testes medicos como os Primeiros socorros e Tratamento, suas dificuldade de se recuperar dessa condição é atribuida a habilidade causadora, com exceção da condição queimando, que necessita que você utilize de uma ação bonus para apagar o fogo, porém essa condição não é igual a condição de queimadura.\n    </p>\n\n    <p>\n      Por exemplo : <em>Jogo usou uma habilidade de fogo em maki, maki na condição queimando recebeu 30 de dano e em seu turno usou a ação bonus para se apagar;</em><br>\n      <em>Ao se apagar ele entrou na condição queimadura que é causada por niveis altos de tecnicas de fogo e foi curada e estabilizada por Shoko que utilizou de EAR+Conhecimentos medicos para reduzir ao maximo seus impactos.</em>\n    </p>\n\n    <p>\n      Outro exemplo : <em>Um usuario de tecnica de veneno utilizou de sua tecnica em você ao notar o envenenamento e possuir Conhecimentos medicos o individuo pode contornar o veneno diminuindo seus efeitos com um medicamento assim anulando seus efeitos, A CD para contornar ou resistir ao veneno é 10 estando na tecnica do usuario de veneno,</em>\n    </p>\n\n    <p>\n         Em geral, as condições ofensivas são geralmente construidas sistematicamente de acordo com a situação, usuario, item utilizado, tendo assim cada um uma Classe de Dificuldade (CD) diferente, apesar disso ao longo da jornada como feiticeiro se torna algo simples de se lidar, tendo em alguns raros casos usuarios excelentes que acabam adicionando condições por consequencia do uso de sua tecnica ou Extensões de Tecnica.\n    </p>\n  </div>\n\n  <hr style=\"width: 25%;\">\n</div>"
       },
       "ownership": {
         "default": -1
@@ -80,7 +80,7 @@
     },
     {
       "_id": "db87b703a9c223ff",
-      "name": "03 - Críticos",
+      "name": "Críticos",
       "type": "text",
       "sort": 500000,
       "title": {
@@ -99,7 +99,7 @@
     },
     {
       "_id": "6b798a765c24b585",
-      "name": "03.1 - Kokusen",
+      "name": "Kokusen",
       "type": "text",
       "sort": 600000,
       "title": {
@@ -118,7 +118,7 @@
     },
     {
       "_id": "4b825101e6d8e121",
-      "name": "04 - Morte",
+      "name": "Morte",
       "type": "text",
       "sort": 700000,
       "title": {

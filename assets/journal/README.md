@@ -77,4 +77,17 @@ As três tabelas de EAR foram fornecidas separadamente e também estão incluíd
 - `tabela-ear-interno.png`
 - `tabela-ear-externo.png`
 
-São 69 mídias no total, todas referenciadas no livro, sem arquivos pendentes. Os PNGs foram copiados sem alteração. O build continua omitindo imagens ausentes caso uma nova referência ainda não tenha sido fornecida. Este README não faz parte do ZIP de execução.
+As 69 mídias originais foram mantidas, mesmo quando deixaram de ser referenciadas no consolidado. Os PNGs foram copiados sem alteração.
+
+O consolidado usa quatro nomes alternativos. As cópias abaixo preservam os GIFs originais sem conversão e mantêm intactas as tags `<img>` fornecidas:
+
+| Nome no consolidado | Cópia do arquivo existente |
+| --- | --- |
+| origem-restringido-fisico.gif | origem-restricao-fisica.gif |
+| origem-restringido-feiticaria.gif | origem-restricao-feiticaria.gif |
+| talento-naturalmente-reverso.gif | ear-yuta.gif |
+| talento-estilo-das-sombras.gif | estilo-sombras.gif |
+
+`origem-sem-tecnica-inata.gif` ainda não foi fornecido. A tag permanece no JSON de Origens Gratuitas (F2P); o build a substitui por um comentário no compêndio até que o arquivo seja adicionado. O banner `banner-sistematica-higuruma.gif` é configurado no manifesto e continua incluído.
+
+O diretório contém 74 mídias: 69 originais, quatro cópias e o banner. Este README não faz parte do ZIP de execução.
