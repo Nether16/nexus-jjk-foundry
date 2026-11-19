@@ -13,6 +13,7 @@ const getProperty = (object, key) => key.split(".").reduce((value, part) => valu
 
 // Substitui somente os serviços externos; os cálculos vêm do motor em teste.
 class TestRoll {
+  static CHAT_TEMPLATE = "templates/dice/roll.hbs";
   constructor(formula) { this.formula = formula; environment.formulas.push(formula); }
   static safeEval(formula) {
     const safe = formula.replace(/\b(abs|ceil|floor|max|min|pow|round|sqrt)\b/gu, "Math.$1");
@@ -30,19 +31,24 @@ class TestRoll {
     this.total = TestRoll.safeEval(formula);
     return this;
   }
-  async render() { return `<span class="roll-total">${this.total}</span>`; }
+  async _prepareChatRenderContext() { return { formula: this.formula, total: this.total, tooltip: "" }; }
 }
 
 beforeEach(() => {
   environment = { messages: [], updates: [], warnings: [], errors: [], formulas: [], prompts: [],
-    values: [], rollOptions: [], chatFailure: null, updateFailure: false };
+    values: [], rollOptions: [], renderContexts: [], chatFailure: null, updateFailure: false };
   globalThis.Roll = TestRoll;
   globalThis.foundry = { utils: { getProperty }, applications: { api: { DialogV2: {
     async input(options) {
       environment.prompts.push(options);
       return environment.values.length ? environment.values.shift() : { value: "0" };
     }
-  } } } };
+  } }, handlebars: {
+    async renderTemplate(template, context) {
+      environment.renderContexts.push({ template, context: structuredClone(context) });
+      return `<div class="dice-formula">${context.formula}</div><span class="roll-total">${context.total}</span>`;
+    }
+  } } };
   globalThis.game = { user: { id: "player" }, settings: { get: () => "blind" } };
   globalThis.ui = { notifications: {
     warn: message => environment.warnings.push(message), error: message => environment.errors.push(message)
@@ -73,7 +79,8 @@ function actor({ type = "character", ea = 20, owner = true } = {}) {
 
 const item = (system = {}) => ({ name: "Golpe", img: "", system: { attack: "", cost: "", effect: "", ...system } });
 const totals = message => message.rolls.map(json => JSON.parse(json).total);
-const plain = html => html.replace(/<[^>]*>/gu, " ").replace(/\s+/gu, " ").trim();
+const plain = html => html.replace(/<div class="dice-formula">[^]*?<\/div>/gu, "")
+  .replace(/<[^>]*>/gu, " ").replace(/\s+/gu, " ").trim();
 
 test("evaluateNumeric e subexpressões mantêm a precisão antes do resultado final", () => {
   assert.equal(evaluateNumeric("3 / 2"), 1.5);
@@ -131,6 +138,27 @@ test("ataque, custo com dado e módulos de efeito têm totais inteiros consisten
   assert.match(plain(message.content), /Dano: 4 Cura: 2 Nota: DPT 2.5 por turno/u);
   assert(environment.formulas.every(formula => formula.startsWith("floor(")));
   assert(environment.rollOptions.every(options => options.allowInteractive === false));
+});
+
+test("chat oculta só o floor automático de ataque, custo e efeito sem mudar os Rolls", async () => {
+  const current = actor();
+  const movement = item({ attack: "floor(1d20 / 3) + 1.9", cost: "1d20 / 4",
+    effect: "Dano: 1d20 / 3 + 0.9" });
+  const saved = structuredClone(movement);
+  const message = await NexusFormulaEngine.rollItem(current, movement);
+  assert.deepEqual(environment.renderContexts.map(({ template, context }) => ({ template, formula: context.formula })), [
+    { template: TestRoll.CHAT_TEMPLATE, formula: "floor(1d20 / 3) + 1.9" },
+    { template: TestRoll.CHAT_TEMPLATE, formula: "1d20 / 4" },
+    { template: TestRoll.CHAT_TEMPLATE, formula: "1d20 / 3 + 0.9" }
+  ]);
+  assert.deepEqual(totals(message), [4, 2, 4]);
+  assert.equal(current.system.ea.value, 18);
+  assert.deepEqual(message.rolls.map(json => JSON.parse(json).formula), [
+    "floor(floor(1d20 / 3) + 1.9)", "floor(1d20 / 4)", "floor(1d20 / 3 + 0.9)"
+  ]);
+  assert.match(message.content, /class="dice-formula">floor\(1d20 \/ 3\) \+ 1\.9<\/div>/u);
+  assert.doesNotMatch(message.content, /class="dice-formula">floor\(floor\(/u);
+  assert.deepEqual(movement, saved);
 });
 
 test("floor padrão combina com floor, ceil, min, max e sqrt explícitos", async () => {
@@ -283,6 +311,10 @@ test("Foundry 14 nativo: floor mantém dados, tooltip, serialização e chat con
     assert.ok(message);
     assert.deepEqual(totals(message), [5, 3, 12]);
     assert.equal(current.system.ea.value, 17);
+    const cards = renderContexts.filter(render => render.template === NativeRoll.CHAT_TEMPLATE);
+    assert.equal(cards.length, 3);
+    assert(cards.every(({ context }) => !context.formula.startsWith("floor(")));
+    assert(message.rolls.every(json => JSON.parse(json).formula.startsWith("floor(")));
     for (const json of message.rolls) {
       const restored = NativeRoll.fromJSON(json);
       assert.equal(restored.dice.length, 1);
@@ -299,6 +331,13 @@ test("Foundry 14 nativo: floor mantém dados, tooltip, serialização e chat con
     }));
     assert.deepEqual(totals(functions), [16]);
     assert.match(plain(functions.content), /Custo em EA 2 EA A: 7 B: 3 C: 4/u);
+    const explicit = await NexusFormulaEngine.rollItem(actor(), item({ attack: "floor(1d20 / 3) + 1.9" }));
+    assert.deepEqual(totals(explicit), [4]);
+    assert.equal(renderContexts.filter(render => render.template === NativeRoll.CHAT_TEMPLATE).at(-1).context.formula,
+      "floor(1d20 / 3) + 1.9");
+    const explicitRoll = NativeRoll.fromJSON(explicit.rolls[0]);
+    assert.equal(explicitRoll.formula, "floor(floor(1d20 / 3) + 1.9)");
+    assert.equal(explicitRoll.dice[0].results[0].result, 10);
     assert.deepEqual(environment.errors, []);
   } finally { hooks.deregister(); }
 });

@@ -264,6 +264,15 @@ function movementSection(label, html, className = "") {
   return `<div class="${classes}">${heading}<div class="nexus-chat-value">${html}</div></div>`;
 }
 
+async function renderMovementRoll(roll) {
+  const context = await roll._prepareChatRenderContext({});
+  // As rolagens deste motor sempre recebem um floor externo automático.
+  if (context.formula.startsWith("floor(") && context.formula.endsWith(")")) {
+    context.formula = context.formula.slice(6, -1);
+  }
+  return foundry.applications.handlebars.renderTemplate(roll.constructor.CHAT_TEMPLATE, context);
+}
+
 function checkAvailableEA(actor, cost) {
   const available = Number(actor.system.ea.value) || 0;
   if (cost <= available) return available;
@@ -330,13 +339,13 @@ export class NexusFormulaEngine {
       if (attack) {
         const roll = await evaluateRoll(resolve(attack), "Rolagem");
         rolls.push(roll);
-        rows.push(movementSection("Rolagem", await roll.render()));
+        rows.push(movementSection("Rolagem", await renderMovementRoll(roll)));
       }
       if (cost) {
         if (costRoll) rolls.push(costRoll);
         const html = informationalCost
           ? escapeHTML(cost)
-          : costRoll ? await costRoll.render() : escapeHTML(`${amount} EA`);
+          : costRoll ? await renderMovementRoll(costRoll) : escapeHTML(`${amount} EA`);
         rows.push(movementSection(informationalCost ? "Custo" : "Custo em EA", html, "nexus-chat-cost"));
       }
       for (const module of splitModules(effect)) {
@@ -352,7 +361,7 @@ export class NexusFormulaEngine {
         if (isDiceFormula(formula)) {
           const roll = await evaluateRoll(formula, title);
           rolls.push(roll);
-          rows.push(movementSection(title, await roll.render()));
+          rows.push(movementSection(title, await renderMovementRoll(roll)));
           continue;
         }
 

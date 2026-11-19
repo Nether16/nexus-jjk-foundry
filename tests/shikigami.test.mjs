@@ -66,6 +66,7 @@ beforeEach(() => {
     async create(message) { environment.messages.push(message); return message; }
   };
   globalThis.Roll = class {
+    static CHAT_TEMPLATE = "templates/dice/roll.hbs";
     constructor(formula) { this.formula = formula; environment.rolls.push(formula); }
     static safeEval(formula) {
       formula = formula.replace(/\bfloor\(/gu, "Math.floor(");
@@ -73,11 +74,11 @@ beforeEach(() => {
       return Function(`"use strict"; return (${formula});`)();
     }
     async evaluate() { this.total = Roll.safeEval(this.formula.replace(/1d20/giu, "10")); return this; }
-    async render() { return `<span>${this.total}</span>`; }
+    async _prepareChatRenderContext() { return { formula: this.formula, total: this.total, tooltip: "" }; }
   };
   foundry.applications = { api: { DialogV2: {
     async input(options) { environment.prompts.push(options); return { value: "1" }; }
-  } } };
+  } }, handlebars: { async renderTemplate(_template, context) { return `<span>${context.total}</span>`; } } };
 });
 
 const gm = { id: "gm", isGM: true };
