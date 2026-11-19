@@ -12,6 +12,7 @@ export class NexusSheetUI {
   #editorBindings = new WeakMap();
   #boundEditors = new Set();
   #movementImages = new Map();
+  #disclosures = new Map();
   #lifetime = 0;
   #actor = null;
   #notesSnapshot = null;
@@ -35,6 +36,12 @@ export class NexusSheetUI {
     // Captura antes do formulário para não disparar seu submitOnChange.
     root.addEventListener("input", event => this.#onInput(event), { signal, capture: true });
     root.addEventListener("change", event => this.#onChange(event), { signal, capture: true });
+
+    for (const details of root.querySelectorAll("details[data-ui-disclosure]")) {
+      const key = details.dataset.uiDisclosure;
+      if (this.#disclosures.has(key)) details.open = this.#disclosures.get(key);
+      details.addEventListener("toggle", () => this.#disclosures.set(key, details.open), { signal });
+    }
 
     for (const collection of root.querySelectorAll("[data-ui-collection]")) {
       this.#prepareCollection(collection);
@@ -60,6 +67,7 @@ export class NexusSheetUI {
     this.#boundEditors.clear();
     this.#editorBindings = new WeakMap();
     this.#movementImages.clear();
+    this.#disclosures.clear();
     this.#lifetime++;
     this.#actor = null;
     this.#notesSnapshot = null;

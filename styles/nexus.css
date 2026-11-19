@@ -1765,6 +1765,7 @@
 
 .nexus-jjk .conhecimento-visual {
   min-width: 0;
+  margin: 0;
   overflow: hidden;
   border: 1px solid var(--nexus-cor-borda-painel);
   border-radius: 7px;
@@ -1772,13 +1773,28 @@
 }
 
 .nexus-jjk .conhecimento-cabecalho {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 16px;
   align-items: center;
-  justify-content: space-between;
   gap: 10px;
   min-height: 46px;
   padding: 8px 10px;
+  background: color-mix(in srgb, var(--nexus-cor-destaque) 5%, var(--nexus-cor-painel));
+  list-style: none;
+  cursor: pointer;
+}
+
+.nexus-jjk .conhecimento-cabecalho::-webkit-details-marker {
+  display: none;
+}
+
+.nexus-jjk .conhecimento-cabecalho:focus-visible {
+  outline: 1px solid var(--nexus-cor-realce);
+  outline-offset: -2px;
+}
+
+.nexus-jjk .conhecimento-visual[open] .conhecimento-seta {
+  transform: rotate(180deg);
 }
 
 .nexus-jjk .conhecimento-nome {
@@ -1974,7 +1990,7 @@
   padding-top: 8px;
 }
 
-.nexus-jjk .inventario-detalhe:has(> .inventario-arma-controles) {
+.nexus-jjk .inventario-detalhe:has(> .inventario-arma) {
   grid-template-rows: auto auto minmax(0, 1fr);
 }
 
@@ -2001,12 +2017,62 @@
   accent-color: var(--nexus-cor-destaque);
 }
 
+.nexus-jjk .inventario-arma {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.nexus-jjk .inventario-arma-resumo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 26px;
+  color: var(--nexus-cor-destaque);
+  font: 700 11px/1.3 Arial, sans-serif;
+  list-style: none;
+  cursor: pointer;
+}
+
+.nexus-jjk .inventario-arma-resumo::-webkit-details-marker {
+  display: none;
+}
+
+.nexus-jjk .inventario-arma-resumo:focus-visible {
+  outline: 1px solid var(--nexus-cor-realce);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+.nexus-jjk .inventario-arma-alternar {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nexus-jjk .inventario-arma-alternar i {
+  transition: transform .16s ease;
+}
+
+.nexus-jjk .inventario-arma[open] .inventario-arma-alternar i {
+  transform: rotate(180deg);
+}
+
+.nexus-jjk .inventario-arma[open] .arma-mostrar,
+.nexus-jjk .inventario-arma:not([open]) .arma-ocultar {
+  display: none;
+}
+
 .nexus-jjk .inventario-arma-controles {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
   gap: 8px;
+  padding-top: 8px;
 }
 
 .nexus-jjk .inventario-arma-controles > .botao-equipar {

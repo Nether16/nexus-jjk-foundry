@@ -93,18 +93,19 @@
 {{/inline}}
 
 {{#*inline "nexusConhecimento"}}
-  <article class="conhecimento-visual" data-knowledge-id="{{id}}">
-    <header class="conhecimento-cabecalho">
+  <details class="conhecimento-visual" data-knowledge-id="{{id}}" data-ui-disclosure="knowledge-{{id}}">
+    <summary class="conhecimento-cabecalho" aria-controls="{{detailsId}}">
       <span class="conhecimento-nome" title="{{description}}">{{name}}</span>
-      <div class="conhecimento-niveis" role="group" aria-label="Nível de {{name}}">
+      <span class="conhecimento-niveis" role="group" aria-label="Nível de {{name}}">
         {{#each levels}}
           <button type="button" data-action="setKnowledgeLevel" data-knowledge-level="{{value}}"
             id="{{../detailsId}}-level-{{value}}" aria-controls="{{../detailsId}}"
             aria-pressed="{{#if selected}}true{{else}}false{{/if}}" aria-label="Nível {{value}}"
             {{#unless @root.editable}}disabled{{/unless}}>{{value}}</button>
         {{/each}}
-      </div>
-    </header>
+      </span>
+      <i class="fa-solid fa-chevron-down registro-seta conhecimento-seta" aria-hidden="true"></i>
+    </summary>
     <div class="conhecimento-texto" id="{{detailsId}}" {{#unless visibleLevels.length}}hidden{{/unless}}>
       {{#each visibleLevels}}
         <section class="conhecimento-nivel">
@@ -113,7 +114,7 @@
         </section>
       {{/each}}
     </div>
-  </article>
+  </details>
 {{/inline}}
 
 {{#*inline "nexusEntradaVisual"}}
@@ -165,19 +166,25 @@
           <button class="botao-icone inventario-excluir" type="button" data-action="deleteItem" aria-label="Excluir item" title="Excluir item" {{#unless @root.editable}}disabled{{/unless}}><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
         </div>
         {{#if isWeapon}}
-          <div class="inventario-arma-controles">
-            <button class="botao-visual botao-equipar{{#if equipped}} equipada{{/if}}" type="button" data-action="toggleEquipWeapon" aria-pressed="{{#if equipped}}true{{else}}false{{/if}}" {{#unless @root.editable}}disabled{{/unless}}><i class="fa-solid {{#if equipped}}fa-check{{else}}fa-hand-fist{{/if}}" aria-hidden="true"></i><span>{{#if equipped}}Desequipar{{else}}Equipar arma{{/if}}</span></button>
-            <label class="inventario-tipo-arma inventario-arma-afiliada">
-              <input type="checkbox" data-item-field="system.isAffiliatedWeapon" {{#if system.isAffiliatedWeapon}}checked{{/if}} {{#unless @root.editable}}disabled{{/unless}}>
-              <span>Arma afiliada</span>
-            </label>
-            <div class="inventario-arma-danos">
-              <label class="inventario-dano"><span>Dano base</span>{{#if @root.isGM}}<input type="number" min="0" step="any" data-item-field="system.weaponDamage" value="{{weaponDamage}}" aria-label="Dano base" {{#unless @root.editable}}disabled{{/unless}}>{{else}}<output aria-label="Dano base">{{weaponDamage}}</output>{{/if}}</label>
-              <div class="inventario-dano inventario-dano-final"><span>Dano final</span><output aria-label="Dano final">{{weaponDamageTotal}}</output></div>
-              <div class="inventario-dano inventario-arma-acerto"><span>Acerto</span><output aria-label="Acerto da arma">+{{weaponAccuracy}}</output></div>
+          <details class="inventario-arma" data-ui-disclosure="weapon-{{id}}" open>
+            <summary class="inventario-arma-resumo">
+              <span>Arma</span>
+              <span class="inventario-arma-alternar"><span class="arma-ocultar">Ocultar</span><span class="arma-mostrar">Mostrar</span><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
+            </summary>
+            <div class="inventario-arma-controles">
+              <button class="botao-visual botao-equipar{{#if equipped}} equipada{{/if}}" type="button" data-action="toggleEquipWeapon" aria-pressed="{{#if equipped}}true{{else}}false{{/if}}" {{#unless @root.editable}}disabled{{/unless}}><i class="fa-solid {{#if equipped}}fa-check{{else}}fa-hand-fist{{/if}}" aria-hidden="true"></i><span>{{#if equipped}}Desequipar{{else}}Equipar arma{{/if}}</span></button>
+              <label class="inventario-tipo-arma inventario-arma-afiliada">
+                <input type="checkbox" data-item-field="system.isAffiliatedWeapon" {{#if system.isAffiliatedWeapon}}checked{{/if}} {{#unless @root.editable}}disabled{{/unless}}>
+                <span>Arma afiliada</span>
+              </label>
+              <div class="inventario-arma-danos">
+                <label class="inventario-dano"><span>Dano base</span>{{#if @root.isGM}}<input type="number" min="0" step="any" data-item-field="system.weaponDamage" value="{{weaponDamage}}" aria-label="Dano base" {{#unless @root.editable}}disabled{{/unless}}>{{else}}<output aria-label="Dano base">{{weaponDamage}}</output>{{/if}}</label>
+                <div class="inventario-dano inventario-dano-final"><span>Dano final</span><output aria-label="Dano final">{{weaponDamageTotal}}</output></div>
+                <div class="inventario-dano inventario-arma-acerto"><span>Acerto</span><output aria-label="Acerto da arma">+{{weaponAccuracy}}</output></div>
+              </div>
+              {{#if weaponDamageNote}}<p class="inventario-dano-nota">{{weaponDamageNote}}</p>{{/if}}
             </div>
-            {{#if weaponDamageNote}}<p class="inventario-dano-nota">{{weaponDamageNote}}</p>{{/if}}
-          </div>
+          </details>
         {{/if}}
         {{> nexusEditorVisual label="Descrição do item" placeholder="Escreva aqui..." itemField="system.description" value=system.description documentUuid=uuid}}
       </section>
