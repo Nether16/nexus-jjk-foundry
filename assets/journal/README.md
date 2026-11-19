@@ -4,6 +4,8 @@ Adicione aqui as mídias referenciadas pelos HTMLs do compêndio, usando estes n
 
 ```text
 tabela-criticos.png
+condicao-queimadura-maki.gif
+condicao-cura-yuta.gif
 kokusen.gif
 morte.gif
 sistema-status.gif
