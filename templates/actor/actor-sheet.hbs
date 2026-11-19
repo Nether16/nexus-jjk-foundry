@@ -132,7 +132,6 @@
     <section class="detalhe-visual" aria-label="{{detalhes}}">
       <div class="detalhe-cabecalho">
         <button class="botao-imagem detalhe-imagem" type="button" data-ui-image aria-label="{{imagem}}" {{#unless @root.editable}}disabled{{/unless}}><img alt="" hidden><i class="{{icone}}" aria-hidden="true"></i></button>
-        <input class="arquivo-imagem-visual" type="file" accept="image/*" data-ui-image-file hidden {{#unless @root.editable}}disabled{{/unless}}>
         <input class="titulo-visual" type="text" data-ui-title placeholder="{{titulo}}" aria-label="{{titulo}}" {{#unless @root.editable}}disabled{{/unless}}>
         <button class="botao-icone" type="button" data-ui-delete aria-label="Excluir anotação" title="Excluir anotação" {{#unless @root.editable}}disabled{{/unless}}><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
       </div>

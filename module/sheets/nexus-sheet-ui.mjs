@@ -12,7 +12,6 @@ export class NexusSheetUI {
   #editorBindings = new WeakMap();
   #boundEditors = new Set();
   #movementImages = new Map();
-  #imageTargets = new WeakMap();
   #lifetime = 0;
   #actor = null;
   #notesSnapshot = null;
@@ -61,7 +60,6 @@ export class NexusSheetUI {
     this.#boundEditors.clear();
     this.#editorBindings = new WeakMap();
     this.#movementImages.clear();
-    this.#imageTargets = new WeakMap();
     this.#lifetime++;
     this.#actor = null;
     this.#notesSnapshot = null;
@@ -349,11 +347,7 @@ export class NexusSheetUI {
     const target = event.target;
     if (!this.#isVisualField(target)) return;
     event.stopPropagation();
-    if (target.matches("[data-ui-image-file]")) {
-      if (this.#editable) void this.#readImage(target);
-    } else {
-      this.#onInput(event);
-    }
+    this.#onInput(event);
   }
 
   #isVisualField(target) {
@@ -418,47 +412,46 @@ export class NexusSheetUI {
     return editor;
   }
 
-  #openImage(button, collection) {
-    if (!button) return;
-    const scope = collection ?? button.closest("td") ?? button.parentElement;
-    const input = scope.querySelector("[data-ui-image-file]");
-    if (!input) return;
-    const descriptor = this.#imageDescriptor(input, collection, button);
+  async #openImage(button, collection) {
+    if (!button || !this.#editable || this.#actor?.isOwner === false) return;
+    const descriptor = this.#imageDescriptor(button, collection);
     if (!descriptor) return;
-    this.#imageTargets.set(input, descriptor);
-    input.click();
+    const lifetime = this.#lifetime;
+    const actor = this.#actor;
+    const current = descriptor.kind === "collection"
+      ? this.#collections.get(descriptor.key)?.entries.get(descriptor.id)?.image
+      : this.#movementImages.get(descriptor.index);
+    try {
+      const picker = new FilePicker.implementation({
+        // Imagens antigas embutidas continuam visíveis, sem virar uma pasta no seletor.
+        current: current?.startsWith("data:") ? "" : current ?? "",
+        type: "image",
+        document: actor,
+        callback: image => {
+          if (!this.#editable || !this.#root || lifetime !== this.#lifetime ||
+              actor !== this.#actor || actor?.isOwner === false || typeof image !== "string") return;
+          const path = image.trim();
+          if (path) this.#applyImage(descriptor, path);
+        }
+      });
+      await picker.browse();
+    } catch (error) {
+      console.error("Nexus JJK | Não foi possível abrir o seletor de imagem.", error);
+      globalThis.ui?.notifications?.error("Não foi possível abrir o seletor de imagem.");
+    }
   }
 
-  #imageDescriptor(input, collection = input.closest("[data-ui-collection]"), button) {
+  #imageDescriptor(button, collection = button.closest("[data-ui-collection]")) {
     if (collection) {
       const key = collection.dataset.uiCollection;
       const state = this.#collections.get(key);
       return state?.selected ? { kind: "collection", key, id: state.selected } : null;
     }
-    const imageButton = button ?? input.closest("td")?.querySelector("[data-ui-image]");
-    const index = this.#movementButtons().indexOf(imageButton);
+    const index = this.#movementButtons().indexOf(button);
     return index >= 0 ? { kind: "movement", index } : null;
   }
 
-  async #readImage(input) {
-    const descriptor = this.#imageTargets.get(input) ?? this.#imageDescriptor(input);
-    this.#imageTargets.delete(input);
-    const file = input.files?.[0];
-    input.value = "";
-    if (!descriptor || !file?.type.startsWith("image/")) return;
-    const lifetime = this.#lifetime;
-    const Reader = input.ownerDocument.defaultView.FileReader;
-    let image;
-    try {
-      image = await new Promise((resolve, reject) => {
-        const reader = new Reader();
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = () => reject(reader.error);
-        reader.onabort = () => reject(new Error("Leitura cancelada"));
-        reader.readAsDataURL(file);
-      });
-    } catch { return; }
-    if (lifetime !== this.#lifetime || !this.#root || typeof image !== "string" || !image.startsWith("data:image/")) return;
+  #applyImage(descriptor, image) {
     if (descriptor.kind === "collection") {
       const state = this.#collections.get(descriptor.key);
       const entry = state?.entries.get(descriptor.id);

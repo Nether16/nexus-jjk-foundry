@@ -686,7 +686,11 @@ export class NexusActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const picker = new FilePicker.implementation({
       current: item.img,
       type: "image",
-      callback: path => item.update({ img: path }),
+      document: item,
+      callback: path => {
+        if (!this.isEditable || this.actor.items.get(item.id) !== item) return;
+        return item.update({ img: path });
+      },
       position: {
         top: this.position.top + 40,
         left: this.position.left + 10

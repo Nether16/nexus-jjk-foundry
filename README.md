@@ -26,13 +26,14 @@ Para atualizar, use **Check for Updates** na lista de sistemas do Foundry. O lin
 - Movimentos com rolagem no chat e custo de Energia Amaldiçoada.
 - Movimentos na barra de macros: arraste o botão do dado para um slot; um clique normal no dado continua rolando pela ficha.
 - Talentos, técnicas, conhecimentos, inventário, história e anotações.
+- Imagens de anotações, itens e movimentos pelo seletor nativo do Foundry, com link ou upload.
 - Cores personalizadas e importação de wallpaper por personagem.
 - Arte dos tokens acompanha a foto da ficha, incluindo tokens já colocados nas cenas.
 - Compêndio **Sistemática**, com banner animado de Higuruma, regras de combate, personagem, treinamento e técnicas, ilustrado com GIFs e tabelas; demais seções preparadas para receber conteúdo.
 
 Os atalhos ficam na barra do usuário conectado. As teclas 1–9 e 0 executam os movimentos da página ativa da barra. A macro usa os dados atuais do movimento e a mesma rolagem da ficha, incluindo imagem, efeitos, custo e verificação de EA disponível. Ao excluir um movimento da ficha, as macros vinculadas a ele também são excluídas automaticamente.
 
-Shikigamis têm o nível do invocador, com 50 HP no nível 1 e mais 25 HP por nível seguinte, sem bônus de Constituição. Seus quatro atributos físicos são inteiros não negativos, sem limite automático por nível. Shikigamis não possuem XP, EA, origem ou inventário; o custo dos movimentos aparece apenas como texto no chat, sem descontar EA.
+Shikigamis têm o nível do invocador, com 50 HP no nível 1, mais 25 HP por nível seguinte e 10 HP por ponto de Constituição do próprio shikigami. Seus quatro atributos físicos são inteiros não negativos, sem limite automático por nível. Shikigamis não possuem XP, EA, origem ou inventário; o custo dos movimentos aparece apenas como texto no chat, sem descontar EA.
 
 O mestre pode usar **Vincular invocador**, abaixo dos atributos, para escolher um personagem. Os indicadores sob o retrato mostram a distância máxima (JJT em metros) e a Perícia Ocultista (JJT + FDV + INT), que é o total de pontos para distribuir nos quatro atributos do shikigami. Nível e indicadores ficam com “?” sem vínculo; o HP usa a base de 50. Ao vincular, acompanham os valores atuais do invocador. A distância é informativa.
 
