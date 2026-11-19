@@ -1,4 +1,4 @@
-import { NexusCharacterData, NexusCurseData, NexusItemData } from "./module/data-models.mjs";
+import { NexusCharacterData, NexusCurseData, NexusShikigamiData, NexusItemData } from "./module/data-models.mjs";
 import { NexusActor, NexusItem } from "./module/documents.mjs";
 import { NexusActorSheet } from "./module/sheets/nexus-actor-sheet.mjs";
 import { NEXUS_ATTRIBUTES, NEXUS_ORIGINS } from "./module/config.mjs";
@@ -30,13 +30,15 @@ Hooks.once("init", () => {
   CONFIG.Item.documentClass = NexusItem;
   CONFIG.Actor.dataModels = {
     character: NexusCharacterData,
-    curse: NexusCurseData
+    curse: NexusCurseData,
+    shikigami: NexusShikigamiData
   };
   CONFIG.Actor.defaultType = "character";
   CONFIG.Actor.typeLabels = {
     ...CONFIG.Actor.typeLabels,
     character: "TYPES.Actor.character",
-    curse: "TYPES.Actor.curse"
+    curse: "TYPES.Actor.curse",
+    shikigami: "TYPES.Actor.shikigami"
   };
   CONFIG.Item.dataModels = {
     attack: NexusItemData,
@@ -54,6 +56,10 @@ Hooks.once("init", () => {
     curse: {
       bar: ["hp", "ea"],
       value: ["level", "defense"]
+    },
+    shikigami: {
+      bar: ["hp", "ea"],
+      value: ["level", "defense"]
     }
   };
 
@@ -63,7 +69,7 @@ Hooks.once("init", () => {
     game.system.id,
     NexusActorSheet,
     {
-      types: ["character", "curse"],
+      types: ["character", "curse", "shikigami"],
       makeDefault: true,
       label: "Nexus"
     }

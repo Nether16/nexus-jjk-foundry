@@ -129,6 +129,9 @@ export class NexusCharacterData extends foundry.abstract.TypeDataModel {
   }
 }
 
+/** Mantém os atributos e recursos da ficha base para a ficha reduzida de shikigami. */
+export class NexusShikigamiData extends NexusCharacterData {}
+
 /** Compartilha a ficha base, usando os graus e multiplicadores das maldições. */
 export class NexusCurseData extends NexusCharacterData {
   static defineSchema() {

@@ -29,10 +29,10 @@ async function resolveMovement(itemOrUuid) {
   }
   const actor = item?.parent;
   if (item?.documentName !== "Item" || item.type !== "attack" ||
-      actor?.documentName !== "Actor" || !["character", "curse"].includes(actor.type) ||
+      actor?.documentName !== "Actor" || !["character", "curse", "shikigami"].includes(actor.type) ||
       actor.pack || actor.compendium ||
       actor.items.get(item.id) !== item) {
-    warn("Este movimento não existe mais ou não pertence a uma ficha de personagem ou maldição.");
+    warn("Este movimento não existe mais ou não pertence a uma ficha de personagem, maldição ou shikigami.");
     return null;
   }
   if (!actor.isOwner) {
@@ -259,7 +259,7 @@ export function registerMovementMacros() {
   Hooks.on("deleteItem", (item, _options, userId) => {
     const actor = item.parent;
     if (item.type !== "attack" || actor?.documentName !== "Actor" ||
-        !["character", "curse"].includes(actor.type) || actor.pack || actor.compendium) return;
+        !["character", "curse", "shikigami"].includes(actor.type) || actor.pack || actor.compendium) return;
     // O mestre pode remover também macros de autores desconectados.
     if ((game.users.activeGM?.id ?? userId) !== game.user.id) return;
     return deleteMovementMacros(item.uuid).catch(error => {

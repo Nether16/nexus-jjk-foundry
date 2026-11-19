@@ -98,6 +98,19 @@ export class NexusActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     }
     await Promise.all(this.#richTextWrites);
     const context = await super._prepareContext(options);
+    const isCurse = this.actor.type === "curse";
+    const isShikigami = this.actor.type === "shikigami";
+    const visibleTabs = {
+      movements: true,
+      origin: !isShikigami,
+      talents: !isCurse && !isShikigami,
+      techniques: true,
+      knowledge: !isCurse && !isShikigami,
+      equipment: !isShikigami,
+      notes: !isCurse,
+      history: !isShikigami
+    };
+    if (!visibleTabs[this.#activePopup]) this.#activePopup = "movements";
     const grouped = {
       attack: [],
       talent: [],
@@ -196,7 +209,10 @@ export class NexusActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       ...context,
       actor: this.actor,
       system: this.actor.system,
-      isCurse: this.actor.type === "curse",
+      isCurse,
+      isShikigami,
+      visibleTabs,
+      tabCount: Object.values(visibleTabs).filter(Boolean).length,
       editable: this.isEditable,
       isGM: Boolean(game.user?.isGM),
       activePopup: this.#activePopup,

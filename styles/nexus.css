@@ -1926,7 +1926,7 @@
   bottom: -4px;
   left: calc(100% + 2px);
   display: grid;
-  grid-template-rows: repeat(8, minmax(0, 1fr));
+  grid-template-rows: repeat(var(--nexus-numero-abas, 8), minmax(0, 1fr));
   justify-items: center;
   align-items: center;
   gap: 6px;

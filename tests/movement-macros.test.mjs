@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { NexusFormulaEngine } from "../module/formula-engine.mjs";
 
 let moduleId = 0;
 
@@ -109,14 +110,16 @@ test("excluir movimento remove todas as macros vinculadas, preservando as demais
   assert.deepEqual([...env.macros.keys()].sort(), ["manual-same-command", "other-move"]);
 });
 
-test("excluir movimento de maldição também remove a macro", async t => {
-  const env = await setup(t);
-  env.actor.type = "curse";
-  env.macro("curse-macro");
-  env.removeItem();
-  await env.fireDelete();
-  assert.deepEqual(env.deleted, ["curse-macro"]);
-});
+for (const type of ["curse", "shikigami"]) {
+  test(`excluir movimento de ${type} também remove a macro`, async t => {
+    const env = await setup(t);
+    env.actor.type = type;
+    env.macro("creature-macro");
+    env.removeItem();
+    await env.fireDelete();
+    assert.deepEqual(env.deleted, ["creature-macro"]);
+  });
+}
 
 test("itens de outros tipos, itens soltos e compêndios não apagam macros", async t => {
   const env = await setup(t);
@@ -249,4 +252,36 @@ test("criação normal mantém a macro e atribui o atalho solicitado", async t =
   assert.equal(created?.getFlag("nexus-jjk", "movementUuid"), env.item.uuid);
   assert.equal(env.user.hotbar[12], created.id);
   assert.deepEqual(env.deleted, []);
+});
+
+test("arrastar movimento de shikigami para a barra cria um atalho executável", async t => {
+  const env = await setup(t, { userId: "player", gmId: null });
+  env.actor.type = "shikigami";
+  const handled = env.hooks.get("hotbarDrop")({}, {
+    type: "Item", nexusMovement: true, uuid: env.item.uuid
+  }, 12);
+  assert.equal(handled, false, "o sistema trata o movimento sem criar a macro padrão do Foundry");
+  // O hook agenda a operação e não retorna a promessa de atribuição.
+  await new Promise(resolve => setImmediate(resolve));
+  const created = env.macros.get(env.user.hotbar[12]);
+  assert.equal(created?.getFlag("nexus-jjk", "movementUuid"), env.item.uuid);
+  assert.equal(created?.command, `await game.nexus.rollMovement(${JSON.stringify(env.item.uuid)});`);
+  assert.deepEqual(env.warnings, []);
+  assert.deepEqual(env.errors, []);
+});
+
+test("macro de shikigami resolve o movimento atual e usa a rolagem da ficha", async t => {
+  const env = await setup(t);
+  env.actor.type = "shikigami";
+  const current = { ...env.item, name: "Movimento atualizado", system: { attack: "1d20 + @FOR", cost: "5" } };
+  env.actor.items.set(current.id, current);
+  env.documents.set(current.uuid, current);
+  const result = { rolled: true };
+  const roll = t.mock.method(NexusFormulaEngine, "rollItem", async () => result);
+
+  assert.equal(await game.nexus.rollMovement(current.uuid), result);
+  assert.equal(roll.mock.callCount(), 1);
+  assert.deepEqual(roll.mock.calls[0].arguments, [env.actor, current]);
+  assert.deepEqual(env.warnings, []);
+  assert.deepEqual(env.errors, []);
 });

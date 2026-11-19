@@ -37,7 +37,7 @@ export class NexusActor extends Actor {
   }
 
   async _preUpdate(changes, options, user) {
-    const isCreature = this.type === "character" || this.type === "curse";
+    const isCreature = ["character", "curse", "shikigami"].includes(this.type);
     const xp = findChange(changes, "system.xp.value")?.value;
     if (isCreature && Number.isInteger(xp) && xp !== this.system.xp.value) {
       const initialLevel = findChange(changes, "system.level")?.value ?? this.system.level;

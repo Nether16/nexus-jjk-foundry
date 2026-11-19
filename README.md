@@ -1,6 +1,6 @@
 # Nexus — Jujutsu RPG para Foundry VTT
 
-Sistema Nexus para **Foundry VTT 14**, com fichas de Personagem e Maldição.
+Sistema Nexus para **Foundry VTT 14**, com fichas de Personagem, Maldição e Shikigami.
 
 ## Instalar
 
@@ -14,7 +14,7 @@ Na tela de configuração do Foundry:
 https://github.com/Nether16/nexus-jjk-foundry/releases/latest/download/system.json
 ```
 
-Depois, crie um mundo com **Nexus — Jujutsu RPG**. Ao criar um ator, escolha **Personagem** ou **Maldição**.
+Depois, crie um mundo com **Nexus — Jujutsu RPG**. Ao criar um ator, escolha **Personagem**, **Maldição** ou **Shikigami**.
 
 Para atualizar, use **Check for Updates** na lista de sistemas do Foundry. O link de instalação continua o mesmo entre versões.
 
@@ -22,6 +22,7 @@ Para atualizar, use **Check for Updates** na lista de sistemas do Foundry. O lin
 
 - Ficha de personagem com atributos, nível, XP, HP, EA e CA.
 - Ficha de maldição com classificação de Grau 4 a Grau Especial.
+- Ficha reduzida de shikigami com as abas Movimentos, Técnicas e Anotações.
 - Movimentos com rolagem no chat e custo de Energia Amaldiçoada.
 - Movimentos na barra de macros: arraste o botão do dado para um slot; um clique normal no dado continua rolando pela ficha.
 - Talentos, técnicas, conhecimentos, inventário, história e anotações.

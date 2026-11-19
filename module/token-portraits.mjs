@@ -2,7 +2,7 @@ let synchronization = Promise.resolve();
 
 export function usesTokenPortrait(actor) {
   return !!actor && !actor.pack && !actor.compendium &&
-    (actor.type === "character" || actor.type === "curse");
+    ["character", "curse", "shikigami"].includes(actor.type);
 }
 
 /** Altera somente a arte; mantém escala, visão, borda e demais configurações. */

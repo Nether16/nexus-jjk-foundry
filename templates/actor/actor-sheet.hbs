@@ -179,7 +179,7 @@
 {{/inline}}
 
 
-<main class="ficha{{#if isCurse}} ficha-maldicao{{/if}}">
+<main class="ficha{{#if isCurse}} ficha-maldicao{{/if}}{{#if isShikigami}} ficha-shikigami{{/if}}">
   <header class="banner">
     <div class="banner-texto">
       <input
@@ -187,7 +187,7 @@
         type="text"
         name="name"
         value="{{actor.name}}"
-        placeholder="{{#if isCurse}}Nome da Maldição{{else}}Nome do Personagem{{/if}}"
+        placeholder="{{#if isCurse}}Nome da Maldição{{else if isShikigami}}Nome do Shikigami{{else}}Nome do Personagem{{/if}}"
       >
     </div>
 
@@ -287,7 +287,7 @@
     </aside>
 
     <div class="coluna-principal">
-      <section class="recursos-personagem" aria-label="{{#if isCurse}}Recursos da maldição{{else}}Recursos do personagem{{/if}}">
+      <section class="recursos-personagem" aria-label="{{#if isCurse}}Recursos da maldição{{else if isShikigami}}Recursos do shikigami{{else}}Recursos do personagem{{/if}}">
         <div class="recurso">
           <div class="recurso-cabecalho">
             <span class="recurso-nome">HP</span>
@@ -338,6 +338,7 @@
       </section>
 
       <section class="conteudo-abas">
+        {{#if visibleTabs.origin}}
         <section
           class="aba-painel{{#if activeTabs.origin}} active{{/if}}"
           id="nexus-aba-origin-{{actor.id}}"
@@ -356,6 +357,8 @@
             {{/if}}
           </div>
         </section>
+        {{/if}}
+        {{#if visibleTabs.talents}}
         <section
           class="aba-painel{{#if activeTabs.talents}} active{{/if}}"
           id="nexus-aba-talents-{{actor.id}}"
@@ -374,6 +377,7 @@
             </div>
           </div>
         </section>
+        {{/if}}
         <section
           class="aba-painel{{#if activeTabs.techniques}} active{{/if}}"
           id="nexus-aba-techniques-{{actor.id}}"
@@ -450,6 +454,7 @@
             </div>
           </div>
         </section>
+        {{#if visibleTabs.knowledge}}
         <section
           class="aba-painel{{#if activeTabs.knowledge}} active{{/if}}"
           id="nexus-aba-knowledge-{{actor.id}}"
@@ -468,6 +473,8 @@
             </div>
           </div>
         </section>
+        {{/if}}
+        {{#if visibleTabs.equipment}}
         <section
           class="aba-painel{{#if activeTabs.equipment}} active{{/if}}"
           id="nexus-aba-equipment-{{actor.id}}"
@@ -482,6 +489,8 @@
             {{> nexusInventario}}
           </div>
         </section>
+        {{/if}}
+        {{#if visibleTabs.history}}
         <section
           class="aba-painel{{#if activeTabs.history}} active{{/if}}"
           id="nexus-aba-history-{{actor.id}}"
@@ -496,6 +505,8 @@
             <div class="historia-visual">{{> nexusEditorVisual label="História" placeholder="Escreva aqui..." actorField="system.history" value=system.history}}</div>
           </div>
         </section>
+        {{/if}}
+        {{#if visibleTabs.notes}}
         <section
           class="aba-painel{{#if activeTabs.notes}} active{{/if}}"
           id="nexus-aba-notes-{{actor.id}}"
@@ -504,17 +515,18 @@
           aria-hidden="{{#if activeTabs.notes}}false{{else}}true{{/if}}"
         >
           <header class="cabecalho-aba">
-            <h2>Notas</h2>
+            <h2>{{#if isShikigami}}Anotações{{else}}Notas{{/if}}</h2>
           </header>
           <div class="corpo-aba">
             {{> nexusColecaoVisual tipo="notes" classe="notas-visual" label="Anotações" adicionar="Adicionar anotação" selecionar="Selecionar anotação" icone="fa-solid fa-book-open" detalhes="Conteúdo da anotação" imagem="Alterar imagem da anotação" titulo="Título da anotação" editor="Conteúdo da anotação"}}
           </div>
         </section>
+        {{/if}}
       </section>
     </div>
   </section>
 
-  <nav class="navegacao-ficha" aria-label="Seções da ficha">
+  <nav class="navegacao-ficha" style="--nexus-numero-abas: {{tabCount}};" aria-label="Seções da ficha">
     <button
       class="aba-ficha{{#if activeTabs.movements}} active{{/if}}"
       type="button"
@@ -527,6 +539,7 @@
       <span class="aba-icone" aria-hidden="true"></span>
       <span class="aba-nome" aria-hidden="true">Movimentos</span>
     </button>
+    {{#if visibleTabs.origin}}
     <button
       class="aba-ficha{{#if activeTabs.origin}} active{{/if}}"
       type="button"
@@ -539,6 +552,8 @@
       <span class="aba-icone" aria-hidden="true"></span>
       <span class="aba-nome" aria-hidden="true">{{#if isCurse}}Classificação{{else}}Origem{{/if}}</span>
     </button>
+    {{/if}}
+    {{#if visibleTabs.talents}}
     <button
       class="aba-ficha{{#if activeTabs.talents}} active{{/if}}"
       type="button"
@@ -551,6 +566,7 @@
       <span class="aba-icone" aria-hidden="true"></span>
       <span class="aba-nome" aria-hidden="true">Talentos</span>
     </button>
+    {{/if}}
     <button
       class="aba-ficha{{#if activeTabs.techniques}} active{{/if}}"
       type="button"
@@ -563,6 +579,7 @@
       <span class="aba-icone" aria-hidden="true"></span>
       <span class="aba-nome" aria-hidden="true">Técnicas</span>
     </button>
+    {{#if visibleTabs.knowledge}}
     <button
       class="aba-ficha{{#if activeTabs.knowledge}} active{{/if}}"
       type="button"
@@ -575,6 +592,8 @@
       <span class="aba-icone" aria-hidden="true"></span>
       <span class="aba-nome" aria-hidden="true">Conhecimentos</span>
     </button>
+    {{/if}}
+    {{#if visibleTabs.equipment}}
     <button
       class="aba-ficha{{#if activeTabs.equipment}} active{{/if}}"
       type="button"
@@ -587,6 +606,8 @@
       <span class="aba-icone" aria-hidden="true"></span>
       <span class="aba-nome" aria-hidden="true">Itens</span>
     </button>
+    {{/if}}
+    {{#if visibleTabs.notes}}
     <button
       class="aba-ficha{{#if activeTabs.notes}} active{{/if}}"
       type="button"
@@ -594,11 +615,13 @@
       data-popup="notes"
       aria-expanded="{{#if activeTabs.notes}}true{{else}}false{{/if}}"
       aria-controls="nexus-aba-notes-{{actor.id}}"
-      aria-label="Notas"
+      aria-label="{{#if isShikigami}}Anotações{{else}}Notas{{/if}}"
     >
       <span class="aba-icone" aria-hidden="true"></span>
-      <span class="aba-nome" aria-hidden="true">Notas</span>
+      <span class="aba-nome" aria-hidden="true">{{#if isShikigami}}Anotações{{else}}Notas{{/if}}</span>
     </button>
+    {{/if}}
+    {{#if visibleTabs.history}}
     <button
       class="aba-ficha{{#if activeTabs.history}} active{{/if}}"
       type="button"
@@ -611,5 +634,6 @@
       <span class="aba-icone" aria-hidden="true"></span>
       <span class="aba-nome" aria-hidden="true">História</span>
     </button>
+    {{/if}}
   </nav>
 </main>
