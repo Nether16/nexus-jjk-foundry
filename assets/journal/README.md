@@ -79,7 +79,7 @@ As três tabelas de EAR foram fornecidas separadamente e também estão incluíd
 
 As 69 mídias originais foram mantidas, mesmo quando deixaram de ser referenciadas no consolidado. Os PNGs foram copiados sem alteração.
 
-O consolidado usa quatro nomes alternativos. As cópias abaixo preservam os GIFs originais sem conversão e mantêm intactas as tags `<img>` fornecidas:
+O consolidado e a revisão de Origens Pagas usam seis nomes alternativos. As cópias abaixo preservam os GIFs originais sem conversão e mantêm intactas as tags `<img>` fornecidas:
 
 | Nome no consolidado | Cópia do arquivo existente |
 | --- | --- |
@@ -87,7 +87,9 @@ O consolidado usa quatro nomes alternativos. As cópias abaixo preservam os GIFs
 | origem-restringido-feiticaria.gif | origem-restricao-feiticaria.gif |
 | talento-naturalmente-reverso.gif | ear-yuta.gif |
 | talento-estilo-das-sombras.gif | estilo-sombras.gif |
+| origem-restricao-celestial-fisica.gif | origem-restricao-fisica.gif |
+| origem-restricao-celestial-feiticaria.gif | origem-restricao-feiticaria.gif |
 
 `origem-sem-tecnica-inata.gif` ainda não foi fornecido. A tag permanece no JSON de Origens Gratuitas (F2P); o build a substitui por um comentário no compêndio até que o arquivo seja adicionado. O banner `banner-sistematica-higuruma.gif` é configurado no manifesto e continua incluído.
 
-O diretório contém 74 mídias: 69 originais, quatro cópias e o banner. Este README não faz parte do ZIP de execução.
+O diretório contém 76 mídias: 69 originais, seis cópias e o banner. Este README não faz parte do ZIP de execução.
