@@ -117,28 +117,45 @@ test("shikigami começa sem vínculo e deslocamento, com somente quatro atributo
     "o nível é uma referência calculada, sem valor próprio salvo");
 });
 
-test("HP do shikigami segue nível do invocador sem bônus de constituição nem cura automática", () => {
+test("HP do shikigami segue nível do invocador e constituição sem cura automática", () => {
   const actor = shikigami();
   assert.equal(actor.system.hp.value, 50);
   assert.equal(actor.system.hp.max, 50);
+  actor.system.attributes.vigor = 3;
+  actor.prepareData();
+  assert.equal(actor.system.hp.max, 80, "constituição acrescenta HP mesmo sem invocador");
+  assert.equal(actor.system.hp.value, 50);
   const master = invoker();
   actor.system.invokerId = master.id;
   actor.prepareData();
   assert.equal(actor.system.level, 1);
+  assert.equal(actor.system.hp.max, 80);
   master.system.level = 2;
-  actor.system.attributes.vigor = 99;
   actor.prepareData();
   assert.equal(actor.system.level, 2);
-  assert.equal(actor.system.hp.max, 75);
+  assert.equal(actor.system.hp.max, 105);
   assert.equal(actor.system.hp.value, 50, "subir o máximo não cura o shikigami");
   master.system.level = 5;
-  actor.system.hp.value = 999;
   actor.prepareData();
   assert.equal(actor.system.level, 5);
-  assert.equal(actor.system.hp.max, 150);
-  assert.equal(actor.system.hp.value, 150, "vida atual é limitada ao máximo do novo nível");
+  assert.equal(actor.system.hp.max, 180);
+  assert.equal(actor.system.hp.value, 50);
+  actor.system.hp.value = 170;
+  actor.system.attributes.vigor = 1;
+  actor.prepareData();
+  assert.equal(actor.system.hp.max, 160);
+  assert.equal(actor.system.hp.value, 160, "reduzir constituição limita a vida ao novo máximo");
+  actor.system.attributes.vigor = 4;
+  actor.prepareData();
+  assert.equal(actor.system.hp.max, 190);
+  assert.equal(actor.system.hp.value, 160, "aumentar constituição não recupera vida");
   master.system.level = 1;
   actor.prepareData();
+  assert.equal(actor.system.hp.max, 90);
+  assert.equal(actor.system.hp.value, 90, "reduzir nível limita a vida ao novo máximo");
+  actor.system.attributes.vigor = 0;
+  actor.prepareData();
+  assert.equal(actor.system.hp.max, 50);
   assert.equal(actor.system.hp.value, 50);
 });
 

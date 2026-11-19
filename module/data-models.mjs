@@ -158,7 +158,7 @@ export class NexusShikigamiData extends foundry.abstract.TypeDataModel {
     const level = this.level ?? 0;
     const agilidade = Number(this.attributes.agilidade) || 0;
     const vigor = Number(this.attributes.vigor) || 0;
-    this.hp.max = 50 + (25 * Math.max(level - 1, 0));
+    this.hp.max = 50 + (25 * Math.max(level - 1, 0)) + (vigor * 10);
     this.hp.value = Math.min(Math.max(Number(this.hp.value) || 0, 0), this.hp.max);
     this.defense = 10 + agilidade + Math.floor(vigor / 2);
   }
