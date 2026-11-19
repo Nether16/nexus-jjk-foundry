@@ -12,6 +12,7 @@ import { applyAppearance, readAppearance } from "./nexus-appearance.mjs";
 import { NexusAppearanceConfig } from "./nexus-appearance-config.mjs";
 import { NexusShikigamiConfig } from "./nexus-shikigami-config.mjs";
 import { getShikigamiReference, SHIKIGAMI_ATTRIBUTE_KEYS } from "../shikigami.mjs";
+import { getWeaponDamageDetails } from "../weapon-damage.mjs";
 
 const { ActorSheetV2 } = foundry.applications.sheets;
 const { HandlebarsApplicationMixin } = foundry.applications.api;
@@ -206,9 +207,17 @@ export class NexusActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
     const equippedWeaponId = this.actor.equippedWeapon?.id;
     for (const item of grouped.equipment) {
-      item.isWeapon = this.actor.items.get(item.id).isWeapon;
+      const document = this.actor.items.get(item.id);
+      item.isWeapon = document.isWeapon;
       item.equipped = item.id === equippedWeaponId;
       item.weaponDamage = Number(item.system.weaponDamage) || 0;
+      const damage = getWeaponDamageDetails(document);
+      item.weaponDamageTotal = damage.total;
+      const bonuses = [];
+      if (damage.affiliatedBonus) bonuses.push(`Arma afiliada +${damage.affiliatedBonus}`);
+      if (damage.tailoredBonus) bonuses.push(`Sob Medida +${damage.tailoredBonus}`);
+      if (damage.specialAbility) bonuses.push("Sob Medida: segunda habilidade de Grau Especial, definida pelo mestre.");
+      item.weaponDamageNote = bonuses.join(" · ");
     }
 
     for (const item of grouped.attack) {
@@ -334,7 +343,7 @@ export class NexusActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
         if (!item) return;
 
         const field = target.dataset.itemField;
-        if (field === "system.isWeapon" && item.type !== "equipment") return;
+        if (["system.isWeapon", "system.isAffiliatedWeapon"].includes(field) && item.type !== "equipment") return;
         if (field === "system.weaponDamage" && !game.user?.isGM) {
           target.value = item.system.weaponDamage;
           return;

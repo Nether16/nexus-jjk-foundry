@@ -2014,6 +2014,18 @@
   width: auto;
 }
 
+.nexus-jjk .inventario-arma-afiliada {
+  min-height: 36px;
+}
+
+.nexus-jjk .inventario-arma-danos {
+  display: flex;
+  flex: 1 0 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+}
+
 .nexus-jjk .botao-equipar.equipada {
   border-color: var(--nexus-cor-realce);
   background: color-mix(in srgb, var(--nexus-cor-moldura) 24%, var(--nexus-cor-painel));
@@ -2026,9 +2038,11 @@
 
 .nexus-jjk .inventario-dano {
   display: flex;
-  flex: 1 0 auto;
+  flex: 0 1 auto;
   align-items: center;
   gap: 6px;
+  min-height: 36px;
+  white-space: nowrap;
 }
 
 .nexus-jjk .inventario-dano input {
@@ -2043,6 +2057,17 @@
 
 .nexus-jjk .inventario-dano output {
   color: var(--nexus-cor-texto);
+}
+
+.nexus-jjk .inventario-dano-final output {
+  font-weight: 700;
+}
+
+.nexus-jjk .inventario-dano-nota {
+  flex: 1 0 100%;
+  margin: 0;
+  color: var(--nexus-cor-texto);
+  font: 11px/1.4 Arial, sans-serif;
 }
 
 .nexus-jjk .inventario-vazio {

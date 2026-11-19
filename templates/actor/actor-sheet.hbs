@@ -167,7 +167,15 @@
         {{#if isWeapon}}
           <div class="inventario-arma-controles">
             <button class="botao-visual botao-equipar{{#if equipped}} equipada{{/if}}" type="button" data-action="toggleEquipWeapon" aria-pressed="{{#if equipped}}true{{else}}false{{/if}}" {{#unless @root.editable}}disabled{{/unless}}><i class="fa-solid {{#if equipped}}fa-check{{else}}fa-hand-fist{{/if}}" aria-hidden="true"></i><span>{{#if equipped}}Desequipar{{else}}Equipar arma{{/if}}</span></button>
-            <label class="inventario-dano"><span>Dano da arma</span>{{#if @root.isGM}}<input type="number" min="0" step="any" data-item-field="system.weaponDamage" value="{{weaponDamage}}" aria-label="Dano da arma" {{#unless @root.editable}}disabled{{/unless}}>{{else}}<output aria-label="Dano da arma">{{weaponDamage}}</output>{{/if}}</label>
+            <label class="inventario-tipo-arma inventario-arma-afiliada">
+              <input type="checkbox" data-item-field="system.isAffiliatedWeapon" {{#if system.isAffiliatedWeapon}}checked{{/if}} {{#unless @root.editable}}disabled{{/unless}}>
+              <span>Arma afiliada</span>
+            </label>
+            <div class="inventario-arma-danos">
+              <label class="inventario-dano"><span>Dano base</span>{{#if @root.isGM}}<input type="number" min="0" step="any" data-item-field="system.weaponDamage" value="{{weaponDamage}}" aria-label="Dano base" {{#unless @root.editable}}disabled{{/unless}}>{{else}}<output aria-label="Dano base">{{weaponDamage}}</output>{{/if}}</label>
+              <div class="inventario-dano inventario-dano-final"><span>Dano final</span><output aria-label="Dano final">{{weaponDamageTotal}}</output></div>
+            </div>
+            {{#if weaponDamageNote}}<p class="inventario-dano-nota">{{weaponDamageNote}}</p>{{/if}}
           </div>
         {{/if}}
         {{> nexusEditorVisual label="Descrição do item" placeholder="Escreva aqui..." itemField="system.description" value=system.description documentUuid=uuid}}

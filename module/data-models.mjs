@@ -204,6 +204,7 @@ export class NexusItemData extends foundry.abstract.TypeDataModel {
       cost: stringField(),
       effect: stringField(),
       isWeapon: new BooleanField({ required: true, nullable: true, initial: null }),
+      isAffiliatedWeapon: new BooleanField({ required: true, nullable: false, initial: false }),
       weaponDamage: numberField(0, { min: 0 }),
       quantity: numberField(1, { integer: true, min: 0 }),
       locked: new BooleanField({ required: true, nullable: false, initial: false })

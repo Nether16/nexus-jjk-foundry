@@ -1,6 +1,7 @@
 import { getAttributeMax, getXpTarget, NEXUS_ATTRIBUTES, NEXUS_MAX_LEVEL } from "./config.mjs";
 import { prototypePortraitChanges, usesTokenPortrait } from "./token-portraits.mjs";
 import { SHIKIGAMI_ATTRIBUTE_KEYS } from "./shikigami.mjs";
+import { getWeaponDamageDetails } from "./weapon-damage.mjs";
 
 /** Resolve mudanças tanto expandidas quanto em caminhos pontuados. */
 function findChange(changes, path) {
@@ -143,8 +144,7 @@ export class NexusActor extends Actor {
   }
 
   get weaponDamage() {
-    const damage = Number(this.equippedWeapon?.system.weaponDamage);
-    return Number.isFinite(damage) && damage >= 0 ? damage : 0;
+    return getWeaponDamageDetails(this.equippedWeapon).total;
   }
 
   async equipWeapon(id = "") {
@@ -215,6 +215,10 @@ export class NexusActor extends Actor {
 }
 
 export class NexusItem extends Item {
+  get weaponDamageDetails() {
+    return getWeaponDamageDetails(this);
+  }
+
   get isWeapon() {
     if (this.type !== "equipment") return false;
     // Itens antigos eram equipados sem uma classificação explícita.

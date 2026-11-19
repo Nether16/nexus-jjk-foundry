@@ -177,7 +177,7 @@ export const NEXUS_TALENTS = Object.freeze([
     name: "Sob Medida 🔒",
     locked: true,
     image: "https://images-ext-1.discordapp.net/external/HZFy7cKoc3UpWOox_77ACjksmVuVjzbkPvIKFJ31nzQ/https/static2.klipy.com/ii/4493325008d34b7bf8cd6813cd5c1619/ab/27/zrLwT8R00Tae1QLLxbTF.gif",
-    description: "Ao utilizar armamentos, seus ataques passam a utilizar o dano correspondente a um grau acima do grau original da arma."
+    description: "Ao utilizar armamentos, seus ataques passam a utilizar o dano correspondente a um grau acima do grau original da arma. No Grau Especial, a arma recebe uma segunda habilidade própria, definida pelo mestre."
   },
   {
     name: "Grande Liberação de Energia 🔒",
@@ -195,7 +195,7 @@ export const NEXUS_TALENTS = Object.freeze([
     name: "Arma Afiliada 🔒",
     locked: true,
     image: "https://images-ext-1.discordapp.net/external/rq8mHO_qOh5nl6u9G1EnSuWnOj8RSSHXMuuvlzt4qh4/https/static2.klipy.com/ii/4493325008d34b7bf8cd6813cd5c1619/99/c5/tlaDLiRYZNldiWlYu.gif",
-    description: "Você inicia a campanha com uma arma de Grau IV, que evolui automaticamente conforme seu grau."
+    description: "Você inicia a campanha com uma arma de Grau IV. Marque Arma afiliada no inventário para receber +15 de dano nos níveis 5, 10, 15 e 20."
   },
   {
     name: "Perícia em Controle de Energia",
