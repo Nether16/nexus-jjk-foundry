@@ -6,6 +6,9 @@ Adicione aqui as mídias referenciadas pelos HTMLs do compêndio, usando estes n
 tabela-criticos.png
 condicao-queimadura-maki.gif
 condicao-cura-yuta.gif
+especialidade-tanque-de-guerra.gif
+especialidade-aberracao-em-combate.gif
+especialidade-ambidestro.gif
 movimento-subjugar-armamento.gif
 movimento-bloqueio-imprudente.gif
 movimento-ataque-imprudente.gif
