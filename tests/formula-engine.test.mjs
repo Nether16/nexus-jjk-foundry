@@ -65,7 +65,7 @@ beforeEach(() => {
 });
 
 function actor({ type = "character", ea = 20, owner = true } = {}) {
-  return { id: "actor", type, isOwner: owner, weaponDamage: 7,
+  return { id: "actor", type, isOwner: owner, weaponDamage: 7, weaponAccuracy: 3,
     system: { attributes: { forca: 3, destreza: 4 }, ea: { value: ea },
       hp: { value: 100, max: 150 }, level: 1 },
     async update(changes) {
@@ -96,6 +96,44 @@ test("funções preservam vírgulas de argumentos e decimais usam vírgula fora 
   const formula = resolveFormula(current, "max(1.7, 2.8) + min(6.5, 4.9) + 1,5", values);
   assert.equal(evaluateNumeric(formula), 9.2);
   assert.equal(evaluateNumeric(resolveFormula(current, "(3,5 / 2) * 2", values)), 3.5);
+});
+
+test("aliases de acerto consultam o valor atual sem confundir dano da arma", () => {
+  const current = actor();
+  for (const alias of ["ARMA_ACERTO", "armaacerto", "Acerto_Arma", "ACERTOARMA", "@{Arma acerto}", "@{Acerto arma}"]) {
+    assert.equal(evaluateNumeric(resolveFormula(current, `${alias} + ARMA + DES`, new Map())), 14, alias);
+    current.weaponAccuracy = 5;
+    assert.equal(evaluateNumeric(resolveFormula(current, alias, new Map())), 5, alias);
+    current.weaponAccuracy = 3;
+  }
+  for (const accuracy of [undefined, null, -1, NaN, Infinity]) {
+    current.weaponAccuracy = accuracy;
+    assert.equal(evaluateNumeric(resolveFormula(current, "ARMA_ACERTO", new Map())), 0);
+  }
+});
+
+test("acerto em ataque, custo e efeito resolve sem prompts e mantém débito de EA", async () => {
+  const current = actor();
+  const movement = item({ attack: "1d20 + DES + @{Arma acerto}", cost: "ARMAACERTO - 0.1",
+    effect: "Acerto: ACERTO_ARMA | Dano: ARMA + FOR | Soma: acertoarma + 1" });
+  const saved = structuredClone(movement);
+  const message = await NexusFormulaEngine.rollItem(current, movement);
+  assert.deepEqual(totals(message), [17]);
+  assert.equal(current.system.ea.value, 18);
+  assert.deepEqual(environment.updates, [{ "system.ea.value": 18 }]);
+  assert.match(plain(message.content), /Custo em EA 2 EA Acerto: 3 Dano: 10 Soma: 4/u);
+  assert.deepEqual(environment.prompts, []);
+  assert.deepEqual(environment.errors, []);
+  assert.deepEqual(movement, saved);
+});
+
+test("arma afiliada não acrescenta acerto quando a fórmula de ataque não o solicita", async () => {
+  const current = actor();
+  current.weaponAccuracy = 5;
+  const message = await NexusFormulaEngine.rollItem(current, item({ attack: "1d20 + DES", cost: "2.9" }));
+  assert.deepEqual(totals(message), [14]);
+  assert.equal(current.system.ea.value, 18);
+  assert.deepEqual(environment.prompts, []);
 });
 
 for (const type of ["character", "curse"]) {

@@ -29,6 +29,7 @@ Para atualizar, use **Check for Updates** na lista de sistemas do Foundry. O lin
 - Talentos, técnicas, conhecimentos, inventário, história e anotações.
 - Reserva de Energia Amaldiçoada aumenta automaticamente a EA máxima em 10 por nível, com bônus retroativo.
 - Arma afiliada no inventário recebe +15 de dano nos níveis 5, 10, 15 e 20. Sob Medida aumenta o dano em até 15, limitado ao Grau Especial; armas especiais exibem o lembrete da segunda habilidade. A variável ARMA usa o dano final da arma equipada.
+- ARMA_ACERTO consulta o acerto da arma afiliada equipada: +1 inicial, chegando a +5 no nível 20. Use `1d20 + DES + ARMA_ACERTO` no campo Rolagem.
 - Imagens de anotações, itens e movimentos pelo seletor nativo do Foundry, com link ou upload.
 - Cores personalizadas e importação de wallpaper por personagem.
 - Arte dos tokens acompanha a foto da ficha, incluindo tokens já colocados nas cenas.

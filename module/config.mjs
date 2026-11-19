@@ -195,7 +195,7 @@ export const NEXUS_TALENTS = Object.freeze([
     name: "Arma Afiliada 🔒",
     locked: true,
     image: "https://images-ext-1.discordapp.net/external/rq8mHO_qOh5nl6u9G1EnSuWnOj8RSSHXMuuvlzt4qh4/https/static2.klipy.com/ii/4493325008d34b7bf8cd6813cd5c1619/99/c5/tlaDLiRYZNldiWlYu.gif",
-    description: "Você inicia a campanha com uma arma de Grau IV. Marque Arma afiliada no inventário para receber +15 de dano nos níveis 5, 10, 15 e 20."
+    description: "Você inicia a campanha com uma arma de Grau IV, que evolui automaticamente conforme seu grau."
   },
   {
     name: "Perícia em Controle de Energia",

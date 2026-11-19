@@ -42,6 +42,7 @@
 <a class="toc-link depth-2" href="#11-custo-e-energia-amaldicoada">11. Custo e Energia Amaldiçoada</a>
 <a class="toc-link depth-3" href="#quando-a-variavel-ea-e-lida">Quando a variável EA é lida</a>
 <a class="toc-link depth-2" href="#12-dano-da-arma-equipada">12. Dano da arma equipada</a>
+<a class="toc-link depth-3" href="#acerto-da-arma-afiliada">Acerto da arma afiliada</a>
 <a class="toc-link depth-2" href="#13-imagens-e-gifs">13. Imagens e GIFs</a>
 <a class="toc-link depth-2" href="#14-personagem-maldicao-e-shikigami">14. Personagem, Maldição e Shikigami</a>
 <a class="toc-link depth-2" href="#15-exemplos-prontos-para-copiar">15. Exemplos prontos para copiar</a>
@@ -73,7 +74,7 @@
 <main class="main"><article class="sheet">
 <div class="eyebrow">Manual de referência · Foundry VTT 14</div>
 <h1 id="movimentos-formulas-e-macros-nexus">Movimentos, fórmulas e macros — Nexus</h1>
-<p>Documentação de uso • Nexus 0.4.24 • Foundry VTT 14 • Revisada em 19/11/2026.</p>
+<p>Documentação de uso • Nexus 0.4.28 • Foundry VTT 14 • Revisada em 19/11/2026.</p>
 <p>Este manual reúne os recursos implementados para montar movimentos, escrever fórmulas, publicar resultados no chat e executar habilidades pela barra de macros. Os exemplos usam a sintaxe da ficha Nexus. Os comandos de chat e os scripts do Foundry são apresentados separadamente.</p>
 <h2 id="1-o-que-o-sistema-faz">1. O que o sistema faz</h2>
 <table>
@@ -312,6 +313,11 @@ Efeito: Dano: ARMA + FOR * 2
 <td>Dano da arma equipada</td>
 <td><code>ARMA</code></td>
 <td><code>DANOARMA</code>, <code>DANO_ARMA</code></td>
+</tr>
+<tr>
+<td>Acerto da arma equipada</td>
+<td><code>ARMA_ACERTO</code></td>
+<td><code>ARMAACERTO</code>, <code>ACERTO_ARMA</code>, <code>ACERTOARMA</code></td>
 </tr>
 </tbody>
 </table>
@@ -627,7 +633,7 @@ Efeito: Referência: EA + 0
 </code></pre>
 <p>O cartão mostra Rolagem 100, custo 10 EA e Referência 100. A ficha termina com 90 EA.</p>
 <h2 id="12-dano-da-arma-equipada">12. Dano da arma equipada</h2>
-<p><code>ARMA</code>, <code>DANOARMA</code> e <code>DANO_ARMA</code> representam o mesmo valor: o dano definido na arma atualmente equipada.</p>
+<p><code>ARMA</code>, <code>DANOARMA</code> e <code>DANO_ARMA</code> representam o mesmo valor: o dano final da arma atualmente equipada, incluindo os bônus aplicáveis de Arma Afiliada e Sob Medida. O dano base cadastrado pelo mestre fica preservado.</p>
 <ol>
 <li>No Inventário, marque o item como arma.</li>
 <li>O mestre define o dano da arma.</li>
@@ -640,6 +646,11 @@ Dano: ARMA + FOR * 2
 Dano: (ARMA + DES) * 1.5
 </code></pre>
 <p>O valor é numérico. <code>ARMA</code> não representa o nome do item e não é uma expressão de dados armazenada no campo de dano da arma.</p>
+<h3 id="acerto-da-arma-afiliada">Acerto da arma afiliada</h3>
+<p><code>ARMA_ACERTO</code> consulta o bônus de acerto da arma equipada. Uma arma marcada como Arma afiliada recebe +1 inicial, +2 no nível 5, +3 no nível 10, +4 no nível 15 e +5 no nível 20. Sem uma arma afiliada equipada, o valor é zero.</p>
+<pre><code class="language-text">Rolagem: 1d20 + DES + ARMA_ACERTO
+</code></pre>
+<p>Escreva a variável na fórmula para somar o bônus. O sistema não a acrescenta sozinho às rolagens e não a soma duas vezes. <code>ARMAACERTO</code>, <code>ACERTO_ARMA</code>, <code>ACERTOARMA</code> e <code>@{Arma acerto}</code> também são aceitos. Sob Medida altera o dano, sem acrescentar outro bônus de acerto.</p>
 <h2 id="13-imagens-e-gifs">13. Imagens e GIFs</h2>
 <p>Escolha a imagem pelo botão de imagem do próprio movimento. O seletor permite usar um caminho disponível no Foundry ou um link de imagem; o envio de arquivo depende da permissão de upload do usuário.</p>
 <p>Uma imagem personalizada é publicada no cartão do chat. O ícone padrão do movimento não é enviado como ilustração. A imagem e os textos aparecem junto à Rolagem, ao Custo e aos Efeitos preenchidos.</p>
@@ -698,7 +709,7 @@ Dano: (ARMA + DES) * 1.5
 <pre><code class="language-text">Custo: 20 EA do invocador
 </code></pre>
 <p>Essa frase aparece como informação no chat. O desconto no invocador deve ser feito separadamente.</p>
-<p>As fórmulas do Shikigami consultam seus próprios atributos físicos, HP, CA e nível derivado. <code>JJT</code>, <code>INT</code>, <code>PER</code>, <code>FDV</code> e <code>EA</code> não puxam os valores do invocador; esses recursos ausentes resolvem como zero. Sem vínculo válido, a variável numérica <code>NIVEL</code> resolve como zero.</p>
+<p>As fórmulas do Shikigami consultam seus próprios atributos físicos, HP, CA e nível derivado. <code>JJT</code>, <code>INT</code>, <code>PER</code>, <code>FDV</code> e <code>EA</code> não puxam os valores do invocador; esses recursos ausentes resolvem como zero. <code>ARMA</code> e <code>ARMA_ACERTO</code> também valem zero. Sem vínculo válido, a variável numérica <code>NIVEL</code> resolve como zero.</p>
 <h2 id="15-exemplos-prontos-para-copiar">15. Exemplos prontos para copiar</h2>
 <p>Os números abaixo são exemplos técnicos de configuração. Ajuste custos, multiplicadores e efeitos às regras aprovadas pelo mestre.</p>
 <h3 id="ataque-com-arma">Ataque com arma</h3>
@@ -1049,11 +1060,11 @@ await promptMovementMacro(&quot;Actor.ID_DO_ATOR.Item.ID_DO_MOVIMENTO&quot;);
 </tbody>
 </table>
 <h2 id="21-referencias-e-versao">21. Referências e versão</h2>
-<p>Esta documentação foi conferida contra a implementação Nexus <strong>0.4.24</strong> e o núcleo local Foundry <strong>14.370</strong>. Os exemplos matemáticos principais, parâmetros, vantagem/desvantagem e limitações de dados foram verificados no motor da Nexus com o Roll nativo do Foundry.</p>
+<p>Esta documentação foi conferida contra a implementação Nexus <strong>0.4.28</strong> e o núcleo local Foundry <strong>14.370</strong>. Os exemplos matemáticos principais, parâmetros, vantagem/desvantagem e limitações de dados foram verificados no motor da Nexus com o Roll nativo do Foundry.</p>
 <ul>
-<li><a href="https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.24/module/formula-engine.mjs">Motor de fórmulas da Nexus, versão 0.4.24</a></li>
-<li><a href="https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.24/module/movement-macros.mjs">Integração de macros da Nexus, versão 0.4.24</a></li>
-<li><a href="https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.24/module/documents.mjs">Dados e arma equipada da Nexus, versão 0.4.24</a></li>
+<li><a href="https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.28/module/formula-engine.mjs">Motor de fórmulas da Nexus, versão 0.4.24</a></li>
+<li><a href="https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.28/module/movement-macros.mjs">Integração de macros da Nexus, versão 0.4.24</a></li>
+<li><a href="https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.28/module/documents.mjs">Dados e arma equipada da Nexus, versão 0.4.24</a></li>
 <li><a href="https://foundryvtt.com/article/macros/">Macros do Foundry</a></li>
 <li><a href="https://foundryvtt.com/article/controls/">Controles do Foundry</a></li>
 <li><a href="https://foundryvtt.com/article/dice/">Dados e modos de rolagem</a></li>
@@ -1062,7 +1073,7 @@ await promptMovementMacro(&quot;Actor.ID_DO_ATOR.Item.ID_DO_MOVIMENTO&quot;);
 </ul>
 <p>Alterações futuras no sistema ou em módulos instalados podem ampliar ou modificar esse comportamento. Este manual descreve o que está implementado na versão indicada.</p>
 
-<div class="footer">Nexus 0.4.24 · Arquivo independente, utilizável sem conexão. As referências externas exigem internet.</div>
+<div class="footer">Nexus 0.4.28 · Arquivo independente, utilizável sem conexão. As referências externas exigem internet.</div>
 </article></main>
 </div>
 <a class="top-link" href="#inicio">↑ Início</a>

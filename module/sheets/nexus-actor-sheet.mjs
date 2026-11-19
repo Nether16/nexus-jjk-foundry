@@ -188,9 +188,14 @@ export class NexusActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
         name: talent.name,
         selected: talent.name === item?.name
       }));
+      const previousAffiliatedDescription = "Você inicia a campanha com uma arma de Grau IV. Marque Arma afiliada no inventário para receber +15 de dano nos níveis 5, 10, 15 e 20.";
+      const restoredDescription = item?.name === "Arma Afiliada 🔒" &&
+        item.system.description === previousAffiliatedDescription
+        ? talents.find(talent => talent.name === item.name)?.description : null;
 
       return {
         ...item,
+        ...(restoredDescription ? { system: { ...item.system, description: restoredDescription } } : {}),
         slot,
         choices,
         hasSelection: choices.some(choice => choice.selected)
@@ -213,6 +218,7 @@ export class NexusActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       item.weaponDamage = Number(item.system.weaponDamage) || 0;
       const damage = getWeaponDamageDetails(document);
       item.weaponDamageTotal = damage.total;
+      item.weaponAccuracy = damage.accuracy;
       const bonuses = [];
       if (damage.affiliatedBonus) bonuses.push(`Arma afiliada +${damage.affiliatedBonus}`);
       if (damage.tailoredBonus) bonuses.push(`Sob Medida +${damage.tailoredBonus}`);

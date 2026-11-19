@@ -107,6 +107,10 @@ function literalText(expression) {
 
 function getKnownValue(actor, name) {
   const key = normalizeKey(name).replace(/\s+/gu, "");
+  if (["arma_acerto", "armaacerto", "acerto_arma", "acertoarma"].includes(key)) {
+    const accuracy = Number(actor.weaponAccuracy);
+    return Number.isFinite(accuracy) && accuracy >= 0 ? accuracy : 0;
+  }
   if (["arma", "danoarma", "dano_arma"].includes(key)) {
     const damage = Number(actor.weaponDamage);
     return Number.isFinite(damage) && damage >= 0 ? damage : 0;

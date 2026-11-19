@@ -1,6 +1,6 @@
 # Movimentos, fórmulas e macros — Nexus
 
-Documentação de uso • Nexus 0.4.24 • Foundry VTT 14 • Revisada em 19/11/2026.
+Documentação de uso • Nexus 0.4.28 • Foundry VTT 14 • Revisada em 19/11/2026.
 
 Este manual reúne os recursos implementados para montar movimentos, escrever fórmulas, publicar resultados no chat e executar habilidades pela barra de macros. Os exemplos usam a sintaxe da ficha Nexus. Os comandos de chat e os scripts do Foundry são apresentados separadamente.
 
@@ -105,6 +105,7 @@ Use os nomes abaixo diretamente nas fórmulas. Os aliases desta tabela aceitam m
 | EA máxima | `EAMAX` | — |
 | CA | `CA` | `ESQUIVA` |
 | Dano da arma equipada | `ARMA` | `DANOARMA`, `DANO_ARMA` |
+| Acerto da arma equipada | `ARMA_ACERTO` | `ARMAACERTO`, `ACERTO_ARMA`, `ACERTOARMA` |
 
 Exemplos:
 
@@ -354,7 +355,7 @@ O cartão mostra Rolagem 100, custo 10 EA e Referência 100. A ficha termina com
 
 ## 12. Dano da arma equipada
 
-`ARMA`, `DANOARMA` e `DANO_ARMA` representam o mesmo valor: o dano definido na arma atualmente equipada.
+`ARMA`, `DANOARMA` e `DANO_ARMA` representam o mesmo valor: o dano final da arma atualmente equipada, incluindo os bônus aplicáveis de Arma Afiliada e Sob Medida. O dano base cadastrado pelo mestre fica preservado.
 
 1. No Inventário, marque o item como arma.
 2. O mestre define o dano da arma.
@@ -370,6 +371,16 @@ Dano: (ARMA + DES) * 1.5
 ```
 
 O valor é numérico. `ARMA` não representa o nome do item e não é uma expressão de dados armazenada no campo de dano da arma.
+
+### Acerto da arma afiliada
+
+`ARMA_ACERTO` consulta o bônus de acerto da arma equipada. Uma arma marcada como Arma afiliada recebe +1 inicial, +2 no nível 5, +3 no nível 10, +4 no nível 15 e +5 no nível 20. Sem uma arma afiliada equipada, o valor é zero.
+
+```text
+Rolagem: 1d20 + DES + ARMA_ACERTO
+```
+
+Escreva a variável na fórmula para somar o bônus. O sistema não a acrescenta sozinho às rolagens e não a soma duas vezes. `ARMAACERTO`, `ACERTO_ARMA`, `ACERTOARMA` e `@{Arma acerto}` também são aceitos. Sob Medida altera o dano, sem acrescentar outro bônus de acerto.
 
 ## 13. Imagens e GIFs
 
@@ -400,7 +411,7 @@ Custo: 20 EA do invocador
 
 Essa frase aparece como informação no chat. O desconto no invocador deve ser feito separadamente.
 
-As fórmulas do Shikigami consultam seus próprios atributos físicos, HP, CA e nível derivado. `JJT`, `INT`, `PER`, `FDV` e `EA` não puxam os valores do invocador; esses recursos ausentes resolvem como zero. Sem vínculo válido, a variável numérica `NIVEL` resolve como zero.
+As fórmulas do Shikigami consultam seus próprios atributos físicos, HP, CA e nível derivado. `JJT`, `INT`, `PER`, `FDV` e `EA` não puxam os valores do invocador; esses recursos ausentes resolvem como zero. `ARMA` e `ARMA_ACERTO` também valem zero. Sem vínculo válido, a variável numérica `NIVEL` resolve como zero.
 
 ## 15. Exemplos prontos para copiar
 
@@ -657,11 +668,11 @@ Os títulos Dano, Cura e Condição não transformam o resultado em uma ação a
 
 ## 21. Referências e versão
 
-Esta documentação foi conferida contra a implementação Nexus **0.4.24** e o núcleo local Foundry **14.370**. Os exemplos matemáticos principais, parâmetros, vantagem/desvantagem e limitações de dados foram verificados no motor da Nexus com o Roll nativo do Foundry.
+Esta documentação foi conferida contra a implementação Nexus **0.4.28** e o núcleo local Foundry **14.370**. Os exemplos matemáticos principais, parâmetros, vantagem/desvantagem e limitações de dados foram verificados no motor da Nexus com o Roll nativo do Foundry.
 
-- [Motor de fórmulas da Nexus, versão 0.4.24](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.24/module/formula-engine.mjs)
-- [Integração de macros da Nexus, versão 0.4.24](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.24/module/movement-macros.mjs)
-- [Dados e arma equipada da Nexus, versão 0.4.24](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.24/module/documents.mjs)
+- [Motor de fórmulas da Nexus, versão 0.4.24](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.28/module/formula-engine.mjs)
+- [Integração de macros da Nexus, versão 0.4.24](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.28/module/movement-macros.mjs)
+- [Dados e arma equipada da Nexus, versão 0.4.24](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.28/module/documents.mjs)
 - [Macros do Foundry](https://foundryvtt.com/article/macros/)
 - [Controles do Foundry](https://foundryvtt.com/article/controls/)
 - [Dados e modos de rolagem](https://foundryvtt.com/article/dice/)

@@ -147,6 +147,10 @@ export class NexusActor extends Actor {
     return getWeaponDamageDetails(this.equippedWeapon).total;
   }
 
+  get weaponAccuracy() {
+    return getWeaponDamageDetails(this.equippedWeapon).accuracy;
+  }
+
   async equipWeapon(id = "") {
     if (this.type === "shikigami") throw new Error("Shikigamis não possuem inventário de armas.");
     if (!this.isOwner) throw new Error("Você não pode alterar o equipamento deste personagem.");
@@ -184,6 +188,8 @@ export class NexusActor extends Actor {
       FDV: attributes.fdv,
       EA: this.system.ea.value,
       ARMA: this.weaponDamage,
+      ARMA_ACERTO: this.weaponAccuracy,
+      ACERTO_ARMA: this.weaponAccuracy,
       DANO_ARMA: this.weaponDamage
     };
   }

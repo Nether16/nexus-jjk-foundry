@@ -2059,7 +2059,7 @@
   color: var(--nexus-cor-texto);
 }
 
-.nexus-jjk .inventario-dano-final output {
+.nexus-jjk :is(.inventario-dano-final, .inventario-arma-acerto) output {
   font-weight: 700;
 }
 
