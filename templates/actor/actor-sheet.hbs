@@ -207,6 +207,7 @@
         >
       </div>
 
+      {{#unless isShikigami}}
       <div class="xp-legenda">
         <span class="xp-rotulo">XP:</span>
         <input
@@ -229,6 +230,7 @@
         max="{{system.xp.target}}"
         aria-label="Experiência"
       ></progress>
+      {{/unless}}
     </div>
   </header>
 
@@ -252,11 +254,18 @@
 
       <div class="resumo-personagem">
         <div class="resumo-item">
+          {{#if isShikigami}}
+          <label class="movimentacao-editavel">
+            <span class="resumo-movimentacao-valor"><input class="resumo-valor" type="number" name="system.movement" value="{{system.movement}}" min="0" step="any" placeholder="?" aria-label="Movimentação em metros" {{#unless editable}}disabled{{/unless}}><span>m</span></span>
+            <span class="resumo-rotulo">Movimentação</span>
+          </label>
+          {{else}}
           <span class="resumo-valor">{{system.movement}} m</span>
           <span class="resumo-rotulo">Movimentação</span>
+          {{/if}}
         </div>
         <div class="resumo-item">
-          <output class="resumo-valor" aria-label="Pontos disponíveis">{{system.attributePoints}}</output>
+          <output class="resumo-valor" aria-label="Pontos disponíveis">{{#if isShikigami}}?{{else}}{{system.attributePoints}}{{/if}}</output>
           <span class="resumo-rotulo">Pontos disponíveis</span>
         </div>
       </div>
@@ -271,10 +280,10 @@
                 name="system.attributes.{{key}}"
                 value="{{value}}"
                 min="{{inputMin}}"
-                max="{{inputMax}}"
+                {{#unless @root.isShikigami}}max="{{inputMax}}"{{/unless}}
                 step="1"
                 aria-label="{{name}}"
-                title="Máximo neste nível: {{@root.system.attributeMax}}"
+                {{#unless @root.isShikigami}}title="Máximo neste nível: {{@root.system.attributeMax}}"{{/unless}}
                 {{#unless ../editable}}disabled{{/unless}}
               >
             </div>
@@ -312,6 +321,7 @@
           ></progress>
         </div>
 
+        {{#unless isShikigami}}
         <div class="recurso">
           <div class="recurso-cabecalho">
             <span class="recurso-nome">EA</span>
@@ -335,7 +345,22 @@
             aria-label="Energia amaldiçoada"
           ></progress>
         </div>
+        {{/unless}}
       </section>
+
+      {{#if isShikigami}}
+      <section class="shikigami-vinculo" aria-label="Vínculo com o invocador">
+        <div class="shikigami-vinculo-cabecalho">
+          <span class="shikigami-invocador-nome">Invocador: {{#if shikigamiReference}}{{shikigamiReference.invoker.name}}{{else}}Não vinculado{{/if}}</span>
+          {{#if canConfigureShikigami}}<button type="button" class="botao-icone" data-action="configureShikigami" aria-label="Configurar shikigami" title="Vincular invocador"><i class="fa-solid fa-link" aria-hidden="true"></i></button>{{/if}}
+        </div>
+        <div class="shikigami-vinculo-valores">
+          <span title="JJT + FDV + INT do invocador">Perícia Ocultista: <output>{{#if shikigamiReference}}{{shikigamiReference.occultism}}{{else}}?{{/if}}</output></span>
+          <span title="JJT do invocador em metros">Distância máxima: <output>{{#if shikigamiReference}}{{shikigamiReference.maxDistance}} m{{else}}?{{/if}}</output></span>
+        </div>
+        <p class="shikigami-distancia-regra">Ao ultrapassar o limite, retorna para próximo do invocador ou é desfeito, conforme a técnica utilizada.</p>
+      </section>
+      {{/if}}
 
       <section class="conteudo-abas">
         {{#if visibleTabs.origin}}

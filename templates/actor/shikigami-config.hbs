@@ -1,0 +1,35 @@
+<div class="shikigami-configuracao">
+  <p>Vincule este shikigami ao personagem que o invoca.</p>
+
+  <label class="shikigami-invocador" for="invoker-{{id}}">
+    <span>Invocador</span>
+    <select id="invoker-{{id}}" name="invokerId" {{#unless editable}}disabled{{/unless}}>
+      <option value="" {{#if hasNoInvoker}}selected{{/if}}>Sem invocador vinculado</option>
+      {{#if invalidInvoker}}
+        <option value="{{invokerId}}" selected disabled>Invocador indisponível</option>
+      {{/if}}
+      {{#each invokers}}
+        <option value="{{id}}" {{#if selected}}selected{{/if}}>{{name}}</option>
+      {{/each}}
+    </select>
+  </label>
+
+  {{#if invalidInvoker}}
+    <p class="shikigami-vinculo-invalido" role="status">O invocador vinculado não está disponível. Escolha outro personagem ou selecione “Sem invocador vinculado”.</p>
+  {{/if}}
+
+  {{#if reference}}
+    <section class="shikigami-vinculo-resumo" aria-label="Vínculo atual">
+      <h3>Vínculo atual: {{reference.invoker.name}}</h3>
+      <p>Perícia Ocultista: <strong>{{reference.occultism}}</strong> (JJT + FDV + INT do invocador).</p>
+      <p>Distância máxima: <strong>{{reference.maxDistance}} m</strong> (JJT do invocador).</p>
+    </section>
+  {{/if}}
+
+  <p class="shikigami-configuracao-nota">Os pontos a distribuir continuam definidos pela técnica utilizada.</p>
+
+  <footer class="shikigami-configuracao-rodape">
+    <button type="button" data-action="cancelShikigami">Cancelar</button>
+    <button type="submit" {{#unless editable}}disabled{{/unless}}><i class="fa-solid fa-check" aria-hidden="true"></i> Salvar</button>
+  </footer>
+</div>

@@ -1,5 +1,6 @@
 import { getAttributeMax, getXpTarget, NEXUS_ATTRIBUTES, NEXUS_MAX_LEVEL } from "./config.mjs";
 import { prototypePortraitChanges, usesTokenPortrait } from "./token-portraits.mjs";
+import { SHIKIGAMI_ATTRIBUTE_KEYS } from "./shikigami.mjs";
 
 /** Resolve mudanças tanto expandidas quanto em caminhos pontuados. */
 function findChange(changes, path) {
@@ -26,8 +27,52 @@ function setChange(changes, path, value) {
   target[parts.at(-1)] = value;
 }
 
+/** Inclui remoções de campos e de seus pais, mesmo em caminhos mistos. */
+function invokerChanges(changes, prefix = []) {
+  const matches = [];
+  const target = ["system", "invokerId"];
+  for (const [key, value] of Object.entries(changes ?? {})) {
+    const parts = [...prefix, ...key.split(".")];
+    const canonical = parts.map(part => part.startsWith("-=") ? part.slice(2) : part);
+    if (!canonical.slice(0, Math.min(canonical.length, target.length))
+      .every((part, index) => part === target[index])) continue;
+    const deleted = parts.some(part => part.startsWith("-="));
+    if (deleted && canonical.length <= target.length) matches.push({ value: "" });
+    else if (canonical.length === target.length) matches.push({ value });
+    else if (canonical.length < target.length && value && typeof value === "object" && !Array.isArray(value)) {
+      matches.push(...invokerChanges(value, parts));
+    } else matches.push({ value: undefined });
+  }
+  return matches;
+}
+
+function validateInvokerChanges(actor, changes, user, { creating = false } = {}) {
+  const currentId = creating ? "" : (actor.system.invokerId ?? "");
+  for (const { value } of changes) {
+    if (typeof value !== "string") {
+      globalThis.ui?.notifications?.warn("Escolha um personagem válido como invocador.");
+      return false;
+    }
+    if (value === currentId) continue;
+    if (!user?.isGM) {
+      globalThis.ui?.notifications?.warn("Apenas o mestre pode alterar o invocador do shikigami.");
+      return false;
+    }
+    if (value && globalThis.game?.actors?.get(value)?.type !== "character") {
+      globalThis.ui?.notifications?.warn("O invocador precisa ser um personagem deste mundo.");
+      return false;
+    }
+  }
+  return true;
+}
+
 export class NexusActor extends Actor {
   async _preCreate(data, options, user) {
+    if (this.type === "shikigami") {
+      const changes = invokerChanges(data);
+      changes.push({ value: this.system.invokerId ?? "" });
+      if (!validateInvokerChanges(this, changes, user, { creating: true })) return false;
+    }
     const allowed = await super._preCreate(data, options, user);
     if (allowed === false) return false;
     if (usesTokenPortrait(this) && !this.isToken) {
@@ -37,7 +82,9 @@ export class NexusActor extends Actor {
   }
 
   async _preUpdate(changes, options, user) {
-    const isCreature = ["character", "curse", "shikigami"].includes(this.type);
+    const isShikigami = this.type === "shikigami";
+    if (isShikigami && !validateInvokerChanges(this, invokerChanges(changes), user)) return false;
+    const isCreature = this.type === "character" || this.type === "curse";
     const xp = findChange(changes, "system.xp.value")?.value;
     if (isCreature && Number.isInteger(xp) && xp !== this.system.xp.value) {
       const initialLevel = findChange(changes, "system.level")?.value ?? this.system.level;
@@ -57,19 +104,21 @@ export class NexusActor extends Actor {
         }
       }
     }
-    if (isCreature) {
+    if (isCreature || isShikigami) {
       const level = findChange(changes, "system.level")?.value ?? this.system.level;
-      const maximum = getAttributeMax(level);
+      const maximum = isShikigami ? Infinity : getAttributeMax(level);
       for (const [key, attribute] of Object.entries(NEXUS_ATTRIBUTES)) {
+        if (isShikigami && !SHIKIGAMI_ATTRIBUTE_KEYS.includes(key)) continue;
         const change = findChange(changes, `system.attributes.${key}`);
         if (!change) continue;
         const validNumber = typeof change.value === "number" ||
           (typeof change.value === "string" && change.value.trim() !== "");
         const value = Number(change.value);
         // Dados antigos continuam utilizáveis sem apagar pontos em um render ou level down.
-        if (validNumber && value === this.system.attributes[key]) continue;
+        if (!isShikigami && validNumber && value === this.system.attributes[key]) continue;
         if (!validNumber || !Number.isInteger(value) || value < 0 || value > maximum) {
-          globalThis.ui?.notifications?.warn(`${attribute.name} deve ser um número inteiro entre 0 e ${maximum} neste nível.`);
+          const range = isShikigami ? "igual ou maior que zero" : `entre 0 e ${maximum} neste nível`;
+          globalThis.ui?.notifications?.warn(`${attribute.name} deve ser um número inteiro ${range}.`);
           return false;
         }
       }
@@ -88,6 +137,7 @@ export class NexusActor extends Actor {
   }
 
   get equippedWeapon() {
+    if (this.type === "shikigami") return null;
     const item = this.items.get(this.system.equippedWeaponId);
     return item?.isWeapon ? item : null;
   }
@@ -98,6 +148,7 @@ export class NexusActor extends Actor {
   }
 
   async equipWeapon(id = "") {
+    if (this.type === "shikigami") throw new Error("Shikigamis não possuem inventário de armas.");
     if (!this.isOwner) throw new Error("Você não pode alterar o equipamento deste personagem.");
     if (typeof id !== "string") throw new Error("Arma inválida.");
     if (id && !this.items.get(id)?.isWeapon) {
@@ -111,35 +162,46 @@ export class NexusActor extends Actor {
     const data = super.getRollData();
     const attributes = this.system.attributes;
 
-    return {
+    const physical = {
       ...data,
       FOR: attributes.forca,
       DES: attributes.destreza,
+      DEX: attributes.destreza,
       AGI: attributes.agilidade,
       CON: attributes.vigor,
+      CONS: attributes.vigor,
+      NIVEL: this.system.level,
+      HP: this.system.hp.value,
+      ESQUIVA: this.system.defense
+    };
+    if (this.type === "shikigami") return physical;
+
+    return {
+      ...physical,
       PER: attributes.percepcao,
       INT: attributes.inteligencia,
       JJT: attributes.jujutsu,
       FDV: attributes.fdv,
-      NIVEL: this.system.level,
-      HP: this.system.hp.value,
       EA: this.system.ea.value,
-      ESQUIVA: this.system.defense,
       ARMA: this.weaponDamage,
       DANO_ARMA: this.weaponDamage
     };
   }
 
   async rollAttribute(key) {
+    if (this.type === "shikigami" && !SHIKIGAMI_ATTRIBUTE_KEYS.includes(key)) return;
     const attribute = NEXUS_ATTRIBUTES[key];
     if (!attribute) return;
 
     const bonus = Number(this.system.attributes[key]) || 0;
     const roll = await new Roll("1d20 + @bonus", { bonus }).evaluate();
 
+    const label = this.type === "shikigami"
+      ? ({ destreza: "DEX", vigor: "CONS" }[key] ?? attribute.label)
+      : attribute.label;
     return roll.toMessage({
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      flavor: `${this.name} — ${attribute.name} (${attribute.label})`
+      flavor: `${this.name} — ${attribute.name} (${label})`
     });
   }
 

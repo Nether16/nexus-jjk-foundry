@@ -64,17 +64,8 @@
       },
       "shikigami": {
         "htmlFields": [
-          "history",
-          "notes",
-          "origin.description",
-          "origin.effects"
-        ],
-        "filePathFields": {
-          "origin.image": [
-            "IMAGE",
-            "VIDEO"
-          ]
-        }
+          "notes"
+        ]
       }
     },
     "Item": {

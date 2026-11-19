@@ -225,6 +225,82 @@
   font-weight: 700;
 }
 
+.nexus-shikigami-config {
+  border: 1px solid #74408c;
+  border-radius: 8px;
+  background: #08000b;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.nexus-shikigami-config .window-header {
+  background: #110717;
+  color: #fff;
+}
+
+.nexus-shikigami-config .window-content {
+  padding: 16px;
+  background: #08000b;
+  color: #fff;
+}
+
+.nexus-shikigami-config .shikigami-configuracao {
+  display: grid;
+  gap: 14px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.nexus-shikigami-config p {
+  margin: 0;
+}
+
+.nexus-shikigami-config .shikigami-invocador {
+  display: grid;
+  gap: 6px;
+}
+
+.nexus-shikigami-config select {
+  width: 100%;
+  min-height: 34px;
+  border: 1px solid #74408c;
+  background: #08000b;
+  color: #fff;
+}
+
+.nexus-shikigami-config .shikigami-vinculo-resumo {
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+  border: 1px solid #74408c;
+  border-radius: 6px;
+}
+
+.nexus-shikigami-config .shikigami-vinculo-resumo h3 {
+  margin: 0;
+  color: #c57ce0;
+}
+
+.nexus-shikigami-config .shikigami-vinculo-invalido {
+  color: #f5c77e;
+}
+
+.nexus-shikigami-config .shikigami-configuracao-nota {
+  color: #bfb5c4;
+}
+
+.nexus-shikigami-config .shikigami-configuracao-rodape {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.nexus-shikigami-config button[type="submit"] {
+  border-color: #c57ce0;
+  background: #57137c;
+  color: #fff;
+}
+
 .nexus-jjk {
   /* Paleta padrão. Cada ficha pode sobrescrever estas variáveis. */
   --nexus-cor-fundo: #000;
@@ -598,6 +674,77 @@
   font-size: 11px;
   font-weight: 700;
   line-height: 1.2;
+}
+
+.nexus-jjk .movimentacao-editavel {
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+}
+
+.nexus-jjk .resumo-movimentacao-valor {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
+}
+
+.nexus-jjk .resumo-movimentacao-valor input {
+  width: 64px;
+  height: 26px;
+  min-height: 0;
+  padding: 0 2px;
+  border: 0;
+  border-bottom: 1px solid var(--nexus-cor-borda-painel);
+  background: transparent;
+  color: var(--nexus-cor-texto);
+  text-align: center;
+}
+
+.nexus-jjk .ficha-shikigami .recursos-personagem {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.nexus-jjk .shikigami-vinculo {
+  flex: 0 0 auto;
+  display: grid;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 8px 10px;
+  border: 1px solid var(--nexus-cor-borda-painel);
+  border-radius: 6px;
+  background: var(--nexus-cor-painel);
+  font-size: 12px;
+}
+
+.nexus-jjk .shikigami-vinculo-cabecalho,
+.nexus-jjk .shikigami-vinculo-valores {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.nexus-jjk .shikigami-invocador-nome {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nexus-jjk .shikigami-vinculo-valores {
+  flex-wrap: wrap;
+}
+
+.nexus-jjk .shikigami-vinculo output {
+  color: var(--nexus-cor-destaque);
+  font-weight: 700;
+}
+
+.nexus-jjk .shikigami-distancia-regra {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.4;
 }
 
 .nexus-jjk .atributos {
@@ -1919,10 +2066,10 @@
 }
 
 .nexus-jjk .navegacao-ficha {
+  --nexus-topo-abas: clamp(150px, 35cqh, 260px);
   position: absolute;
   z-index: 5;
   isolation: isolate;
-  top: clamp(150px, 35cqh, 260px);
   bottom: -4px;
   left: calc(100% + 2px);
   display: grid;
@@ -1931,6 +2078,8 @@
   align-items: center;
   gap: 6px;
   width: var(--nexus-largura-abas);
+  height: calc(var(--nexus-numero-abas, 8) * 46px + 26px);
+  max-height: calc(100% - var(--nexus-topo-abas) + 4px);
   padding: 16px 8px 16px 4px;
 }
 

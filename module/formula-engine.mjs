@@ -3,6 +3,7 @@ const ATTRIBUTE_ALIASES = Object.freeze({
   forca: "attributes.forca",
   força: "attributes.forca",
   des: "attributes.destreza",
+  dex: "attributes.destreza",
   destreza: "attributes.destreza",
   agi: "attributes.agilidade",
   agilidade: "attributes.agilidade",
@@ -150,7 +151,7 @@ function collectUnknownVariables(actor, attack, effect, cost = "") {
 
 async function promptVariables(actor, item) {
   const { attack, effect, cost } = item.system;
-  const variables = collectUnknownVariables(actor, attack, effect, cost);
+  const variables = collectUnknownVariables(actor, attack, effect, actor.type === "shikigami" ? "" : cost);
   const values = new Map();
 
   for (const variable of variables) {
@@ -263,6 +264,7 @@ export class NexusFormulaEngine {
 
     const attack = trim(item.system.attack);
     const cost = trim(item.system.cost);
+    const informationalCost = actor.type === "shikigami";
     const effect = trim(item.system.effect);
     const image = movementImage(item.img);
     if (!attack && !cost && !effect && !image) {
@@ -292,7 +294,7 @@ export class NexusFormulaEngine {
     try {
       // Resolve o custo antes de rolar o ataque e os efeitos.
       let costRoll;
-      if (cost) {
+      if (cost && !informationalCost) {
         const formula = resolve(cost);
         if (isDiceFormula(formula)) {
           costRoll = await evaluateRoll(formula, "Custo");
@@ -316,8 +318,10 @@ export class NexusFormulaEngine {
       }
       if (cost) {
         if (costRoll) rolls.push(costRoll);
-        const html = costRoll ? await costRoll.render() : escapeHTML(`${amount} EA`);
-        rows.push(movementSection("Custo em EA", html, "nexus-chat-cost"));
+        const html = informationalCost
+          ? escapeHTML(cost)
+          : costRoll ? await costRoll.render() : escapeHTML(`${amount} EA`);
+        rows.push(movementSection(informationalCost ? "Custo" : "Custo em EA", html, "nexus-chat-cost"));
       }
       for (const module of splitModules(effect)) {
         const { label, expression } = splitLabel(module);
@@ -343,7 +347,7 @@ export class NexusFormulaEngine {
         rows.push(movementSection(title, escapeHTML(value ?? expression)));
       }
 
-      if (amount > 0) {
+      if (!informationalCost && amount > 0) {
         previousEA = checkAvailableEA(actor, amount);
         if (previousEA === null) return;
         const updated = await actor.update({ "system.ea.value": previousEA - amount });

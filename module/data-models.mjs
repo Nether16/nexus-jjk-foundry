@@ -129,8 +129,38 @@ export class NexusCharacterData extends foundry.abstract.TypeDataModel {
   }
 }
 
-/** Mantém os atributos e recursos da ficha base para a ficha reduzida de shikigami. */
-export class NexusShikigamiData extends NexusCharacterData {}
+/** Shikigami mantém somente seus atributos físicos e recursos próprios. */
+export class NexusShikigamiData extends foundry.abstract.TypeDataModel {
+  static defineSchema() {
+    return {
+      level: numberField(1, { integer: true, min: 1 }),
+      invokerId: stringField(),
+      attributes: new SchemaField({
+        forca: numberField(0, { integer: true, min: 0 }),
+        destreza: numberField(0, { integer: true, min: 0 }),
+        agilidade: numberField(0, { integer: true, min: 0 }),
+        vigor: numberField(0, { integer: true, min: 0 })
+      }),
+      hp: new SchemaField({
+        value: numberField(50, { integer: true, min: 0 }),
+        max: numberField(50, { integer: true, min: 0, persisted: false })
+      }),
+      movement: numberField(null, { nullable: true, min: 0 }),
+      defense: numberField(10, { integer: true, persisted: false }),
+      notes: new HTMLField({ initial: "" })
+    };
+  }
+
+  prepareDerivedData() {
+    super.prepareDerivedData();
+    const level = Number(this.level) || 1;
+    const agilidade = Number(this.attributes.agilidade) || 0;
+    const vigor = Number(this.attributes.vigor) || 0;
+    this.hp.max = 50 + (25 * Math.max(level - 1, 0));
+    this.hp.value = Math.min(Math.max(Number(this.hp.value) || 0, 0), this.hp.max);
+    this.defense = 10 + agilidade + Math.floor(vigor / 2);
+  }
+}
 
 /** Compartilha a ficha base, usando os graus e multiplicadores das maldições. */
 export class NexusCurseData extends NexusCharacterData {

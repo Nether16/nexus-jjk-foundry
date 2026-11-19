@@ -10,6 +10,8 @@ import { NEXUS_KNOWLEDGE } from "../knowledge.mjs";
 import { NexusSheetUI } from "./nexus-sheet-ui.mjs";
 import { applyAppearance, readAppearance } from "./nexus-appearance.mjs";
 import { NexusAppearanceConfig } from "./nexus-appearance-config.mjs";
+import { NexusShikigamiConfig } from "./nexus-shikigami-config.mjs";
+import { getShikigamiReference, SHIKIGAMI_ATTRIBUTE_KEYS } from "../shikigami.mjs";
 
 const { ActorSheetV2 } = foundry.applications.sheets;
 const { HandlebarsApplicationMixin } = foundry.applications.api;
@@ -32,6 +34,7 @@ export class NexusActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     },
     actions: {
       configureAppearance: this.#configureAppearance,
+      configureShikigami: this.#configureShikigami,
       rollAttribute: this.#rollAttribute,
       shareDefense: this.#shareDefense,
       createItem: this.#createItem,
@@ -72,6 +75,7 @@ export class NexusActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
   #barWindow = null;
   #visualUI = new NexusSheetUI();
   #appearanceConfig = null;
+  #shikigamiConfig = null;
   #savingTalentSlots = new Set();
   #richTextWrites = new Set();
 
@@ -87,6 +91,12 @@ export class NexusActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
         icon: "fa-solid fa-palette",
         label: "Aparência da ficha",
         visible: this.isEditable
+      },
+      {
+        action: "configureShikigami",
+        icon: "fa-solid fa-link",
+        label: "Configurar shikigami",
+        visible: this.isEditable && Boolean(game.user?.isGM) && this.actor.type === "shikigami"
       }
     ];
   }
@@ -190,17 +200,18 @@ export class NexusActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     }
 
     const origins = this.#originCatalog;
-    const origin = Object.hasOwn(origins, this.actor.system.origin.key)
-      ? origins[this.actor.system.origin.key]
+    const originData = this.actor.system.origin ?? {};
+    const origin = Object.hasOwn(origins, originData.key)
+      ? origins[originData.key]
       : origins.grau4 ?? origins.feiticeiro;
-    const originImage = this.actor.system.origin.image || origin.image;
+    const originImage = originData.image || origin.image;
     const originVariants = Object.entries(origin.alts ?? {})
       .filter(([, variant]) => variant && typeof variant === "object" && !Array.isArray(variant))
       .map(([key, variant]) => ({
         id: key,
         key,
         label: variant.label || key,
-        selected: key === this.actor.system.origin.variant
+        selected: key === originData.variant
       }));
     const selectedVariant = originVariants.find(variant => variant.selected);
     const variant = selectedVariant ? origin.alts[selectedVariant.key] : null;
@@ -211,31 +222,35 @@ export class NexusActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       system: this.actor.system,
       isCurse,
       isShikigami,
+      shikigamiReference: isShikigami ? getShikigamiReference(this.actor) : null,
+      canConfigureShikigami: isShikigami && this.isEditable && Boolean(game.user?.isGM),
       visibleTabs,
       tabCount: Object.values(visibleTabs).filter(Boolean).length,
       editable: this.isEditable,
       isGM: Boolean(game.user?.isGM),
       activePopup: this.#activePopup,
       activeTabs: this.#activePopup ? { [this.#activePopup]: true } : {},
-      attributes: Object.entries(NEXUS_ATTRIBUTES).map(([key, config]) => ({
+      attributes: Object.entries(NEXUS_ATTRIBUTES)
+        .filter(([key]) => !isShikigami || SHIKIGAMI_ATTRIBUTE_KEYS.includes(key))
+        .map(([key, config]) => ({
         key,
-        label: config.label,
-        name: config.name,
+        label: isShikigami ? ({ destreza: "DEX", vigor: "CONS" }[key] ?? config.label) : config.label,
+        name: isShikigami && key === "vigor" ? "Constituição" : config.name,
         value: this.actor.system.attributes[key],
         inputMin: Math.min(0, this.actor.system.attributes[key]),
-        inputMax: Math.max(this.actor.system.attributeMax ?? 5, this.actor.system.attributes[key])
+        inputMax: isShikigami ? null : Math.max(this.actor.system.attributeMax ?? 5, this.actor.system.attributes[key])
       })),
       origins: Object.entries(origins).map(([key, config]) => ({
         key,
         label: config.label,
-        selected: key === this.actor.system.origin.key
+        selected: key === originData.key
       })),
       origin: {
         ...origin,
         image: originImage,
         isVideo: /\.mp4(?:$|[?#])/iu.test(originImage || ""),
-        description: this.actor.system.origin.description || origin.description,
-        effects: this.actor.system.origin.effects,
+        description: originData.description || origin.description,
+        effects: originData.effects,
         hasVariants: originVariants.length > 0,
         variants: originVariants,
         variantDetails: variant?.details || variant?.description || ""
@@ -275,13 +290,16 @@ export class NexusActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       if (!input) continue;
       input.addEventListener("change", event => {
         if (!this.isEditable) return;
-        const maximum = this.actor.system.attributeMax ?? 5;
+        const isShikigami = this.actor.type === "shikigami";
+        const maximum = isShikigami ? Infinity : this.actor.system.attributeMax ?? 5;
         const value = input.valueAsNumber;
         if (value === this.actor.system.attributes[key]) return;
         if (Number.isInteger(value) && value >= 0 && value <= maximum) return;
         event.stopPropagation();
         input.value = this.actor.system.attributes[key];
-        ui.notifications.warn(`Cada atributo deve ficar entre 0 e ${maximum} neste nível.`);
+        ui.notifications.warn(isShikigami
+          ? "Cada atributo deve ser um número inteiro igual ou maior que zero."
+          : `Cada atributo deve ficar entre 0 e ${maximum} neste nível.`);
       });
     }
 
@@ -449,6 +467,7 @@ export class NexusActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
 
   _onClose(options) {
     this.#appearanceConfig = null;
+    this.#shikigamiConfig = null;
     this.#visualUI.destroy();
     this.#cancelBarAnimation();
     this.#barPositions.clear();
@@ -619,6 +638,16 @@ export class NexusActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     }
     this.#appearanceConfig = new NexusAppearanceConfig(this);
     return this.renderChild(this.#appearanceConfig);
+  }
+
+  static #configureShikigami() {
+    if (!this.isEditable || !game.user?.isGM || this.actor.type !== "shikigami") return;
+    if (this.#shikigamiConfig?.rendered) {
+      this.#shikigamiConfig.bringToFront();
+      return;
+    }
+    this.#shikigamiConfig = new NexusShikigamiConfig(this);
+    return this.renderChild(this.#shikigamiConfig);
   }
 
   static #openPopup(_event, target) {

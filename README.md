@@ -22,7 +22,7 @@ Para atualizar, use **Check for Updates** na lista de sistemas do Foundry. O lin
 
 - Ficha de personagem com atributos, nível, XP, HP, EA e CA.
 - Ficha de maldição com classificação de Grau 4 a Grau Especial.
-- Ficha reduzida de shikigami com as abas Movimentos, Técnicas e Anotações.
+- Ficha reduzida de shikigami com Força, Destreza, Agilidade e Constituição, HP, nível e deslocamento definido manualmente; abas Movimentos, Técnicas e Anotações.
 - Movimentos com rolagem no chat e custo de Energia Amaldiçoada.
 - Movimentos na barra de macros: arraste o botão do dado para um slot; um clique normal no dado continua rolando pela ficha.
 - Talentos, técnicas, conhecimentos, inventário, história e anotações.
@@ -31,6 +31,10 @@ Para atualizar, use **Check for Updates** na lista de sistemas do Foundry. O lin
 - Compêndio **Sistemática**, com banner animado de Higuruma, regras de combate, personagem, treinamento e técnicas, ilustrado com GIFs e tabelas; demais seções preparadas para receber conteúdo.
 
 Os atalhos ficam na barra do usuário conectado. As teclas 1–9 e 0 executam os movimentos da página ativa da barra. A macro usa os dados atuais do movimento e a mesma rolagem da ficha, incluindo imagem, efeitos, custo e verificação de EA disponível. Ao excluir um movimento da ficha, as macros vinculadas a ele também são excluídas automaticamente.
+
+Shikigamis começam com 50 HP no nível 1 e recebem 25 HP por nível seguinte, sem bônus de Constituição. Seus quatro atributos físicos são inteiros não negativos, sem limite automático por nível. O deslocamento começa vazio e é definido manualmente. Shikigamis não possuem XP, EA, origem ou inventário; o custo dos movimentos aparece apenas como texto no chat, sem descontar EA.
+
+O mestre pode vincular um personagem como invocador na configuração do shikigami. A ficha consulta os atributos atuais desse personagem para exibir Ocultismo (JJT + FDV + INT) e distância máxima (JJT). Essas referências ficam sem valor quando não há invocador válido; a distância é informativa.
 
 ## Desenvolvimento
 
