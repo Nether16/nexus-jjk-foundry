@@ -3,8 +3,8 @@
   "name": "04 - Técnicas",
   "pages": [
     {
-      "_id": "fd77bae66ec5bbb3",
-      "name": "01 - Treinamento",
+      "_id": "c986279c773addaa",
+      "name": "01 - Técnicas Treináveis",
       "type": "text",
       "sort": 100000,
       "title": {
@@ -13,26 +13,7 @@
       },
       "text": {
         "format": 1,
-        "content": "<div class=\"nexus-wiki\">\n  <h1>TREINAMENTO</h1>\n</div>"
-      },
-      "ownership": {
-        "default": -1
-      },
-      "flags": {},
-      "_key": "!journal.pages!ea5994e3e57119d7.fd77bae66ec5bbb3"
-    },
-    {
-      "_id": "c986279c773addaa",
-      "name": "02 - Técnicas",
-      "type": "text",
-      "sort": 200000,
-      "title": {
-        "show": false,
-        "level": 1
-      },
-      "text": {
-        "format": 1,
-        "content": "<div class=\"nexus-wiki\">\n  <h1>TÉCNICAS</h1>\n</div>"
+        "content": "<div class=\"nexus-wiki\"> \n <h1 style=\"letter-spacing: 6px;\">TÉCNICAS TREINÁVEIS</h1> \n\n <div style=\"text-align: left;\"> \n   <p> \n           As <strong>Técnicas Aprendidas</strong> são habilidades de jujutsu adquiridas por meio de treinamento. Diferente das Técnicas Inatas, elas não estão vinculadas ao nascimento do feiticeiro, podendo ser dominadas por qualquer usuário de Energia Amaldiçoada que cumpra seus requisitos e dedique tempo suficiente para aperfeiçoá-las. \n   </p> \n   <p> \n           Essas técnicas representam conhecimentos desenvolvidos ao longo da história do mundo jujutsu, sendo transmitidos entre gerações de feiticeiros, ensinados por escolas especializadas ou criados por indivíduos durante suas vidas. Seu domínio exige disciplina, controle refinado da Energia Amaldiçoada e constante prática, tornando algumas delas significativamente mais complexas do que outras. \n   </p> \n   <p> \n           Ao longo de sua jornada, um personagem poderá aprender diversas Técnicas Aprendidas, ampliando seu repertório de habilidades e adaptando seu estilo de combate às mais variadas situações. Diferentemente das Técnicas Inatas, que definem a identidade de um feiticeiro, as Técnicas Aprendidas representam sua evolução, versatilidade e dedicação ao aperfeiçoamento do jujutsu. \n   </p> \n </div> \n\n <hr> \n\n <h2>Reforço Amaldiçoado:</h2> \n <div style=\"text-align: left;\"> \n   <p> \n           O <strong>Reforço Amaldiçoado</strong> é uma das bases do jujutsu e um dos primeiros conhecimentos transmitidos aos feiticeiros. Seja por meio de um clã, de uma escola de jujutsu ou de um mestre, praticamente todo usuário de Energia Amaldiçoada aprende a utilizá-lo durante sua formação. Seu princípio consiste em revestir o próprio corpo com Energia Amaldiçoada, aumentando suas capacidades físicas e tornando seus golpes mais poderosos, ao mesmo tempo em que reduz o impacto de ataques recebidos. \n   </p> \n   <p> \n     O Reforço Amaldiçoado possui duas aplicações fundamentais:<br> \n     <strong>Ofensiva:</strong> Amplifica o poder destrutivo de ataques físicos e técnicas de combate corpo a corpo.<br> \n     <strong>Defensiva:</strong> Reforça o corpo do usuário, reduzindo o dano sofrido por ataques físicos e amaldiçoados. \n   </p> \n   <p> \n           Apesar de ser considerado um conhecimento básico entre os feiticeiros, seu verdadeiro potencial depende diretamente do controle e da quantidade de Energia Amaldiçoada que o usuário é capaz de manipular. \n   </p> \n </div> \n\n <p><strong>Tabela de Reforço Ofensivo:</strong></p> \n <img class=\"tabela-img\" src=\"systems/nexus-jjk/assets/journal/tabela-reforco-ofensivo.png\" alt=\"Tabela de Reforço Ofensivo\"> \n\n <p><strong>Tabela de Reforço Defensivo:</strong></p> \n <img class=\"tabela-img\" src=\"systems/nexus-jjk/assets/journal/tabela-reforco-defensivo.png\" alt=\"Tabela de Reforço Defensivo\"> \n\n <hr> \n\n <h2>Reforço Amaldiçoado II:</h2> \n <div style=\"text-align: left;\"> \n   <p> \n           Em sua forma de segundo patamar o individuo possui uma característica peculiar em sua energia amaldiçoada, a chamada <strong>\"Energia Única\"</strong>. A construção dela será feita em conjunto com o Mestre Sistematizador, é nescessário abrir uma solicitação no canal de Habilidades utilizando o padrão de solicitações.<br> \n     Você deverá descrever detalhadamente qual é a característica da energia e quais efeitos você espera que ela possua. A aprovação e o balanceamento ficarão a critério da equipe de sistematização. \n   </p> \n </div> \n\n <hr> \n\n <h2>Leitura Amaldiçoada:</h2> \n <div style=\"text-align: left;\"> \n   <p> \n     A <strong>Leitura Amaldiçoada</strong> é uma das Técnicas Aprendidas mais utilizadas no mundo jujutsu. Diferentemente da maioria das técnicas, seu foco está na percepção e interpretação da Energia Amaldiçoada, permitindo ao usuário compreender fenômenos ocultos e antecipar ações de seus adversários. Por sua elevada complexidade, a técnica utiliza um atributo exclusivo denominado <strong>Percepção Ocultista</strong>. \n   </p> \n   <p> \n     <strong>Percepção Ocultista:</strong> Sempre que realizar um teste relacionado à Leitura Amaldiçoada, o personagem utilizará um teste de Percepção Ocultista, calculada da seguinte forma:<br> \n     <code>Percepção Ocultista = (JJT + PER) ÷ 2</code>. Ou, alternativamente, cada ponto investido em Jujutsu e Percepção, concede 1 ponto de Percepção Ocultista. \n   </p> \n </div> \n\n <hr> \n\n <h2>Primeiro Patamar</h2> \n <div style=\"text-align: left;\"> \n   <p> \n     Ao dominar o primeiro estágio da técnica, o usuário torna-se capaz de perceber rastros residuais de Energia Amaldiçoada deixados inconscientemente por feiticeiros, maldições e objetos amaldiçoados. \n   </p> \n   <p> \n     Essa habilidade permite:<br> \n     - Rastrear indivíduos por meio de seus vestígios de Energia Amaldiçoada.<br> \n     - Detectar a presença de Espíritos Amaldiçoados ocultos.<br> \n     - Identificar manifestações recentes de Energia Amaldiçoada.<br> \n     - Reconhecer sinais de combate ou utilização de técnicas no ambiente. \n   </p> \n   <p>Consulte a tabela correspondente.</p> \n </div> \n <img class=\"tabela-img\" src=\"systems/nexus-jjk/assets/journal/tabela-leitura-patamar1.png\" alt=\"Leitura Amaldiçoada - Primeiro Patamar\"> \n\n <hr> \n\n <h2>Segundo Patamar</h2> \n <div style=\"text-align: left;\"> \n   <p> \n     No segundo estágio, a Leitura Amaldiçoada passa a ser utilizada diretamente durante confrontos. \n   </p> \n   <p> \n     Sempre que um inimigo canalizar Energia Amaldiçoada para realizar um ataque, o usuário poderá gastar uma <strong>Ação Reativa</strong> para analisar essa concentração de energia, antecipando parcialmente seus movimentos. \n   </p> \n   <p> \n     Ao fazê-lo, recebe um <strong>bônus em testes de Esquiva</strong> igual à metade de sua <strong>Percepção Ocultista</strong>. \n   </p> \n   <p>Consulte a tabela correspondente.</p> \n </div> \n <img class=\"tabela-img\" src=\"systems/nexus-jjk/assets/journal/tabela-leitura-patamar2.png\" alt=\"Leitura Amaldiçoada - Segundo Patamar\"> \n\n <hr> \n</div>"
       },
       "ownership": {
         "default": -1
@@ -41,8 +22,27 @@
       "_key": "!journal.pages!ea5994e3e57119d7.c986279c773addaa"
     },
     {
-      "_id": "ac5902c8f131eec0",
-      "name": "03 - Inata",
+      "_id": "6719ab14fc7562a9",
+      "name": "02 - Técnicas de Barreiras",
+      "type": "text",
+      "sort": 200000,
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<div class=\"nexus-wiki\"> \n <h1 style=\"color: #1E50FF; letter-spacing: 6px;\">TÉCNICAS DE BARREIRAS</h1> \n\n <div style=\"text-align: left;\"> \n   <p> \n           As <strong>Técnicas de Barreira</strong> são artes avançadas do Jujutsu capazes de manipular o espaço por meio da Energia Amaldiçoada. Com elas, um feiticeiro pode isolar áreas, ocultar ambientes, restringir a passagem de indivíduos, fortalecer técnicas ou estabelecer condições específicas para um combate. A eficiência de qualquer barreira depende diretamente da habilidade de seu usuário em estruturá-la e mantê-la ativa. \n   </p> \n\n   <p> \n     <strong style=\"color: #1E50FF;\">Perícia Ocultista:</strong> Todas as Técnicas de Barreira utilizam como base a Perícia Ocultista, calculada da seguinte forma: \n   </p> \n </div> \n\n <p> \n   <strong style=\"color: #1E50FF;\">(INT + JJT + FDV) × 10</strong> \n </p> \n\n <div style=\"text-align: left;\"> \n   <p> \n           Esse valor representa o poder estrutural da barreira e é utilizado para determinar sua resistência, resolver disputas entre barreiras e expansões de domínio, além de servir como referência para demais testes envolvendo técnicas de barreira. A <strong>Perícia Ocultista</strong> pode ser <em>aprimorada</em> por meio de <strong>Talentos, Aptidões, Votos Vinculativos</strong> e outros efeitos que aumentem sua eficiência. \n   </p> \n </div> \n\n <hr style=\"width: 5%;\"> \n\n <h2 style=\"color: #1E50FF;\">Cortina:</h2> \n <img src=\"systems/nexus-jjk/assets/journal/barreira-cortina.gif\" alt=\"Cortina\"> \n <p> \n   A <strong>Cortina</strong> é uma Técnica Aprendida de Barreira utilizada para isolar uma área do mundo exterior, ocultando completamente tudo o que acontece em seu interior. Para conjurá-la, o personagem deve gastar <strong>50 EA</strong> e utilizar uma <strong>Ação Principal</strong>, recitando seu encantamento durante a ativação. \n </p> \n <p> \n   Por padrão, a Cortina possui um <strong>raio de 20 metros</strong>. Esse alcance pode ser ampliado no momento da conjuração, consumindo Energia Amaldiçoada adicional. A cada <strong>20 metros extras</strong> adicionados ao raio, o custo de criação é <em>duplicado em relação ao custo anterior</em>. Além de ocultar o ambiente interno, uma Cortina pode ter suas propriedades modificadas por meio de <strong>Votos Vinculativos</strong>, permitindo efeitos como restringir ou permitir a entrada de indivíduos, impedir a saída de alvos específicos, bloquear a passagem de Energia Amaldiçoada ou adicionar outras condições, desde que compatíveis com as limitações impostas pelo voto. \n </p> \n\n <hr style=\"width: 5%;\"> \n\n <h2 style=\"color: #1E50FF;\">Expansão de Domínio:</h2> \n <img src=\"systems/nexus-jjk/assets/journal/barreira-expansao-dominio.gif\" alt=\"Expansão de Domínio\"> \n <p> \n   A <strong>Expansão de Domínio</strong> representa o ápice da feitiçaria Jujutsu, sendo a manifestação completa da <strong>Técnica Inata</strong> de um feiticeiro. Ao erguer uma barreira, o usuário materializa um espaço moldado por sua própria técnica, onde as regras do ambiente passam a favorecer exclusivamente seu criador. Por padrão, uma Expansão de Domínio possui um <strong>raio de 20 metros</strong>, podendo esse alcance ser alterado por meio de <strong>Votos Vinculativos</strong>. Dentro de uma Expansão de Domínio, a Técnica Amaldiçoada do usuário <em>atinge seu máximo potencial</em>. O ambiente torna-se uma extensão de sua própria técnica, amplificando seus efeitos e, dependendo das propriedades do domínio, concedendo <strong>Acerto Garantido</strong>. \n </p> \n\n <hr style=\"width: 5%;\"> \n\n <h2 style=\"color: #1E50FF;\">Disputa de Domínio</h2> \n <p> \n   Ao utilizar sua <strong>Ação Principal</strong> para expandir um domínio, o usuário define seus valores com base em sua <strong>Perícia Ocultista</strong>. Todos os <em>personagens que estiverem dentro da área da expansão</em> podem utilizar uma <strong>Ação Reativa</strong> para ativar sua própria Expansão de Domínio, iniciando uma <strong>Disputa de Domínio</strong>. Durante a disputa, os domínios entram em equilíbrio até que um deles prevaleça. O vencedor é determinado pelo Refino do Domínio, tendo como principal referência a Perícia Ocultista, além de quaisquer bônus provenientes de Talentos, Aptidões, Votos Vinculativos ou outros efeitos. \n </p> \n\n <hr style=\"width: 5%;\"> \n\n <h2 style=\"color: #1E50FF;\">Sobrecarga Cerebral</h2> \n <p> \n   A ativação de uma <strong>Expansão de Domínio</strong> exige uma <em>quantidade extrema</em> de Energia Amaldiçoada e um <em>controle excepcional</em> da Técnica Inata. Como consequência, após o término da expansão, o cérebro do usuário entra em <strong>Sobrecarga</strong>, impedindo o uso de sua <strong>Técnica Inata por 3 rodadas</strong>.<br> \n   A única exceção é quando uma habilidade ou efeito permitir a <strong>recuperação</strong> dessa exaustão, como <em>técnicas de Energia Amaldiçoada Reversa (EAR)</em>. \n </p> \n <p> \n   Após encerrar a <strong>Expansão de Domínio</strong>, o usuário pode realizar um <strong>Teste de JJT</strong> <em>contra</em> a CD definida pela técnica. Caso obtenha <strong>sucesso</strong>, <em>recupera-se da sobrecarga cerebral</em>.<br> \n   Em caso de falha, além de permanecer impossibilitado de utilizar sua Técnica Inata pelo período normal, sofre as condições <strong>Paralisado</strong> e <strong>Sangramento II</strong>. \n </p> \n</div>"
+      },
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!ea5994e3e57119d7.6719ab14fc7562a9"
+    },
+    {
+      "_id": "2657ccc1de269b3e",
+      "name": "03 - Anti-Domínios",
       "type": "text",
       "sort": 300000,
       "title": {
@@ -51,17 +51,17 @@
       },
       "text": {
         "format": 1,
-        "content": "<div class=\"nexus-wiki\">\n  <h1>INATA</h1>\n</div>"
+        "content": "<div class=\"nexus-wiki\"> \n <h1 style=\"color: #3DA5A8; letter-spacing: 6px;\">ANTI - DOMÍNIO</h1> \n\n <div style=\"text-align: left;\"> \n   <p> \n           Nem todo feiticeiro é capaz de realizar uma <strong>Expansão de Domínio</strong>, mas muitos desenvolvem técnicas voltadas especificamente a enfrentá-las. As <strong>Técnicas Anti-Domínio</strong> consistem em métodos avançados de manipulação da Energia Amaldiçoada capazes de <em>enfraquecer, neutralizar ou resistir</em> aos efeitos de uma <strong>Expansão de Domínio</strong>. Embora não sejam suficientes para superar um domínio completo por si só, elas oferecem ao usuário uma oportunidade de sobreviver ao confronto, criar brechas na barreira inimiga ou reduzir a vantagem proporcionada pelo domínio adversário. \n   </p> \n </div> \n\n <p> \n   Entre as técnicas Anti-Domínio mais conhecidas estão o <strong>Domínio Simples</strong>, a <strong>Cesta de Vime Oca</strong> e a <strong>Emoção da Pétala Caída</strong>, cada uma possuindo um método distinto para lidar com os efeitos de uma Expansão de Domínio. \n </p> \n\n <hr style=\"width: 5%;\"> \n\n <h2 style=\"color: #3DA5A8;\">Cesta de Vime Oca</h2> \n\n <p> \n   A <strong>Cesta de Vime Oca</strong> é uma Técnica Anti-Domínio tradicional que envolve o corpo do usuário em um <strong>fluxo contínuo de Energia Amaldiçoada</strong>, moldada em um padrão ritualístico. Ao custo de <strong>50 EA</strong> (+10 por nível), a técnica pode ser ativada por meio de uma <strong>Ação Reativa</strong> quando o usuário for alvo de uma Expansão de Domínio, anulando temporariamente os efeitos de acerto garantido e outras ofensivas direcionadas exclusivamente contra o seu portador. \n </p> \n\n <p> \n   Diferentemente do <strong>Domínio Simples</strong>, a <strong>Cesta de Vime Oca</strong> não cria uma área própria, concentrando toda a sua defesa em seu próprio corpo. Entretanto, manter a técnica exige concentração constante, impedindo o usuário de utilizar <strong>selos de mão</strong> enquanto ela permanecer ativa. Para sustentá-la, é necessário gastar uma <strong>Ação Bônus</strong> juntamente de uma <strong>Ação Livre</strong> (para o manter o selo de mão), pagando um custo equivalente à <strong>metade do valor de sua ativação</strong>. \n </p> \n\n <hr style=\"width: 5%;\"> \n\n <h2 style=\"color: #3DA5A8;\">Emoção da Pétala Caída</h2> \n\n <p> \n   A <strong>Emoção da Pétala Caída</strong> é uma Técnica Anti-Domínio <strong>secreta</strong> desenvolvida pelos <strong>Três Grandes Clãs</strong>, criada para transformar a defesa do usuário em um reflexo instintivo. Em vez de neutralizar diretamente o acerto garantido de uma Expansão de Domínio, a técnica faz com que a Energia Amaldiçoada circule continuamente ao redor do corpo do usuário. Ao custo de <strong>60 EA</strong> (+10 por nível), ela pode ser ativada como uma <strong>Ação Reativa</strong>, permitindo que qualquer ataque inevitável que ultrapasse sua guarda seja respondido automaticamente. \n </p> \n\n <p> \n   Sempre que um golpe de acerto garantido atingir o usuário, sua Energia Amaldiçoada reage de maneira instantânea, desviando ou anulando a ofensiva sem a necessidade de qualquer ação consciente. Apesar de ser extremamente eficiente contra ataques físicos provenientes de uma Expansão de Domínio, essa técnica exige um cotrole excepcional da Energia Amaldiçoada e impede o usuário de se movimentar enquanto permanecer ativa. Por sua complexidade, seu aprendizado é restrito àqueles que possuem forte ligação com um dos <strong>Três Grandes Clãs</strong>, sendo necessário possuir filiação significativa com um deles e, além disso, <strong>10 de JJT</strong> para dominá-la. \n </p> \n\n <hr style=\"width: 5%;\"> \n</div>"
       },
       "ownership": {
         "default": -1
       },
       "flags": {},
-      "_key": "!journal.pages!ea5994e3e57119d7.ac5902c8f131eec0"
+      "_key": "!journal.pages!ea5994e3e57119d7.2657ccc1de269b3e"
     },
     {
-      "_id": "6029271a66a7a2ec",
-      "name": "04 - Catálogo",
+      "_id": "96c18877096cc6a6",
+      "name": "04 - EAR",
       "type": "text",
       "sort": 400000,
       "title": {
@@ -70,13 +70,32 @@
       },
       "text": {
         "format": 1,
-        "content": "<div class=\"nexus-wiki\">\n  <h1>CATÁLOGO</h1>\n</div>"
+        "content": "<div class=\"nexus-wiki\"> \n <h1 style=\"color: #F5C542; letter-spacing: 3px;\">Energia Amaldiçoada Reversa</h1> \n\n <hr style=\"width: 5%;\"> \n\n <img src=\"systems/nexus-jjk/assets/journal/ear-yuta.gif\" alt=\"Energia Amaldiçoada Reversa\"> \n\n <div style=\"text-align: left;\"> \n   <p> \n     A Energia Amaldiçoada Reversa (EAR) é uma das formas mais avançadas de <strong>manipulação da Energia Amaldiçoada</strong>. Ela é criada pela <strong>multiplicação de energia negativa por energia negativa</strong>, gerando energia positiva, capaz de restaurar tecidos, regenerar ferimentos e neutralizar danos sofridos pelo corpo. Além de seu poder restaurador, a Energia Amaldiçoada Reversa é <strong>extremamente nociva para maldições e shikigamis</strong>, uma vez que são constituídos de Energia Amaldiçoada. Sempre que utilizada contra esses alvos, o <strong>dano causado</strong> será igual à quantidade de EAR empregada multiplicada por 2. \n   </p> \n\n   <p> \n     Por se tratar de uma técnica de altíssimo nível, <strong>poucos feiticeiros conseguem dominá-la</strong>. Entretanto, existem exceções. Alguns indivíduos, graças a um <strong>Talento Inato</strong>, despertam naturalmente a capacidade de utilizar Energia Amaldiçoada Reversa <em>desde o início de sua jornada</em>. Nesses casos, o personagem pode utilizá-la desde a criação da ficha e, conforme evolui, desenvolver um domínio superior da técnica, <em>reduzindo seus custos de utilização</em>. Da mesma forma, determinadas Técnicas Inatas dependem da Energia Amaldiçoada Reversa para seu funcionamento, sendo <em>concedida como parte de seu balanceamento</em>. Um exemplo é a técnica de <strong>Iori Hazenoki</strong>, cuja habilidade utiliza a regeneração constante proporcionada pela EAR. \n   </p> \n </div> \n\n <hr style=\"width: 5%;\"> \n\n <h2 style=\"color: #F5C542;\">Utilização</h2> \n <p> \n   A criação de Energia Amaldiçoada Reversa consome Energia Amaldiçoada comum, sendo a quantidade convertida definida pelo próprio usuário,<br> \n   respeitando os valores estabelecidos na tabela de conversão. \n </p> \n\n <div style=\"text-align: left;\"> \n   <p> \n     A técnica pode ser empregada de <strong>duas formas</strong>:<br> \n           <strong style=\"color: #F5C542;\">Uso Interno:</strong> utilizado sobre o <strong>próprio corpo</strong>, consumindo uma <strong>Ação Suplementar</strong>.<br> \n           <strong style=\"color: #F5C542;\">Uso Externo:</strong> utilizado em <strong>outro alvo</strong>, consumindo uma <strong>Ação Principal</strong>. que pode ter <strong>ações curativas em humanos</strong> e <strong>ações ofensivas em maldições</strong>. \n   </p> \n\n   <p> \n     <strong style=\"color: #F5C542;\">Ação Ofensiva:</strong> Ao utilizar de sua <strong>Ação Principal</strong> o usuário tenta imbuir sua <strong>EAR Externa</strong> em um alvo, o usuário deverá primeiro tentar aproximar sua mão do alvo, utilizando seu acerto de <strong>DES</strong>. Ao ter sucesso, poderá liberar sua EAR Externa, aplicando seu respectivo custo e dano. \n   </p> \n\n   <p> \n     <strong style=\"color: #F5C542;\">Ação Curativa:</strong> Ao utilizar de sua <strong>Ação Principal</strong> o usuário usa em um aliado escolhido. \n   </p> \n\n   <p> \n     A <em style=\"color: #F5C542;\"><strong>Energia Reversa</strong></em> cura equivalente a <strong style=\"color: #F5C542;\">3HP</strong> por cada <strong style=\"color: #F5C542;\">EAR</strong> , Seu dano quando utilizado em maldições é equivalente a mesma proporção. \n   </p> \n </div> \n\n <hr style=\"width: 5%;\"> \n\n <h2 style=\"color: #F5C542;\">Exemplos de Uso :</h2> \n\n <p> \n   <strong>Tuyo tentou imbuir sua EAR Externa em uma maldição. Porém ao tentar tocá-la, não obteve sucesso no acerto.</strong><br> \n   <em>Dessa forma, sua EA não será consumida, uma vez que a aplicação de Energia Reversa não chegou a ser realizada</em> \n </p> \n\n <p> \n   <strong>Caso um aliado esteja na condição Caído e receba cura através da Energia Amaldiçoada Reversa.</strong><br> \n   <em>ele é automaticamente Estabilizado, podendo agir normalmente em seu próximo turno, conforme as regras da condição.</em> \n </p> \n\n <hr style=\"width: 5%;\"> \n\n <h2 style=\"color: #F5C542;\">Tabela O1 - Uso Interno</h2> \n <img class=\"tabela-img\" src=\"systems/nexus-jjk/assets/journal/tabela-ear-interno.png\" alt=\"Tabela 01 - Uso Interno\"> \n\n <h2 style=\"color: #F5C542;\">Tabela O2 - Uso Externo</h2> \n <img class=\"tabela-img\" src=\"systems/nexus-jjk/assets/journal/tabela-ear-externo.png\" alt=\"Tabela 02 - Uso Externo\"> \n\n <hr style=\"width: 5%;\"> \n\n <h2 style=\"color: #F5C542;\">Limitação de Uso:</h2> \n <p> \n   <strong>Nível 0-5:    25 EAR</strong><br> \n   <strong>Nível 5-15:   40 EAR</strong><br> \n   <strong>Nível 15+:    60 EAR</strong> \n </p> \n\n <hr style=\"width: 5%;\"> \n</div>"
       },
       "ownership": {
         "default": -1
       },
       "flags": {},
-      "_key": "!journal.pages!ea5994e3e57119d7.6029271a66a7a2ec"
+      "_key": "!journal.pages!ea5994e3e57119d7.96c18877096cc6a6"
+    },
+    {
+      "_id": "9d1b3c58e910c9e9",
+      "name": "05 - Shikigamis",
+      "type": "text",
+      "sort": 500000,
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<div class=\"nexus-wiki\"> \n <h1 style=\"color: #B01E5A; letter-spacing: 6px;\">SHIKIGAMIS</h1> \n\n <p> \n   Os Shikigamis são <strong>entidades invocadas</strong> por meio da Energia Amaldiçoada, manifestadas através de uma técnica ou ritual específico. Cada shikigami possui <strong>atributos próprios</strong> e atua de forma <strong>independente</strong> em combate, obedecendo às ordens de seu invocador. Embora compartilhem um vínculo com seu mestre, eles possuem uma <strong>ficha individual</strong> e podem sofrer dano, realizar ações e utilizar habilidades conforme suas características. \n </p> \n\n <h2 style=\"color: #B01E5A;\">Ficha do Shikigami</h2> \n\n <p> \n   <strong>HP:</strong> 50 (+25 por nível)<br> \n   <strong>Perícia Ocultista:</strong> JJT + FDV + INT do invocador (total de pontos para distribuir) \n </p> \n\n <div style=\"text-align: left; max-width: 300px; margin: 16px auto;\"> \n   <p> \n     <strong>FOR:</strong><br> \n     <strong>DEX:</strong><br> \n     <strong>AGI:</strong><br> \n     <strong>CONS:</strong> \n   </p> \n </div> \n\n <p> \n   <strong>Distância Máxima:</strong> O Shikigami pode permanecer a até <strong>JJT metros</strong> de seu invocador.<br> \n   Caso ultrapasse esse limite, retorna imediatamente para próximo do mestre ou é desfeito, conforme a técnica utilizada. \n </p> \n</div>"
+      },
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!ea5994e3e57119d7.9d1b3c58e910c9e9"
     }
   ],
   "categories": [],

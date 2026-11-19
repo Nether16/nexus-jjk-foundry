@@ -1,8 +1,8 @@
 # Livro de Regras e Mundo
 
-Este compêndio contém dois grupos de diários: Mundo e Sistemática. Combate inclui Condições Ofensivas, Críticos, Kokusen e Morte; Personagem inclui Status, Atributos, especializações de Origem, Level Up, Perícias e Itens Amaldiçoados. Treinamento reúne Sistema de Aprendizado e Conhecimentos. As demais páginas têm títulos e campos HTML preparados para receber conteúdo depois. Os três diários de Mundo ainda não possuem páginas.
+Este compêndio contém dois grupos de diários: Mundo e Sistemática. Combate inclui Condições Ofensivas, Críticos, Kokusen e Morte; Personagem inclui Status, Atributos, especializações de Origem, Level Up, Perícias e Itens Amaldiçoados. Treinamento reúne Sistema de Aprendizado e Conhecimentos. Técnicas reúne Técnicas Treináveis, Barreiras, Anti-Domínios, EAR e Shikigamis; Inata contém Técnicas Inatas; Catálogo apresenta técnicas da obra e de clã. As demais páginas têm títulos e campos HTML preparados para receber conteúdo depois. Os três diários de Mundo ainda não possuem páginas.
 
-São duas pastas e sete diários, com sete páginas de Combate, dezessete de Personagem, duas de Treinamento e quatro de Técnicas. Talentos não possui página no livro; os talentos da ficha do personagem continuam disponíveis.
+São duas pastas e nove diários, com trinta e quatro páginas: sete de Combate, dezessete de Personagem, duas de Treinamento, cinco de Técnicas, uma de Inata e duas de Catálogo. A numeração de Sistemática segue a sequência de 01 - Combate até 06 - Catálogo. Talentos não possui página no livro; os talentos da ficha do personagem continuam disponíveis.
 
 Os arquivos `_Folder.json` representam pastas. Cada outro JSON representa um `JournalEntry`, com suas `JournalEntryPage` dentro de `pages`. Não crie documentos Item ou Actor para o livro.
 

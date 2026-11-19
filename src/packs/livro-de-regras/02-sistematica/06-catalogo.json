@@ -1,0 +1,52 @@
+{
+  "_id": "721519fc8756e498",
+  "name": "06 - Catálogo",
+  "pages": [
+    {
+      "_id": "6029271a66a7a2ec",
+      "name": "01 - Tec. da Obra",
+      "type": "text",
+      "sort": 100000,
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<div class=\"nexus-wiki nexus-catalogo\"> \n <div class=\"nexus-catalogo-grid\" style=\"display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; margin-top: 12px;\"> \n   <div> \n     <p style=\"margin-bottom: 6px;\"><strong>Disaster Tides</strong></p> \n     <img src=\"systems/nexus-jjk/assets/journal/catalogo-disaster-tides.gif\" alt=\"Disaster Tides\" style=\"width: 100%; border-radius: 4px; margin: 0;\"> \n     <p style=\"margin-top: 6px;\"><strong>Vaga 0/1 - R$ 50</strong></p> \n   </div> \n\n   <div> \n     <p style=\"margin-bottom: 6px;\"><strong>Disaster Plants</strong></p> \n     <img src=\"systems/nexus-jjk/assets/journal/catalogo-disaster-plants.gif\" alt=\"Disaster Plants\" style=\"width: 100%; border-radius: 4px; margin: 0;\"> \n     <p style=\"margin-top: 6px;\"><strong>Vaga 1/1 - R$ 50</strong></p> \n   </div> \n\n   <div> \n     <p style=\"margin-bottom: 6px;\"><strong>Boogie Woogie</strong></p> \n     <img src=\"systems/nexus-jjk/assets/journal/catalogo-boogie-woogie.gif\" alt=\"Boogie Woogie\" style=\"width: 100%; border-radius: 4px; margin: 0;\"> \n     <p style=\"margin-top: 6px;\"><strong>Vaga 0/1 - R$ 50</strong></p> \n   </div> \n\n   <div> \n     <p style=\"margin-bottom: 6px;\"><strong>Ice Formation</strong></p> \n     <img src=\"systems/nexus-jjk/assets/journal/catalogo-ice-formation.gif\" alt=\"Ice Formation\" style=\"width: 100%; border-radius: 4px; margin: 0;\"> \n     <p style=\"margin-top: 6px;\"><strong>Vaga 0/1 - R$ 50</strong></p> \n   </div> \n\n   <div> \n     <p style=\"margin-bottom: 6px;\"><strong>Granite Blast</strong></p> \n     <img src=\"systems/nexus-jjk/assets/journal/catalogo-granite-blast.gif\" alt=\"Granite Blast\" style=\"width: 100%; border-radius: 4px; margin: 0;\"> \n     <p style=\"margin-top: 6px;\"><strong>Vaga 0/1 - R$ 50</strong></p> \n   </div> \n\n   <div> \n     <p style=\"margin-bottom: 6px;\"><strong>Anti-Gravity Sistem</strong></p> \n     <img src=\"systems/nexus-jjk/assets/journal/catalogo-anti-gravity-sistem.gif\" alt=\"Anti-Gravity Sistem\" style=\"width: 100%; border-radius: 4px; margin: 0;\"> \n     <p style=\"margin-top: 6px;\"><strong>Vaga 1/1 - R$ 50</strong></p> \n   </div> \n\n   <div> \n     <p style=\"margin-bottom: 6px;\"><strong>Star Rage</strong></p> \n     <img src=\"systems/nexus-jjk/assets/journal/catalogo-star-rage.gif\" alt=\"Star Rage\" style=\"width: 100%; border-radius: 4px; margin: 0;\"> \n     <p style=\"margin-top: 6px;\"><strong>Vaga 1/1 - R$ 50</strong></p> \n   </div> \n\n   <div> \n     <p style=\"margin-bottom: 6px;\"><strong>7:3</strong></p> \n     <img src=\"systems/nexus-jjk/assets/journal/catalogo-7-3.gif\" alt=\"7:3\" style=\"width: 100%; border-radius: 4px; margin: 0;\"> \n     <p style=\"margin-top: 6px;\"><strong>Vaga 1/1 - R$ 50</strong></p> \n   </div> \n\n   <div> \n     <p style=\"margin-bottom: 6px;\"><strong>Orbital Domain</strong></p> \n     <img src=\"systems/nexus-jjk/assets/journal/catalogo-orbital-domain.gif\" alt=\"Orbital Domain\" style=\"width: 100%; border-radius: 4px; margin: 0;\"> \n     <p style=\"margin-top: 6px;\"><strong>Vaga 0/1 - R$ 50</strong></p> \n   </div> \n </div> \n</div>"
+      },
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!721519fc8756e498.6029271a66a7a2ec"
+    },
+    {
+      "_id": "d85ffedeb94ae7d7",
+      "name": "02 - Tec. de Clã",
+      "type": "text",
+      "sort": 200000,
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<div class=\"nexus-wiki nexus-catalogo\"> \n <!-- CLÃ ZEN'IN --> \n <img src=\"systems/nexus-jjk/assets/journal/cla-zenin-banner.png\" alt=\"Clã Zen'in\" style=\"max-width: 240px; margin: 16px auto;\"> \n\n <div class=\"nexus-catalogo-grid\" style=\"display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; margin-top: 12px;\"> \n   <div class=\"nexus-catalogo-espaco\"></div> \n   <div class=\"nexus-catalogo-destaque\" style=\"grid-column: span 2;\"> \n     <p style=\"margin-bottom: 6px;\"><strong>Dez Sombras</strong></p> \n     <img src=\"systems/nexus-jjk/assets/journal/catalogo-dez-sombras.gif\" alt=\"Dez Sombras\" style=\"max-width: 220px; width: 100%; border-radius: 4px; margin: 0 auto;\"> \n     <p style=\"margin-top: 6px;\"><strong>Vaga 1/1 - R$ 55</strong></p> \n   </div> \n   <div class=\"nexus-catalogo-espaco\"></div> \n\n   <div> \n     <p style=\"margin-bottom: 6px;\"><strong>Projeção</strong></p> \n     <img src=\"systems/nexus-jjk/assets/journal/catalogo-projecao.gif\" alt=\"Projeção\" style=\"width: 100%; border-radius: 4px; margin: 0;\"> \n     <p style=\"margin-top: 6px;\"><strong>Vaga 1/1 - R$ 50</strong></p> \n   </div> \n\n   <div> \n     <p style=\"margin-bottom: 6px;\"><strong>Eart Manipulation</strong></p> \n     <img src=\"systems/nexus-jjk/assets/journal/catalogo-earth-manipulation.gif\" alt=\"Eart Manipulation\" style=\"width: 100%; border-radius: 4px; margin: 0;\"> \n     <p style=\"margin-top: 6px;\"><strong>Vaga 0/1 - R$ 50</strong></p> \n   </div> \n </div> \n\n <hr style=\"width: 25%; margin: 28px auto;\"> \n\n <!-- CLÃ KAMO --> \n <img src=\"systems/nexus-jjk/assets/journal/cla-kamo-banner.png\" alt=\"Clã Kamo\" style=\"max-width: 240px; margin: 16px auto;\"> \n\n <div style=\"max-width: 220px; margin: 12px auto; text-align: center;\"> \n   <p style=\"margin-bottom: 6px;\"><strong>Manipulação de Sangue</strong></p> \n   <img src=\"systems/nexus-jjk/assets/journal/catalogo-manipulacao-sangue.gif\" alt=\"Manipulação de Sangue\" style=\"width: 100%; border-radius: 4px; margin: 0;\"> \n   <p style=\"margin-top: 6px;\"><strong>Vaga 0/1 - R$ 50</strong></p> \n </div> \n\n <hr style=\"width: 25%; margin: 28px auto;\"> \n\n <!-- CLÃ INUMAKI --> \n <img src=\"systems/nexus-jjk/assets/journal/cla-inumaki-banner.png\" alt=\"Clã Inumaki\" style=\"max-width: 240px; margin: 16px auto;\"> \n\n <div style=\"max-width: 220px; margin: 12px auto; text-align: center;\"> \n   <p style=\"margin-bottom: 6px;\"><strong>Fala Amaldiçoada</strong></p> \n   <img src=\"systems/nexus-jjk/assets/journal/catalogo-fala-amaldicoada.gif\" alt=\"Fala Amaldiçoada\" style=\"width: 100%; border-radius: 4px; margin: 0;\"> \n   <p style=\"margin-top: 6px;\"><strong>Vaga 0/1 - R$ 50</strong></p> \n </div> \n\n <hr style=\"width: 25%; margin: 28px auto;\"> \n\n <!-- CLÃ FUJIWARA --> \n <img src=\"systems/nexus-jjk/assets/journal/cla-fujiwara-banner.png\" alt=\"Clã Fujiwara\" style=\"max-width: 240px; margin: 16px auto;\"> \n\n <div style=\"max-width: 220px; margin: 12px auto; text-align: center;\"> \n   <p style=\"margin-bottom: 6px;\"><strong>Sky Manipulation</strong></p> \n   <img src=\"systems/nexus-jjk/assets/journal/catalogo-sky-manipulation.gif\" alt=\"Sky Manipulation\" style=\"width: 100%; border-radius: 4px; margin: 0;\"> \n   <p style=\"margin-top: 6px;\"><strong>Vaga 1/1 - R$ 50</strong></p> \n </div> \n</div>"
+      },
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!721519fc8756e498.d85ffedeb94ae7d7"
+    }
+  ],
+  "categories": [],
+  "folder": "fc67c4cfee5ace14",
+  "sort": 600000,
+  "ownership": {
+    "default": 2
+  },
+  "flags": {},
+  "_key": "!journal!721519fc8756e498"
+}

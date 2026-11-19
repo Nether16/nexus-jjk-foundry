@@ -1,0 +1,33 @@
+{
+  "_id": "016eaa5984c7a1aa",
+  "name": "05 - Inata",
+  "pages": [
+    {
+      "_id": "ac5902c8f131eec0",
+      "name": "01 - Técnicas Inatas",
+      "type": "text",
+      "sort": 100000,
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<div class=\"nexus-wiki\"> \n <h1 style=\"color: #FFFFFF; letter-spacing: normal;\">Técnicas Inatas</h1> \n\n <div style=\"text-align: left;\"> \n   <p> \n           As <strong>Técnicas Inatas</strong> representam a principal habilidade sobrenatural de um feiticeiro, sendo a manifestação de um conceito único que define seu estilo de combate e suas possibilidades dentro do Jujutsu. Todo jogador poderá solicitar a criação de sua própria Técnica Inata ao <strong>Mestre Sistematizador</strong>, que será responsável por adaptar e balancear a ideia de acordo com as métricas do sistema. \n   </p> \n\n   <p> \n           Para que uma técnica seja sistematizada, é indispensável que o jogador apresente uma descrição completa de seu conceito, explicando seu funcionamento, aplicações e limitações. Quanto mais detalhada for a proposta, mais fiel será sua adaptação para o sistema. Caso existam dúvidas sobre qualquer aspecto da técnica, o Mestre Sistematizador fará perguntas diretamente no tópico de criação, buscando compreender melhor a ideia antes de concluir a sistematização. \n   </p> \n\n   <p> \n           Durante o processo de criação, algumas regras são obrigatórias. Técnicas não poderão utilizar conceitos idênticos aos de Técnicas Inatas que já pertençam a outros jogadores ou a NPCs de grande importância para a narrativa do servidor. Da mesma forma, determinados conceitos não serão aprovados em hipótese alguma, como manipulação do tempo, cópia de Técnicas Inatas ou qualquer outra habilidade que comprometa o equilíbrio do sistema. \n   </p> \n\n   <p> \n           Embora uma Técnica Inata possa possuir um conceito amplo e permitir diversas possibilidades no futuro, o jogador deverá escolher uma função inicial bem definida para começar sua jornada. Novas aplicações, habilidades e formas de utilização poderão ser desbloqueadas posteriormente por meio das Extensões de Técnica, permitindo que a técnica evolua gradualmente ao longo da progressão do personagem. \n   </p> \n\n   <p> \n           Tenha em mente que uma técnica especializada tende a ser muito mais eficiente do que uma técnica excessivamente abrangente. É preferível executar uma única função com excelência do que tentar realizar dez funções diferentes de forma limitada. O foco da criação deve estar em um conceito sólido, coerente e bem desenvolvido, permitindo que sua evolução aconteça de maneira natural conforme o personagem cresce dentro do sistema. \n   </p> \n </div> \n</div>"
+      },
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!016eaa5984c7a1aa.ac5902c8f131eec0"
+    }
+  ],
+  "categories": [],
+  "folder": "fc67c4cfee5ace14",
+  "sort": 500000,
+  "ownership": {
+    "default": 2
+  },
+  "flags": {},
+  "_key": "!journal!016eaa5984c7a1aa"
+}
