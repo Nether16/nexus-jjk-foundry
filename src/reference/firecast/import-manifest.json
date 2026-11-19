@@ -988,18 +988,14 @@
       "pageId": "2d5bdc39828be3b2",
       "pageName": "Origens Gratuitas (F2P)",
       "sort": 600000,
-      "policy": "transcribe",
+      "policy": "restore-pre-firecast-free-origins",
       "sourceVisibleCharacters": 2576,
       "originalMediaReferences": 0,
-      "preservedImageTags": [
-        "<img src=\"systems/nexus-jjk/assets/journal/origem-feiticeiro-inato.gif\" alt=\"Feiticeiro Inato\">",
-        "<img src=\"systems/nexus-jjk/assets/journal/origem-sem-tecnica-inata.gif\" alt=\"Sem Técnica Inata\">",
-        "<img src=\"systems/nexus-jjk/assets/journal/talento-naturalmente-reverso.gif\" alt=\"Naturalmente Reverso\">",
-        "<img src=\"systems/nexus-jjk/assets/journal/talento-estilo-das-sombras.gif\" alt=\"Estilo das Sombras\">"
-      ],
+      "preservedImageTags": [],
       "omittedHiddenSpans": 0,
       "omittedHiddenCharacters": 0,
-      "contentSha256": "82e185ec956efd6201e54e323bcbf9337f621d996bcdc5620ead2c21058b7a23"
+      "contentSha256": "e99f326252fbd36e620bdc0ac36b86f91907ac44663e17abb3453dd3bcd7cee5",
+      "restoredFrom": "935e173 (0.4.14), conforme pedido do usuário"
     },
     {
       "sourceIndex": 40,

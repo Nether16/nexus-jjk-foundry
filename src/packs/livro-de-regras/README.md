@@ -10,6 +10,8 @@ As mídias fornecidas permanecem em `assets/journal/`. A transcrição reutiliza
 
 Origens Pagas recebeu a revisão pontual com os textos de Restrição Celestial: Física, Restrição Celestial: Feitiçaria, Amaldiçoado, Receptáculo, Híbrido e Gêmeos. O conteúdo segue o documento fornecido; o ID real `016a179411ac66b0`, a chave da página e sua posição (`sort: 650000`) foram mantidos.
 
+A pedido do usuário, Origens Gratuitas (F2P) voltou ao conteúdo e visual da versão 0.4.14, anterior à transcrição das bibliotecas Firecast. Seu ID `2d5bdc39828be3b2`, a chave e a posição foram preservados; o manifesto de referência registra essa exceção à transcrição.
+
 Os 24 IDs de páginas e os oito IDs de diários existentes foram preservados. As páginas restauradas recuperam seus IDs anteriores quando disponíveis. O antigo espaço de Treinamento recebeu Sistema de Aprendizado, preservando seu ID. Catálogo recuperou os IDs que já possuía. Origens Pagas ficou integralmente intacta, com a revisão nova, suas seis origens, imagens, chave e posição; a aba Origens Compra do Firecast já continha as mesmas seis origens, sem conteúdo faltante para acrescentar nela.
 
 As bibliotecas binárias originais e o manifesto de correspondência entre abas, páginas e mídias estão em `src/reference/firecast/`. A conversão preserva o texto visível, parágrafos, destaques, cores e ordem das abas. Sete spans de fonte quase invisível (0,1 px), contendo cópias ocultas do editor, foram omitidos da apresentação; os originais completos continuam nos arquivos `.bib`. O Catálogo organiza nome, ilustração e disponibilidade juntos, sem alterar seus textos ou valores. As fontes de referência não fazem parte do ZIP de execução.
