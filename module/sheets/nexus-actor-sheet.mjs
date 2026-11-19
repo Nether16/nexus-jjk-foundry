@@ -83,6 +83,22 @@ export class NexusActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     return this.actor.type === "curse" ? NEXUS_CURSE_ORIGINS : NEXUS_ORIGINS;
   }
 
+  _initializeApplicationOptions(options) {
+    const initialized = super._initializeApplicationOptions(options);
+    if (initialized.document.type === "shikigami") {
+      if (!initialized.classes.includes("nexus-shikigami-sheet")) {
+        initialized.classes.push("nexus-shikigami-sheet");
+      }
+      initialized.position = {
+        ...initialized.position,
+        width: options.position?.width ?? 500,
+        height: options.position?.height ?? 780
+      };
+      initialized.window.resizable = options.window?.resizable ?? true;
+    }
+    return initialized;
+  }
+
   _getHeaderControls() {
     return [
       ...super._getHeaderControls(),

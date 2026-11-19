@@ -181,6 +181,7 @@
 <main class="ficha{{#if isCurse}} ficha-maldicao{{/if}}{{#if isShikigami}} ficha-shikigami{{/if}}">
   <header class="banner">
     <div class="banner-texto">
+      {{#if isShikigami}}<span class="shikigami-identidade">式神 <span>Shikigami</span></span>{{/if}}
       <input
         class="nome transparent"
         type="text"
@@ -303,7 +304,7 @@
       <section class="shikigami-vinculo" aria-label="Vínculo com o invocador">
         <span class="resumo-rotulo">Invocador</span>
         <span class="shikigami-invocador-nome" title="{{#if shikigamiReference}}{{shikigamiReference.invoker.name}}{{else}}Não vinculado{{/if}}">{{#if shikigamiReference}}{{shikigamiReference.invoker.name}}{{else}}Não vinculado{{/if}}</span>
-        {{#if canConfigureShikigami}}<button type="button" class="botao-visual shikigami-vincular" data-action="configureShikigami"><i class="fa-solid fa-link" aria-hidden="true"></i><span>Vincular invocador</span></button>{{/if}}
+        {{#if canConfigureShikigami}}<button type="button" class="botao-visual shikigami-vincular" data-action="configureShikigami" aria-label="Vincular invocador" title="Vincular invocador"><i class="fa-solid fa-link" aria-hidden="true"></i><span>Vincular invocador</span></button>{{/if}}
       </section>
       {{/if}}
     </aside>
@@ -465,10 +466,10 @@
                             {{#if hasCustomImage}}<img src="{{img}}" alt="">{{else}}<i class="fa-regular fa-image" aria-hidden="true"></i>{{/if}}
                           </button>
                         </td>
-                        <td><input type="text" data-item-field="name" value="{{name}}" placeholder="Nome" aria-label="Nome do movimento" {{#unless @root.editable}}disabled{{/unless}}></td>
-                        <td><input type="text" data-item-field="system.attack" value="{{system.attack}}" placeholder="Rolagem" aria-label="Rolagem do movimento" {{#unless @root.editable}}disabled{{/unless}}></td>
-                        <td class="coluna-custo"><input type="text" data-item-field="system.cost" value="{{system.cost}}" placeholder="Custo" aria-label="Custo do movimento" {{#unless @root.editable}}disabled{{/unless}}></td>
-                        <td><input type="text" data-item-field="system.effect" value="{{system.effect}}" placeholder="Efeito" aria-label="Efeito do movimento" {{#unless @root.editable}}disabled{{/unless}}></td>
+                        <td{{#if @root.isShikigami}} data-label="Movimento"{{/if}}><input type="text" data-item-field="name" value="{{name}}" placeholder="Nome" aria-label="Nome do movimento" {{#unless @root.editable}}disabled{{/unless}}></td>
+                        <td{{#if @root.isShikigami}} data-label="Rolagem"{{/if}}><input type="text" data-item-field="system.attack" value="{{system.attack}}" placeholder="Rolagem" aria-label="Rolagem do movimento" {{#unless @root.editable}}disabled{{/unless}}></td>
+                        <td class="coluna-custo"{{#if @root.isShikigami}} data-label="Custo"{{/if}}><input type="text" data-item-field="system.cost" value="{{system.cost}}" placeholder="Custo" aria-label="Custo do movimento" {{#unless @root.editable}}disabled{{/unless}}></td>
+                        <td{{#if @root.isShikigami}} data-label="Efeito"{{/if}}><input type="text" data-item-field="system.effect" value="{{system.effect}}" placeholder="Efeito" aria-label="Efeito do movimento" {{#unless @root.editable}}disabled{{/unless}}></td>
                         <td class="coluna-excluir"><button class="botao-icone botao-excluir-visual" type="button" data-action="deleteItem" aria-label="Excluir movimento" title="Excluir movimento" {{#unless @root.editable}}disabled{{/unless}}><span class="icone-lixeira" aria-hidden="true"></span></button></td>
                       </tr>
                     {{/each}}

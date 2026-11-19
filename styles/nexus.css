@@ -2261,6 +2261,405 @@
   }
 }
 
+/* A invocação usa uma ficha vertical para acompanhar a janela do invocador. */
+.nexus-jjk.nexus-shikigami-sheet {
+  min-width: min(400px, 100vw);
+  min-height: min(640px, 100vh);
+  border-bottom-right-radius: 12px;
+}
+
+.nexus-jjk.nexus-shikigami-sheet .window-content {
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.nexus-jjk .ficha-shikigami {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 72px auto 56px 38px minmax(120px, 1fr);
+  gap: 10px;
+  padding: 12px 16px;
+  overflow: hidden auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--nexus-cor-borda-painel) var(--nexus-cor-fundo);
+}
+
+.nexus-jjk .ficha-shikigami :is(.conteudo, .coluna-principal) {
+  display: contents;
+}
+
+.nexus-jjk .ficha-shikigami .banner {
+  grid-row: 1;
+  grid-template-columns: minmax(0, 1fr) 72px;
+  align-items: end;
+  gap: 8px;
+  height: auto;
+  margin: -12px -16px 0;
+  padding: 26px 16px 0;
+}
+
+.nexus-jjk .ficha-shikigami .banner-texto {
+  align-self: end;
+  padding: 0;
+}
+
+.nexus-jjk .shikigami-identidade {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--nexus-cor-destaque);
+  font-size: 14px;
+  line-height: 1;
+}
+
+.nexus-jjk .shikigami-identidade > span {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.nexus-jjk .ficha-shikigami .nome {
+  height: 38px;
+  font-size: clamp(23px, 5.8cqw, 29px);
+}
+
+.nexus-jjk .ficha-shikigami .progressao {
+  display: block;
+  width: 72px;
+  margin: 0;
+}
+
+.nexus-jjk .ficha-shikigami .torii-nivel {
+  width: 72px;
+  margin: 0;
+  transform: none;
+}
+
+.nexus-jjk .ficha-shikigami .nivel {
+  display: block;
+  height: auto;
+  font-size: 23px;
+  line-height: 1;
+}
+
+.nexus-jjk .ficha-shikigami .coluna-personagem {
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  grid-template-rows: minmax(64px, auto) minmax(0, 1fr) 56px;
+  gap: 8px 12px;
+  margin: 0;
+  overflow: visible;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.nexus-jjk .ficha-shikigami .card.retrato {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  height: 148px;
+  border-radius: 8px;
+}
+
+.nexus-jjk .ficha-shikigami .characterImage {
+  object-position: center;
+}
+
+.nexus-jjk .ficha-shikigami .iconCA {
+  position: absolute;
+  top: 84px;
+  left: 28px;
+  width: 64px;
+  height: 64px;
+  margin: 0;
+  padding-top: 31px;
+}
+
+.nexus-jjk .ficha-shikigami .labelCA {
+  font-size: 21px;
+}
+
+.nexus-jjk .ficha-shikigami .resumo-personagem {
+  grid-column: 2;
+  grid-row: 1;
+  overflow: hidden;
+  border: 1px solid var(--nexus-cor-borda-painel);
+  border-radius: 7px;
+}
+
+.nexus-jjk .ficha-shikigami .resumo-item {
+  min-height: 63px;
+  padding: 8px 4px;
+}
+
+.nexus-jjk .ficha-shikigami .resumo-valor {
+  font-size: 24px;
+}
+
+.nexus-jjk .ficha-shikigami .resumo-rotulo {
+  font-size: 10px;
+}
+
+.nexus-jjk .ficha-shikigami .shikigami-vinculo {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: start;
+  min-height: 56px;
+  margin: 0;
+}
+
+.nexus-jjk .ficha-shikigami .shikigami-vincular {
+  width: 28px;
+  min-height: 28px;
+  padding: 0;
+}
+
+.nexus-jjk .ficha-shikigami .shikigami-vincular > span {
+  display: none;
+}
+
+.nexus-jjk .ficha-shikigami .atributos {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  gap: 8px;
+  margin: 0;
+}
+
+.nexus-jjk .ficha-shikigami .atributo {
+  height: 56px;
+  grid-template-rows: minmax(0, 1fr) 19px;
+}
+
+.nexus-jjk .ficha-shikigami .atributo-numero input {
+  font-size: 22px;
+}
+
+.nexus-jjk .ficha-shikigami .atributo-kanji {
+  font-size: 40px;
+}
+
+.nexus-jjk .ficha-shikigami .recursos-personagem {
+  grid-row: 3;
+  margin: 0;
+}
+
+.nexus-jjk .ficha-shikigami .recurso {
+  padding: 8px 12px;
+}
+
+.nexus-jjk .ficha-shikigami .recurso::before {
+  display: none;
+}
+
+.nexus-jjk .ficha-shikigami .recurso-cabecalho {
+  margin-bottom: 5px;
+}
+
+.nexus-jjk .ficha-shikigami .recurso-nome {
+  font-size: 14px;
+}
+
+.nexus-jjk .ficha-shikigami .barra-recurso {
+  height: 10px;
+}
+
+.nexus-jjk .ficha-shikigami .navegacao-ficha {
+  position: static;
+  grid-row: 4;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: minmax(0, 1fr);
+  gap: 6px;
+  width: auto;
+  height: 38px;
+  max-height: none;
+  padding: 0;
+}
+
+.nexus-jjk .ficha-shikigami .navegacao-ficha::before,
+.nexus-jjk .ficha-shikigami .navegacao-ficha::after {
+  display: none;
+}
+
+.nexus-jjk .ficha-shikigami .aba-ficha {
+  grid-template-columns: 22px minmax(0, 1fr);
+  gap: 6px;
+  justify-content: center;
+  width: 100%;
+  max-height: none;
+  aspect-ratio: auto;
+  padding: 5px 8px;
+  border-color: var(--nexus-cor-borda-painel);
+  background: var(--nexus-cor-painel);
+}
+
+.nexus-jjk .ficha-shikigami .aba-icone {
+  width: 22px;
+  height: 22px;
+}
+
+.nexus-jjk .ficha-shikigami .aba-ficha:is(:hover, .active) {
+  border-color: var(--nexus-cor-realce);
+  background: color-mix(in srgb, var(--nexus-cor-moldura) 30%, var(--nexus-cor-painel));
+}
+
+.nexus-jjk .ficha-shikigami .aba-nome {
+  position: static;
+  justify-self: start;
+  min-width: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  background: none;
+  font-size: 10px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: none;
+}
+
+.nexus-jjk .ficha-shikigami .conteudo-abas {
+  grid-row: 5;
+  min-height: 120px;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.nexus-jjk .ficha-shikigami .cabecalho-aba {
+  padding-bottom: 8px;
+}
+
+.nexus-jjk .ficha-shikigami .cabecalho-aba h2 {
+  font-size: 16px;
+}
+
+.nexus-jjk .ficha-shikigami .corpo-aba {
+  padding-block: 10px;
+}
+
+.nexus-jjk .ficha-shikigami :is(.movimentos-visual, .lista-expansivel) {
+  gap: 10px;
+}
+
+.nexus-jjk .ficha-shikigami .botao-adicionar {
+  min-height: 32px;
+  font-size: 11px;
+}
+
+.nexus-jjk .ficha-shikigami .tabela-movimentos-container {
+  overflow: visible;
+}
+
+.nexus-jjk .ficha-shikigami .tabela-movimentos {
+  display: block;
+  min-width: 0;
+  border-spacing: 0;
+}
+
+.nexus-jjk .ficha-shikigami .tabela-movimentos thead {
+  display: none;
+}
+
+.nexus-jjk .ficha-shikigami .tabela-movimentos tbody {
+  display: grid;
+  gap: 10px;
+}
+
+.nexus-jjk .ficha-shikigami .tabela-movimentos tbody tr {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 10px;
+  padding: 10px;
+  border: 1px solid var(--nexus-cor-borda-painel);
+  border-radius: 8px;
+  background: var(--nexus-cor-painel);
+}
+
+.nexus-jjk .ficha-shikigami .tabela-movimentos td {
+  min-width: 0;
+  width: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.nexus-jjk .ficha-shikigami .tabela-movimentos td[data-label]::before {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--nexus-cor-destaque);
+  font-size: 10px;
+  font-weight: 700;
+  content: attr(data-label);
+}
+
+.nexus-jjk .ficha-shikigami .tabela-movimentos td:nth-child(3) {
+  grid-column: 1 / -1;
+  padding-inline: 72px 36px;
+}
+
+.nexus-jjk .ficha-shikigami .tabela-movimentos td:nth-child(6) {
+  grid-column: 1 / -1;
+}
+
+.nexus-jjk .ficha-shikigami .tabela-movimentos :is(.coluna-dado, .coluna-imagem, .coluna-excluir) {
+  position: absolute;
+  top: 27px;
+  width: 28px;
+}
+
+.nexus-jjk .ficha-shikigami .tabela-movimentos .coluna-dado {
+  left: 10px;
+}
+
+.nexus-jjk .ficha-shikigami .tabela-movimentos .coluna-imagem {
+  left: 46px;
+}
+
+.nexus-jjk .ficha-shikigami .tabela-movimentos .coluna-excluir {
+  right: 10px;
+}
+
+.nexus-jjk .ficha-shikigami .tabela-movimentos input {
+  height: 30px;
+}
+
+.nexus-jjk .ficha-shikigami .notas-visual {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+}
+
+.nexus-jjk .ficha-shikigami .notas-visual .lista-lateral {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  min-height: 0;
+  max-height: 150px;
+  padding: 6px;
+  overflow: hidden auto;
+}
+
+.nexus-jjk .ficha-shikigami .notas-visual .lista-lateral > .botao-adicionar {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+.nexus-jjk .ficha-shikigami .entrada-visual {
+  min-height: 44px;
+  padding: 5px;
+}
+
+.nexus-jjk .ficha-shikigami .editor-visual {
+  --min-height: 170px;
+}
+
+.nexus-jjk .ficha-shikigami .detalhe-visual > .editor-visual {
+  min-height: 170px;
+}
+
 .nexus-chat-card {
   display: grid;
   gap: 7px;
