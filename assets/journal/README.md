@@ -1,71 +1,80 @@
 # Mídias do livro
 
-Adicione aqui as mídias referenciadas pelos HTMLs do compêndio, usando estes nomes:
+As 66 mídias abaixo foram fornecidas para o compêndio. Foram copiadas sem conversão ou alteração, com nomes de arquivo padronizados. A tabela de ferramentas mantém seu formato WebP.
 
-```text
-tabela-criticos.png
-condicao-queimadura-maki.gif
-condicao-cura-yuta.gif
-especialidade-tanque-de-guerra.gif
-especialidade-aberracao-em-combate.gif
-especialidade-ambidestro.gif
-movimento-subjugar-armamento.gif
-movimento-bloqueio-imprudente.gif
-movimento-ataque-imprudente.gif
-movimento-reflexo-agil.gif
-movimento-juntos-somos-mais.gif
-movimento-mao-pesada.gif
-movimento-manejo-fatal.gif
-movimento-mente-forte.gif
-movimento-critico-brutal.gif
-kokusen.gif
-morte.gif
-sistema-status.gif
-atributos-fisicos.gif
-atributos-mentais.gif
-origem-restricao-fisica.gif
-origem-restricao-feiticaria.gif
-origem-amaldicoado.gif
-origem-receptaculo.gif
-origem-hibrido.gif
-origem-gemeos.gif
-estilo-sombras-battojutsu.gif
-estilo-sombras-dominio-simples.gif
-tabela-ear-limite.png
-tabela-ear-interno.png
-tabela-ear-externo.png
-tabela-level-up.png
-tabela-atributos-nivel.png
-tabela-limites-atributos.png
-tabela-ferramentas-amaldicoadas.png
-tabela-reforco-ofensivo.png
-tabela-reforco-defensivo.png
-tabela-leitura-patamar1.png
-tabela-leitura-patamar2.png
-barreira-cortina.gif
-barreira-expansao-dominio.gif
-ear-yuta.gif
-catalogo-disaster-tides.gif
-catalogo-disaster-plants.gif
-catalogo-boogie-woogie.gif
-catalogo-ice-formation.gif
-catalogo-granite-blast.gif
-catalogo-anti-gravity-sistem.gif
-catalogo-star-rage.gif
-catalogo-7-3.gif
-catalogo-orbital-domain.gif
-cla-zenin-banner.png
-catalogo-dez-sombras.gif
-catalogo-projecao.gif
-catalogo-earth-manipulation.gif
-cla-kamo-banner.png
-catalogo-manipulacao-sangue.gif
-cla-inumaki-banner.png
-catalogo-fala-amaldicoada.gif
-cla-fujiwara-banner.png
-catalogo-sky-manipulation.gif
-```
+| Arquivo fornecido | Arquivo usado no livro |
+| --- | --- |
+| votosdetecnica.gif | voto-tecnica.gif |
+| votoscontratuais.gif | voto-contratual.gif |
+| votosautoimpostos.gif | voto-autoimposto.gif |
+| tanquedeguerra.gif | especialidade-tanque-de-guerra.gif |
+| tabeladereforçoofensivo.png | tabela-reforco-ofensivo.png |
+| tabeladereforçodefensivo.png | tabela-reforco-defensivo.png |
+| tabeladeleituraamaldiçoada2.png | tabela-leitura-patamar2.png |
+| tabeladeleituraamaldiçoada.png | tabela-leitura-patamar1.png |
+| tabeladeferramentas.webp | tabela-ferramentas-amaldicoadas.webp |
+| Tabela3Ações.png | tabela-acoes-3.png |
+| Tabela2Ações.png | tabela-acoes-2.png |
+| Tabela1Ações.png | tabela-acoes-1.png |
+| subjulgararmamento.gif | movimento-subjugar-armamento.gif |
+| status.gif | sistema-status.gif |
+| restringidofisico.gif | origem-restricao-fisica.gif |
+| restringidofeitiçaria.gif | origem-restricao-feiticaria.gif |
+| reservadeenergiaamaldiçoada.gif | pericia-energia-amaldicoada.gif |
+| reforço.gif | reforco-amaldicoado.gif |
+| reflexoagil.gif | movimento-reflexo-agil.gif |
+| receptaculo.gif | origem-receptaculo.gif |
+| periciaemvoto.gif | pericia-votos-vinculativos.gif |
+| periciaemrito.gif | pericia-ritos-ocultistas.gif |
+| periciaemreversão.gif | pericia-reversao.gif |
+| periciaembarreira.gif | pericia-barreiras.gif |
+| periciaemartificiaria.gif | pericia-artificiaria.gif |
+| periciacontroledeenergia.gif | pericia-controle-energia.gif |
+| periciaartefatoamaldiçoados.gif | pericia-artefatos-amaldicoados.gif |
+| morte.gif | morte.gif |
+| menteforte.gif | movimento-mente-forte.gif |
+| maopesada.gif | movimento-mao-pesada.gif |
+| manejofatal.gif | movimento-manejo-fatal.gif |
+| limite_de_atributos.png | tabela-limites-atributos.png |
+| level_up.png | tabela-level-up.png |
+| leituraamaldiçoada.gif | leitura-amaldicoada.gif |
+| kokusen.gif | kokusen.gif |
+| juntossomosmais.gif | movimento-juntos-somos-mais.gif |
+| hibrido.gif | origem-hibrido.gif |
+| gemeos.gif | origem-gemeos.gif |
+| ganho_de_pontos.png | tabela-atributos-nivel.png |
+| feitiçeiroinato.gif | origem-feiticeiro-inato.gif |
+| expansãodedominio.gif | barreira-expansao-dominio.gif |
+| estilodassombras.gif | estilo-sombras.gif |
+| Envenamento.gif | condicao-cura-yuta.gif |
+| energiaamaldiçoadareversa.gif | ear-yuta.gif |
+| emoçãodapetalacaida.gif | anti-dominio-emocao-da-petala-caida.gif |
+| dominiosimplescompleto.gif | estilo-sombras-dominio-simples.gif |
+| disputadedominio.gif | barreira-disputa-dominio.gif |
+| critico.png | tabela-criticos.png |
+| critico brutal.gif | movimento-critico-brutal.gif |
+| cortina.gif | barreira-cortina.gif |
+| condições.png | tabela-condicoes.png |
+| condições ofensivas.gif | condicao-queimadura-maki.gif |
+| cestadevimeoca.gif | anti-dominio-cesta-de-vime-oca.gif |
+| bloqueioimprudente.gif | movimento-bloqueio-imprudente.gif |
+| battojutsu.gif | estilo-sombras-battojutsu.gif |
+| AçãoReativa.gif | acao-reativa.gif |
+| AçãoPrincipal.gif | acao-principal.gif |
+| AçãoMovimento.gif | acao-movimento.gif |
+| AçãoLivre.gif | acao-livre.gif |
+| AçãoBonus.gif | acao-bonus.gif |
+| atributosmentais.gif | atributos-mentais.gif |
+| atributosfisicos.gif | atributos-fisicos.gif |
+| ataqueimprudente.gif | movimento-ataque-imprudente.gif |
+| ambidestro.gif | especialidade-ambidestro.gif |
+| amaldiçoado.gif | origem-amaldicoado.gif |
+| aberraçãoemcombate.gif | especialidade-aberracao-em-combate.gif |
 
-A lista inclui duas referências planejadas para as Restrições em Origens Compra. Essa página contém o trecho fornecido de Amaldiçoado, Receptáculo, Híbrido e Gêmeos; as mídias ainda precisam ser fornecidas.
+Ainda não foram fornecidas:
 
-O build mantém as referências nos JSONs, mas omite imagens ausentes do compêndio compilado. Após adicionar os arquivos, execute `npm run build:release` para incluí-los na distribuição. Este README não faz parte do ZIP de execução.
+- `tabela-ear-limite.png`
+- `tabela-ear-interno.png`
+- `tabela-ear-externo.png`
+
+As referências pendentes são mantidas nas fontes JSON; o build omite imagens ausentes do compêndio compilado. Este README não faz parte do ZIP de execução.

@@ -86,39 +86,6 @@
   overflow-wrap: anywhere;
 }
 
-/* O catálogo responde à largura da página, inclusive ao redimensionar o diário. */
-.nexus-catalogo {
-  container-type: inline-size;
-}
-
-.nexus-catalogo-grid {
-  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-}
-
-.nexus-catalogo-grid > div {
-  min-width: 0;
-}
-
-@container (max-width: 560px) {
-  .nexus-catalogo-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  }
-
-  .nexus-catalogo-grid > .nexus-catalogo-espaco {
-    display: none;
-  }
-
-  .nexus-catalogo-grid > .nexus-catalogo-destaque {
-    grid-column: 1 / -1 !important;
-  }
-}
-
-@container (max-width: 360px) {
-  .nexus-catalogo-grid {
-    grid-template-columns: minmax(0, 1fr) !important;
-  }
-}
-
 /* Variações de tamanho e cor para as próximas páginas. */
 .nexus-wiki .txt-maior { font-size: 18px; }
 .nexus-wiki .txt-normal { font-size: 15px; }

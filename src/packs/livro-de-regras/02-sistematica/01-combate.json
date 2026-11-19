@@ -13,7 +13,7 @@
       },
       "text": {
         "format": 1,
-        "content": "<div class=\"nexus-wiki\">\n  <h1>AÇÕES</h1>\n</div>"
+        "content": "<div class=\"nexus-wiki\">\n  <h1>AÇÕES</h1>\n  <h2>Ação Principal</h2>\n  <img src=\"systems/nexus-jjk/assets/journal/acao-principal.gif\" alt=\"Ação Principal\">\n\n  <h2>Ação de Movimento</h2>\n  <img src=\"systems/nexus-jjk/assets/journal/acao-movimento.gif\" alt=\"Ação de Movimento\">\n\n  <h2>Ação Bônus</h2>\n  <img src=\"systems/nexus-jjk/assets/journal/acao-bonus.gif\" alt=\"Ação Bônus\">\n\n  <h2>Ação Reativa</h2>\n  <img src=\"systems/nexus-jjk/assets/journal/acao-reativa.gif\" alt=\"Ação Reativa\">\n\n  <h2>Ação Livre</h2>\n  <img src=\"systems/nexus-jjk/assets/journal/acao-livre.gif\" alt=\"Ação Livre\">\n</div>"
       },
       "ownership": {
         "default": -1
@@ -32,7 +32,7 @@
       },
       "text": {
         "format": 1,
-        "content": "<div class=\"nexus-wiki\">\n  <h1>TABELA DE AÇÕES</h1>\n</div>"
+        "content": "<div class=\"nexus-wiki\">\n  <h1>TABELA DE AÇÕES</h1>\n  <img class=\"tabela-img\" src=\"systems/nexus-jjk/assets/journal/tabela-acoes-1.png\" alt=\"Tabela de Ações 1\">\n  <img class=\"tabela-img\" src=\"systems/nexus-jjk/assets/journal/tabela-acoes-2.png\" alt=\"Tabela de Ações 2\">\n  <img class=\"tabela-img\" src=\"systems/nexus-jjk/assets/journal/tabela-acoes-3.png\" alt=\"Tabela de Ações 3\">\n</div>"
       },
       "ownership": {
         "default": -1
@@ -51,7 +51,7 @@
       },
       "text": {
         "format": 1,
-        "content": "<div class=\"nexus-wiki\">\n  <h1>CONDIÇÕES</h1>\n</div>"
+        "content": "<div class=\"nexus-wiki\">\n  <h1>CONDIÇÕES</h1>\n  <img class=\"tabela-img\" src=\"systems/nexus-jjk/assets/journal/tabela-condicoes.png\" alt=\"Condições\">\n</div>"
       },
       "ownership": {
         "default": -1

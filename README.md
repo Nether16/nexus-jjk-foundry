@@ -26,7 +26,7 @@ Para atualizar, use **Check for Updates** na lista de sistemas do Foundry. O lin
 - Talentos, técnicas, conhecimentos, inventário, história e anotações.
 - Cores personalizadas e importação de wallpaper por personagem.
 - Arte dos tokens acompanha a foto da ficha, incluindo tokens já colocados nas cenas.
-- Compêndio **Livro de Regras e Mundo**, com regras de combate, personagem, treinamento, técnicas, técnicas inatas e catálogo; demais seções preparadas para receber conteúdo.
+- Compêndio **Livro de Regras e Mundo**, com regras de combate, personagem, treinamento e técnicas, ilustrado com GIFs e tabelas; demais seções preparadas para receber conteúdo.
 
 ## Desenvolvimento
 
