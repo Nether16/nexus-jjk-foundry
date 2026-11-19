@@ -1,0 +1,1081 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="description" content="Referência completa de movimentos, fórmulas e macros da Nexus para Foundry VTT 14.">
+<title>Nexus — Manual de movimentos, fórmulas e macros</title>
+<style>
+:root{--ink:#272335;--muted:#716b80;--purple:#7535ad;--line:#e7e1ef;--paper:#fff;--soft:#f7f4fb;--rail:#17101f}
+*{box-sizing:border-box}[hidden]{display:none!important}html{scroll-behavior:smooth;scroll-padding-top:28px}body{margin:0;background:#f0edf5;color:var(--ink);font:16px/1.7 system-ui,-apple-system,"Segoe UI",sans-serif}a{color:var(--purple);text-underline-offset:3px}a:hover{text-decoration-thickness:2px}a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #c58af4;outline-offset:3px}
+.layout{display:grid;grid-template-columns:290px minmax(0,1fr);min-height:100vh}.sidebar{position:sticky;top:0;height:100vh;padding:28px 20px 16px;background:var(--rail);color:#eee7f6;display:flex;flex-direction:column;gap:12px;min-width:0}.brand{font-size:25px;font-weight:850;letter-spacing:.1em;color:#dbb6f6}.brand small{display:block;font-size:12px;letter-spacing:.02em;font-weight:450;color:#b8a7c9}.sidebar label{font-size:12px;color:#c8bad4}.sidebar input{width:100%;padding:10px 12px;border:1px solid #5e4274;border-radius:8px;background:#24182e;color:#fff;font:inherit;font-size:13px}.toc{overflow:auto;min-height:0;padding-right:7px;scrollbar-width:thin;scrollbar-color:#79528f transparent}.toc-link{display:block;padding:6px 8px;margin:1px 0;border-radius:5px;color:#d4c5df;text-decoration:none;font-size:12px;line-height:1.5}.toc-link:hover,.toc-link.current{background:#382146;color:#fff}.toc-link.depth-3{padding-left:20px;font-size:11px;color:#b29fc1}.sidebar button{margin-top:auto;padding:10px;border:1px solid #76558d;border-radius:7px;background:#34223f;color:#eee7f6;cursor:pointer;font:600 12px system-ui}.sidebar .hint{font-size:11px;color:#ad9bba;margin:0}
+.main{min-width:0;padding:40px 48px 64px}.sheet{max-width:1000px;margin:0 auto;padding:48px 56px;background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 35px #21152f0a}.eyebrow{margin:0 0 16px;font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--purple)}h1{font-size:clamp(27px,3vw,40px);line-height:1.2;letter-spacing:-.035em;margin:0 0 16px;max-width:780px;color:#271b35}h1+p{font-size:12px;color:var(--muted);padding-bottom:18px;border-bottom:1px solid var(--line)}h2{font-size:25px;line-height:1.35;margin:60px 0 20px;padding-top:14px;border-top:2px solid var(--line);color:#352041;letter-spacing:-.02em}h3{font-size:18px;margin:32px 0 12px;color:#503163}p{margin:15px 0}strong{font-weight:750}ul,ol{padding-left:25px}li+li{margin-top:6px}code{font:0.88em/1.5 ui-monospace,"Cascadia Code",Consolas,monospace;overflow-wrap:anywhere;background:#f0eaf7;color:#623b7d;border-radius:4px;padding:.12em .3em}pre{position:relative;margin:20px 0;background:#1f1728;color:#efe5f7;border-radius:9px;padding:42px 18px 18px;white-space:pre-wrap;overflow:auto;border:1px solid #42304f}pre code{font-size:13px;line-height:1.75;padding:0;color:inherit;background:none;overflow-wrap:anywhere}.copy{position:absolute;right:9px;top:8px;padding:4px 9px;color:#decbe9;background:#3c2a49;border:1px solid #634777;border-radius:5px;font:11px system-ui;cursor:pointer}.table-wrap{width:100%;overflow:auto;margin:20px 0;border:1px solid var(--line);border-radius:8px}table{border-collapse:collapse;width:100%;margin:0;font-size:13px;line-height:1.6}th,td{padding:11px 13px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line);min-width:90px}th{background:#f0e9f7;color:#513164;font-weight:750}tbody tr:nth-child(even){background:#fbf9fd}tr:last-child td{border-bottom:0}td code,th code{font-size:12px}blockquote{border-left:3px solid var(--purple);margin:20px 0;padding:1px 20px;color:#62576d;background:var(--soft)}.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:28px 0 4px;padding:14px;border:1px solid var(--line);border-radius:8px;background:var(--soft);font-size:12px}.flow b{padding:4px 8px;color:#62357d}.flow span{color:#ab8dbc}.footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}.top-link{position:fixed;right:18px;bottom:18px;background:#7535ad;color:white;border-radius:30px;padding:8px 13px;text-decoration:none;font-size:12px;box-shadow:0 4px 14px #25182b25}.no-results{color:#cab8d5;font-size:12px}
+@media(max-width:1050px){.layout{grid-template-columns:245px minmax(0,1fr)}.main{padding:24px}.sheet{padding:30px}.sidebar{padding:22px 15px}}
+@media(max-width:780px){html{scroll-padding-top:12px}.layout{display:block}.sidebar{position:relative;height:auto;padding:22px}.toc{max-height:230px}.sidebar button{margin-top:4px}.main{padding:14px}.sheet{padding:23px 19px;border-radius:10px}h1{font-size:29px}h2{font-size:22px;margin-top:42px}body{font-size:15px}th,td{padding:9px 10px}pre code{font-size:12px}.top-link{right:10px;bottom:10px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{@page{size:A4;margin:17mm 15mm}body{background:white;color:#151515;font-size:10pt;line-height:1.55}.layout{display:block}.sidebar,.top-link,.copy,.eyebrow{display:none!important}.main{padding:0}.sheet{border:0;box-shadow:none;border-radius:0;padding:0;max-width:none}h1{font-size:26pt}h2{font-size:17pt;break-after:avoid;page-break-after:avoid;margin-top:26pt}h3{font-size:12pt;break-after:avoid}p,li{orphans:3;widows:3}pre{background:#f6f3f8;color:#151515;padding:11pt;border-color:#ddd;break-inside:avoid;white-space:pre-wrap}pre code{font-size:8.5pt;color:#151515}.table-wrap{overflow:visible;break-inside:auto;border:0}table{font-size:8.5pt}thead{display:table-header-group}tr{break-inside:avoid}th,td{padding:6pt}a{color:#54316b;text-decoration:none}.footer{font-size:8pt}.flow{break-inside:avoid}}
+</style>
+</head>
+<body id="inicio">
+<div class="layout">
+<aside class="sidebar" aria-label="Índice do manual">
+<div class="brand">NEXUS<small>Movimentos · fórmulas · macros</small></div>
+<label for="toc-search">Buscar seção no índice</label>
+<input id="toc-search" type="search" placeholder="Ex.: variáveis, custo, arma…" autocomplete="off">
+<nav class="toc" aria-label="Seções"><a class="toc-link depth-2" href="#1-o-que-o-sistema-faz">1. O que o sistema faz</a>
+<a class="toc-link depth-2" href="#2-criar-e-preencher-um-movimento">2. Criar e preencher um movimento</a>
+<a class="toc-link depth-2" href="#3-colocar-e-usar-na-barra-de-macros">3. Colocar e usar na barra de macros</a>
+<a class="toc-link depth-3" href="#vinculo-com-a-ficha">Vínculo com a ficha</a>
+<a class="toc-link depth-2" href="#4-variaveis-da-ficha">4. Variáveis da ficha</a>
+<a class="toc-link depth-3" href="#caminhos-numericos-internos">Caminhos numéricos internos</a>
+<a class="toc-link depth-2" href="#5-operacoes-e-escrita-das-formulas">5. Operações e escrita das fórmulas</a>
+<a class="toc-link depth-3" href="#potencia-e-resto">Potência e resto</a>
+<a class="toc-link depth-2" href="#6-dados-vantagem-e-desvantagem">6. Dados, vantagem e desvantagem</a>
+<a class="toc-link depth-3" href="#modificadores-nativos-do-foundry">Modificadores nativos do Foundry</a>
+<a class="toc-link depth-2" href="#7-funcoes-matematicas">7. Funções matemáticas</a>
+<a class="toc-link depth-2" href="#8-arredondamento-dos-resultados">8. Arredondamento dos resultados</a>
+<a class="toc-link depth-2" href="#9-valores-perguntados-durante-a-execucao">9. Valores perguntados durante a execução</a>
+<a class="toc-link depth-2" href="#10-efeitos-com-varias-partes">10. Efeitos com várias partes</a>
+<a class="toc-link depth-3" href="#texto-literal">Texto literal</a>
+<a class="toc-link depth-3" href="#rotulos-nao-executam-acoes">Rótulos não executam ações</a>
+<a class="toc-link depth-2" href="#11-custo-e-energia-amaldicoada">11. Custo e Energia Amaldiçoada</a>
+<a class="toc-link depth-3" href="#quando-a-variavel-ea-e-lida">Quando a variável EA é lida</a>
+<a class="toc-link depth-2" href="#12-dano-da-arma-equipada">12. Dano da arma equipada</a>
+<a class="toc-link depth-2" href="#13-imagens-e-gifs">13. Imagens e GIFs</a>
+<a class="toc-link depth-2" href="#14-personagem-maldicao-e-shikigami">14. Personagem, Maldição e Shikigami</a>
+<a class="toc-link depth-2" href="#15-exemplos-prontos-para-copiar">15. Exemplos prontos para copiar</a>
+<a class="toc-link depth-3" href="#ataque-com-arma">Ataque com arma</a>
+<a class="toc-link depth-3" href="#ataque-usando-jujutsu">Ataque usando Jujutsu</a>
+<a class="toc-link depth-3" href="#cura-anunciada-no-chat">Cura anunciada no chat</a>
+<a class="toc-link depth-3" href="#intensidade-escolhida-ao-usar">Intensidade escolhida ao usar</a>
+<a class="toc-link depth-3" href="#bonus-informado-para-o-teste">Bônus informado para o teste</a>
+<a class="toc-link depth-3" href="#dois-resultados-e-uma-condicao-descritiva">Dois resultados e uma condição descritiva</a>
+<a class="toc-link depth-3" href="#teste-com-o-maior-ou-o-menor-de-dois-d20">Teste com o maior ou o menor de dois d20</a>
+<a class="toc-link depth-3" href="#custo-percentual">Custo percentual</a>
+<a class="toc-link depth-3" href="#shikigami-com-custo-informativo">Shikigami com custo informativo</a>
+<a class="toc-link depth-2" href="#16-macros-de-chat-e-macros-de-script">16. Macros de chat e macros de script</a>
+<a class="toc-link depth-3" href="#executar-um-movimento-por-script">Executar um movimento por Script</a>
+<a class="toc-link depth-2" href="#17-referencia-da-api-de-movimentos">17. Referência da API de movimentos</a>
+<a class="toc-link depth-3" href="#game-nexus-rollmovement-uuid">game.nexus.rollMovement(uuid)</a>
+<a class="toc-link depth-3" href="#atribuir-uma-posicao-por-codigo">Atribuir uma posição por código</a>
+<a class="toc-link depth-2" href="#18-permissoes-privacidade-e-exclusao">18. Permissões, privacidade e exclusão</a>
+<a class="toc-link depth-3" href="#permissoes">Permissões</a>
+<a class="toc-link depth-3" href="#visibilidade-no-chat">Visibilidade no chat</a>
+<a class="toc-link depth-3" href="#remover-e-excluir">Remover e excluir</a>
+<a class="toc-link depth-3" href="#cliques-repetidos">Cliques repetidos</a>
+<a class="toc-link depth-2" href="#19-limites-da-versao-atual">19. Limites da versão atual</a>
+<a class="toc-link depth-2" href="#20-problemas-comuns">20. Problemas comuns</a>
+<a class="toc-link depth-2" href="#21-referencias-e-versao">21. Referências e versão</a><p class="no-results" hidden>Nenhuma seção encontrada.</p></nav>
+<button id="print" type="button">Imprimir / Salvar como PDF</button>
+<p class="hint">Ctrl + F busca no texto completo.</p>
+</aside>
+<main class="main"><article class="sheet">
+<div class="eyebrow">Manual de referência · Foundry VTT 14</div>
+<h1 id="movimentos-formulas-e-macros-nexus">Movimentos, fórmulas e macros — Nexus</h1>
+<p>Documentação de uso • Nexus 0.4.24 • Foundry VTT 14 • Revisada em 19/11/2026.</p>
+<p>Este manual reúne os recursos implementados para montar movimentos, escrever fórmulas, publicar resultados no chat e executar habilidades pela barra de macros. Os exemplos usam a sintaxe da ficha Nexus. Os comandos de chat e os scripts do Foundry são apresentados separadamente.</p>
+<h2 id="1-o-que-o-sistema-faz">1. O que o sistema faz</h2>
+<table>
+<thead>
+<tr>
+<th>Recurso</th>
+<th>Comportamento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rolagem</td>
+<td>Rola os dados e soma atributos ou outras expressões.</td>
+</tr>
+<tr>
+<td>Custo</td>
+<td>Calcula o gasto, verifica a EA disponível e desconta da ficha.</td>
+</tr>
+<tr>
+<td>Efeito</td>
+<td>Calcula e mostra um ou vários resultados, com rótulos e textos.</td>
+</tr>
+<tr>
+<td>Imagem</td>
+<td>Publica a imagem ou o GIF do movimento junto ao resultado.</td>
+</tr>
+<tr>
+<td>Parâmetros</td>
+<td>Pergunta valores numéricos durante a execução.</td>
+</tr>
+<tr>
+<td>Arma</td>
+<td>Consulta o dano da arma equipada pela variável <code>ARMA</code>.</td>
+</tr>
+<tr>
+<td>Macros</td>
+<td>Cria atalhos ao arrastar o dado do movimento para a barra.</td>
+</tr>
+<tr>
+<td>Atualizações</td>
+<td>Usa os atributos, a arma e as fórmulas atuais da ficha.</td>
+</tr>
+<tr>
+<td>Arredondamento</td>
+<td>Arredonda cada resultado numérico final para baixo.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Dano, cura e condições escritos em Efeito são resultados publicados no chat.</strong> Eles não alteram automaticamente o HP de um alvo, não aplicam condições e não verificam se o ataque acertou. O recurso que o movimento desconta automaticamente é a EA indicada no campo Custo, com a exceção dos Shikigamis.</p>
+<h2 id="2-criar-e-preencher-um-movimento">2. Criar e preencher um movimento</h2>
+<p>Abra a ficha, entre em <strong>Movimentos</strong> e clique em <strong>Adicionar movimento</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Campo ou botão</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nome</td>
+<td>Título exibido no chat e usado ao criar o atalho.</td>
+</tr>
+<tr>
+<td>Rolagem</td>
+<td>Expressão do teste, como <code>1d20 + DES</code>. Pode ficar vazia.</td>
+</tr>
+<tr>
+<td>Custo</td>
+<td>Quantidade de EA ou fórmula que determina o gasto. Vazio significa sem custo.</td>
+</tr>
+<tr>
+<td>Efeito</td>
+<td>Fórmulas, resultados identificados e textos da habilidade.</td>
+</tr>
+<tr>
+<td>Botão de imagem</td>
+<td>Escolhe a imagem ou o GIF por link ou pelo seletor de arquivos do Foundry.</td>
+</tr>
+<tr>
+<td>Botão de dado</td>
+<td>Um clique executa; arrastar cria o atalho na barra.</td>
+</tr>
+<tr>
+<td>Lixeira</td>
+<td>Exclui o movimento da ficha.</td>
+</tr>
+</tbody>
+</table>
+<p>Ao terminar de editar um campo, pressione <strong>Tab</strong> ou clique fora dele. Nas fichas de Personagem e Maldição, o campo de fórmula em edição se amplia suavemente. Na ficha vertical de Shikigami, os campos ficam organizados em cartões.</p>
+<p>É possível ter um movimento só de efeito, só de custo ou só de imagem. Preencher apenas o nome não produz uma execução: é necessário haver Rolagem, Custo, Efeito ou uma imagem personalizada.</p>
+<p>Exemplo completo:</p>
+<pre><code class="language-text">Nome: Golpe reforçado
+Rolagem: 1d20 + DES
+Custo: 15
+Efeito: Dano: ARMA + FOR * 2
+</code></pre>
+<h2 id="3-colocar-e-usar-na-barra-de-macros">3. Colocar e usar na barra de macros</h2>
+<ol>
+<li>Destrave o cadeado da barra de macros, na parte inferior da tela.</li>
+<li>Segure o botão esquerdo sobre o <strong>botão do dado do movimento</strong>.</li>
+<li>Arraste esse botão para uma posição da barra e solte.</li>
+<li>Clique no atalho criado ou pressione a tecla correspondente.</li>
+</ol>
+<p>Arraste o dado da linha ou do cartão. Um clique normal nesse dado já executa o movimento pela ficha.</p>
+<table>
+<thead>
+<tr>
+<th>Ação</th>
+<th>Controle padrão</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Executar as posições 1 a 9</td>
+<td>Teclas <code>1</code> a <code>9</code> da fileira superior do teclado</td>
+</tr>
+<tr>
+<td>Executar a décima posição</td>
+<td>Tecla <code>0</code></td>
+</tr>
+<tr>
+<td>Trocar diretamente de página</td>
+<td><code>Alt + 1</code> até <code>Alt + 5</code></td>
+</tr>
+<tr>
+<td>Trocar de página pelo mouse</td>
+<td>Setinhas ao lado da barra</td>
+</tr>
+<tr>
+<td>Mover um atalho</td>
+<td>Arrastar entre posições com a barra destravada</td>
+</tr>
+<tr>
+<td>Remover somente da barra</td>
+<td>Botão direito no atalho → Remover</td>
+</tr>
+</tbody>
+</table>
+<p>O Foundry possui cinco páginas de dez posições. As teclas executam a <strong>página atualmente exibida</strong>. Os atalhos podem ser personalizados em Configurar Controles; enquanto estiver digitando em um campo, saia dele antes de usar as teclas da barra. <a href="https://foundryvtt.com/article/controls/">Referência de controles do Foundry</a></p>
+<p>Soltar um movimento em uma posição ocupada substitui o atalho daquela posição, sem apagar o movimento anterior. Atribuir o mesmo movimento a outra posição pode deixar atalhos dele em vários espaços.</p>
+<p>Cada usuário organiza a própria barra. Para compartilhar uma macro com outro usuário, o mestre pode ajustar sua propriedade no diretório de macros; esse compartilhamento não dá permissão para editar a ficha que o movimento usa. <a href="https://foundryvtt.com/article/macros/">Macros e propriedade no Foundry</a></p>
+<h3 id="vinculo-com-a-ficha">Vínculo com a ficha</h3>
+<p>O atalho guarda a referência do <strong>movimento original</strong>, não apenas o nome dele.</p>
+<ul>
+<li>A ficha pode estar fechada.</li>
+<li>Não é necessário selecionar um token ou um alvo para executar.</li>
+<li>Selecionar outro token não muda a ficha usada pela macro.</li>
+<li>Editar a fórmula na ficha afeta as próximas execuções do atalho.</li>
+<li>Duplicar a ficha ou o movimento cria outra referência: arraste o dado da cópia para criar seu próprio atalho.</li>
+<li>Excluir e recriar um movimento com o mesmo nome não recupera o vínculo antigo.</li>
+</ul>
+<p>O texto e a imagem do cartão de chat vêm do movimento atual. Já o nome e o ícone visíveis no atalho são copiados na atribuição: para atualizá-los após mudar nome ou imagem, arraste o dado novamente para a barra.</p>
+<h2 id="4-variaveis-da-ficha">4. Variáveis da ficha</h2>
+<p>Use os nomes abaixo diretamente nas fórmulas. Os aliases desta tabela aceitam maiúsculas ou minúsculas: <code>FOR</code>, <code>for</code> e <code>For</code> consultam o mesmo atributo.</p>
+<table>
+<thead>
+<tr>
+<th>Informação</th>
+<th>Variável principal</th>
+<th>Outros nomes aceitos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Força</td>
+<td><code>FOR</code></td>
+<td><code>FORCA</code>, <code>FORÇA</code></td>
+</tr>
+<tr>
+<td>Destreza</td>
+<td><code>DES</code></td>
+<td><code>DEX</code>, <code>DESTREZA</code></td>
+</tr>
+<tr>
+<td>Agilidade</td>
+<td><code>AGI</code></td>
+<td><code>AGILIDADE</code></td>
+</tr>
+<tr>
+<td>Vigor / Constituição</td>
+<td><code>CON</code></td>
+<td><code>CONS</code>, <code>VIG</code>, <code>VIGOR</code></td>
+</tr>
+<tr>
+<td>Percepção</td>
+<td><code>PER</code></td>
+<td><code>PERCEPCAO</code>, <code>PERCEPÇÃO</code></td>
+</tr>
+<tr>
+<td>Inteligência</td>
+<td><code>INT</code></td>
+<td><code>INTELIGENCIA</code>, <code>INTELIGÊNCIA</code></td>
+</tr>
+<tr>
+<td>Jujutsu</td>
+<td><code>JJT</code></td>
+<td><code>JUJUTSU</code></td>
+</tr>
+<tr>
+<td>Força de vontade</td>
+<td><code>FDV</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>Nível</td>
+<td><code>NIVEL</code></td>
+<td><code>NÍVEL</code></td>
+</tr>
+<tr>
+<td>HP atual</td>
+<td><code>HP</code></td>
+<td><code>HPATUAL</code></td>
+</tr>
+<tr>
+<td>HP máximo</td>
+<td><code>HPMAX</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>EA atual</td>
+<td><code>EA</code></td>
+<td><code>EAATUAL</code></td>
+</tr>
+<tr>
+<td>EA máxima</td>
+<td><code>EAMAX</code></td>
+<td>—</td>
+</tr>
+<tr>
+<td>CA</td>
+<td><code>CA</code></td>
+<td><code>ESQUIVA</code></td>
+</tr>
+<tr>
+<td>Dano da arma equipada</td>
+<td><code>ARMA</code></td>
+<td><code>DANOARMA</code>, <code>DANO_ARMA</code></td>
+</tr>
+</tbody>
+</table>
+<p>Exemplos:</p>
+<pre><code class="language-text">1d20 + AGI
+FOR * 5
+ARMA + DES * 2
+HPMAX * 0.1
+EAMAX * 0.05
+NIVEL * 3 + JJT
+</code></pre>
+<p>Essas palavras representam valores numéricos. <code>CA</code>, por exemplo, consulta a defesa da ficha que está executando o movimento; não consulta a CA de um alvo selecionado.</p>
+<h3 id="caminhos-numericos-internos">Caminhos numéricos internos</h3>
+<p>Também é possível consultar um campo numérico de <code>system</code> com <code>@{caminho}</code>:</p>
+<pre><code class="language-text">@{movement}
+@{xp.value}
+@{attributes.forca}
+</code></pre>
+<p>Os caminhos são relativos aos dados do sistema: escreva <code>@{attributes.forca}</code>, sem o prefixo <code>system.</code>. Use a grafia exata do caminho. Para atributos e recursos comuns, prefira os aliases da tabela.</p>
+<h2 id="5-operacoes-e-escrita-das-formulas">5. Operações e escrita das fórmulas</h2>
+<table>
+<thead>
+<tr>
+<th>Operação</th>
+<th>Exemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Somar</td>
+<td><code>FOR + DES</code></td>
+</tr>
+<tr>
+<td>Subtrair</td>
+<td><code>ARMA - 5</code></td>
+</tr>
+<tr>
+<td>Multiplicar</td>
+<td><code>JJT * 3</code></td>
+</tr>
+<tr>
+<td>Dividir</td>
+<td><code>FOR / 2</code></td>
+</tr>
+<tr>
+<td>Agrupar uma conta</td>
+<td><code>(ARMA + FOR) * 2</code></td>
+</tr>
+<tr>
+<td>Usar decimal</td>
+<td><code>ARMA * 1.5</code></td>
+</tr>
+<tr>
+<td>Potência recomendada</td>
+<td><code>pow(FOR, 2)</code></td>
+</tr>
+</tbody>
+</table>
+<p>Multiplicação e divisão são feitas antes de soma e subtração. Use parênteses para deixar a intenção explícita:</p>
+<pre><code class="language-text">ARMA + FOR * 2
+</code></pre>
+<p>Com ARMA 10 e FOR 4, o resultado é 18.</p>
+<pre><code class="language-text">(ARMA + FOR) * 2
+</code></pre>
+<p>Com os mesmos valores, o resultado é 28.</p>
+<p>O ponto decimal é a forma recomendada para copiar exemplos. A vírgula decimal também é aceita em contas simples, como <code>FOR * 1,5</code>. Nas funções <code>min</code>, <code>max</code> e <code>pow</code>, a vírgula separa os argumentos; use ponto nos decimais: <code>max(1.5, 2.5)</code>.</p>
+<p>Os sinais <code>×</code> e <code>x</code> também são convertidos em multiplicação, mas <code>*</code> é a forma mais simples de escrever e revisar as fórmulas.</p>
+<p>Nos blocos que mostram várias fórmulas avulsas, cada linha é uma opção independente. Para colocar vários resultados no mesmo Efeito, una os módulos com <code>|</code>; uma quebra de linha não é um separador de módulos.</p>
+<h3 id="potencia-e-resto">Potência e resto</h3>
+<p><code>2^3</code> e <code>2**3</code> funcionam para uma potência simples com números. Entretanto, os operadores <code>^</code> e <code>**</code> têm limitações na preparação de fórmulas com dados e em potências encadeadas. <strong>Use <code>pow(base, expoente)</code> para potências</strong>, inclusive <code>pow(1d20, 2)</code>.</p>
+<p><code>%</code> calcula o resto de divisões numéricas, como <code>5 % 2</code>, que resulta em 1. Seu uso diretamente após um dado não é confiável nesta versão. Evite expressões como <code>1d20%3</code>.</p>
+<h2 id="6-dados-vantagem-e-desvantagem">6. Dados, vantagem e desvantagem</h2>
+<p>Escreva os dados de forma contígua: quantidade, letra <code>d</code> e número de faces.</p>
+<table>
+<thead>
+<tr>
+<th>Fórmula</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>1d20</code></td>
+<td>Um dado de vinte faces</td>
+</tr>
+<tr>
+<td><code>2d6</code></td>
+<td>Soma de dois dados de seis faces</td>
+</tr>
+<tr>
+<td><code>1d20 + DES</code></td>
+<td>Teste com Destreza</td>
+</tr>
+<tr>
+<td><code>2d6 + FOR</code></td>
+<td>Dois dados somados à Força</td>
+</tr>
+<tr>
+<td><code>1d20 + NIVEL + JJT</code></td>
+<td>Teste com vários valores da ficha</td>
+</tr>
+<tr>
+<td><code>max(1d20, 1d20) + DES</code></td>
+<td>Rola dois d20, usa o maior e soma DES</td>
+</tr>
+<tr>
+<td><code>min(1d20, 1d20) + DES</code></td>
+<td>Rola dois d20, usa o menor e soma DES</td>
+</tr>
+</tbody>
+</table>
+<p>Use <code>1d20</code>, sem espaços entre suas partes. <code>1D20</code> também é aceito.</p>
+<p>Rolagem, Custo e cada módulo de Efeito são avaliados separadamente. Escrever <code>1d20</code> em dois campos faz duas rolagens; a segunda expressão não reaproveita o resultado da primeira.</p>
+<h3 id="modificadores-nativos-do-foundry">Modificadores nativos do Foundry</h3>
+<p><strong>Nesta versão, não use <code>kh</code>, <code>kl</code>, <code>dl</code>, rerrolagens ou explosões dentro dos campos da Nexus.</strong> A interpretação de variáveis pode confundir esses sufixos com parâmetros e produzir um resultado incorreto. Para vantagem e desvantagem, use os exemplos com <code>max</code> e <code>min</code> acima.</p>
+<p>O Foundry possui uma linguagem de dados mais ampla no próprio chat e em scripts. Ela não deve ser confundida com o conjunto de expressões confiáveis nos campos da Nexus. <a href="https://foundryvtt.com/article/dice/">Dados no Foundry</a></p>
+<h2 id="7-funcoes-matematicas">7. Funções matemáticas</h2>
+<p>Escreva os nomes das funções em <strong>minúsculas</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Função</th>
+<th>O que faz</th>
+<th>Exemplo</th>
+<th style="text-align:right">Resultado final</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>abs(valor)</code></td>
+<td>Valor absoluto</td>
+<td><code>abs(-8)</code></td>
+<td style="text-align:right">8</td>
+</tr>
+<tr>
+<td><code>ceil(valor)</code></td>
+<td>Arredonda para cima</td>
+<td><code>ceil(7 / 2)</code></td>
+<td style="text-align:right">4</td>
+</tr>
+<tr>
+<td><code>floor(valor)</code></td>
+<td>Arredonda para baixo</td>
+<td><code>floor(7 / 2)</code></td>
+<td style="text-align:right">3</td>
+</tr>
+<tr>
+<td><code>round(valor)</code></td>
+<td>Arredonda para o inteiro mais próximo</td>
+<td><code>round(3.6)</code></td>
+<td style="text-align:right">4</td>
+</tr>
+<tr>
+<td><code>min(a, b)</code></td>
+<td>Escolhe o menor</td>
+<td><code>min(10, 25)</code></td>
+<td style="text-align:right">10</td>
+</tr>
+<tr>
+<td><code>max(a, b)</code></td>
+<td>Escolhe o maior</td>
+<td><code>max(10, 25)</code></td>
+<td style="text-align:right">25</td>
+</tr>
+<tr>
+<td><code>pow(base, expoente)</code></td>
+<td>Calcula uma potência</td>
+<td><code>pow(2, 3)</code></td>
+<td style="text-align:right">8</td>
+</tr>
+<tr>
+<td><code>sqrt(valor)</code></td>
+<td>Raiz quadrada</td>
+<td><code>sqrt(25)</code></td>
+<td style="text-align:right">5</td>
+</tr>
+</tbody>
+</table>
+<p>Exemplos de composição:</p>
+<pre><code class="language-text">max(ARMA - 10, 0)
+min(JJT * 5, 100)
+ceil(EAMAX * 0.05)
+pow(FOR, 2) + ARMA
+</code></pre>
+<p>O primeiro limita o resultado mínimo a zero. O segundo impõe um teto de 100. São fórmulas para produzir números; escrever um teto de dano em Efeito continua sendo uma publicação de resultado, sem aplicação automática no alvo.</p>
+<h2 id="8-arredondamento-dos-resultados">8. Arredondamento dos resultados</h2>
+<p>Cada resultado numérico final de Rolagem, Custo e Efeito recebe <code>floor</code>: arredondamento para o inteiro inferior.</p>
+<table>
+<thead>
+<tr>
+<th>Conta</th>
+<th style="text-align:right">Resultado publicado ou utilizado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>7.9</code></td>
+<td style="text-align:right">7</td>
+</tr>
+<tr>
+<td><code>10 / 3</code></td>
+<td style="text-align:right">3</td>
+</tr>
+<tr>
+<td><code>(3 / 2) * 2</code></td>
+<td style="text-align:right">3</td>
+</tr>
+<tr>
+<td><code>-0.2</code></td>
+<td style="text-align:right">-1</td>
+</tr>
+</tbody>
+</table>
+<p>Os valores intermediários preservam a precisão. Não é necessário acrescentar <code>floor</code> a todas as fórmulas. O arredondamento automático fica escondido na fórmula exibida no cartão de chat.</p>
+<p>Para decidir outro arredondamento em parte da conta, use uma função explícita:</p>
+<pre><code class="language-text">ceil(10 / 3)
+</code></pre>
+<p>O resultado é 4. Um <code>floor(...)</code> escrito por você continua aparecendo como parte da sua fórmula; o <code>floor</code> acrescentado pelo sistema fica oculto.</p>
+<h2 id="9-valores-perguntados-durante-a-execucao">9. Valores perguntados durante a execução</h2>
+<p>Use <code>@{Nome}</code> quando um valor precisar ser informado a cada uso do movimento.</p>
+<p>O sistema pergunta apenas nomes que não correspondem a um valor conhecido. <code>@{Bonus}</code> pode gerar uma pergunta; <code>@{FOR}</code> consulta a Força da ficha.</p>
+<pre><code class="language-text">Rolagem: 1d20 + DES + @{Bonus}
+Custo: 10 * @{Cast}
+Efeito: Dano: (ARMA + FOR * 2) * @{Cast}
+</code></pre>
+<p>Ao executar, o sistema pergunta o valor de Bonus e de Cast. Cada nome é solicitado uma única vez naquela execução e o valor é reutilizado em todos os campos. Na próxima execução, os valores são perguntados novamente.</p>
+<p>Os nomes podem conter espaços:</p>
+<pre><code class="language-text">Dano: FOR * 3 + @{Bonus do ritual}
+</code></pre>
+<p>Os parâmetros aceitam números inteiros, decimais e negativos. A fórmula de Custo continua exigindo um resultado final não negativo. Cancelar a pergunta interrompe o movimento sem publicar o resultado ou gastar EA.</p>
+<p>Uma variável desconhecida dentro de uma expressão como <code>Cast * 10</code> também pode gerar uma pergunta. <strong>Prefira sempre <code>@{Cast}</code></strong>: essa forma funciona inclusive quando o parâmetro aparece sozinho.</p>
+<pre><code class="language-text">Custo: @{Gasto}
+</code></pre>
+<p><code>EAR</code>, <code>Cast</code>, <code>Bonus</code> e outros nomes personalizados não são reservas ou atributos registrados automaticamente. Com <code>@{EAR}</code>, por exemplo, você informa um número; o sistema não cria uma barra de Energia Amaldiçoada Reversa.</p>
+<p>Parâmetros não são resultados de campos anteriores. <code>@{Dano}</code> pergunta um número; não consulta o resultado de uma linha chamada Dano.</p>
+<h2 id="10-efeitos-com-varias-partes">10. Efeitos com várias partes</h2>
+<p>O campo Efeito aceita vários módulos. A forma recomendada é separar as partes com <code>|</code> e dar um rótulo a cada uma:</p>
+<pre><code class="language-text">Dano: ARMA + FOR * 2 | Cura: JJT * 3 | Nota: &quot;Derruba o alvo se o mestre confirmar o efeito.&quot;
+</code></pre>
+<p>O chat mostra três seções: Dano, Cura e Nota.</p>
+<p>Também é possível separar módulos com <code>/</code> quando a barra é seguida por um novo rótulo:</p>
+<pre><code class="language-text">Dano: FOR / 2 / Cura: JJT + 1
+</code></pre>
+<p>Nesse exemplo, <code>FOR / 2</code> é a divisão; a barra antes de <code>Cura:</code> começa outra seção. Para facilitar a leitura, prefira <code>|</code> como separador de seções.</p>
+<h3 id="texto-literal">Texto literal</h3>
+<p>Coloque o texto entre aspas duplas para publicá-lo sem calcular ou substituir palavras:</p>
+<pre><code class="language-text">Condição: &quot;Atordoado por 2 turnos.&quot;
+Nota: &quot;A: B; texto com | e / preservados.&quot;
+Descrição: &quot;Recebe o efeito de FOR por um turno.&quot;
+</code></pre>
+<p>No último exemplo, a palavra FOR permanece escrita; não vira o valor de Força. Para texto com dois-pontos, use um rótulo explícito, como <code>Nota: &quot;A: B&quot;</code>.</p>
+<p>As três linhas acima são exemplos separados. Para publicá-las juntas no mesmo campo, separe-as com <code>|</code>.</p>
+<p>Dentro do texto literal, <code>\&quot;</code> representa aspas e <code>\\</code> representa uma barra invertida.</p>
+<h3 id="rotulos-nao-executam-acoes">Rótulos não executam ações</h3>
+<p>Você pode usar nomes como Dano, Cura, Defesa, Duração ou Alcance. Eles identificam as seções do chat; não são comandos especiais.</p>
+<pre><code class="language-text">Custo: 30
+</code></pre>
+<p>Se essa linha estiver em <strong>Efeito</strong>, ela apenas mostra uma seção chamada Custo. Para gastar 30 EA, coloque <code>30</code> no campo <strong>Custo</strong> do movimento.</p>
+<h2 id="11-custo-e-energia-amaldicoada">11. Custo e Energia Amaldiçoada</h2>
+<p>Para Personagens e Maldições, Custo aceita um número fixo, uma fórmula ou dados:</p>
+<table>
+<thead>
+<tr>
+<th>Custo</th>
+<th>Comportamento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vazio</td>
+<td>Não cobra EA</td>
+</tr>
+<tr>
+<td><code>0</code></td>
+<td>Publica custo zero, sem gasto</td>
+</tr>
+<tr>
+<td><code>15</code></td>
+<td>Gasta 15 EA</td>
+</tr>
+<tr>
+<td><code>NIVEL * 2</code></td>
+<td>Gasta o dobro do nível</td>
+</tr>
+<tr>
+<td><code>EAMAX * 0.05</code></td>
+<td>Gasta 5% da EA máxima, arredondado para baixo</td>
+</tr>
+<tr>
+<td><code>EA * 0.1</code></td>
+<td>Gasta 10% da EA atual, arredondado para baixo</td>
+</tr>
+<tr>
+<td><code>10 * @{Cast}</code></td>
+<td>Pergunta Cast e calcula o custo</td>
+</tr>
+<tr>
+<td><code>1d6 + 5</code></td>
+<td>Rola o custo e verifica a EA necessária</td>
+</tr>
+</tbody>
+</table>
+<p>O custo é resolvido antes da Rolagem e dos Efeitos. Se ele usar dados, esses dados podem ser rolados antes de o sistema descobrir que a EA é insuficiente; o restante do movimento não prossegue nesse caso.</p>
+<p><code>EAMAX</code> já reflete a EA máxima calculada pela ficha, incluindo o bônus de Reserva de Energia Amaldiçoada quando o personagem possui esse talento.</p>
+<p>O resultado final do custo deve ser um inteiro não negativo após o arredondamento. Custos negativos, expressões inválidas e divisões por zero são recusados.</p>
+<p>Se faltar EA, o sistema mostra um aviso e não publica o movimento. Com EA suficiente, calcula a mensagem, desconta o custo e envia o cartão ao chat. Se a publicação falhar depois do desconto, o sistema tenta devolver o gasto sem sobrescrever outra alteração que tenha ocorrido na EA.</p>
+<h3 id="quando-a-variavel-ea-e-lida">Quando a variável EA é lida</h3>
+<p>Todos os campos usam a EA atual <strong>antes do desconto desse movimento</strong>.</p>
+<pre><code class="language-text">EA inicial: 100
+Rolagem: EA
+Custo: EA * 0.1
+Efeito: Referência: EA + 0
+</code></pre>
+<p>O cartão mostra Rolagem 100, custo 10 EA e Referência 100. A ficha termina com 90 EA.</p>
+<h2 id="12-dano-da-arma-equipada">12. Dano da arma equipada</h2>
+<p><code>ARMA</code>, <code>DANOARMA</code> e <code>DANO_ARMA</code> representam o mesmo valor: o dano definido na arma atualmente equipada.</p>
+<ol>
+<li>No Inventário, marque o item como arma.</li>
+<li>O mestre define o dano da arma.</li>
+<li>Equipe a arma desejada.</li>
+<li>Use <code>ARMA</code> nas fórmulas dos movimentos.</li>
+</ol>
+<p>A ficha possui uma arma equipada por vez. Se nenhuma estiver equipada, <code>ARMA</code> vale zero. Trocar a arma equipada altera as próximas execuções, inclusive as feitas por macro.</p>
+<pre><code class="language-text">Dano: ARMA
+Dano: ARMA + FOR * 2
+Dano: (ARMA + DES) * 1.5
+</code></pre>
+<p>O valor é numérico. <code>ARMA</code> não representa o nome do item e não é uma expressão de dados armazenada no campo de dano da arma.</p>
+<h2 id="13-imagens-e-gifs">13. Imagens e GIFs</h2>
+<p>Escolha a imagem pelo botão de imagem do próprio movimento. O seletor permite usar um caminho disponível no Foundry ou um link de imagem; o envio de arquivo depende da permissão de upload do usuário.</p>
+<p>Uma imagem personalizada é publicada no cartão do chat. O ícone padrão do movimento não é enviado como ilustração. A imagem e os textos aparecem junto à Rolagem, ao Custo e aos Efeitos preenchidos.</p>
+<p>Use links HTTP/HTTPS ou caminhos servidos pelo próprio Foundry. Endereços locais como <code>C:\\Imagens\\golpe.png</code> e links <code>file:</code>, <code>data:</code> ou <code>blob:</code> não são aceitos como imagem do cartão.</p>
+<p>Use arquivos de imagem ou GIF para esse campo. O cartão é renderizado com uma imagem, não com um player de vídeo. Escolher um vídeo não fornece reprodução de vídeo nesse cartão; o atalho também usa um ícone de dado como alternativa para arquivos de vídeo reconhecidos.</p>
+<h2 id="14-personagem-maldicao-e-shikigami">14. Personagem, Maldição e Shikigami</h2>
+<table>
+<thead>
+<tr>
+<th>Recurso</th>
+<th>Personagem</th>
+<th>Maldição</th>
+<th>Shikigami</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Executar pela ficha e por macro</td>
+<td>Sim</td>
+<td>Sim</td>
+<td>Sim</td>
+</tr>
+<tr>
+<td>Rolagem e Efeito calculados</td>
+<td>Sim</td>
+<td>Sim</td>
+<td>Sim</td>
+</tr>
+<tr>
+<td>Custo calculado e descontado da EA</td>
+<td>Sim</td>
+<td>Sim</td>
+<td>Não</td>
+</tr>
+<tr>
+<td>Custo mostrado como texto</td>
+<td>Quando numérico, mostra o gasto</td>
+<td>Quando numérico, mostra o gasto</td>
+<td>Sempre informativo</td>
+</tr>
+<tr>
+<td>Atributos mentais da própria ficha</td>
+<td>Sim</td>
+<td>Sim</td>
+<td>Não possui</td>
+</tr>
+<tr>
+<td>Dano de arma equipada</td>
+<td>Consulta ARMA</td>
+<td>Consulta ARMA</td>
+<td>ARMA vale zero</td>
+</tr>
+</tbody>
+</table>
+<p>No Shikigami, o campo Custo não calcula uma fórmula, não pergunta seus parâmetros e não desconta EA do invocador.</p>
+<pre><code class="language-text">Custo: 20 EA do invocador
+</code></pre>
+<p>Essa frase aparece como informação no chat. O desconto no invocador deve ser feito separadamente.</p>
+<p>As fórmulas do Shikigami consultam seus próprios atributos físicos, HP, CA e nível derivado. <code>JJT</code>, <code>INT</code>, <code>PER</code>, <code>FDV</code> e <code>EA</code> não puxam os valores do invocador; esses recursos ausentes resolvem como zero. Sem vínculo válido, a variável numérica <code>NIVEL</code> resolve como zero.</p>
+<h2 id="15-exemplos-prontos-para-copiar">15. Exemplos prontos para copiar</h2>
+<p>Os números abaixo são exemplos técnicos de configuração. Ajuste custos, multiplicadores e efeitos às regras aprovadas pelo mestre.</p>
+<h3 id="ataque-com-arma">Ataque com arma</h3>
+<pre><code class="language-text">Nome: Golpe reforçado
+Rolagem: 1d20 + DES
+Custo: 15
+Efeito: Dano: ARMA + FOR * 2
+</code></pre>
+<h3 id="ataque-usando-jujutsu">Ataque usando Jujutsu</h3>
+<pre><code class="language-text">Nome: Disparo amaldiçoado
+Rolagem: 1d20 + JJT
+Custo: 20
+Efeito: Dano: JJT * 5
+</code></pre>
+<h3 id="cura-anunciada-no-chat">Cura anunciada no chat</h3>
+<pre><code class="language-text">Nome: Recuperação
+Rolagem:
+Custo: 15
+Efeito: Cura: JJT * 3 | Nota: &quot;Ajustar o HP do beneficiário após resolver a habilidade.&quot;
+</code></pre>
+<h3 id="intensidade-escolhida-ao-usar">Intensidade escolhida ao usar</h3>
+<pre><code class="language-text">Nome: Canalização
+Rolagem: 1d20 + JJT
+Custo: 10 * @{Cast}
+Efeito: Dano: JJT * 5 * @{Cast}
+</code></pre>
+<p>Cast é perguntado uma vez e usado nas duas contas.</p>
+<h3 id="bonus-informado-para-o-teste">Bônus informado para o teste</h3>
+<pre><code class="language-text">Nome: Ataque com bônus
+Rolagem: 1d20 + DES + @{Bonus}
+Custo: 10
+Efeito: Dano: ARMA + FOR * 2
+</code></pre>
+<h3 id="dois-resultados-e-uma-condicao-descritiva">Dois resultados e uma condição descritiva</h3>
+<pre><code class="language-text">Nome: Impacto
+Rolagem: 1d20 + FOR
+Custo: 20
+Efeito: Dano: ARMA + FOR * 3 | Alcance: 3 + AGI | Condição: &quot;Derrubado, se a habilidade for bem-sucedida.&quot;
+</code></pre>
+<h3 id="teste-com-o-maior-ou-o-menor-de-dois-d20">Teste com o maior ou o menor de dois d20</h3>
+<pre><code class="language-text">Rolagem com maior resultado: max(1d20, 1d20) + DES
+Rolagem com menor resultado: min(1d20, 1d20) + DES
+</code></pre>
+<p>Copie apenas a expressão desejada para Rolagem, sem o texto explicativo antes dos dois-pontos.</p>
+<h3 id="custo-percentual">Custo percentual</h3>
+<pre><code class="language-text">Nome: Liberação
+Rolagem: 1d20 + JJT
+Custo: EAMAX * 0.05
+Efeito: Dano: JJT * 8
+</code></pre>
+<h3 id="shikigami-com-custo-informativo">Shikigami com custo informativo</h3>
+<pre><code class="language-text">Nome: Investida
+Rolagem: 1d20 + FOR
+Custo: 15 EA do invocador
+Efeito: Dano: FOR * 5
+</code></pre>
+<h2 id="16-macros-de-chat-e-macros-de-script">16. Macros de chat e macros de script</h2>
+<p>O Foundry oferece macros do tipo <strong>Chat</strong>, para enviar texto e comandos, e <strong>Script</strong>, para executar JavaScript e acessar sua API. Clique em uma posição vazia da barra ou crie uma macro pelo diretório para configurar uma delas. <a href="https://foundryvtt.com/article/macros/">Tipos de macro no Foundry</a></p>
+<p>Uma macro de Chat pode conter, por exemplo:</p>
+<pre><code class="language-text">/roll 1d20 + 5
+</code></pre>
+<p>Essa é uma rolagem nativa. Escrever <code>DES</code> ou <code>ARMA</code> nela não aciona automaticamente o resolvedor dos campos da ficha Nexus. Para executar um movimento com suas variáveis, custo e imagem, use o atalho criado ao arrastar o dado, ou a chamada de Script abaixo.</p>
+<h3 id="executar-um-movimento-por-script">Executar um movimento por Script</h3>
+<pre><code class="language-javascript">await game.nexus.rollMovement(&quot;Actor.ID_DO_ATOR.Item.ID_DO_MOVIMENTO&quot;);
+</code></pre>
+<p>Substitua o texto de exemplo pelo UUID real do Item de movimento. Uma forma de obter a referência correta é criar o atalho arrastando o dado e abrir <strong>Editar</strong> no menu de botão direito da macro: o comando criado já contém seu UUID.</p>
+<p>Essa chamada usa o mesmo fluxo da ficha: permissões, parâmetros, fórmulas, EA, imagem e chat. Ela não exige que a ficha esteja aberta.</p>
+<p>JavaScript genérico permite construir outras automações por meio da API do Foundry e de módulos instalados. Isso depende do script escrito; não significa que existam campos ou comandos equivalentes implementados na Nexus.</p>
+<h2 id="17-referencia-da-api-de-movimentos">17. Referência da API de movimentos</h2>
+<h3 id="game-nexus-rollmovement-uuid"><code>game.nexus.rollMovement(uuid)</code></h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Descrição</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Argumento</td>
+<td>UUID do Item de movimento, como string</td>
+</tr>
+<tr>
+<td>Fichas aceitas</td>
+<td>Personagem, Maldição e Shikigami existentes no mundo</td>
+</tr>
+<tr>
+<td>Permissão</td>
+<td>O usuário precisa ter propriedade da ficha</td>
+</tr>
+<tr>
+<td>Sucesso</td>
+<td>Promise que resolve com o documento ChatMessage criado</td>
+</tr>
+<tr>
+<td>Cancelamento ou falha tratada</td>
+<td>Promise que resolve com <code>undefined</code></td>
+</tr>
+</tbody>
+</table>
+<p>Não há argumentos para escolher alvo, ignorar custo, acrescentar bônus ou mudar o modo da mensagem nessa função. Bônus variáveis devem estar nas fórmulas do movimento.</p>
+<p>Para usar a mensagem criada dentro de um Script:</p>
+<pre><code class="language-javascript">const mensagem = await game.nexus.rollMovement(&quot;Actor.ID_DO_ATOR.Item.ID_DO_MOVIMENTO&quot;);
+if (mensagem) {
+  console.log(&quot;Movimento publicado:&quot;, mensagem.id);
+}
+</code></pre>
+<p>A macro automática criada pela barra contém <code>await ...;</code>, sem <code>return</code>. Portanto, executar o documento Macro não devolve diretamente a mensagem. Em uma macro manual que precise devolver esse valor ao chamador, use:</p>
+<pre><code class="language-javascript">return await game.nexus.rollMovement(&quot;Actor.ID_DO_ATOR.Item.ID_DO_MOVIMENTO&quot;);
+</code></pre>
+<h3 id="atribuir-uma-posicao-por-codigo">Atribuir uma posição por código</h3>
+<p><code>assignMovementMacro</code> é uma exportação do módulo, não um método de <code>game.nexus</code>. Esta é uma opção avançada para scripts do cliente:</p>
+<pre><code class="language-javascript">const { assignMovementMacro } = await import(
+  foundry.utils.getRoute(&quot;systems/nexus-jjk/module/movement-macros.mjs&quot;)
+);
+
+await assignMovementMacro(&quot;Actor.ID_DO_ATOR.Item.ID_DO_MOVIMENTO&quot;, 12);
+</code></pre>
+<p>O exemplo atribui à página 2, tecla 2. O número usado pela função é a posição absoluta, de 1 a 50:</p>
+<table>
+<thead>
+<tr>
+<th>Página</th>
+<th>Posições absolutas</th>
+<th style="text-align:right">Tecla 1</th>
+<th style="text-align:right">Tecla 0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1–10</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">10</td>
+</tr>
+<tr>
+<td>2</td>
+<td>11–20</td>
+<td style="text-align:right">11</td>
+<td style="text-align:right">20</td>
+</tr>
+<tr>
+<td>3</td>
+<td>21–30</td>
+<td style="text-align:right">21</td>
+<td style="text-align:right">30</td>
+</tr>
+<tr>
+<td>4</td>
+<td>31–40</td>
+<td style="text-align:right">31</td>
+<td style="text-align:right">40</td>
+</tr>
+<tr>
+<td>5</td>
+<td>41–50</td>
+<td style="text-align:right">41</td>
+<td style="text-align:right">50</td>
+</tr>
+</tbody>
+</table>
+<p>A regra é <code>(página - 1) * 10 + posição</code>, contando a tecla 0 como posição 10. A função substitui o atalho daquela posição e devolve a macro atribuída, ou <code>undefined</code> se a operação não for concluída.</p>
+<p>O módulo também exporta <code>promptMovementMacro</code>, que abre um seletor de página e tecla e confirma substituições. Essa função não está ligada a um botão da ficha e não existe como <code>game.nexus.promptMovementMacro</code>.</p>
+<pre><code class="language-javascript">const { promptMovementMacro } = await import(
+  foundry.utils.getRoute(&quot;systems/nexus-jjk/module/movement-macros.mjs&quot;)
+);
+
+await promptMovementMacro(&quot;Actor.ID_DO_ATOR.Item.ID_DO_MOVIMENTO&quot;);
+</code></pre>
+<p>O cadeado protege o arraste na interface. Ele não deve ser interpretado como bloqueio dessas chamadas por código.</p>
+<h2 id="18-permissoes-privacidade-e-exclusao">18. Permissões, privacidade e exclusão</h2>
+<h3 id="permissoes">Permissões</h3>
+<p>Para criar o atalho automaticamente, o usuário precisa poder criar macros e ter a permissão de macros de script. Para executar o movimento, também precisa ter propriedade da ficha original, mesmo quando o custo é zero.</p>
+<p>Compartilhar apenas o documento Macro não compartilha a ficha. O mestre pode configurar as propriedades necessárias; a Nexus não executa a operação com permissões elevadas de um GM.</p>
+<h3 id="visibilidade-no-chat">Visibilidade no chat</h3>
+<p>No Foundry 14 verificado, o movimento usa o modo de mensagem escolhido no chat:</p>
+<table>
+<thead>
+<tr>
+<th>Modo</th>
+<th>Quem vê o conteúdo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Público</td>
+<td>Todos</td>
+</tr>
+<tr>
+<td>GM</td>
+<td>Autor e mestres</td>
+</tr>
+<tr>
+<td>Cego / Blind</td>
+<td>Mestres</td>
+</tr>
+<tr>
+<td>Próprio / Self</td>
+<td>Autor</td>
+</tr>
+</tbody>
+</table>
+<p>Em rolagens ocultas, o Foundry pode manter uma indicação da mensagem ou um espaço com conteúdo escondido; isso não significa que o resultado foi revelado. <a href="https://foundryvtt.com/article/dice/">Modos de dados do Foundry</a></p>
+<h3 id="remover-e-excluir">Remover e excluir</h3>
+<ul>
+<li><strong>Remover da barra:</strong> libera a posição, mantendo a macro e o movimento.</li>
+<li><strong>Excluir a macro:</strong> apaga o atalho como documento, mantendo o movimento da ficha.</li>
+<li><strong>Excluir o movimento:</strong> a Nexus remove as macros automáticas identificadas como ligadas àquele movimento, conforme as permissões disponíveis.</li>
+</ul>
+<p>Com um GM ativo, ele coordena a limpeza das macros do movimento excluído, inclusive as de autores desconectados. Macros escritas manualmente sem a identificação da Nexus não entram nessa limpeza automática.</p>
+<p>Não há garantia de limpeza geral ao excluir uma ficha inteira ou de recuperação de todos os atalhos antigos. Uma macro com referência indisponível mostra aviso ao executar; recrie o atalho a partir do movimento válido.</p>
+<h3 id="cliques-repetidos">Cliques repetidos</h3>
+<p>Enquanto um movimento está sendo processado, uma segunda execução para a mesma ficha no mesmo cliente é ignorada. Isso cobre as perguntas, a rolagem e o gasto. Aguarde a conclusão antes de executar novamente.</p>
+<p>Essa proteção não é uma transação compartilhada entre vários usuários ou várias abas. Evite que duas pessoas operem a mesma ficha simultaneamente para gastar o mesmo recurso.</p>
+<h2 id="19-limites-da-versao-atual">19. Limites da versão atual</h2>
+<table>
+<thead>
+<tr>
+<th>Recurso</th>
+<th>Situação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aplicar dano ou cura diretamente ao HP</td>
+<td>Não automatizado pelos movimentos</td>
+</tr>
+<tr>
+<td>Aplicar condições e contar seus turnos</td>
+<td>Não automatizado</td>
+</tr>
+<tr>
+<td>Comparar ataque com CA de um alvo</td>
+<td>Não automatizado</td>
+</tr>
+<tr>
+<td>Identificar crítico e multiplicar dano</td>
+<td>Não automatizado</td>
+</tr>
+<tr>
+<td>Consumir ações ou controlar alcance</td>
+<td>Não automatizado</td>
+</tr>
+<tr>
+<td>Descontar no invocador o custo do Shikigami</td>
+<td>Não automatizado</td>
+</tr>
+<tr>
+<td>Reutilizar o resultado de outra linha como variável</td>
+<td>Não implementado</td>
+</tr>
+<tr>
+<td><code>if</code>, <code>else</code> e condições nos campos de fórmula</td>
+<td>Não implementado como sintaxe de movimento</td>
+</tr>
+<tr>
+<td><code>kh</code>, <code>kl</code>, <code>dl</code>, rerrolagens e explosões nos campos</td>
+<td>Não confiáveis nesta versão; use alternativas validadas</td>
+</tr>
+<tr>
+<td><code>^</code> e <code>**</code> em fórmulas gerais com dados</td>
+<td>Não confiáveis; use <code>pow</code></td>
+</tr>
+<tr>
+<td><code>%</code> diretamente após um dado</td>
+<td>Não confiável</td>
+</tr>
+<tr>
+<td>Reproduzir vídeo no cartão do movimento</td>
+<td>Não implementado como player de vídeo</td>
+</tr>
+<tr>
+<td>Atualizar imediatamente o nome/ícone da macro ao editar o movimento</td>
+<td>Requer arrastar o dado novamente</td>
+</tr>
+</tbody>
+</table>
+<p>Os títulos Dano, Cura e Condição não transformam o resultado em uma ação automática. Fórmulas personalizadas também não são JavaScript: nos campos da ficha, use a sintaxe matemática descrita neste manual.</p>
+<h2 id="20-problemas-comuns">20. Problemas comuns</h2>
+<table>
+<thead>
+<tr>
+<th>Problema</th>
+<th>O que conferir</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Não consigo arrastar para a barra</td>
+<td>Destrave o cadeado e arraste o botão do dado; confirme que pode editar a ficha.</td>
+</tr>
+<tr>
+<td>A tecla não executa</td>
+<td>Saia do campo de texto, confira a página atual e os atalhos em Configurar Controles.</td>
+</tr>
+<tr>
+<td>A tecla executa outra habilidade</td>
+<td>Confira a página e o atalho daquela posição.</td>
+</tr>
+<tr>
+<td>A macro usa outro personagem</td>
+<td>Ela continua ligada à ficha de origem; arraste o dado da ficha correta.</td>
+</tr>
+<tr>
+<td>Não tenho permissão</td>
+<td>Confira propriedade da ficha e permissões de criação de macros/script com o mestre.</td>
+</tr>
+<tr>
+<td>Movimento inexistente</td>
+<td>O original pode ter sido excluído ou duplicado. Crie o atalho a partir do movimento atual.</td>
+</tr>
+<tr>
+<td>A arma vale zero</td>
+<td>Confira se o item está marcado como arma, tem dano definido e está equipado.</td>
+</tr>
+<tr>
+<td>Pede um nome estranho, como <code>d20kh</code></td>
+<td>Há um modificador de dados não suportado. Use <code>max(1d20, 1d20)</code> ou <code>min(...)</code>.</td>
+</tr>
+<tr>
+<td>Não pergunta meu parâmetro</td>
+<td>Escreva <code>@{Nome}</code>; um nome solto pode ser tratado como texto.</td>
+</tr>
+<tr>
+<td>Pede um valor que deveria ser atributo</td>
+<td>Confira a grafia na tabela de variáveis.</td>
+</tr>
+<tr>
+<td>Texto está sendo interpretado como conta</td>
+<td>Use rótulo e aspas: <code>Nota: &quot;seu texto&quot;</code>.</td>
+</tr>
+<tr>
+<td>Não aceita meu custo</td>
+<td>Use número ou fórmula de resultado não negativo; confira parênteses, funções e EA disponível.</td>
+</tr>
+<tr>
+<td>Mostra o custo, mas não desconta</td>
+<td>Confira se está no campo Custo, não em Efeito; em Shikigami, o custo é informativo.</td>
+</tr>
+<tr>
+<td>A fórmula mudou, mas o ícone da barra está antigo</td>
+<td>A execução usa a fórmula atual; arraste novamente para atualizar a aparência do atalho.</td>
+</tr>
+<tr>
+<td>Um decimal apareceu como inteiro</td>
+<td>O arredondamento final para baixo é automático.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="21-referencias-e-versao">21. Referências e versão</h2>
+<p>Esta documentação foi conferida contra a implementação Nexus <strong>0.4.24</strong> e o núcleo local Foundry <strong>14.370</strong>. Os exemplos matemáticos principais, parâmetros, vantagem/desvantagem e limitações de dados foram verificados no motor da Nexus com o Roll nativo do Foundry.</p>
+<ul>
+<li><a href="https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.24/module/formula-engine.mjs">Motor de fórmulas da Nexus, versão 0.4.24</a></li>
+<li><a href="https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.24/module/movement-macros.mjs">Integração de macros da Nexus, versão 0.4.24</a></li>
+<li><a href="https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.24/module/documents.mjs">Dados e arma equipada da Nexus, versão 0.4.24</a></li>
+<li><a href="https://foundryvtt.com/article/macros/">Macros do Foundry</a></li>
+<li><a href="https://foundryvtt.com/article/controls/">Controles do Foundry</a></li>
+<li><a href="https://foundryvtt.com/article/dice/">Dados e modos de rolagem</a></li>
+<li><a href="https://foundryvtt.com/api/v14/classes/foundry.applications.ui.Hotbar.html">API Hotbar do Foundry 14</a></li>
+<li><a href="https://foundryvtt.com/api/v14/classes/foundry.documents.ChatMessage.html#applyMode">API ChatMessage.applyMode do Foundry 14</a></li>
+</ul>
+<p>Alterações futuras no sistema ou em módulos instalados podem ampliar ou modificar esse comportamento. Este manual descreve o que está implementado na versão indicada.</p>
+
+<div class="footer">Nexus 0.4.24 · Arquivo independente, utilizável sem conexão. As referências externas exigem internet.</div>
+</article></main>
+</div>
+<a class="top-link" href="#inicio">↑ Início</a>
+<script>
+document.querySelectorAll('article table').forEach(table=>{const wrapper=document.createElement('div');wrapper.className='table-wrap';table.before(wrapper);wrapper.append(table)});
+const hero=document.querySelector('article h1+p');
+const flow=document.createElement('div');flow.className='flow';flow.setAttribute('aria-label','Fluxo do movimento');flow.innerHTML='<b>Ficha</b><span>→</span><b>Fórmulas</b><span>→</span><b>Dado / Atalho</b><span>→</span><b>EA + Chat</b>';hero.after(flow);
+document.querySelector('#print').addEventListener('click',()=>window.print());
+const normalize=text=>text.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+document.querySelector('#toc-search').addEventListener('input',event=>{let count=0;const query=normalize(event.target.value.trim());document.querySelectorAll('.toc-link').forEach(link=>{link.hidden=!normalize(link.textContent).includes(query);if(!link.hidden)count++});document.querySelector('.no-results').hidden=count>0});
+document.querySelectorAll('pre').forEach(pre=>{const button=document.createElement('button');button.type='button';button.className='copy';button.textContent='Copiar';button.setAttribute('aria-label','Copiar exemplo');button.addEventListener('click',async()=>{const text=pre.querySelector('code').textContent;try{await navigator.clipboard.writeText(text)}catch{const input=document.createElement('textarea');input.value=text;input.style.position='fixed';input.style.opacity='0';document.body.append(input);input.select();document.execCommand('copy');input.remove()}button.textContent='Copiado';setTimeout(()=>button.textContent='Copiar',1600)});pre.append(button)});
+const links=[...document.querySelectorAll('.toc-link')];
+const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(!entry.isIntersecting)continue;links.forEach(link=>link.classList.toggle('current',link.hash==='#'+entry.target.id))}},{rootMargin:'-8% 0px -70% 0px'});
+document.querySelectorAll('article h2,article h3').forEach(heading=>observer.observe(heading));
+</script>
+</body></html>
