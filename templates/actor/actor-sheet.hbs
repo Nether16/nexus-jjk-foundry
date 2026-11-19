@@ -181,7 +181,6 @@
 <main class="ficha{{#if isCurse}} ficha-maldicao{{/if}}{{#if isShikigami}} ficha-shikigami{{/if}}">
   <header class="banner">
     <div class="banner-texto">
-      {{#if isShikigami}}<span class="shikigami-identidade">式神 <span>Shikigami</span></span>{{/if}}
       <input
         class="nome transparent"
         type="text"
@@ -191,6 +190,7 @@
       >
     </div>
 
+    {{#unless isShikigami}}
     <div class="progressao">
       <div class="torii-nivel">
         <img
@@ -198,9 +198,6 @@
           alt=""
         >
 
-        {{#if isShikigami}}
-        <output class="nivel" aria-label="Nível do shikigami" title="Nível do invocador">{{#if shikigamiReference}}{{system.level}}{{else}}?{{/if}}</output>
-        {{else}}
         <input
           class="nivel transparent"
           type="number"
@@ -208,10 +205,8 @@
           value="{{system.level}}"
           aria-label="Nível"
         >
-        {{/if}}
       </div>
 
-      {{#unless isShikigami}}
       <div class="xp-legenda">
         <span class="xp-rotulo">XP:</span>
         <input
@@ -234,8 +229,8 @@
         max="{{system.xp.target}}"
         aria-label="Experiência"
       ></progress>
-      {{/unless}}
     </div>
+    {{/unless}}
   </header>
 
   <section class="conteudo">
