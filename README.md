@@ -39,7 +39,7 @@ Para atualizar, use **Check for Updates** na lista de sistemas do Foundry. O lin
 
 Os atalhos ficam na barra do usuário conectado. As teclas 1–9 e 0 executam os movimentos da página ativa da barra. A macro usa os dados atuais do movimento e a mesma rolagem da ficha, incluindo imagem, efeitos, custo e verificação de EA disponível. Ao excluir um movimento da ficha, as macros vinculadas a ele também são excluídas automaticamente.
 
-Shikigamis têm o nível do invocador, com 50 HP no nível 1, mais 25 HP por nível seguinte e 10 HP por ponto de Constituição do próprio shikigami. Seus quatro atributos físicos são inteiros não negativos, sem limite automático por nível. Shikigamis não possuem XP, EA, origem ou inventário; o custo dos movimentos aparece apenas como texto no chat, sem descontar EA.
+Shikigamis têm o nível do invocador, com 50 HP no nível 1, mais 25 HP por nível seguinte e 10 HP por ponto de Constituição do próprio shikigami. Seus quatro atributos físicos são inteiros não negativos, sem limite automático por nível. Shikigamis não possuem XP, EA, origem ou inventário; o custo dos movimentos é descontado da EA do personagem invocador vinculado. O gasto exige vínculo válido, EA suficiente e permissão para editar o invocador.
 
 O mestre pode usar **Vincular invocador**, na área do invocador, para escolher um personagem. Os indicadores ao lado do retrato mostram a distância máxima (JJT em metros) e a Perícia Ocultista (JJT + FDV + INT), que é o total de pontos para distribuir nos quatro atributos do shikigami. Nível e indicadores ficam com “?” sem vínculo; o HP usa a base de 50. Ao vincular, acompanham os valores atuais do invocador. A distância é informativa.
 

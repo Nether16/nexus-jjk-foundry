@@ -1,7 +1,9 @@
 import { NexusFormulaEngine } from "./formula-engine.mjs";
+import { getShikigamiInvoker } from "./shikigami.mjs";
 
 export const movementWrites = new WeakMap();
 const rollingActors = new Set();
+const eaRolls = new Map();
 const DEFAULT_ICON = "systems/nexus-jjk/assets/icons/d20Icon.png";
 let assignments = Promise.resolve();
 let deletions = Promise.resolve();
@@ -66,6 +68,28 @@ async function readyMovement(itemOrUuid) {
   return null;
 }
 
+/** Invocador e shikigamis compartilham a fila de gasto da mesma reserva de EA. */
+async function rollWithSharedEA(actor, item) {
+  const payer = actor.type === "shikigami" ? getShikigamiInvoker(actor) : actor;
+  const key = payer?.uuid ?? actor.uuid;
+  const previous = eaRolls.get(key) ?? Promise.resolve();
+  const rolling = previous.catch(() => undefined).then(async () => {
+    const current = await readyMovement(item.uuid);
+    if (!current || current.parent.uuid !== actor.uuid) return;
+    if (actor.type === "shikigami" && getShikigamiInvoker(current.parent) !== payer) {
+      warn("O invocador do shikigami mudou. Use o movimento novamente.");
+      return;
+    }
+    return NexusFormulaEngine.rollItem(current.parent, current);
+  });
+  eaRolls.set(key, rolling);
+  try {
+    return await rolling;
+  } finally {
+    if (eaRolls.get(key) === rolling) eaRolls.delete(key);
+  }
+}
+
 /** Ficha e macro compartilham a mesma trava durante prompts, rolagem e gasto de EA. */
 export async function rollMovement(actor, itemOrUuid) {
   let key = actor?.uuid;
@@ -87,7 +111,7 @@ export async function rollMovement(actor, itemOrUuid) {
     // Uma gravação ou exclusão pode ter substituído a instância do Item enquanto aguardávamos.
     item = await readyMovement(itemOrUuid);
     if (!item || item.parent.uuid !== key) return;
-    return await NexusFormulaEngine.rollItem(item.parent, item);
+    return await rollWithSharedEA(item.parent, item);
   } catch (error) {
     reportError(error);
   } finally {

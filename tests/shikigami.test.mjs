@@ -51,6 +51,7 @@ globalThis.foundry = {
 const { NexusCharacterData, NexusShikigamiData } = await import("../module/data-models.mjs");
 const { NexusActor } = await import("../module/documents.mjs");
 const { NexusFormulaEngine } = await import("../module/formula-engine.mjs");
+const { rollMovement } = await import("../module/movement-macros.mjs");
 const { getShikigamiInvoker, getShikigamiReference, registerShikigamiReferenceSync } = await import("../module/shikigami.mjs");
 
 let environment;
@@ -371,25 +372,172 @@ test("ready calcula vínculo após todos os personagens do mundo serem carregado
     "ready recupera o HP salvo que foi limitado temporariamente pela ordem de carga");
 });
 
-test("rolagem do shikigami funciona sem EA e trata qualquer custo como informação", async () => {
+function movementFor(actor, id, { cost = "20", attack = "", effect = "" } = {}) {
+  const movement = { id, uuid: `${actor.uuid}.Item.${id}`, documentName: "Item", type: "attack",
+    name: `Movimento ${id}`, img: "", parent: actor, system: { cost, attack, effect } };
+  actor.items.set(id, movement);
+  return movement;
+}
+
+function resolveTestMovements(...movements) {
+  const entries = new Map(movements.map(movement => [movement.uuid, movement]));
+  globalThis.fromUuid = async uuid => entries.get(uuid);
+}
+
+test("movimento do shikigami debita EA do personagem vinculado e usa seus próprios atributos", async () => {
   const master = invoker();
+  master.system.ea.value = 50;
   const actor = shikigami();
   actor.system.invokerId = master.id;
   actor.system.attributes.forca = 4;
   trackedUpdate(actor);
   trackedUpdate(master);
-  for (const cost of ["", "15", "energia do invocador", "1d20 + custoEspecial"]) {
-    const message = await NexusFormulaEngine.rollItem(actor, { name: "Investida", img: "",
-      system: { attack: "1d20 + FOR", cost, effect: '"Derruba o alvo"' } });
-    assert.ok(message, `movimento com custo ${JSON.stringify(cost)} deve chegar ao chat`);
-    assert.ok(message.content.includes("Derruba o alvo"));
-    if (cost) assert.ok(message.content.includes(cost), "custo informativo é exibido sem interpretação");
-  }
-  assert.deepEqual(environment.updates, [], "não gasta EA do shikigami nem do invocador");
-  assert.deepEqual(environment.prompts, [], "custo informativo não pede variáveis");
-  assert.equal(master.system.ea.value, 100);
+  const own = movementFor(master, "own");
+  const summon = movementFor(actor, "summon", { attack: "1d20 + FOR", effect: '"Derruba o alvo"' });
+  resolveTestMovements(own, summon);
+  assert.ok(await rollMovement(null, own.uuid));
+  assert.equal(master.system.ea.value, 30);
+  const message = await rollMovement(null, summon.uuid);
+  assert.ok(message);
+  assert.equal(master.system.ea.value, 10);
+  assert.equal(message.speaker.actor, actor.id);
+  assert.ok(message.content.includes("Derruba o alvo"));
+  assert.deepEqual(environment.rolls, ["floor(1d20 + 4)"]);
+  assert.deepEqual(environment.updates.map(({ actor, changes }) => ({ id: actor.id, changes })), [
+    { id: master.id, changes: { "system.ea.value": 30 } },
+    { id: master.id, changes: { "system.ea.value": 10 } }
+  ]);
+  assert.equal("ea" in actor.system, false);
   assert.deepEqual(environment.warnings, []);
   assert.deepEqual(environment.errors, []);
+});
+
+test("player e shikigami simultâneos aguardam o mesmo saldo de EA sem perder débitos", async () => {
+  const master = invoker();
+  master.system.ea.value = 50;
+  const actor = shikigami();
+  actor.system.invokerId = master.id;
+  trackedUpdate(actor);
+  trackedUpdate(master);
+  const own = movementFor(master, "own", { cost: "Bonus * 2" });
+  const summon = movementFor(actor, "summon");
+  resolveTestMovements(own, summon);
+  let releasePrompt;
+  let enteredPrompt;
+  const promptEntered = new Promise(resolve => { enteredPrompt = resolve; });
+  foundry.applications.api.DialogV2.input = async () => {
+    enteredPrompt();
+    return new Promise(resolve => { releasePrompt = resolve; });
+  };
+  const first = rollMovement(null, own.uuid);
+  await promptEntered;
+  let secondFinished = false;
+  const second = rollMovement(null, summon.uuid).then(message => { secondFinished = true; return message; });
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(secondFinished, false, "a invocação aguarda o movimento do invocador");
+  assert.equal(environment.messages.length, 0);
+  assert.equal(master.system.ea.value, 50);
+  releasePrompt({ value: "10" });
+  assert.ok(await first);
+  assert.ok(await second);
+  assert.equal(master.system.ea.value, 10);
+  assert.deepEqual(environment.updates.map(({ changes }) => changes), [
+    { "system.ea.value": 30 }, { "system.ea.value": 10 }
+  ]);
+  assert.deepEqual(environment.errors, []);
+});
+
+test("fila compartilhada bloqueia o segundo movimento se a primeira rolagem esgotou a EA", async () => {
+  const master = invoker();
+  master.system.ea.value = 30;
+  const actor = shikigami();
+  actor.system.invokerId = master.id;
+  trackedUpdate(master);
+  const own = movementFor(master, "own", { cost: "Bonus * 2" });
+  const summon = movementFor(actor, "summon", { attack: "1d20 + FOR" });
+  resolveTestMovements(own, summon);
+  let releasePrompt;
+  let enteredPrompt;
+  const promptEntered = new Promise(resolve => { enteredPrompt = resolve; });
+  foundry.applications.api.DialogV2.input = async () => {
+    enteredPrompt();
+    return new Promise(resolve => { releasePrompt = resolve; });
+  };
+  const first = rollMovement(null, own.uuid);
+  await promptEntered;
+  const second = rollMovement(null, summon.uuid);
+  releasePrompt({ value: "10" });
+  assert.ok(await first);
+  assert.equal(await second, undefined);
+  assert.equal(master.system.ea.value, 10);
+  assert.equal(environment.messages.length, 1);
+  assert.deepEqual(environment.rolls, [], "segundo ataque não chega a rolar");
+  assert.equal(environment.warnings.length, 1);
+});
+
+test("dois shikigamis vinculados ao mesmo invocador usam a mesma fila de EA", async () => {
+  const master = invoker();
+  master.system.ea.value = 50;
+  trackedUpdate(master);
+  const firstActor = shikigami({ id: "first", uuid: "Actor.first" });
+  const secondActor = shikigami({ id: "second", uuid: "Actor.second" });
+  firstActor.system.invokerId = master.id;
+  secondActor.system.invokerId = master.id;
+  const firstMove = movementFor(firstActor, "first", { cost: "Bonus * 2" });
+  const secondMove = movementFor(secondActor, "second");
+  resolveTestMovements(firstMove, secondMove);
+  let releasePrompt;
+  let enteredPrompt;
+  const promptEntered = new Promise(resolve => { enteredPrompt = resolve; });
+  foundry.applications.api.DialogV2.input = async () => {
+    enteredPrompt();
+    return new Promise(resolve => { releasePrompt = resolve; });
+  };
+  const first = rollMovement(null, firstMove.uuid);
+  await promptEntered;
+  const second = rollMovement(null, secondMove.uuid);
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(environment.messages.length, 0);
+  releasePrompt({ value: "10" });
+  assert.ok(await first);
+  assert.ok(await second);
+  assert.equal(master.system.ea.value, 10);
+  assert.deepEqual(environment.messages.map(message => message.speaker.actor), ["first", "second"]);
+  assert.equal("ea" in firstActor.system, false);
+  assert.equal("ea" in secondActor.system, false);
+});
+
+test("invocador trocado enquanto aguarda a fila não cobra de nenhum vínculo incorreto", async () => {
+  const master = invoker();
+  const other = invoker("other");
+  master.system.ea.value = 50;
+  trackedUpdate(master);
+  trackedUpdate(other);
+  const actor = shikigami();
+  actor.system.invokerId = master.id;
+  const own = movementFor(master, "own", { cost: "Bonus * 2" });
+  const summon = movementFor(actor, "summon");
+  resolveTestMovements(own, summon);
+  let releasePrompt;
+  let enteredPrompt;
+  const promptEntered = new Promise(resolve => { enteredPrompt = resolve; });
+  foundry.applications.api.DialogV2.input = async () => {
+    enteredPrompt();
+    return new Promise(resolve => { releasePrompt = resolve; });
+  };
+  const first = rollMovement(null, own.uuid);
+  await promptEntered;
+  const second = rollMovement(null, summon.uuid);
+  await new Promise(resolve => setImmediate(resolve));
+  actor.system.invokerId = other.id;
+  releasePrompt({ value: "10" });
+  assert.ok(await first);
+  assert.equal(await second, undefined);
+  assert.equal(master.system.ea.value, 30);
+  assert.equal(other.system.ea.value, 100);
+  assert.equal(environment.messages.length, 1);
+  assert.equal(environment.warnings.length, 1);
+  assert.match(environment.warnings[0], /invocador.*mudou/iu);
 });
 
 test("personagem mantém HP, EA, teto de atributos, progressão por XP e gasto de movimentos", async () => {

@@ -49,7 +49,7 @@ beforeEach(() => {
       return `<div class="dice-formula">${context.formula}</div><span class="roll-total">${context.total}</span>`;
     }
   } } };
-  globalThis.game = { user: { id: "player" }, settings: { get: () => "blind" } };
+  globalThis.game = { user: { id: "player" }, actors: new Map(), settings: { get: () => "blind" } };
   globalThis.ui = { notifications: {
     warn: message => environment.warnings.push(message), error: message => environment.errors.push(message)
   } };
@@ -289,17 +289,149 @@ test("cancelar ou informar variável inválida interrompe sem alterações", asy
   assert.deepEqual(environment.updates, []);
 });
 
-test("custo de shikigami continua informativo, incluindo texto e números fracionários", async () => {
+function linkedShikigami({ ea = 50, owner = true } = {}) {
+  const invoker = actor({ ea, owner });
+  invoker.id = "invoker";
+  invoker.uuid = "Actor.invoker";
+  game.actors.set(invoker.id, invoker);
   const current = actor({ type: "shikigami" });
+  current.id = "summon";
+  current.uuid = "Actor.summon";
+  current.system.invokerId = invoker.id;
   delete current.system.ea;
-  for (const cost of ["2.9", "1d20 + custoEspecial", "energia do invocador"]) {
-    const message = await NexusFormulaEngine.rollItem(current, item({ cost, effect: '"DPT 2.5"' }));
-    assert.ok(message.content.includes(cost));
-  }
-  assert.deepEqual(environment.prompts, []);
-  assert.deepEqual(environment.formulas, []);
-  assert.deepEqual(environment.updates, []);
+  return { current, invoker };
+}
+
+test("personagem e shikigami dividem a EA: 50 menos 20 menos 20 resulta em 10", async () => {
+  const { current, invoker } = linkedShikigami();
+  assert.ok(await NexusFormulaEngine.rollItem(invoker, item({ cost: "20" })));
+  assert.equal(invoker.system.ea.value, 30);
+  const message = await NexusFormulaEngine.rollItem(current, item({ attack: "1d20 + FOR", cost: "20" }));
+  assert.ok(message);
+  assert.equal(invoker.system.ea.value, 10);
+  assert.equal("ea" in current.system, false);
+  assert.deepEqual(environment.updates, [{ "system.ea.value": 30 }, { "system.ea.value": 10 }]);
+  assert.deepEqual(message.speaker, { actor: "summon" });
+  assert.match(plain(message.content), /Custo em EA 20 EA/u);
+  assert.deepEqual(totals(message), [13], "ataque continua usando o atributo do shikigami");
 });
+
+test("EA insuficiente do invocador bloqueia o movimento antes do ataque e do chat", async () => {
+  const { current, invoker } = linkedShikigami({ ea: 10 });
+  assert.equal(await NexusFormulaEngine.rollItem(current, item({ attack: "1d20", cost: "20" })), undefined);
+  assert.equal(invoker.system.ea.value, 10);
+  assert.deepEqual(environment.formulas, []);
+  assert.deepEqual(environment.messages, []);
+  assert.deepEqual(environment.updates, []);
+  assert.equal(environment.warnings.length, 1);
+  assert.match(environment.warnings[0], /20.*10/u);
+});
+
+test("custo do shikigami resolve variáveis, atributos próprios e floor antes de debitar o invocador", async () => {
+  const { current, invoker } = linkedShikigami();
+  environment.values = [{ value: "2.9" }];
+  const message = await NexusFormulaEngine.rollItem(current, item({ cost: "Bonus + FOR", effect: '"DPT 2.5"' }));
+  assert.ok(message);
+  assert.equal(environment.prompts.length, 1);
+  assert.equal(invoker.system.ea.value, 45);
+  assert.match(plain(message.content), /Custo em EA 5 EA/u);
+  assert.match(plain(message.content), /DPT 2.5/u);
+  assert.equal("ea" in current.system, false);
+});
+
+for (const invalidLink of ["ausente", "apagado", "tipo incorreto"]) {
+  test(`custo positivo exige invocador válido: ${invalidLink}`, async () => {
+    const { current, invoker } = linkedShikigami();
+    if (invalidLink === "ausente") current.system.invokerId = "";
+    if (invalidLink === "apagado") game.actors.delete(invoker.id);
+    if (invalidLink === "tipo incorreto") invoker.type = "curse";
+    assert.equal(await NexusFormulaEngine.rollItem(current, item({ cost: "5" })), undefined);
+    assert.equal(invoker.system.ea.value, 50);
+    assert.deepEqual(environment.messages, []);
+    assert.deepEqual(environment.updates, []);
+    assert.equal(environment.errors.length + environment.warnings.length, 1);
+  });
+}
+
+test("shikigami sem vínculo ainda pode publicar movimento gratuito ou sem custo", async () => {
+  const { current } = linkedShikigami();
+  current.system.invokerId = "";
+  for (const cost of ["", "0", "0.9"]) {
+    assert.ok(await NexusFormulaEngine.rollItem(current, item({ attack: "1d20", cost })));
+  }
+  assert.deepEqual(environment.updates, []);
+  assert.deepEqual(environment.errors, []);
+  assert.deepEqual(environment.warnings, []);
+});
+
+test("não pode gastar EA de invocador sem permissão de edição", async () => {
+  const { current, invoker } = linkedShikigami({ owner: false });
+  assert.equal(await NexusFormulaEngine.rollItem(current, item({ cost: "5" })), undefined);
+  assert.equal(invoker.system.ea.value, 50);
+  assert.deepEqual(environment.updates, []);
+  assert.deepEqual(environment.messages, []);
+  assert.equal(environment.errors.length, 1);
+});
+
+test("custo positivo continua exigindo edição do próprio shikigami", async () => {
+  const { current, invoker } = linkedShikigami();
+  current.isOwner = false;
+  assert.equal(await NexusFormulaEngine.rollItem(current, item({ cost: "5" })), undefined);
+  assert.equal(invoker.system.ea.value, 50);
+  assert.deepEqual(environment.updates, []);
+  assert.deepEqual(environment.messages, []);
+});
+
+for (const invalidCost of ["texto", "-1", "1 / 0", "1d0"]) {
+  test(`custo inválido do shikigami não gasta EA: ${invalidCost}`, async () => {
+    const { current, invoker } = linkedShikigami();
+    assert.equal(await NexusFormulaEngine.rollItem(current, item({ cost: invalidCost })), undefined);
+    assert.equal(invoker.system.ea.value, 50);
+    assert.deepEqual(environment.updates, []);
+    assert.deepEqual(environment.messages, []);
+  });
+}
+
+test("cancelar variável de custo do shikigami não publica nem debita", async () => {
+  const { current, invoker } = linkedShikigami();
+  environment.values = [null];
+  assert.equal(await NexusFormulaEngine.rollItem(current, item({ cost: "Bonus * 2" })), undefined);
+  assert.equal(invoker.system.ea.value, 50);
+  assert.deepEqual(environment.updates, []);
+  assert.deepEqual(environment.messages, []);
+});
+
+for (const failure of ["throw", "cancel"]) {
+  test(`falha de chat do shikigami (${failure}) reembolsa somente o invocador`, async () => {
+    const { current, invoker } = linkedShikigami();
+    environment.chatFailure = failure;
+    assert.equal(await NexusFormulaEngine.rollItem(current, item({ cost: "20" })), undefined);
+    assert.equal(invoker.system.ea.value, 50);
+    assert.equal("ea" in current.system, false);
+    assert.deepEqual(environment.updates, [{ "system.ea.value": 30 }, { "system.ea.value": 50 }]);
+    assert.deepEqual(environment.messages, []);
+  });
+}
+
+for (const changedLink of ["substituído", "apagado", "permissão revogada"]) {
+  test(`revalida invocador após prompt: ${changedLink}`, async () => {
+    const { current, invoker } = linkedShikigami();
+    const other = actor({ ea: 80 });
+    other.id = "other";
+    game.actors.set(other.id, other);
+    foundry.applications.api.DialogV2.input = async () => {
+      if (changedLink === "substituído") current.system.invokerId = other.id;
+      if (changedLink === "apagado") game.actors.delete(invoker.id);
+      if (changedLink === "permissão revogada") invoker.isOwner = false;
+      return { value: "5" };
+    };
+    assert.equal(await NexusFormulaEngine.rollItem(current, item({ cost: "Bonus * 2" })), undefined);
+    assert.equal(invoker.system.ea.value, 50);
+    assert.equal(other.system.ea.value, 80);
+    assert.deepEqual(environment.updates, []);
+    assert.deepEqual(environment.messages, []);
+  });
+}
 
 // Integração opcional com os fontes nativos instalados; os demais testes não dependem do Foundry.
 const foundryRoot = [process.env.FOUNDRY_APP_PATH,

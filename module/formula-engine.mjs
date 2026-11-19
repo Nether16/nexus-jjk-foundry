@@ -1,3 +1,5 @@
+import { getShikigamiInvoker } from "./shikigami.mjs";
+
 const ATTRIBUTE_ALIASES = Object.freeze({
   for: "attributes.forca",
   forca: "attributes.forca",
@@ -155,7 +157,7 @@ function collectUnknownVariables(actor, attack, effect, cost = "") {
 
 async function promptVariables(actor, item) {
   const { attack, effect, cost } = item.system;
-  const variables = collectUnknownVariables(actor, attack, effect, actor.type === "shikigami" ? "" : cost);
+  const variables = collectUnknownVariables(actor, attack, effect, cost);
   const values = new Map();
 
   for (const variable of variables) {
@@ -285,14 +287,25 @@ function checkAvailableEA(actor, cost) {
   return null;
 }
 
+function validateEAPayer(actor, payer) {
+  if (actor.type === "shikigami") {
+    if (!payer) throw new Error("Vincule um personagem como invocador do Shikigami para gastar EA.");
+    if (getShikigamiInvoker(actor) !== payer) {
+      throw new Error("O invocador do Shikigami foi alterado ou não está mais disponível. Use o movimento novamente.");
+    }
+  }
+  if (!actor.isOwner) throw new Error("Você precisa poder editar a ficha para usar este movimento.");
+  if (!payer.isOwner) throw new Error("Você precisa poder editar o invocador para gastar a EA dele.");
+}
+
 export class NexusFormulaEngine {
   static async rollItem(actor, item) {
+    const payer = actor.type === "shikigami" ? getShikigamiInvoker(actor) : actor;
     const values = await promptVariables(actor, item);
     if (values === null) return;
 
     const attack = trim(item.system.attack);
     const cost = trim(item.system.cost);
-    const informationalCost = actor.type === "shikigami";
     const effect = trim(item.system.effect);
     const image = movementImage(item.img);
     if (!attack && !cost && !effect && !image) {
@@ -322,7 +335,7 @@ export class NexusFormulaEngine {
     try {
       // Resolve o custo antes de rolar o ataque e os efeitos.
       let costRoll;
-      if (cost && !informationalCost) {
+      if (cost) {
         const formula = resolve(cost);
         if (isDiceFormula(formula)) {
           costRoll = await evaluateRoll(formula, "Custo");
@@ -334,10 +347,10 @@ export class NexusFormulaEngine {
         if (!Number.isInteger(amount) || amount < 0) {
           throw new Error("O custo do golpe precisa resultar em um número inteiro de EA, igual ou maior que zero.");
         }
-        if (amount > 0 && !actor.isOwner) {
-          throw new Error("Você precisa poder editar o personagem para gastar EA.");
+        if (amount > 0) {
+          validateEAPayer(actor, payer);
+          if (checkAvailableEA(payer, amount) === null) return;
         }
-        if (checkAvailableEA(actor, amount) === null) return;
       }
 
       if (attack) {
@@ -347,10 +360,8 @@ export class NexusFormulaEngine {
       }
       if (cost) {
         if (costRoll) rolls.push(costRoll);
-        const html = informationalCost
-          ? escapeHTML(cost)
-          : costRoll ? await renderMovementRoll(costRoll) : escapeHTML(`${amount} EA`);
-        rows.push(movementSection(informationalCost ? "Custo" : "Custo em EA", html, "nexus-chat-cost"));
+        const html = costRoll ? await renderMovementRoll(costRoll) : escapeHTML(`${amount} EA`);
+        rows.push(movementSection("Custo em EA", html, "nexus-chat-cost"));
       }
       for (const module of splitModules(effect)) {
         const { label, expression } = splitLabel(module);
@@ -376,10 +387,11 @@ export class NexusFormulaEngine {
         rows.push(movementSection(title, escapeHTML(value === null ? expression : Math.floor(value))));
       }
 
-      if (!informationalCost && amount > 0) {
-        previousEA = checkAvailableEA(actor, amount);
+      if (amount > 0) {
+        validateEAPayer(actor, payer);
+        previousEA = checkAvailableEA(payer, amount);
         if (previousEA === null) return;
-        const updated = await actor.update({ "system.ea.value": previousEA - amount });
+        const updated = await payer.update({ "system.ea.value": previousEA - amount });
         if (!updated) throw new Error("Não foi possível atualizar a EA do personagem.");
         spentEA = true;
       }
@@ -393,9 +405,9 @@ export class NexusFormulaEngine {
       if (!message) throw new Error("Não foi possível publicar o golpe no chat.");
       return message;
     } catch (error) {
-      if (spentEA && Number(actor.system.ea.value) === previousEA - amount) {
+      if (spentEA && Number(payer.system.ea.value) === previousEA - amount) {
         try {
-          await actor.update({ "system.ea.value": previousEA });
+          await payer.update({ "system.ea.value": previousEA });
         } catch (restoreError) {
           console.error("Nexus JJK | Erro ao restaurar EA", restoreError);
           ui.notifications.error("Não foi possível devolver a EA após a falha ao publicar o golpe.");

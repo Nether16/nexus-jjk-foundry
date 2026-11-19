@@ -54,7 +54,7 @@
 <a class="toc-link depth-3" href="#dois-resultados-e-uma-condicao-descritiva">Dois resultados e uma condição descritiva</a>
 <a class="toc-link depth-3" href="#teste-com-o-maior-ou-o-menor-de-dois-d20">Teste com o maior ou o menor de dois d20</a>
 <a class="toc-link depth-3" href="#custo-percentual">Custo percentual</a>
-<a class="toc-link depth-3" href="#shikigami-com-custo-informativo">Shikigami com custo informativo</a>
+<a class="toc-link depth-3" href="#shikigami-usando-a-ea-do-invocador">Shikigami usando a EA do invocador</a>
 <a class="toc-link depth-2" href="#16-macros-de-chat-e-macros-de-script">16. Macros de chat e macros de script</a>
 <a class="toc-link depth-3" href="#executar-um-movimento-por-script">Executar um movimento por Script</a>
 <a class="toc-link depth-2" href="#17-referencia-da-api-de-movimentos">17. Referência da API de movimentos</a>
@@ -74,7 +74,7 @@
 <main class="main"><article class="sheet">
 <div class="eyebrow">Manual de referência · Foundry VTT 14</div>
 <h1 id="movimentos-formulas-e-macros-nexus">Movimentos, fórmulas e macros — Nexus</h1>
-<p>Documentação de uso • Nexus 0.4.28 • Foundry VTT 14 • Revisada em 19/11/2026.</p>
+<p>Documentação de uso • Nexus 0.4.30 • Foundry VTT 14 • Revisada em 19/11/2026.</p>
 <p>Este manual reúne os recursos implementados para montar movimentos, escrever fórmulas, publicar resultados no chat e executar habilidades pela barra de macros. Os exemplos usam a sintaxe da ficha Nexus. Os comandos de chat e os scripts do Foundry são apresentados separadamente.</p>
 <h2 id="1-o-que-o-sistema-faz">1. O que o sistema faz</h2>
 <table>
@@ -123,7 +123,7 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Dano, cura e condições escritos em Efeito são resultados publicados no chat.</strong> Eles não alteram automaticamente o HP de um alvo, não aplicam condições e não verificam se o ataque acertou. O recurso que o movimento desconta automaticamente é a EA indicada no campo Custo, com a exceção dos Shikigamis.</p>
+<p><strong>Dano, cura e condições escritos em Efeito são resultados publicados no chat.</strong> Eles não alteram automaticamente o HP de um alvo, não aplicam condições e não verificam se o ataque acertou. O recurso que o movimento desconta automaticamente é a EA indicada no campo Custo. Nos movimentos de Shikigami, o desconto sai da EA do invocador vinculado.</p>
 <h2 id="2-criar-e-preencher-um-movimento">2. Criar e preencher um movimento</h2>
 <p>Abra a ficha, entre em <strong>Movimentos</strong> e clique em <strong>Adicionar movimento</strong>.</p>
 <table>
@@ -577,7 +577,7 @@ Descrição: &quot;Recebe o efeito de FOR por um turno.&quot;
 </code></pre>
 <p>Se essa linha estiver em <strong>Efeito</strong>, ela apenas mostra uma seção chamada Custo. Para gastar 30 EA, coloque <code>30</code> no campo <strong>Custo</strong> do movimento.</p>
 <h2 id="11-custo-e-energia-amaldicoada">11. Custo e Energia Amaldiçoada</h2>
-<p>Para Personagens e Maldições, Custo aceita um número fixo, uma fórmula ou dados:</p>
+<p>Custo aceita um número fixo, uma fórmula ou dados. Personagens e Maldições gastam a própria EA; Shikigamis gastam a EA do personagem invocador vinculado:</p>
 <table>
 <thead>
 <tr>
@@ -621,11 +621,11 @@ Descrição: &quot;Recebe o efeito de FOR por um turno.&quot;
 </tbody>
 </table>
 <p>O custo é resolvido antes da Rolagem e dos Efeitos. Se ele usar dados, esses dados podem ser rolados antes de o sistema descobrir que a EA é insuficiente; o restante do movimento não prossegue nesse caso.</p>
-<p><code>EAMAX</code> já reflete a EA máxima calculada pela ficha, incluindo o bônus de Reserva de Energia Amaldiçoada quando o personagem possui esse talento.</p>
+<p><code>EAMAX</code> já reflete a EA máxima calculada pela ficha, incluindo o bônus de Reserva de Energia Amaldiçoada quando o personagem possui esse talento. Nas fórmulas de Shikigami, <code>EA</code> e <code>EAMAX</code> continuam valendo zero; vincular o invocador define quem paga o custo, sem copiar seus atributos para a fórmula.</p>
 <p>O resultado final do custo deve ser um inteiro não negativo após o arredondamento. Custos negativos, expressões inválidas e divisões por zero são recusados.</p>
-<p>Se faltar EA, o sistema mostra um aviso e não publica o movimento. Com EA suficiente, calcula a mensagem, desconta o custo e envia o cartão ao chat. Se a publicação falhar depois do desconto, o sistema tenta devolver o gasto sem sobrescrever outra alteração que tenha ocorrido na EA.</p>
+<p>Se faltar EA, o sistema mostra um aviso e não publica o movimento. Com EA suficiente, calcula a mensagem, desconta o custo e envia o cartão ao chat. Para cobrar um custo positivo de Shikigami, é preciso ter um invocador válido e permissão para editar a ficha dele. Custo vazio ou zero não exige desconto. Se a publicação falhar depois do desconto, o sistema tenta devolver o gasto sem sobrescrever outra alteração que tenha ocorrido na EA.</p>
 <h3 id="quando-a-variavel-ea-e-lida">Quando a variável EA é lida</h3>
-<p>Todos os campos usam a EA atual <strong>antes do desconto desse movimento</strong>.</p>
+<p>Em Personagens e Maldições, todos os campos usam a EA atual <strong>antes do desconto desse movimento</strong>.</p>
 <pre><code class="language-text">EA inicial: 100
 Rolagem: EA
 Custo: EA * 0.1
@@ -681,15 +681,15 @@ Dano: (ARMA + DES) * 1.5
 </tr>
 <tr>
 <td>Custo calculado e descontado da EA</td>
-<td>Sim</td>
-<td>Sim</td>
-<td>Não</td>
+<td>Da própria ficha</td>
+<td>Da própria ficha</td>
+<td>Do invocador vinculado</td>
 </tr>
 <tr>
-<td>Custo mostrado como texto</td>
-<td>Quando numérico, mostra o gasto</td>
-<td>Quando numérico, mostra o gasto</td>
-<td>Sempre informativo</td>
+<td>Custo mostrado no chat</td>
+<td>Mostra o gasto calculado</td>
+<td>Mostra o gasto calculado</td>
+<td>Mostra o gasto calculado</td>
 </tr>
 <tr>
 <td>Atributos mentais da própria ficha</td>
@@ -705,10 +705,11 @@ Dano: (ARMA + DES) * 1.5
 </tr>
 </tbody>
 </table>
-<p>No Shikigami, o campo Custo não calcula uma fórmula, não pergunta seus parâmetros e não desconta EA do invocador.</p>
-<pre><code class="language-text">Custo: 20 EA do invocador
+<p>No Shikigami, preencha Custo com o número ou a fórmula, do mesmo jeito que no personagem. Para gastar 20 EA do invocador, escreva apenas:</p>
+<pre><code class="language-text">Custo: 20
 </code></pre>
-<p>Essa frase aparece como informação no chat. O desconto no invocador deve ser feito separadamente.</p>
+<p>A EA é compartilhada: se o invocador começa com 50 EA, usa um movimento de custo 20 e depois o Shikigami usa outro de custo 20, o invocador termina com <strong>10 EA</strong>. O cartão continua sendo publicado pelo Shikigami.</p>
+<p>Se faltar EA no invocador, o movimento é bloqueado. Custo positivo também exige vínculo válido e permissão para editar o invocador. Sem custo ou com custo zero, não há desconto. Fórmulas inválidas ou perguntas canceladas não cobram EA; uma falha na publicação tenta devolver o gasto à ficha que pagou.</p>
 <p>As fórmulas do Shikigami consultam seus próprios atributos físicos, HP, CA e nível derivado. <code>JJT</code>, <code>INT</code>, <code>PER</code>, <code>FDV</code> e <code>EA</code> não puxam os valores do invocador; esses recursos ausentes resolvem como zero. <code>ARMA</code> e <code>ARMA_ACERTO</code> também valem zero. Sem vínculo válido, a variável numérica <code>NIVEL</code> resolve como zero.</p>
 <h2 id="15-exemplos-prontos-para-copiar">15. Exemplos prontos para copiar</h2>
 <p>Os números abaixo são exemplos técnicos de configuração. Ajuste custos, multiplicadores e efeitos às regras aprovadas pelo mestre.</p>
@@ -760,10 +761,10 @@ Rolagem: 1d20 + JJT
 Custo: EAMAX * 0.05
 Efeito: Dano: JJT * 8
 </code></pre>
-<h3 id="shikigami-com-custo-informativo">Shikigami com custo informativo</h3>
+<h3 id="shikigami-usando-a-ea-do-invocador">Shikigami usando a EA do invocador</h3>
 <pre><code class="language-text">Nome: Investida
 Rolagem: 1d20 + FOR
-Custo: 15 EA do invocador
+Custo: 15
 Efeito: Dano: FOR * 5
 </code></pre>
 <h2 id="16-macros-de-chat-e-macros-de-script">16. Macros de chat e macros de script</h2>
@@ -923,6 +924,7 @@ await promptMovementMacro(&quot;Actor.ID_DO_ATOR.Item.ID_DO_MOVIMENTO&quot;);
 <p>Não há garantia de limpeza geral ao excluir uma ficha inteira ou de recuperação de todos os atalhos antigos. Uma macro com referência indisponível mostra aviso ao executar; recrie o atalho a partir do movimento válido.</p>
 <h3 id="cliques-repetidos">Cliques repetidos</h3>
 <p>Enquanto um movimento está sendo processado, uma segunda execução para a mesma ficha no mesmo cliente é ignorada. Isso cobre as perguntas, a rolagem e o gasto. Aguarde a conclusão antes de executar novamente.</p>
+<p>Movimentos de fichas diferentes que gastam a EA do mesmo invocador entram em uma fila no mesmo cliente. O personagem e seus Shikigamis usam o saldo atualizado a cada execução, sem descontar todos a partir do mesmo valor antigo.</p>
 <p>Essa proteção não é uma transação compartilhada entre vários usuários ou várias abas. Evite que duas pessoas operem a mesma ficha simultaneamente para gastar o mesmo recurso.</p>
 <h2 id="19-limites-da-versao-atual">19. Limites da versão atual</h2>
 <table>
@@ -955,7 +957,7 @@ await promptMovementMacro(&quot;Actor.ID_DO_ATOR.Item.ID_DO_MOVIMENTO&quot;);
 </tr>
 <tr>
 <td>Descontar no invocador o custo do Shikigami</td>
-<td>Não automatizado</td>
+<td>Automático pelo campo Custo, com vínculo e permissão válidos</td>
 </tr>
 <tr>
 <td>Reutilizar o resultado de outra linha como variável</td>
@@ -1047,7 +1049,7 @@ await promptMovementMacro(&quot;Actor.ID_DO_ATOR.Item.ID_DO_MOVIMENTO&quot;);
 </tr>
 <tr>
 <td>Mostra o custo, mas não desconta</td>
-<td>Confira se está no campo Custo, não em Efeito; em Shikigami, o custo é informativo.</td>
+<td>Confira se está no campo Custo, não em Efeito; no Shikigami, confira o vínculo e a EA do invocador.</td>
 </tr>
 <tr>
 <td>A fórmula mudou, mas o ícone da barra está antigo</td>
@@ -1060,11 +1062,11 @@ await promptMovementMacro(&quot;Actor.ID_DO_ATOR.Item.ID_DO_MOVIMENTO&quot;);
 </tbody>
 </table>
 <h2 id="21-referencias-e-versao">21. Referências e versão</h2>
-<p>Esta documentação foi conferida contra a implementação Nexus <strong>0.4.28</strong> e o núcleo local Foundry <strong>14.370</strong>. Os exemplos matemáticos principais, parâmetros, vantagem/desvantagem e limitações de dados foram verificados no motor da Nexus com o Roll nativo do Foundry.</p>
+<p>Esta documentação foi conferida contra a implementação Nexus <strong>0.4.30</strong> e o núcleo local Foundry <strong>14.370</strong>. Os exemplos matemáticos principais, parâmetros, vantagem/desvantagem e limitações de dados foram verificados no motor da Nexus com o Roll nativo do Foundry.</p>
 <ul>
-<li><a href="https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.28/module/formula-engine.mjs">Motor de fórmulas da Nexus, versão 0.4.24</a></li>
-<li><a href="https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.28/module/movement-macros.mjs">Integração de macros da Nexus, versão 0.4.24</a></li>
-<li><a href="https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.28/module/documents.mjs">Dados e arma equipada da Nexus, versão 0.4.24</a></li>
+<li><a href="https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.30/module/formula-engine.mjs">Motor de fórmulas da Nexus, versão 0.4.30</a></li>
+<li><a href="https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.30/module/movement-macros.mjs">Integração de macros da Nexus, versão 0.4.30</a></li>
+<li><a href="https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.30/module/documents.mjs">Dados e arma equipada da Nexus, versão 0.4.30</a></li>
 <li><a href="https://foundryvtt.com/article/macros/">Macros do Foundry</a></li>
 <li><a href="https://foundryvtt.com/article/controls/">Controles do Foundry</a></li>
 <li><a href="https://foundryvtt.com/article/dice/">Dados e modos de rolagem</a></li>
@@ -1073,7 +1075,7 @@ await promptMovementMacro(&quot;Actor.ID_DO_ATOR.Item.ID_DO_MOVIMENTO&quot;);
 </ul>
 <p>Alterações futuras no sistema ou em módulos instalados podem ampliar ou modificar esse comportamento. Este manual descreve o que está implementado na versão indicada.</p>
 
-<div class="footer">Nexus 0.4.28 · Arquivo independente, utilizável sem conexão. As referências externas exigem internet.</div>
+<div class="footer">Nexus 0.4.30 · Arquivo independente, utilizável sem conexão. As referências externas exigem internet.</div>
 </article></main>
 </div>
 <a class="top-link" href="#inicio">↑ Início</a>
