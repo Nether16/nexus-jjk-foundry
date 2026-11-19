@@ -92,4 +92,6 @@ O consolidado e a revisão de Origens Pagas usam seis nomes alternativos. As có
 
 `origem-sem-tecnica-inata.gif` ainda não foi fornecido. A tag permanece no JSON de Origens Gratuitas (F2P); o build a substitui por um comentário no compêndio até que o arquivo seja adicionado. O banner `banner-sistematica-higuruma.gif` é configurado no manifesto e continua incluído.
 
-O diretório contém 76 mídias: 69 originais, seis cópias e o banner. Este README não faz parte do ZIP de execução.
+O diretório contém 125 mídias: 69 originais, seis cópias, o banner e 49 arquivos extraídos das referências das bibliotecas Firecast. Esses 49 arquivos somam 121.094.615 bytes e incluem 33 GIFs, nove WebPs, seis MP4s e um JPEG. Foram copiados sem alteração, com formato real e hash SHA-256 conferidos.
+
+Os arquivos `firecast-NNN-*.ext` usam o índice da primeira referência no arquivo original para manter a correspondência. O manifesto `src/reference/firecast/import-manifest.json` registra a URL original e o arquivo local de cada mídia, incluindo o reaproveitamento das ilustrações e tabelas existentes. As imagens de tabelas publicadas anteriormente continuam sendo usadas nas seções correspondentes. Este README não faz parte do ZIP de execução.

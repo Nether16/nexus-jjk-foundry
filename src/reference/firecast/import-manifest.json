@@ -1,0 +1,1784 @@
+{
+  "source": "Bibliotecas Firecast fornecidas em 2026-11-19",
+  "sources": [
+    {
+      "file": "01 - Mundo.bib",
+      "sha256": "3cfea3951a3146dc5f5e56504ea405103a76cde8038d0663238e253a9387affb"
+    },
+    {
+      "file": "02 - Sistemática.bib",
+      "sha256": "f13d0568abdfd63664bfce7bd33ea67fe898e83fa5bcf9e4ada3cea39fa355ea"
+    }
+  ],
+  "pages": [
+    {
+      "sourceIndex": 0,
+      "bib": "01 - Mundo.bib",
+      "sourcePath": [
+        "01 - Mundo.bib",
+        "01 - História",
+        "Arquivos do Alto Escalão"
+      ],
+      "sourceTab": "A.A.E.J",
+      "sourceOrder": 0,
+      "journalId": "66e91964f96d1f81",
+      "pageId": "3e9732304b030ca0",
+      "pageName": "A.A.E.J",
+      "sort": 100000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 3800,
+      "originalMediaReferences": 0,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "441be316347577b6404ac2eca7a9d1e10c6f4a8f84b2e69d53482df0d9db35a7"
+    },
+    {
+      "sourceIndex": 1,
+      "bib": "01 - Mundo.bib",
+      "sourcePath": [
+        "01 - Mundo.bib",
+        "03 - Escolas",
+        "Sendai"
+      ],
+      "sourceTab": "Escola de Sendai",
+      "sourceOrder": 0,
+      "journalId": "0b9657a3e53c7c6e",
+      "pageId": "d02330137e77dcea",
+      "pageName": "Escola de Sendai",
+      "sort": 100000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 2167,
+      "originalMediaReferences": 1,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "df492032a061fc21110fd1897339dc5b643cddf609f89a377beea7afc10d6109"
+    },
+    {
+      "sourceIndex": 2,
+      "bib": "01 - Mundo.bib",
+      "sourcePath": [
+        "01 - Mundo.bib",
+        "03 - Escolas",
+        "Kyoto"
+      ],
+      "sourceTab": "Escola Shirohana",
+      "sourceOrder": 0,
+      "journalId": "0b9657a3e53c7c6e",
+      "pageId": "a7888d79d1345d61",
+      "pageName": "Escola Shirohana",
+      "sort": 200000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 2992,
+      "originalMediaReferences": 1,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "7f9f4fb4b8f23da9aa52b7683603740338ed56fb17df65461314ce9b69a79642"
+    },
+    {
+      "sourceIndex": 3,
+      "bib": "01 - Mundo.bib",
+      "sourcePath": [
+        "01 - Mundo.bib",
+        "02 - Clãs",
+        "Clãs"
+      ],
+      "sourceTab": "Kamo",
+      "sourceOrder": 0,
+      "journalId": "3eb64b4862a35b79",
+      "pageId": "28d021a057160ac7",
+      "pageName": "Kamo",
+      "sort": 100000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 1967,
+      "originalMediaReferences": 2,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "eee5889c91c58992631c5c6fe6e33e90d7b8ee2cc511ea6f79be7fd18d438a36"
+    },
+    {
+      "sourceIndex": 4,
+      "bib": "01 - Mundo.bib",
+      "sourcePath": [
+        "01 - Mundo.bib",
+        "02 - Clãs",
+        "Clãs"
+      ],
+      "sourceTab": "Gojo",
+      "sourceOrder": 1,
+      "journalId": "3eb64b4862a35b79",
+      "pageId": "22a7bf9842f2429b",
+      "pageName": "Gojo",
+      "sort": 200000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 1879,
+      "originalMediaReferences": 2,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "7e8f5ddb2e711c6da8c69062901bb5187324f7e0916a9ce80275e9f45a403433"
+    },
+    {
+      "sourceIndex": 5,
+      "bib": "01 - Mundo.bib",
+      "sourcePath": [
+        "01 - Mundo.bib",
+        "02 - Clãs",
+        "Clãs"
+      ],
+      "sourceTab": "Zenin",
+      "sourceOrder": 2,
+      "journalId": "3eb64b4862a35b79",
+      "pageId": "207b88d16c40d9c6",
+      "pageName": "Zenin",
+      "sort": 300000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 902,
+      "originalMediaReferences": 2,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "f8e0f579aa227c41457fa4c0f9820a5adcc9038f003d4fe2fb6fbd930ba40d56"
+    },
+    {
+      "sourceIndex": 6,
+      "bib": "01 - Mundo.bib",
+      "sourcePath": [
+        "01 - Mundo.bib",
+        "02 - Clãs",
+        "Clãs"
+      ],
+      "sourceTab": "Fujiwara",
+      "sourceOrder": 3,
+      "journalId": "3eb64b4862a35b79",
+      "pageId": "662b4286ab9fb948",
+      "pageName": "Fujiwara",
+      "sort": 400000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 1638,
+      "originalMediaReferences": 2,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "e02e5c6d4b6242dbcef4555f5065e37982b9c05238e8191bf2bc9b5262c89210"
+    },
+    {
+      "sourceIndex": 7,
+      "bib": "01 - Mundo.bib",
+      "sourcePath": [
+        "01 - Mundo.bib",
+        "02 - Clãs",
+        "Clas Menores"
+      ],
+      "sourceTab": "Inumaki",
+      "sourceOrder": 0,
+      "journalId": "3eb64b4862a35b79",
+      "pageId": "976bddddcf00d9be",
+      "pageName": "Inumaki",
+      "sort": 500000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 1724,
+      "originalMediaReferences": 2,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "c24a891ea248363869829b053f7566599ede19e1abc11a9fb65f86ff4264f58b"
+    },
+    {
+      "sourceIndex": 8,
+      "bib": "01 - Mundo.bib",
+      "sourcePath": [
+        "01 - Mundo.bib",
+        "02 - Clãs",
+        "Clas Menores"
+      ],
+      "sourceTab": "Iori",
+      "sourceOrder": 1,
+      "journalId": "3eb64b4862a35b79",
+      "pageId": "e32bf04d08165064",
+      "pageName": "Iori",
+      "sort": 600000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 1755,
+      "originalMediaReferences": 2,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "a523b9af0be18eddee10d1d84064e8313035ab509c1f7f4f037b34e27a2533b2"
+    },
+    {
+      "sourceIndex": 9,
+      "bib": "01 - Mundo.bib",
+      "sourcePath": [
+        "01 - Mundo.bib",
+        "02 - Clãs",
+        "Clas Menores"
+      ],
+      "sourceTab": "Konto",
+      "sourceOrder": 2,
+      "journalId": "3eb64b4862a35b79",
+      "pageId": "fcd7d98eff8b44ac",
+      "pageName": "Konto",
+      "sort": 700000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 1739,
+      "originalMediaReferences": 2,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 4,
+      "omittedHiddenCharacters": 20966,
+      "contentSha256": "55aeb54e61a0da3701ce31c8e6c4a0ca8e122faf4e6a2823d6b1b1a229e1e5df"
+    },
+    {
+      "sourceIndex": 10,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "03 - Tecnicas",
+        "04 - Catalogo"
+      ],
+      "sourceTab": "Tec. da Obra",
+      "sourceOrder": 0,
+      "journalId": "721519fc8756e498",
+      "pageId": "6029271a66a7a2ec",
+      "pageName": "Técnicas da Obra",
+      "sort": 100000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 490,
+      "originalMediaReferences": 9,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "4776aadd3a65f026585bebfd6b714195c0dbee7ea7e63c45c7ebb1a97f5a2e71",
+      "layout": "catalog-cards",
+      "catalogItems": [
+        {
+          "name": "Disaster Tides",
+          "price": "Vaga 0/1 - R$ 50",
+          "media": 16,
+          "asset": "systems/nexus-jjk/assets/journal/firecast-016-tec-da-obra.gif"
+        },
+        {
+          "name": "Disaster Plants",
+          "price": "Vaga 1/1 - R$ 50",
+          "media": 17,
+          "asset": "systems/nexus-jjk/assets/journal/firecast-017-tec-da-obra.gif"
+        },
+        {
+          "name": "Boogie Woogie",
+          "price": "Vaga 0/1 - R$ 50",
+          "media": 18,
+          "asset": "systems/nexus-jjk/assets/journal/firecast-018-tec-da-obra.gif"
+        },
+        {
+          "name": "Ice Formation",
+          "price": "Vaga 0/1 - R$ 50",
+          "media": 19,
+          "asset": "systems/nexus-jjk/assets/journal/firecast-019-tec-da-obra.gif"
+        },
+        {
+          "name": "Granite Blast",
+          "price": "Vaga 0/1 - R$ 50",
+          "media": 20,
+          "asset": "systems/nexus-jjk/assets/journal/firecast-020-tec-da-obra.gif"
+        },
+        {
+          "name": "Anti-Gravity Sistem",
+          "price": "Vaga 1/1 - R$ 50",
+          "media": 21,
+          "asset": "systems/nexus-jjk/assets/journal/firecast-021-tec-da-obra.gif"
+        },
+        {
+          "name": "Star Rage",
+          "price": "Vaga 1/1 - R$ 50",
+          "media": 22,
+          "asset": "systems/nexus-jjk/assets/journal/firecast-022-tec-da-obra.gif"
+        },
+        {
+          "name": "7:3",
+          "price": "Vaga 1/1 - R$ 50",
+          "media": 23,
+          "asset": "systems/nexus-jjk/assets/journal/firecast-023-tec-da-obra.gif"
+        },
+        {
+          "name": "Orbital Domain",
+          "price": "Vaga 0/1 - R$ 50",
+          "media": 24,
+          "asset": "systems/nexus-jjk/assets/journal/firecast-024-tec-da-obra.mp4"
+        }
+      ]
+    },
+    {
+      "sourceIndex": 11,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "03 - Tecnicas",
+        "04 - Catalogo"
+      ],
+      "sourceTab": "Tec. de Clã",
+      "sourceOrder": 1,
+      "journalId": "721519fc8756e498",
+      "pageId": "d85ffedeb94ae7d7",
+      "pageName": "Técnicas de Clã",
+      "sort": 200000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 260,
+      "originalMediaReferences": 10,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "91fb54b337edb6af7d158bb3817ffd4a6535236d3d1dec726d6d91532f346491",
+      "layout": "catalog-cards",
+      "catalogItems": [
+        {
+          "name": "Dez Sombras",
+          "price": "Vaga 1/1 - R$ 55",
+          "media": 26,
+          "clan": "Zenin",
+          "asset": "systems/nexus-jjk/assets/journal/firecast-026-tec-de-cla.gif"
+        },
+        {
+          "name": "Projeção",
+          "price": "Vaga 1/1 - R$ 50",
+          "media": 27,
+          "clan": "Zenin",
+          "asset": "systems/nexus-jjk/assets/journal/firecast-027-tec-de-cla.gif"
+        },
+        {
+          "name": "Eart Manipulation",
+          "price": "Vaga 0/1 - R$ 50",
+          "media": 28,
+          "clan": "Zenin",
+          "asset": "systems/nexus-jjk/assets/journal/firecast-028-tec-de-cla.webp"
+        },
+        {
+          "name": "Manipulação de Sangue",
+          "price": "Vaga 0/1 - R$ 50",
+          "media": 30,
+          "clan": "Kamo",
+          "asset": "systems/nexus-jjk/assets/journal/firecast-030-tec-de-cla.gif"
+        },
+        {
+          "name": "Fala Amaldiçoada",
+          "price": "Vaga 0/1 - R$ 50",
+          "media": 32,
+          "clan": "Inumaki",
+          "asset": "systems/nexus-jjk/assets/journal/firecast-032-tec-de-cla.gif"
+        },
+        {
+          "name": "Sky Manipulation",
+          "price": "Vaga 1/1 - R$ 50",
+          "media": 34,
+          "clan": "Fujiwara",
+          "asset": "systems/nexus-jjk/assets/journal/firecast-034-tec-de-cla.gif"
+        }
+      ]
+    },
+    {
+      "sourceIndex": 12,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "03 - Tecnicas",
+        "01 - Treinamento"
+      ],
+      "sourceTab": "Sist. de Aprendizado",
+      "sourceOrder": 0,
+      "journalId": "596101195fb028db",
+      "pageId": "fd77bae66ec5bbb3",
+      "pageName": "Sistema de Aprendizado",
+      "sort": 100000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 1864,
+      "originalMediaReferences": 0,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "5bedc4723288fc2b133340ff920c147bd78abc1b2eaea432b8277e21b8db35f6"
+    },
+    {
+      "sourceIndex": 13,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "03 - Tecnicas",
+        "01 - Treinamento"
+      ],
+      "sourceTab": "Conhecimentos",
+      "sourceOrder": 1,
+      "journalId": "596101195fb028db",
+      "pageId": "850f8d9aaa78f8a8",
+      "pageName": "Conhecimentos",
+      "sort": 200000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 25946,
+      "originalMediaReferences": 8,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "e61be24627d49e6cbca5356205bb0cd41e0b1f2b078834fc3e0b3d33cd3f5d9b"
+    },
+    {
+      "sourceIndex": 14,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "03 - Tecnicas",
+        "02 - Tecnicas"
+      ],
+      "sourceTab": "Tec. Treinaveis",
+      "sourceOrder": 0,
+      "journalId": "ea5994e3e57119d7",
+      "pageId": "c986279c773addaa",
+      "pageName": "Técnicas Treináveis",
+      "sort": 100000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 4456,
+      "originalMediaReferences": 7,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 1,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "744d7f9a01e6cbd9eab3f7839563c8a802596dc8a7885338a5b3e83cadcdc233"
+    },
+    {
+      "sourceIndex": 15,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "03 - Tecnicas",
+        "02 - Tecnicas"
+      ],
+      "sourceTab": "Tec. Barreiras",
+      "sourceOrder": 1,
+      "journalId": "ea5994e3e57119d7",
+      "pageId": "6719ab14fc7562a9",
+      "pageName": "Técnicas de Barreiras",
+      "sort": 200000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 4012,
+      "originalMediaReferences": 2,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "05307f5bd0a6162a660a5df1478abd1d012e4bfbd5f6f2c38ef5ca742df7d52c"
+    },
+    {
+      "sourceIndex": 16,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "03 - Tecnicas",
+        "02 - Tecnicas"
+      ],
+      "sourceTab": " Anti-Dominios",
+      "sourceOrder": 2,
+      "journalId": "ea5994e3e57119d7",
+      "pageId": "2657ccc1de269b3e",
+      "pageName": "Anti-Domínios",
+      "sort": 300000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 2925,
+      "originalMediaReferences": 0,
+      "preservedImageTags": [
+        "<img src=\"systems/nexus-jjk/assets/journal/anti-dominio-cesta-de-vime-oca.gif\" alt=\"Cesta de Vime Oca\">",
+        "<img src=\"systems/nexus-jjk/assets/journal/anti-dominio-emocao-da-petala-caida.gif\" alt=\"Emoção da Pétala Caída\">"
+      ],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "59aa58fa894aa60ad3adcabbc95d1b98c29a004c8be5687f292cd234bdc43ec6"
+    },
+    {
+      "sourceIndex": 17,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "03 - Tecnicas",
+        "02 - Tecnicas"
+      ],
+      "sourceTab": "EAR",
+      "sourceOrder": 3,
+      "journalId": "ea5994e3e57119d7",
+      "pageId": "96c18877096cc6a6",
+      "pageName": "EAR",
+      "sort": 400000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 2926,
+      "originalMediaReferences": 3,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "517ef9890a96261746c8c7406eacbe2999bb7cd4b822974569e8d9563e8876eb"
+    },
+    {
+      "sourceIndex": 18,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "03 - Tecnicas",
+        "02 - Tecnicas"
+      ],
+      "sourceTab": "Shikigamis",
+      "sourceOrder": 4,
+      "journalId": "ea5994e3e57119d7",
+      "pageId": "9d1b3c58e910c9e9",
+      "pageName": "Shikigamis",
+      "sort": 500000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 821,
+      "originalMediaReferences": 0,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "5d32d00e4b9a847b9a94643df69a33c1fd5b17d81a75b3d3fea8b642407a27cf"
+    },
+    {
+      "sourceIndex": 19,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "03 - Tecnicas",
+        "03 - Inata"
+      ],
+      "sourceTab": "inata",
+      "sourceOrder": 0,
+      "journalId": "016eaa5984c7a1aa",
+      "pageId": "ac5902c8f131eec0",
+      "pageName": "Técnicas Inatas",
+      "sort": 100000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 2136,
+      "originalMediaReferences": 0,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "4b8dc586df00abb330b79cb17cb711dd6ace934bafc46157ed17cc4a7581a396"
+    },
+    {
+      "sourceIndex": 20,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "01 - Combate",
+        "02 - Condições"
+      ],
+      "sourceTab": "Condições",
+      "sourceOrder": 0,
+      "journalId": "6e5b5f54bacde913",
+      "pageId": "34a5265b68649e9c",
+      "pageName": "Condições",
+      "sort": 300000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 528,
+      "originalMediaReferences": 1,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "03469d870241fd2b687963053854d1eb93e54e47c4d765a05da8277a063d2915"
+    },
+    {
+      "sourceIndex": 21,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "01 - Combate",
+        "02 - Condições"
+      ],
+      "sourceTab": "Condições Ofensivas",
+      "sourceOrder": 1,
+      "journalId": "6e5b5f54bacde913",
+      "pageId": "d220fdff574001c5",
+      "pageName": "Condições Ofensivas",
+      "sort": 400000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 1752,
+      "originalMediaReferences": 0,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "0bbec378421786d0b452ac2f968ffb0e3136e26257e866776327b2258fb5dd38"
+    },
+    {
+      "sourceIndex": 22,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "01 - Combate",
+        "04 - Morte"
+      ],
+      "sourceTab": "Morte",
+      "sourceOrder": 0,
+      "journalId": "6e5b5f54bacde913",
+      "pageId": "4b825101e6d8e121",
+      "pageName": "Morte",
+      "sort": 700000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 1111,
+      "originalMediaReferences": 1,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "fbb97430e0010598bf33d213ec71cf3d285fce07d185e9a68b68405a66292d43"
+    },
+    {
+      "sourceIndex": 23,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "01 - Combate",
+        "03 - Crítico"
+      ],
+      "sourceTab": "Criticos",
+      "sourceOrder": 0,
+      "journalId": "6e5b5f54bacde913",
+      "pageId": "db87b703a9c223ff",
+      "pageName": "Críticos",
+      "sort": 500000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 2428,
+      "originalMediaReferences": 1,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "fb3cb609720cb8caeaf0211dc2253f13fb5078ff30ca97397a78f119500503eb"
+    },
+    {
+      "sourceIndex": 24,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "01 - Combate",
+        "03 - Crítico"
+      ],
+      "sourceTab": "Kokusen",
+      "sourceOrder": 1,
+      "journalId": "6e5b5f54bacde913",
+      "pageId": "6b798a765c24b585",
+      "pageName": "Kokusen",
+      "sort": 600000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 1281,
+      "originalMediaReferences": 1,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "9d54ac5acf0a85369dbfdebdbb20366f4efe401e7a644b728e6ae2ce50504348"
+    },
+    {
+      "sourceIndex": 25,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "01 - Combate",
+        "01 - Ações"
+      ],
+      "sourceTab": "Ações",
+      "sourceOrder": 0,
+      "journalId": "6e5b5f54bacde913",
+      "pageId": "f9adc21ed6687160",
+      "pageName": "Ações",
+      "sort": 100000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 2065,
+      "originalMediaReferences": 5,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 2,
+      "omittedHiddenCharacters": 1741,
+      "contentSha256": "531c1ca6f0af081daad9e85374038ac4eefb6e27d89a156d5764c310dcd4a613"
+    },
+    {
+      "sourceIndex": 26,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "01 - Combate",
+        "01 - Ações"
+      ],
+      "sourceTab": "Tabela de Ações",
+      "sourceOrder": 1,
+      "journalId": "6e5b5f54bacde913",
+      "pageId": "e019d07ebd767c98",
+      "pageName": "Tabela de Ações",
+      "sort": 200000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 99,
+      "originalMediaReferences": 3,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "b12e9fd86c8441cc81e0aad8fc30b7775984f4bc4b6abdb1042bd38fa706bcff"
+    },
+    {
+      "sourceIndex": 27,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "02 - Personagem",
+        "07 - Itens Amaldiçoados"
+      ],
+      "sourceTab": "Ferramenta Amal.",
+      "sourceOrder": 0,
+      "journalId": "92aad7008cb7950c",
+      "pageId": "238b2307ccbd25ac",
+      "pageName": "Itens Amaldiçoados",
+      "sort": 1700000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 1695,
+      "originalMediaReferences": 1,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "ef6eca5f64ecc8322642c597f9f5ba5a9a058cce45f429707826cd73b2adb380"
+    },
+    {
+      "sourceIndex": 28,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "02 - Personagem",
+        "05 - Level Up"
+      ],
+      "sourceTab": "Progressão",
+      "sourceOrder": 0,
+      "journalId": "92aad7008cb7950c",
+      "pageId": "5b6fab9f13f7e6b9",
+      "pageName": "Level Up",
+      "sort": 1100000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 1236,
+      "originalMediaReferences": 1,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "2174a279cbe360a9919bbcccc370d7051a221389362f41a1eb7f726d12515db3"
+    },
+    {
+      "sourceIndex": 29,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "02 - Personagem",
+        "05 - Level Up"
+      ],
+      "sourceTab": "Atributos",
+      "sourceOrder": 1,
+      "journalId": "92aad7008cb7950c",
+      "pageId": "36af744369f04f8b",
+      "pageName": "Progressão de Atributos",
+      "sort": 1200000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 673,
+      "originalMediaReferences": 2,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "aba3bbaa082550ee04e7afce106a0422c6cde5de06fbaa849d6d370b3aa2fac2"
+    },
+    {
+      "sourceIndex": 30,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "02 - Personagem",
+        "02 - Atributos"
+      ],
+      "sourceTab": "ATRIBUTOS FISICOS",
+      "sourceOrder": 0,
+      "journalId": "92aad7008cb7950c",
+      "pageId": "b7a6d1e205c717e1",
+      "pageName": "Atributos Físicos",
+      "sort": 400000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 1377,
+      "originalMediaReferences": 1,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "e4b8e7d0b98052343ef7763641eb8d1437159766d255673afec26d4493fbb02d"
+    },
+    {
+      "sourceIndex": 31,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "02 - Personagem",
+        "02 - Atributos"
+      ],
+      "sourceTab": "ATRIBUTOS MENTAIS",
+      "sourceOrder": 1,
+      "journalId": "92aad7008cb7950c",
+      "pageId": "0daf925f4555ca12",
+      "pageName": "Atributos Mentais",
+      "sort": 500000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 1473,
+      "originalMediaReferences": 1,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "de823a3aade5f5582785ecf0ebe622f274aa38e89835926c6bf63fd844165ea5"
+    },
+    {
+      "sourceIndex": 32,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "02 - Personagem",
+        "01 - Status"
+      ],
+      "sourceTab": "STATUS",
+      "sourceOrder": 0,
+      "journalId": "92aad7008cb7950c",
+      "pageId": "a7dc1194aa8edc1e",
+      "pageName": "Status",
+      "sort": 100000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 1882,
+      "originalMediaReferences": 1,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "777baf109d9a98044f6037b8849c7457165620978d15b639846098c4e90cd50f"
+    },
+    {
+      "sourceIndex": 33,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "02 - Personagem",
+        "01 - Status"
+      ],
+      "sourceTab": "RECUPERANDO",
+      "sourceOrder": 1,
+      "journalId": "92aad7008cb7950c",
+      "pageId": "e33799aff64753ae",
+      "pageName": "Recuperando Status",
+      "sort": 200000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 1109,
+      "originalMediaReferences": 0,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "967c88cc44dd7b54db0cc733c852376132c3274bedd9a169849899166c7e632b"
+    },
+    {
+      "sourceIndex": 34,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "02 - Personagem",
+        "01 - Status"
+      ],
+      "sourceTab": "ACABANDO",
+      "sourceOrder": 2,
+      "journalId": "92aad7008cb7950c",
+      "pageId": "213128aacdf9ff66",
+      "pageName": "Acabando Status",
+      "sort": 300000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 1164,
+      "originalMediaReferences": 0,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "135b45b9ee6e39e82560cc8446b853209d3fa8237e42d1230095bbe4a9c5eeb6"
+    },
+    {
+      "sourceIndex": 35,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "02 - Personagem",
+        "06 - Perícias"
+      ],
+      "sourceTab": "Perícias",
+      "sourceOrder": 0,
+      "journalId": "92aad7008cb7950c",
+      "pageId": "564571e9bb3a535e",
+      "pageName": "Perícias",
+      "sort": 1300000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 2552,
+      "originalMediaReferences": 8,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "19b71d331dfaf8b21dfc8ad1a88c82e1df06ccb8b54f7299c7fe204187e932cb"
+    },
+    {
+      "sourceIndex": 36,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "02 - Personagem",
+        "06 - Perícias"
+      ],
+      "sourceTab": "Ritos Ocultistas",
+      "sourceOrder": 1,
+      "journalId": "92aad7008cb7950c",
+      "pageId": "6725dfeb5aa82ff2",
+      "pageName": "Ritos Ocultistas",
+      "sort": 1400000,
+      "policy": "empty-source-title-only",
+      "sourceVisibleCharacters": 0,
+      "originalMediaReferences": 0,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "33b5091a520853c365f35014fd65a402b42acd10974336b3998e8bd78e7bfeae"
+    },
+    {
+      "sourceIndex": 37,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "02 - Personagem",
+        "06 - Perícias"
+      ],
+      "sourceTab": "Ferraria Amaldiçoada",
+      "sourceOrder": 2,
+      "journalId": "92aad7008cb7950c",
+      "pageId": "f7cca1122b38a332",
+      "pageName": "Ferraria Amaldiçoada",
+      "sort": 1500000,
+      "policy": "empty-source-title-only",
+      "sourceVisibleCharacters": 0,
+      "originalMediaReferences": 0,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "b676577ad20738a2212bc7dc10d2fad44fe3961011483dde7eb9b046f7e03d9b"
+    },
+    {
+      "sourceIndex": 38,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "02 - Personagem",
+        "06 - Perícias"
+      ],
+      "sourceTab": "Votos Vinculativos",
+      "sourceOrder": 3,
+      "journalId": "92aad7008cb7950c",
+      "pageId": "75df6f62331855d4",
+      "pageName": "Votos Vinculativos",
+      "sort": 1600000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 2314,
+      "originalMediaReferences": 3,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "74f96c48ba1c0221ead6b16005b9b0dc8ffb39e113949f3debe7842793bc1d83"
+    },
+    {
+      "sourceIndex": 39,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "02 - Personagem",
+        "03 - Origem"
+      ],
+      "sourceTab": "Origens F2P",
+      "sourceOrder": 0,
+      "journalId": "92aad7008cb7950c",
+      "pageId": "2d5bdc39828be3b2",
+      "pageName": "Origens Gratuitas (F2P)",
+      "sort": 600000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 2576,
+      "originalMediaReferences": 0,
+      "preservedImageTags": [
+        "<img src=\"systems/nexus-jjk/assets/journal/origem-feiticeiro-inato.gif\" alt=\"Feiticeiro Inato\">",
+        "<img src=\"systems/nexus-jjk/assets/journal/origem-sem-tecnica-inata.gif\" alt=\"Sem Técnica Inata\">",
+        "<img src=\"systems/nexus-jjk/assets/journal/talento-naturalmente-reverso.gif\" alt=\"Naturalmente Reverso\">",
+        "<img src=\"systems/nexus-jjk/assets/journal/talento-estilo-das-sombras.gif\" alt=\"Estilo das Sombras\">"
+      ],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "82e185ec956efd6201e54e323bcbf9337f621d996bcdc5620ead2c21058b7a23"
+    },
+    {
+      "sourceIndex": 40,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "02 - Personagem",
+        "03 - Origem"
+      ],
+      "sourceTab": "Origens Compra",
+      "sourceOrder": 1,
+      "journalId": "92aad7008cb7950c",
+      "pageId": "016a179411ac66b0",
+      "pageName": "Origens Pagas",
+      "sort": 650000,
+      "policy": "preserve-newer-paid-origins",
+      "sourceVisibleCharacters": 7811,
+      "originalMediaReferences": 0,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "52b3e2039f1fc5a44496f272f593b0718ad601446af1494510d481e4ae44adea"
+    },
+    {
+      "sourceIndex": 41,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "02 - Personagem",
+        "03 - Origem"
+      ],
+      "sourceTab": "Restringido Fisico",
+      "sourceOrder": 2,
+      "journalId": "92aad7008cb7950c",
+      "pageId": "789e2d56523847da",
+      "pageName": "Restringido Físico",
+      "sort": 700000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 5773,
+      "originalMediaReferences": 9,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "3551fde48ea91e3b2af779484333b338d8c51144b513b5b0ad4a7a3801732605"
+    },
+    {
+      "sourceIndex": 42,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "02 - Personagem",
+        "03 - Origem"
+      ],
+      "sourceTab": "Estilo Das Sombras",
+      "sourceOrder": 3,
+      "journalId": "92aad7008cb7950c",
+      "pageId": "0bdc4b2d40448e11",
+      "pageName": "Estilo das Sombras",
+      "sort": 800000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 3048,
+      "originalMediaReferences": 2,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "a36d4acf738885962b2c8f7b26f9293c31d740d58dd772959e0694c3a36cc5a8"
+    },
+    {
+      "sourceIndex": 43,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "02 - Personagem",
+        "03 - Origem"
+      ],
+      "sourceTab": "Natural Reverso",
+      "sourceOrder": 4,
+      "journalId": "92aad7008cb7950c",
+      "pageId": "286bb2ea2be87ccd",
+      "pageName": "Naturalmente Reverso",
+      "sort": 900000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 1641,
+      "originalMediaReferences": 3,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "e5545bc1b9f1470b3af8c1df632efddb24fb9b8674d08d325c395fd0bc80819c"
+    },
+    {
+      "sourceIndex": 44,
+      "bib": "02 - Sistemática.bib",
+      "sourcePath": [
+        "02 - Sistemática.bib",
+        "02 - Personagem",
+        "04 - Talentos"
+      ],
+      "sourceTab": "Talentos",
+      "sourceOrder": 0,
+      "journalId": "92aad7008cb7950c",
+      "pageId": "45493bf41aee2fc9",
+      "pageName": "Talentos",
+      "sort": 1000000,
+      "policy": "transcribe",
+      "sourceVisibleCharacters": 5200,
+      "originalMediaReferences": 9,
+      "preservedImageTags": [],
+      "omittedHiddenSpans": 0,
+      "omittedHiddenCharacters": 0,
+      "contentSha256": "8046c21cfed5cd1bfd7595079f3611393ba42c8f5e91a3c62f103f2d14ef10c7"
+    }
+  ],
+  "media": [
+    {
+      "url": "https://images-ext-1.discordapp.net/external/v9LtzR2Rmi48J3zTLordGevAJ4e3xD2wn5_H-vFoGIs/https/static.klipy.com/ii/c3a19a0b747a76e98651f2b9a3cca5ff/b7/88/S77lWUkD8NGqgu7vhCn.mp4",
+      "target": "assets/journal/reforco-amaldicoado.gif",
+      "kind": "existing",
+      "sourceIndex": 43
+    },
+    {
+      "url": "https://blob.firecast.com.br/blobs/JMWKOICS_4503007/reforco1.webp",
+      "target": "assets/journal/tabela-reforco-ofensivo.png",
+      "kind": "existing",
+      "sourceIndex": 44
+    },
+    {
+      "url": "https://blob.firecast.com.br/blobs/HBJPNMKS_4503009/reforco2.webp",
+      "target": "assets/journal/tabela-reforco-defensivo.png",
+      "kind": "existing",
+      "sourceIndex": 45
+    },
+    {
+      "url": "https://c.tenor.com/9-CNReh5ZIUAAAAC/tenor.gif",
+      "target": "assets/journal/leitura-amaldicoada.gif",
+      "kind": "existing",
+      "sourceIndex": 47
+    },
+    {
+      "url": "https://blob.firecast.com.br/blobs/OMOSQVQQ_4503029/leitura1.webp",
+      "target": "assets/journal/tabela-leitura-patamar1.png",
+      "kind": "existing",
+      "sourceIndex": 48
+    },
+    {
+      "url": "https://blob.firecast.com.br/blobs/HWDKFHGM_4503031/leitura2.webp",
+      "target": "assets/journal/tabela-leitura-patamar2.png",
+      "kind": "existing",
+      "sourceIndex": 49
+    },
+    {
+      "url": "https://media1.tenor.com/m/iNjFMCxj3RIAAAAd/jujutsu-kaisen-curtain.gif",
+      "target": "assets/journal/barreira-cortina.gif",
+      "kind": "existing",
+      "sourceIndex": 50
+    },
+    {
+      "url": "https://images-ext-1.discordapp.net/external/OwPbVO3hpcOWgBFpAne7QnoEllRHhevKTHQP9RMMfD4/https/static.klipy.com/ii/4493325008d34b7bf8cd6813cd5c1619/8a/04/2uSlFo9qAu4jzLBs.mp4",
+      "target": "assets/journal/barreira-expansao-dominio.gif",
+      "kind": "existing",
+      "sourceIndex": 51
+    },
+    {
+      "url": "https://c.tenor.com/Skzw1gksKaIAAAAd/tenor.gif",
+      "target": "assets/journal/ear-yuta.gif",
+      "kind": "existing",
+      "sourceIndex": 52
+    },
+    {
+      "url": "https://blob.firecast.com.br/blobs/PCJEIPWI_4503033/EAR1.webp",
+      "target": "assets/journal/tabela-ear-interno.png",
+      "kind": "existing",
+      "sourceIndex": 97
+    },
+    {
+      "url": "https://blob.firecast.com.br/blobs/ORAMPWQW_4503035/EAR2.webp",
+      "target": "assets/journal/tabela-ear-externo.png",
+      "kind": "existing",
+      "sourceIndex": 54
+    },
+    {
+      "url": "https://blob.firecast.com.br/blobs/UHETSKOJ_4502999/condicoes2.webp",
+      "target": "assets/journal/tabela-condicoes.png",
+      "kind": "existing",
+      "sourceIndex": 55
+    },
+    {
+      "url": "https://images-ext-1.discordapp.net/external/p7A2SzKGN9NsLN4Q48TRQwUwtRwhHcMnxNhOg2OX6VM/https/static.klipy.com/ii/4493325008d34b7bf8cd6813cd5c1619/92/4c/z1bA14OxoyycV.mp4",
+      "target": "assets/journal/morte.gif",
+      "kind": "existing",
+      "sourceIndex": 56
+    },
+    {
+      "url": "https://blob.firecast.com.br/blobs/RLRWLSCS_4503039/critico.webp",
+      "target": "assets/journal/tabela-criticos.png",
+      "kind": "existing",
+      "sourceIndex": 57
+    },
+    {
+      "url": "https://images-ext-1.discordapp.net/external/J-SfIvMAfL93OtmfaWCUSgVshbwI_LabA_-8xRTMOZE/https/static.klipy.com/ii/f87f46a2c5aeaeed4c68910815f73eaf/65/8a/q0137JYi.mp4",
+      "target": "assets/journal/kokusen.gif",
+      "kind": "existing",
+      "sourceIndex": 58
+    },
+    {
+      "url": "https://images-ext-1.discordapp.net/external/ouRQKY3nMe72gjoqMOOITM1ouc8fv88ZcKPZ2w9UvcU/https/static.klipy.com/ii/4493325008d34b7bf8cd6813cd5c1619/22/f8/6ieRdbrvFiyw.mp4",
+      "target": "assets/journal/acao-principal.gif",
+      "kind": "existing",
+      "sourceIndex": 59
+    },
+    {
+      "url": "https://images-ext-1.discordapp.net/external/vpmAXMXg3w9HoMto_2biW1nTJ0GZqhIN5u8pqpaVh00/https/static.klipy.com/ii/4e7bea9f7a3371424e6c16ebc93252fe/ee/dd/amzn7QiIOUJho.mp4",
+      "target": "assets/journal/acao-movimento.gif",
+      "kind": "existing",
+      "sourceIndex": 60
+    },
+    {
+      "url": "https://images-ext-1.discordapp.net/external/WHDnQy68cf3KP1IT_iX62gsZSOm_ryZuZeXfJsHplvE/https/static.klipy.com/ii/4493325008d34b7bf8cd6813cd5c1619/ff/75/Q04UZ14IHgrfkk.mp4",
+      "target": "assets/journal/acao-bonus.gif",
+      "kind": "existing",
+      "sourceIndex": 61
+    },
+    {
+      "url": "https://images-ext-1.discordapp.net/external/B2fH3g4UTS1gFHhyBqjGke7bHuAPaVaZp5l0KDgjE0Y/https/static.klipy.com/ii/4e7bea9f7a3371424e6c16ebc93252fe/b2/d2/ldIHQvT1uknTGG2qJ.mp4",
+      "target": "assets/journal/acao-reativa.gif",
+      "kind": "existing",
+      "sourceIndex": 62
+    },
+    {
+      "url": "https://images-ext-1.discordapp.net/external/qzFzNb8LLA1a4jIod-bHcQ4oFDCg2inPEzfQld4gUfU/https/static.klipy.com/ii/4e7bea9f7a3371424e6c16ebc93252fe/d6/e3/Ud8HSdem2GQzySW.mp4",
+      "target": "assets/journal/acao-livre.gif",
+      "kind": "existing",
+      "sourceIndex": 63
+    },
+    {
+      "url": "https://blob.firecast.com.br/blobs/OQAOSCCU_4503082/acoes.png",
+      "target": "assets/journal/tabela-acoes-1.png",
+      "kind": "existing",
+      "sourceIndex": 64
+    },
+    {
+      "url": "https://blob.firecast.com.br/blobs/AILDDHMU_4502995/acoes2.webp",
+      "target": "assets/journal/tabela-acoes-2.png",
+      "kind": "existing",
+      "sourceIndex": 65
+    },
+    {
+      "url": "https://blob.firecast.com.br/blobs/GJUOGDTA_4502993/acoes3.webp",
+      "target": "assets/journal/tabela-acoes-3.png",
+      "kind": "existing",
+      "sourceIndex": 66
+    },
+    {
+      "url": "https://blob.firecast.com.br/blobs/DWRPTRRJ_4509764/6a6ff6eb3cc024f402bed289.jpg",
+      "target": "assets/journal/tabela-ferramentas-amaldicoadas.webp",
+      "kind": "existing",
+      "sourceIndex": 67
+    },
+    {
+      "url": "https://blob.firecast.com.br/blobs/QOPRJBFT_4503044/levelup.webp",
+      "target": "assets/journal/tabela-level-up.png",
+      "kind": "existing",
+      "sourceIndex": 68
+    },
+    {
+      "url": "https://blob.firecast.com.br/blobs/VMOJNGHA_4503013/atributos.webp",
+      "target": "assets/journal/tabela-atributos-nivel.png",
+      "kind": "existing",
+      "sourceIndex": 69
+    },
+    {
+      "url": "https://blob.firecast.com.br/blobs/VEGMMAOC_4503016/atributo2.webp",
+      "target": "assets/journal/tabela-limites-atributos.png",
+      "kind": "existing",
+      "sourceIndex": 70
+    },
+    {
+      "url": "https://i.pinimg.com/originals/2b/a0/03/2ba0035666157ac1181d9be7d7dbf635.gif",
+      "target": "assets/journal/atributos-fisicos.gif",
+      "kind": "existing",
+      "sourceIndex": 71
+    },
+    {
+      "url": "https://i.pinimg.com/originals/1d/9e/5c/1d9e5cd81e7c440f2533b1ef062370e3.gif",
+      "target": "assets/journal/atributos-mentais.gif",
+      "kind": "existing",
+      "sourceIndex": 72
+    },
+    {
+      "url": "https://giffiles.alphacoders.com/211/211811.gif",
+      "target": "assets/journal/sistema-status.gif",
+      "kind": "existing",
+      "sourceIndex": 73
+    },
+    {
+      "url": "https://c.tenor.com/XUiSuVmjE_oAAAAC/tenor.gif",
+      "target": "assets/journal/pericia-controle-energia.gif",
+      "kind": "existing",
+      "sourceIndex": 74
+    },
+    {
+      "url": "https://c.tenor.com/5vskOaGTsN4AAAAd/tenor.gif",
+      "target": "assets/journal/pericia-artefatos-amaldicoados.gif",
+      "kind": "existing",
+      "sourceIndex": 75
+    },
+    {
+      "url": "https://c.tenor.com/1ig2msEAF_MAAAAd/tenor.gif",
+      "target": "assets/journal/pericia-barreiras.gif",
+      "kind": "existing",
+      "sourceIndex": 76
+    },
+    {
+      "url": "https://c.tenor.com/lLLvFoqOLf8AAAAC/tenor.gif",
+      "target": "assets/journal/pericia-votos-vinculativos.gif",
+      "kind": "existing",
+      "sourceIndex": 77
+    },
+    {
+      "url": "https://c.tenor.com/OQaO8JLeldIAAAAd/tenor.gif",
+      "target": "assets/journal/pericia-energia-amaldicoada.gif",
+      "kind": "existing",
+      "sourceIndex": 78
+    },
+    {
+      "url": "https://c.tenor.com/Sns2XuBGyswAAAAC/tenor.gif",
+      "target": "assets/journal/pericia-ritos-ocultistas.gif",
+      "kind": "existing",
+      "sourceIndex": 79
+    },
+    {
+      "url": "https://images-ext-1.discordapp.net/external/4Zt8joc0O3k28cvf9EXdAla7mEjNSPVsZotEf6ifjRQ/https/c.tenor.com/VH3loefMFgwAAAAC/tenor.gif",
+      "target": "assets/journal/pericia-reversao.gif",
+      "kind": "existing",
+      "sourceIndex": 80
+    },
+    {
+      "url": "https://c.tenor.com/sU97hRoAIjYAAAAd/tenor.gif",
+      "target": "assets/journal/pericia-artificiaria.gif",
+      "kind": "existing",
+      "sourceIndex": 81
+    },
+    {
+      "url": "https://media1.tenor.com/m/uYeYFWNx2owAAAAd/yuta-yuta-okkotsu.gif",
+      "target": "assets/journal/voto-contratual.gif",
+      "kind": "existing",
+      "sourceIndex": 82
+    },
+    {
+      "url": "https://media1.tenor.com/m/1UCA18ZgFpsAAAAd/nanami-nanami-kento.gif",
+      "target": "assets/journal/voto-autoimposto.gif",
+      "kind": "existing",
+      "sourceIndex": 83
+    },
+    {
+      "url": "https://i.makeagif.com/media/2-11-2024/6Dh27o.gif",
+      "target": "assets/journal/voto-tecnica.gif",
+      "kind": "existing",
+      "sourceIndex": 84
+    },
+    {
+      "url": "https://c.tenor.com/sU97hRoAIjYAAAAd/tenor.gi",
+      "target": "assets/journal/movimento-subjugar-armamento.gif",
+      "kind": "existing",
+      "sourceIndex": 85
+    },
+    {
+      "url": "https://c.tenor.com/3oNhJwjKc_oAAAAC/tenor.gif",
+      "target": "assets/journal/movimento-bloqueio-imprudente.gif",
+      "kind": "existing",
+      "sourceIndex": 86
+    },
+    {
+      "url": "https://c.tenor.com/ToThHEbrPa4AAAAC/tenor.gif",
+      "target": "assets/journal/movimento-ataque-imprudente.gif",
+      "kind": "existing",
+      "sourceIndex": 87
+    },
+    {
+      "url": "https://c.tenor.com/DewXIYHcogsAAAAC/tenor.gif",
+      "target": "assets/journal/movimento-reflexo-agil.gif",
+      "kind": "existing",
+      "sourceIndex": 88
+    },
+    {
+      "url": "https://c.tenor.com/eJwY-tzIRicAAAAC/tenor.gif",
+      "target": "assets/journal/movimento-juntos-somos-mais.gif",
+      "kind": "existing",
+      "sourceIndex": 89
+    },
+    {
+      "url": "https://c.tenor.com/UMJV3bOmWhgAAAAC/tenor.gif",
+      "target": "assets/journal/movimento-mao-pesada.gif",
+      "kind": "existing",
+      "sourceIndex": 90
+    },
+    {
+      "url": "https://c.tenor.com/UuVMBD5nz_cAAAAC/tenor.gif",
+      "target": "assets/journal/movimento-manejo-fatal.gif",
+      "kind": "existing",
+      "sourceIndex": 91
+    },
+    {
+      "url": "https://c.tenor.com/1-QUuRqkDFQAAAAC/tenor.gif",
+      "target": "assets/journal/movimento-mente-forte.gif",
+      "kind": "existing",
+      "sourceIndex": 92
+    },
+    {
+      "url": "https://c.tenor.com/HgFU-8rGDEwAAAAC/tenor.gif",
+      "target": "assets/journal/movimento-critico-brutal.gif",
+      "kind": "existing",
+      "sourceIndex": 93
+    },
+    {
+      "url": "https://media1.tenor.com/m/Iu6yDguAz5kAAAAd/kasumi-miwa-jujutsu-kaisen.gif",
+      "target": "assets/journal/estilo-sombras-battojutsu.gif",
+      "kind": "existing",
+      "sourceIndex": 94
+    },
+    {
+      "url": "https://media1.tenor.com/m/MpSYs_K2YbIAAAAd/jujutsu-kaisen-jjk.gif",
+      "target": "assets/journal/estilo-sombras-dominio-simples.gif",
+      "kind": "existing",
+      "sourceIndex": 95
+    },
+    {
+      "url": "https://images-ext-1.discordapp.net/external/eybHpdG1j4PZ_gAjsHDM7MnF3eZIPF-uzgxJGSjxHC4/https/static.klipy.com/ii/e1b92bb53e0c9e442408bc677a56c789/25/df/3AM0IWiu2G7H6VL8.mp4",
+      "target": "assets/journal/ear-yuta.gif",
+      "kind": "existing",
+      "sourceIndex": 96
+    },
+    {
+      "url": "https://blob.firecast.com.br/blobs/EJDICHUV_4503037/EAR3.webp",
+      "target": "assets/journal/tabela-ear-externo.png",
+      "kind": "existing",
+      "sourceIndex": 98
+    },
+    {
+      "url": "https://blob.firecast.com.br/blobs/RQNRVDOT_4513531/sendai.webp",
+      "target": "assets/journal/firecast-000-escola-de-sendai.webp",
+      "kind": "downloaded",
+      "sha256": "d216641a0836f0af91d539fb9f778125d0d0b7a75bc31ef0e5e3eb3eeeed3ae7",
+      "sourceIndex": 0
+    },
+    {
+      "url": "https://blob.firecast.com.br/blobs/PJKKJCVO_4590774/6abb05c23cc024f404882b9a.jpg",
+      "target": "assets/journal/firecast-001-escola-shirohana.jpg",
+      "kind": "downloaded",
+      "sha256": "9e41a264583ce4a6aa2e86a5e84c8cf8ddb5ad836da7ccde73a4d08d8e7f3853",
+      "sourceIndex": 1
+    },
+    {
+      "url": "https://blob.firecast.com.br/blobs/NPBMVVOM_4502907/kamo.webp",
+      "target": "assets/journal/firecast-002-kamo.webp",
+      "kind": "downloaded",
+      "sha256": "3dc1b2a5f81346368b2a045c07b8a36feb095deac3e91dda32176ceab704df83",
+      "sourceIndex": 2
+    },
+    {
+      "url": "https://images-ext-1.discordapp.net/external/y0fSg-p7BgNFNdM5OXFvbw_Zez5Zqy9u16RFejA91E4/https/static.klipy.com/ii/a8ada81afc59159ea5c8927feffa2e31/59/70/Ux8RcmiPOqhdzJy7.mp4",
+      "target": "assets/journal/firecast-003-kamo.mp4",
+      "kind": "downloaded",
+      "sha256": "b680482650f4835a2ea93cbeec09e42bf2ae882fb3e976f1993c91db439fe5fc",
+      "sourceIndex": 3
+    },
+    {
+      "url": "https://blob.firecast.com.br/blobs/CBAPCETE_4502910/gojo.webp",
+      "target": "assets/journal/firecast-004-gojo.webp",
+      "kind": "downloaded",
+      "sha256": "1a6d9d015eb411600bcb3ca84c5e54694f9621dd927c7ccdb1ec5308acbf880b",
+      "sourceIndex": 4
+    },
+    {
+      "url": "https://images-ext-1.discordapp.net/external/z4ZzSQP6PK2oo94wkRK2SfBOfJ4I-11BM1xX_Qdjafg/https/i.pinimg.com/originals/a5/46/63/a5466327439c91d28f889a75846434ea.gif?width=400&height=224",
+      "target": "assets/journal/firecast-005-gojo.gif",
+      "kind": "downloaded",
+      "sha256": "1cd24a80ca5078b39a4d5c29e1f0a242811232838d4146dfc98b84333ade61e8",
+      "sourceIndex": 5
+    },
+    {
+      "url": "https://blob.firecast.com.br/blobs/TEJUMTWF_4502912/zenin.webp",
+      "target": "assets/journal/firecast-006-zenin.webp",
+      "kind": "downloaded",
+      "sha256": "857dc3262057973e6bba03cbb51aca5b6d62725f7c96e76b9d4a6a918588c7a5",
+      "sourceIndex": 6
+    },
+    {
+      "url": "https://images-ext-1.discordapp.net/external/fHpOWCZ2iTepc_JaOmzsgwsCrxhOGjvIgi5hL4UmC40/https/static.klipy.com/ii/4493325008d34b7bf8cd6813cd5c1619/cf/be/fiOBp3M4eQLK.mp4",
+      "target": "assets/journal/firecast-007-zenin.mp4",
+      "kind": "downloaded",
+      "sha256": "9089bbd07cfd5eba9364f36c4b6c74faab5d16a2b4e016fab0853b6b97d142be",
+      "sourceIndex": 7
+    },
+    {
+      "url": "https://blob.firecast.com.br/blobs/RWRFQRQF_4502903/fujiwara.webp",
+      "target": "assets/journal/firecast-008-fujiwara.webp",
+      "kind": "downloaded",
+      "sha256": "c011a42281a63bf66ee0dbecf19b7b0ab2872271a32e9ba4d3d9e53363dcd8c9",
+      "sourceIndex": 8
+    },
+    {
+      "url": "https://images-ext-1.discordapp.net/external/qLt0CkdzOWoz5XSmItoc72S-R3VC7iLOvjTF87rpdkk/https/static.klipy.com/ii/4493325008d34b7bf8cd6813cd5c1619/51/41/B2LfjfI0M1DPeEMV.mp4",
+      "target": "assets/journal/firecast-009-fujiwara.mp4",
+      "kind": "downloaded",
+      "sha256": "2f5ffe93302e406ec6f05361132ccb5dde1b3e43e1b47400a073db847ab7c419",
+      "sourceIndex": 9
+    },
+    {
+      "url": "https://blob.firecast.com.br/blobs/CROQEQME_4502896/inumaki.webp",
+      "target": "assets/journal/firecast-010-inumaki.webp",
+      "kind": "downloaded",
+      "sha256": "d18b1aba5f36d8b0b4253fd5606f104b3376d3b9f5b198d0022f6a34c19cb4cb",
+      "sourceIndex": 10
+    },
+    {
+      "url": "https://images-ext-1.discordapp.net/external/QPLMli9hW1c6hBCkYNpDZ7UQLguvGGOGV8B2ungtCZw/https/static.klipy.com/ii/e293a233a303a98e471f78d04e13a1b0/1c/c2/5ZKnF7PV9EIK3aYXPM5i.mp4",
+      "target": "assets/journal/firecast-011-inumaki.mp4",
+      "kind": "downloaded",
+      "sha256": "be10602a078cc8f5eea2624a4afa328dbb8f85b81847e831a33296a6b2266836",
+      "sourceIndex": 11
+    },
+    {
+      "url": "https://blob.firecast.com.br/blobs/IKDBAVBA_4502901/iori.webp",
+      "target": "assets/journal/firecast-012-iori.webp",
+      "kind": "downloaded",
+      "sha256": "52e98fb115a3e4382a54d1db451195cd2eb6b53ce4e9298637d9a0622fc8b983",
+      "sourceIndex": 12
+    },
+    {
+      "url": "https://images-ext-1.discordapp.net/external/_1vg3AvW_NP3abQGFRTHD8upR5FBzF5lddYyJSQJuNg/https/c.tenor.com/-Tvzn2Bov8YAAAAC/tenor.gif",
+      "target": "assets/journal/firecast-013-iori.gif",
+      "kind": "downloaded",
+      "sha256": "6356b0872a820a6c45064c147961c344302a2cb0c44d9756d78dcbd6b982fbe1",
+      "sourceIndex": 13
+    },
+    {
+      "url": "https://blob.firecast.com.br/blobs/HUKORDQA_4502905/konto.webp",
+      "target": "assets/journal/firecast-014-konto.webp",
+      "kind": "downloaded",
+      "sha256": "08597ef3dca6f19f4e755bd73bba9f8651326ee02a8ff85c4b92f3174a1ec394",
+      "sourceIndex": 14
+    },
+    {
+      "url": "https://images-ext-1.discordapp.net/external/BUW3CAcGkyclLYAZWl1sN_okXLoo_hZ5Frkf4BXj0w8/https/c.tenor.com/1qnVdprX3b0AAAAd/tenor.gif",
+      "target": "assets/journal/firecast-015-konto.gif",
+      "kind": "downloaded",
+      "sha256": "f3d2dade5ca5a1d32ebd5306129fe4d3083c5e098a27579d10d0c5ea93c3edc1",
+      "sourceIndex": 15
+    },
+    {
+      "url": "https://media1.tenor.com/m/GBLzon7pzn8AAAAC/dagon-jjk.gif",
+      "target": "assets/journal/firecast-016-tec-da-obra.gif",
+      "kind": "downloaded",
+      "sha256": "14492a927b0bcce5124aaf6759899043aca74ec51b493dfa34f4735c06182021",
+      "sourceIndex": 16
+    },
+    {
+      "url": "https://media1.tenor.com/m/uQQIJAGdE9AAAAAd/hanami-cursed-technique.gif",
+      "target": "assets/journal/firecast-017-tec-da-obra.gif",
+      "kind": "downloaded",
+      "sha256": "8a65dc1cdba421b8b9d8649e3115225828b70cebef12732f326118f213cbd2e0",
+      "sourceIndex": 17
+    },
+    {
+      "url": "https://media1.tenor.com/m/fci-2oVglJEAAAAd/jjk-jujutsu-kaisen.gif",
+      "target": "assets/journal/firecast-018-tec-da-obra.gif",
+      "kind": "downloaded",
+      "sha256": "dc5e7ebef4bb4f72ebc1f8586c6c8520252aaa8cfadb5ea6a2453a2f7731bdb7",
+      "sourceIndex": 18
+    },
+    {
+      "url": "https://media1.tenor.com/m/O7k0xZzpB00AAAAC/uraume-frost-clam-jujutsu-kaisen.gif",
+      "target": "assets/journal/firecast-019-tec-da-obra.gif",
+      "kind": "downloaded",
+      "sha256": "42fcde426e5cd4407b584ff2353d3dae43d11be77183e064b2025de2e2429d83",
+      "sourceIndex": 19
+    },
+    {
+      "url": "https://media1.tenor.com/m/DcG98woGrC0AAAAd/jujutsu-kaisen-ryu-ishigori.gif",
+      "target": "assets/journal/firecast-020-tec-da-obra.gif",
+      "kind": "downloaded",
+      "sha256": "9b95dfc22f51a5b2a7fa47ac638991f04001a7a37c849f5169362dacb8822ce4",
+      "sourceIndex": 20
+    },
+    {
+      "url": "https://media1.tenor.com/m/3ctXFKbMcKAAAAAd/gojo-gojo-cube.gif",
+      "target": "assets/journal/firecast-021-tec-da-obra.gif",
+      "kind": "downloaded",
+      "sha256": "3e4add108bef8da8856720a307528377dac1219ba8842fe7184e80311dfbdaba",
+      "sourceIndex": 21
+    },
+    {
+      "url": "https://media1.tenor.com/m/IFTEXLQdzzoAAAAC/yuki-plans-jujutsu-kaisen.gif",
+      "target": "assets/journal/firecast-022-tec-da-obra.gif",
+      "kind": "downloaded",
+      "sha256": "d6f0d8f60716bba027b8e9ce1634513f3aa73d22404fb1216b253310c27aaf5e",
+      "sourceIndex": 22
+    },
+    {
+      "url": "https://media1.tenor.com/m/rpyHt4D4bBQAAAAC/jujutsu-kaisen-kento-nanami.gif",
+      "target": "assets/journal/firecast-023-tec-da-obra.gif",
+      "kind": "downloaded",
+      "sha256": "528f0e512bf7401f7171c98b4420066026cd63ffcd9159e80ad6eb80f4df7023",
+      "sourceIndex": 23
+    },
+    {
+      "url": "https://images-ext-1.discordapp.net/external/SSGDzJCnS5LVGqGIO0OSu1dwFBJzJyAnb0qBxLK8N54/https/static.klipy.com/ii/4493325008d34b7bf8cd6813cd5c1619/f1/98/hqPUHK2rLTn9.mp4",
+      "target": "assets/journal/firecast-024-tec-da-obra.mp4",
+      "kind": "downloaded",
+      "sha256": "9b2205b1278aad7563c035f4f9683fad980826b2ebf04408b1c4c9f30bdac7ea",
+      "sourceIndex": 24
+    },
+    {
+      "url": "https://media1.tenor.com/m/AtKrHqCCRsEAAAAC/megumi.gif",
+      "target": "assets/journal/firecast-026-tec-de-cla.gif",
+      "kind": "downloaded",
+      "sha256": "65fc941d9a05d20c2c73d9b3689f16ba5341f681d74760981481e626dede8097",
+      "sourceIndex": 26
+    },
+    {
+      "url": "https://media1.tenor.com/m/vVTIabNCbMEAAAAC/naoya-jujutsu-kaisen.gif",
+      "target": "assets/journal/firecast-027-tec-de-cla.gif",
+      "kind": "downloaded",
+      "sha256": "53bbc1f463e1fa398dfb5a49ff827e37e9881e42c9043f68bb2199512084cf90",
+      "sourceIndex": 27
+    },
+    {
+      "url": "https://blob.firecast.com.br/blobs/ITCKRTPV_4524017/earth_manipulation.webp",
+      "target": "assets/journal/firecast-028-tec-de-cla.webp",
+      "kind": "downloaded",
+      "sha256": "087508a7c3e56caa9ed62fc07ac93a3a459a4fd79a46eddb8bfa1530b6245850",
+      "sourceIndex": 28
+    },
+    {
+      "url": "https://media1.tenor.com/m/RzRAnBtfiGEAAAAd/choso-itadori.gif",
+      "target": "assets/journal/firecast-030-tec-de-cla.gif",
+      "kind": "downloaded",
+      "sha256": "51560d889734315f226a88de244774a084dde645f1037efd83e2544220db3991",
+      "sourceIndex": 30
+    },
+    {
+      "url": "https://media1.tenor.com/m/lcBqyr6qTOsAAAAC/toge-toge-inumaki.gif",
+      "target": "assets/journal/firecast-032-tec-de-cla.gif",
+      "kind": "downloaded",
+      "sha256": "8b61cc2ddaf251403b31b5f85965f4c9f84040bfa42c62bccf4f5182e6375f4a",
+      "sourceIndex": 32
+    },
+    {
+      "url": "https://media1.tenor.com/m/wNUqbfA_AIsAAAAd/uro-takako.gif",
+      "target": "assets/journal/firecast-034-tec-de-cla.gif",
+      "kind": "downloaded",
+      "sha256": "48e19d604a05de5558a27df069e52ac94811b76291ce695030514fbbcb66f9f0",
+      "sourceIndex": 34
+    },
+    {
+      "url": "https://media1.tenor.com/m/voPPEyrvuFYAAAAC/shoko-iere-shoko-jjk.gif",
+      "target": "assets/journal/firecast-035-conhecimentos.gif",
+      "kind": "downloaded",
+      "sha256": "dfc16b0ea056536ca07361c9ae38b9dae3f85b712aaf2d1901645dcb096ae630",
+      "sourceIndex": 35
+    },
+    {
+      "url": "https://media1.tenor.com/m/Tgd7z9bKYcIAAAAC/analog-tech-computer.gif",
+      "target": "assets/journal/firecast-036-conhecimentos.gif",
+      "kind": "downloaded",
+      "sha256": "f621b3a2ee3937f3e949206054163090a75f52193c6bc7d2fcda75a5b4f39515",
+      "sourceIndex": 36
+    },
+    {
+      "url": "https://media1.tenor.com/m/5mwoSN5hk5EAAAAC/%E5%91%AA%E8%A1%93%E5%BB%BB%E6%88%A6-anime.gif",
+      "target": "assets/journal/firecast-037-conhecimentos.gif",
+      "kind": "downloaded",
+      "sha256": "5bb4e59b15cf9cc06c8858f4fe4d1254acac06d0b1e48436d0538f766db8de2a",
+      "sourceIndex": 37
+    },
+    {
+      "url": "https://media1.tenor.com/m/ZXM8sTlvCnQAAAAd/promethozeen.gif",
+      "target": "assets/journal/firecast-038-conhecimentos.gif",
+      "kind": "downloaded",
+      "sha256": "2fec484f54ebcd7248e51f2fcd908339ae061dbaace3bc1f13f40f39a662320b",
+      "sourceIndex": 38
+    },
+    {
+      "url": "https://media1.tenor.com/m/R9nq7d6GZ94AAAAC/enbiyaemre-initald.gif",
+      "target": "assets/journal/firecast-039-conhecimentos.gif",
+      "kind": "downloaded",
+      "sha256": "6fc8e63670019373c865014d28d2e4dc3815981dae9f5adf699ebea5bd2ac587",
+      "sourceIndex": 39
+    },
+    {
+      "url": "https://media1.tenor.com/m/A66qz2gWxIkAAAAd/alabasta-nico-robin.gif",
+      "target": "assets/journal/firecast-040-conhecimentos.gif",
+      "kind": "downloaded",
+      "sha256": "a598070dd5bbeb2b5f36e9e0366bb3f389276b70cebc232ea3afbc65b40928fd",
+      "sourceIndex": 40
+    },
+    {
+      "url": "https://media1.tenor.com/m/qYDV7IxlOqwAAAAC/taiju-yuzuriha.gif",
+      "target": "assets/journal/firecast-041-conhecimentos.gif",
+      "kind": "downloaded",
+      "sha256": "9ba588b530b81304062a2cbd9b716e5340d97372aee874fc6954d0f9c6b55077",
+      "sourceIndex": 41
+    },
+    {
+      "url": "https://media1.tenor.com/m/hOwoAjPCHwsAAAAC/reze-denji.gif",
+      "target": "assets/journal/firecast-042-conhecimentos.gif",
+      "kind": "downloaded",
+      "sha256": "1539e1166a8b4482796358bf9781d06e3c88de7c85ce5b3584b0bac5728c38af",
+      "sourceIndex": 42
+    },
+    {
+      "url": "https://images-ext-1.discordapp.net/external/G8EDTKd1tjlmecA7CP4x9xfpuYo6wnLwHdEt_3_ScqU/https/static.klipy.com/ii/4493325008d34b7bf8cd6813cd5c1619/9d/5d/xClJmnt8W6w2K1ORqS8Z.mp4",
+      "target": "assets/journal/firecast-046-tec-treinaveis.mp4",
+      "kind": "downloaded",
+      "sha256": "f737c9d563396ca4c03ddbaaa18147f1bde3e099ec5cdbedde095149e58f3e28",
+      "sourceIndex": 46
+    },
+    {
+      "url": "https://static2.klipy.com/ii/4493325008d34b7bf8cd6813cd5c1619/1f/c6/MBKHjHVCLDGM4E.gif",
+      "target": "assets/journal/firecast-099-talentos.gif",
+      "kind": "downloaded",
+      "sha256": "dccf90e7cf856cc88b191a3e5f91d662ccc71991b9bc05a197310aaab773e766",
+      "sourceIndex": 99
+    },
+    {
+      "url": "https://static2.klipy.com/ii/e293a233a303a98e471f78d04e13a1b0/9c/ff/dVkYJkJK.gif",
+      "target": "assets/journal/firecast-100-talentos.gif",
+      "kind": "downloaded",
+      "sha256": "2bbefcb685a52aabc38dd142bfb97cdf459abe95b34af8efaa768883fa0764ec",
+      "sourceIndex": 100
+    },
+    {
+      "url": "https://static2.klipy.com/ii/4493325008d34b7bf8cd6813cd5c1619/84/af/FM47ebSaj2nsM2fj2W.gif",
+      "target": "assets/journal/firecast-101-talentos.gif",
+      "kind": "downloaded",
+      "sha256": "00462ec1e113effc3036cd190ae7f5567af11192b86e857d6375143c6468bcc6",
+      "sourceIndex": 101
+    },
+    {
+      "url": "https://static2.klipy.com/ii/4493325008d34b7bf8cd6813cd5c1619/28/35/K3P1ybtytyf2t.gif",
+      "target": "assets/journal/firecast-102-talentos.gif",
+      "kind": "downloaded",
+      "sha256": "9d2cf646effcf210eebf578d548f2fb2bf4eef28754d60307b6ecdeb72f69573",
+      "sourceIndex": 102
+    },
+    {
+      "url": "https://static2.klipy.com/ii/4493325008d34b7bf8cd6813cd5c1619/69/5e/GJ0tNPx8Q2rusQS.gif",
+      "target": "assets/journal/firecast-103-talentos.gif",
+      "kind": "downloaded",
+      "sha256": "c0796c7c0005f27bccbd3afad5fc0948a4260990b95ebb7efac8fb9f28b25669",
+      "sourceIndex": 103
+    },
+    {
+      "url": "https://static2.klipy.com/ii/4493325008d34b7bf8cd6813cd5c1619/ab/27/zrLwT8R00Tae1QLLxbTF.gif",
+      "target": "assets/journal/firecast-104-talentos.gif",
+      "kind": "downloaded",
+      "sha256": "7d106642d4a79b3fe50bfbeb1032a16450f781e5c39fe87326903a24ff6227c8",
+      "sourceIndex": 104
+    },
+    {
+      "url": "https://static2.klipy.com/ii/4493325008d34b7bf8cd6813cd5c1619/c0/07/7qxKfzIXJijRUlNgu0.gif",
+      "target": "assets/journal/firecast-105-talentos.gif",
+      "kind": "downloaded",
+      "sha256": "be92c3350029d306255aaa8b26ae7271e18ded67078a4c6b8360741491876d49",
+      "sourceIndex": 105
+    },
+    {
+      "url": "https://c.tenor.com/HvgKNijieJ4AAAAd/tenor.gif",
+      "target": "assets/journal/firecast-106-talentos.gif",
+      "kind": "downloaded",
+      "sha256": "a513ecc2d3640131761ee80e663488feea6f9d62a09b0fb5f5e1ca2fdeae1bd9",
+      "sourceIndex": 106
+    },
+    {
+      "url": "https://static2.klipy.com/ii/4493325008d34b7bf8cd6813cd5c1619/99/c5/tlaDLiRYZNldiWlYu.gif",
+      "target": "assets/journal/firecast-107-talentos.gif",
+      "kind": "downloaded",
+      "sha256": "1b21a5c09bbbf4af8e68dc68340887b079b2053b2b25ab920886a1e91720b48d",
+      "sourceIndex": 107
+    }
+  ]
+}

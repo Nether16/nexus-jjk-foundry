@@ -1,0 +1,52 @@
+{
+  "_id": "721519fc8756e498",
+  "name": "Catálogo",
+  "pages": [
+    {
+      "_id": "6029271a66a7a2ec",
+      "name": "Técnicas da Obra",
+      "type": "text",
+      "sort": 100000,
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<div class=\"nexus-wiki\"><div class=\"catalogo-grade\"><article class=\"catalogo-item\"><h2>Disaster Tides</h2><img src=\"systems/nexus-jjk/assets/journal/firecast-016-tec-da-obra.gif\" alt=\"\"><p><strong>Vaga 0/1 - R$ 50</strong></p></article><article class=\"catalogo-item\"><h2>Disaster Plants</h2><img src=\"systems/nexus-jjk/assets/journal/firecast-017-tec-da-obra.gif\" alt=\"\"><p><strong>Vaga 1/1 - R$ 50</strong></p></article><article class=\"catalogo-item\"><h2>Boogie Woogie</h2><img src=\"systems/nexus-jjk/assets/journal/firecast-018-tec-da-obra.gif\" alt=\"\"><p><strong>Vaga 0/1 - R$ 50</strong></p></article><article class=\"catalogo-item\"><h2>Ice Formation</h2><img src=\"systems/nexus-jjk/assets/journal/firecast-019-tec-da-obra.gif\" alt=\"\"><p><strong>Vaga 0/1 - R$ 50</strong></p></article><article class=\"catalogo-item\"><h2>Granite Blast</h2><img src=\"systems/nexus-jjk/assets/journal/firecast-020-tec-da-obra.gif\" alt=\"\"><p><strong>Vaga 0/1 - R$ 50</strong></p></article><article class=\"catalogo-item\"><h2>Anti-Gravity Sistem</h2><img src=\"systems/nexus-jjk/assets/journal/firecast-021-tec-da-obra.gif\" alt=\"\"><p><strong>Vaga 1/1 - R$ 50</strong></p></article><article class=\"catalogo-item\"><h2>Star Rage</h2><img src=\"systems/nexus-jjk/assets/journal/firecast-022-tec-da-obra.gif\" alt=\"\"><p><strong>Vaga 1/1 - R$ 50</strong></p></article><article class=\"catalogo-item\"><h2>7:3</h2><img src=\"systems/nexus-jjk/assets/journal/firecast-023-tec-da-obra.gif\" alt=\"\"><p><strong>Vaga 1/1 - R$ 50</strong></p></article><article class=\"catalogo-item\"><h2>Orbital Domain</h2><video src=\"systems/nexus-jjk/assets/journal/firecast-024-tec-da-obra.mp4\" autoplay controls muted loop playsinline></video><p><strong>Vaga 0/1 - R$ 50</strong></p></article></div></div>"
+      },
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!721519fc8756e498.6029271a66a7a2ec"
+    },
+    {
+      "_id": "d85ffedeb94ae7d7",
+      "name": "Técnicas de Clã",
+      "type": "text",
+      "sort": 200000,
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<div class=\"nexus-wiki\"><section class=\"catalogo-cla\"><img class=\"catalogo-banner\" src=\"systems/nexus-jjk/assets/journal/firecast-006-zenin.webp\" alt=\"Zenin\"><div class=\"catalogo-grade\"><article class=\"catalogo-item\"><h2>Dez Sombras</h2><img src=\"systems/nexus-jjk/assets/journal/firecast-026-tec-de-cla.gif\" alt=\"\"><p><strong>Vaga 1/1 - R$ 55</strong></p></article><article class=\"catalogo-item\"><h2>Projeção</h2><img src=\"systems/nexus-jjk/assets/journal/firecast-027-tec-de-cla.gif\" alt=\"\"><p><strong>Vaga 1/1 - R$ 50</strong></p></article><article class=\"catalogo-item\"><h2>Eart Manipulation</h2><img src=\"systems/nexus-jjk/assets/journal/firecast-028-tec-de-cla.webp\" alt=\"\"><p><strong>Vaga 0/1 - R$ 50</strong></p></article></div></section><section class=\"catalogo-cla\"><img class=\"catalogo-banner\" src=\"systems/nexus-jjk/assets/journal/firecast-002-kamo.webp\" alt=\"Kamo\"><div class=\"catalogo-grade\"><article class=\"catalogo-item\"><h2>Manipulação de Sangue</h2><img src=\"systems/nexus-jjk/assets/journal/firecast-030-tec-de-cla.gif\" alt=\"\"><p><strong>Vaga 0/1 - R$ 50</strong></p></article></div></section><section class=\"catalogo-cla\"><img class=\"catalogo-banner\" src=\"systems/nexus-jjk/assets/journal/firecast-010-inumaki.webp\" alt=\"Inumaki\"><div class=\"catalogo-grade\"><article class=\"catalogo-item\"><h2>Fala Amaldiçoada</h2><img src=\"systems/nexus-jjk/assets/journal/firecast-032-tec-de-cla.gif\" alt=\"\"><p><strong>Vaga 0/1 - R$ 50</strong></p></article></div></section><section class=\"catalogo-cla\"><img class=\"catalogo-banner\" src=\"systems/nexus-jjk/assets/journal/firecast-008-fujiwara.webp\" alt=\"Fujiwara\"><div class=\"catalogo-grade\"><article class=\"catalogo-item\"><h2>Sky Manipulation</h2><img src=\"systems/nexus-jjk/assets/journal/firecast-034-tec-de-cla.gif\" alt=\"\"><p><strong>Vaga 1/1 - R$ 50</strong></p></article></div></section></div>"
+      },
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!721519fc8756e498.d85ffedeb94ae7d7"
+    }
+  ],
+  "categories": [],
+  "folder": "fc67c4cfee5ace14",
+  "sort": 600000,
+  "ownership": {
+    "default": 2
+  },
+  "flags": {},
+  "_key": "!journal!721519fc8756e498"
+}

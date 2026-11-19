@@ -64,7 +64,7 @@
 }
 
 /* GIFs e imagens comuns. */
-.nexus-wiki img {
+.nexus-wiki :is(img, video) {
   display: block;
   width: 100%;
   max-width: 340px;
@@ -77,6 +77,48 @@
 /* Imagens de tabelas aproveitam a largura disponível para preservar a leitura. */
 .nexus-wiki img.tabela-img {
   width: auto;
+  max-width: 100%;
+}
+
+/* Cada técnica do catálogo mantém nome, ilustração e disponibilidade juntos. */
+.nexus-wiki .catalogo-grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 16px;
+}
+
+.nexus-wiki .catalogo-item {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #333333;
+  border-radius: 4px;
+  background: #080808;
+}
+
+.nexus-wiki .catalogo-item h2 {
+  margin: 0 0 12px;
+  color: #FFFFFF;
+  font-size: 17px;
+}
+
+.nexus-wiki .catalogo-item :is(img, video) {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 0 12px;
+}
+
+.nexus-wiki .catalogo-item p {
+  margin: auto 0 0;
+}
+
+.nexus-wiki .catalogo-cla + .catalogo-cla {
+  margin-top: 32px;
+}
+
+.nexus-wiki img.catalogo-banner {
+  width: 100%;
   max-width: 100%;
 }
 
