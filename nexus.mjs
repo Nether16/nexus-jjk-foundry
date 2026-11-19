@@ -9,6 +9,7 @@ import {
   registerAppearanceSettings
 } from "./module/sheets/nexus-appearance.mjs";
 import { registerRichTextAutosave } from "./module/sheets/nexus-rich-text.mjs";
+import { registerTokenPortraitSync } from "./module/token-portraits.mjs";
 
 const NEXUS_LOGO = "systems/nexus-jjk/assets/images/nexus-logo.png";
 
@@ -16,6 +17,7 @@ Hooks.once("init", () => {
   console.log("Nexus JJK | Inicializando sistema para Foundry VTT V14");
   registerAppearanceSettings();
   registerRichTextAutosave();
+  registerTokenPortraitSync();
 
   CONFIG.NEXUS = {
     attributes: NEXUS_ATTRIBUTES,

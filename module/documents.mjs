@@ -1,4 +1,5 @@
 import { getAttributeMax, getXpTarget, NEXUS_ATTRIBUTES, NEXUS_MAX_LEVEL } from "./config.mjs";
+import { prototypePortraitChanges, usesTokenPortrait } from "./token-portraits.mjs";
 
 /** Resolve mudanças tanto expandidas quanto em caminhos pontuados. */
 function findChange(changes, path) {
@@ -26,6 +27,15 @@ function setChange(changes, path, value) {
 }
 
 export class NexusActor extends Actor {
+  async _preCreate(data, options, user) {
+    const allowed = await super._preCreate(data, options, user);
+    if (allowed === false) return false;
+    if (usesTokenPortrait(this) && !this.isToken) {
+      this.prototypeToken.updateSource({ ...prototypePortraitChanges(this), randomImg: false });
+    }
+    return allowed;
+  }
+
   async _preUpdate(changes, options, user) {
     const isCreature = this.type === "character" || this.type === "curse";
     const xp = findChange(changes, "system.xp.value")?.value;
@@ -64,7 +74,17 @@ export class NexusActor extends Actor {
         }
       }
     }
-    return super._preUpdate(changes, options, user);
+    const allowed = await super._preUpdate(changes, options, user);
+    if (allowed === false) return false;
+    const image = findChange(changes, "img")?.value;
+    if (usesTokenPortrait(this) && !this.isToken && typeof image === "string" && image.trim()) {
+      setChange(changes, "prototypeToken.texture.src", image);
+      setChange(changes, "prototypeToken.randomImg", false);
+      const ringImage = findChange(changes, "prototypeToken.ring.subject.texture")?.value ??
+        this.prototypeToken._source?.ring?.subject?.texture;
+      if (ringImage) setChange(changes, "prototypeToken.ring.subject.texture", image);
+    }
+    return allowed;
   }
 
   get equippedWeapon() {
