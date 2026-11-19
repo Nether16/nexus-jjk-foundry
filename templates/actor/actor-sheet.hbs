@@ -419,7 +419,7 @@
                 <table class="tabela-movimentos">
                   <thead>
                     <tr>
-                      <th scope="col" class="coluna-dado"><span class="sr-only">Rolar e alocar macro</span><span class="movimento-acoes" aria-hidden="true"><i class="fa-solid fa-dice-d20"></i><i class="fa-solid fa-keyboard"></i></span></th>
+                      <th scope="col" class="coluna-dado"><span class="sr-only">Rolar ou arrastar para a barra de macros</span><i class="fa-solid fa-dice-d20" aria-hidden="true"></i></th>
                       <th scope="col" class="coluna-imagem"><span class="sr-only">Foto</span><i class="fa-regular fa-image" aria-hidden="true"></i></th>
                       <th scope="col">Nome do movimento</th>
                       <th scope="col">Rolagem</th>
@@ -431,10 +431,7 @@
                   <tbody>
                     {{#each items.attack}}
                       <tr data-item-id="{{id}}">
-                        <td class="coluna-dado"><div class="movimento-acoes">
-                          <button class="botao-icone" type="button" data-action="rollAttack" aria-label="Rolar movimento" {{#unless @root.editable}}disabled{{/unless}}><i class="fa-solid fa-dice-d20" aria-hidden="true"></i></button>
-                          <button class="botao-icone botao-macro{{#if @root.editable}} draggable{{/if}}" type="button" data-action="assignMovementMacro" data-movement-macro data-item-id="{{id}}" draggable="{{#if @root.editable}}true{{else}}false{{/if}}" aria-label="Alocar {{name}} na barra de macros" title="Alocar na barra de macros: clique ou arraste para um slot" {{#unless @root.editable}}disabled{{/unless}}><i class="fa-solid fa-keyboard" aria-hidden="true"></i></button>
-                        </div></td>
+                        <td class="coluna-dado"><button class="botao-icone{{#if @root.editable}} draggable{{/if}}" type="button" data-action="rollAttack" data-movement-macro data-item-id="{{id}}" draggable="{{#if @root.editable}}true{{else}}false{{/if}}" aria-label="Rolar {{name}}" title="Clique para rolar ou arraste para um slot da barra de macros" {{#unless @root.editable}}disabled{{/unless}}><i class="fa-solid fa-dice-d20" aria-hidden="true"></i></button></td>
                         <td class="coluna-imagem">
                           <button class="botao-imagem movimento-imagem" type="button" data-action="editItemImage" aria-label="Alterar imagem do movimento" {{#unless @root.editable}}disabled{{/unless}}>
                             {{#if hasCustomImage}}<img src="{{img}}" alt="">{{else}}<i class="fa-regular fa-image" aria-hidden="true"></i>{{/if}}

@@ -1471,27 +1471,7 @@
   width: 36px;
 }
 
-.nexus-jjk .tabela-movimentos :is(th, td).coluna-dado {
-  width: 70px;
-}
-
-.nexus-jjk .movimento-acoes {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-}
-
-.nexus-jjk .movimento-acoes > i {
-  width: 28px;
-  flex: 0 0 28px;
-}
-
-.nexus-jjk .movimento-acoes > button {
-  flex: 0 0 28px;
-}
-
-.nexus-jjk .botao-macro.draggable {
+.nexus-jjk .tabela-movimentos [data-movement-macro].draggable {
   cursor: grab;
 }
 

@@ -5,7 +5,7 @@ import {
   NEXUS_TALENTS
 } from "../config.mjs";
 import { NEXUS_CURSE_ORIGINS } from "../curse-config.mjs";
-import { movementWrites, promptMovementMacro, rollMovement } from "../movement-macros.mjs";
+import { movementWrites, rollMovement } from "../movement-macros.mjs";
 import { NEXUS_KNOWLEDGE } from "../knowledge.mjs";
 import { NexusSheetUI } from "./nexus-sheet-ui.mjs";
 import { applyAppearance, readAppearance } from "./nexus-appearance.mjs";
@@ -37,7 +37,6 @@ export class NexusActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
       createItem: this.#createItem,
       deleteItem: this.#deleteItem,
       rollAttack: this.#rollAttack,
-      assignMovementMacro: this.#assignMovementMacro,
       openPopup: this.#openPopup,
       setKnowledgeLevel: this.#setKnowledgeLevel,
       selectItem: this.#selectItem,
@@ -575,18 +574,6 @@ export class NexusActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     target.disabled = true;
     try {
       await rollMovement(this.actor, item);
-    } finally {
-      target.disabled = !this.isEditable;
-    }
-  }
-
-  static async #assignMovementMacro(_event, target) {
-    if (!this.isEditable) return;
-    const item = this.actor.items.get(target.closest("[data-item-id]")?.dataset.itemId);
-    if (item?.type !== "attack") return;
-    target.disabled = true;
-    try {
-      await promptMovementMacro(item);
     } finally {
       target.disabled = !this.isEditable;
     }
