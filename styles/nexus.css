@@ -1608,6 +1608,55 @@
   width: 11%;
 }
 
+/* O campo em edição ocupa o espaço liberado pelos outros três campos. */
+.nexus-jjk .tabela-movimentos:has(input[data-item-field]:focus:not(:disabled)) {
+  --movimento-campo-compacto: 64px;
+  --movimento-custo-compacto: 48px;
+  --movimento-nome: var(--movimento-campo-compacto);
+  --movimento-rolagem: var(--movimento-campo-compacto);
+  --movimento-custo: var(--movimento-custo-compacto);
+  --movimento-efeito: var(--movimento-campo-compacto);
+  --movimento-campo-expandido: calc(100% - 108px - 2 * var(--movimento-campo-compacto) - var(--movimento-custo-compacto));
+}
+
+.nexus-jjk .tabela-movimentos:has(input[data-item-field="name"]:focus:not(:disabled)) {
+  --movimento-nome: var(--movimento-campo-expandido);
+}
+
+.nexus-jjk .tabela-movimentos:has(input[data-item-field="system.attack"]:focus:not(:disabled)) {
+  --movimento-rolagem: var(--movimento-campo-expandido);
+}
+
+.nexus-jjk .tabela-movimentos:has(input[data-item-field="system.cost"]:focus:not(:disabled)) {
+  --movimento-custo: calc(100% - 108px - 3 * var(--movimento-campo-compacto));
+}
+
+.nexus-jjk .tabela-movimentos:has(input[data-item-field="system.effect"]:focus:not(:disabled)) {
+  --movimento-efeito: var(--movimento-campo-expandido);
+}
+
+.nexus-jjk .tabela-movimentos:has(input[data-item-field]:focus:not(:disabled)) th {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nexus-jjk .tabela-movimentos:has(input[data-item-field]:focus:not(:disabled)) th:nth-child(3) {
+  width: var(--movimento-nome);
+}
+
+.nexus-jjk .tabela-movimentos:has(input[data-item-field]:focus:not(:disabled)) th:nth-child(4) {
+  width: var(--movimento-rolagem);
+}
+
+.nexus-jjk .tabela-movimentos:has(input[data-item-field]:focus:not(:disabled)) th:nth-child(5) {
+  width: var(--movimento-custo);
+}
+
+.nexus-jjk .tabela-movimentos:has(input[data-item-field]:focus:not(:disabled)) th:nth-child(6) {
+  width: var(--movimento-efeito);
+}
+
 .nexus-jjk .tabela-movimentos td {
   padding: 6px 4px;
   vertical-align: middle;

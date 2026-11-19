@@ -68,7 +68,8 @@ beforeEach(() => {
   globalThis.Roll = class {
     constructor(formula) { this.formula = formula; environment.rolls.push(formula); }
     static safeEval(formula) {
-      if (!/^[\d\s.+*/()%-]+$/u.test(formula)) throw new Error("Expressão de teste inválida");
+      formula = formula.replace(/\bfloor\(/gu, "Math.floor(");
+      if (!/^[\d\s.+*/()%-]+$/u.test(formula.replace(/Math\.floor/gu, ""))) throw new Error("Expressão de teste inválida");
       return Function(`"use strict"; return (${formula});`)();
     }
     async evaluate() { this.total = Roll.safeEval(this.formula.replace(/1d20/giu, "10")); return this; }

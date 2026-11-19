@@ -176,9 +176,22 @@ async function promptVariables(actor, item) {
   return values;
 }
 
+function normalizeDecimalSeparators(formula) {
+  const groups = [];
+  let result = "";
+  for (const character of String(formula ?? "")) {
+    if (character === "(") {
+      const name = result.match(/([\p{L}_][\p{L}\p{N}_]*)\s*$/u)?.[1];
+      groups.push(["min", "max", "pow"].includes(normalizeKey(name)));
+    } else if (character === ")") groups.pop();
+    // Só funções de vários argumentos usam a vírgula como separador.
+    result += character === "," && !groups.at(-1) ? "." : character;
+  }
+  return result;
+}
+
 function resolveFormula(actor, formula, extraValues) {
-  let result = String(formula ?? "")
-    .replace(/,/gu, ".")
+  let result = normalizeDecimalSeparators(formula)
     .replace(/×/gu, "*")
     .replace(/\s+[xX]\s+/gu, " * ")
     .replace(/\*\*/gu, "^");
@@ -215,7 +228,9 @@ function prepareDiceFormula(formula) {
 
   do {
     previous = result;
-    result = result.replace(/\(([^()]*)\)/gu, (whole, inner) => {
+    result = result.replace(/\(([^()]*)\)/gu, (whole, inner, offset, source) => {
+      // Os parênteses de uma função precisam continuar ligados ao seu nome.
+      if (/[\p{L}_][\p{L}\p{N}_]*\s*$/u.test(source.slice(0, offset))) return whole;
       if (isDiceFormula(inner)) return whole;
       const value = evaluateNumeric(inner);
       return value === null ? whole : String(value);
@@ -278,7 +293,7 @@ export class NexusFormulaEngine {
     const resolve = formula => resolveFormula(actor, formula, values);
     const evaluateRoll = async (formula, label) => {
       try {
-        const roll = await new Roll(prepareDiceFormula(formula)).evaluate({
+        const roll = await new Roll(`floor(${prepareDiceFormula(formula)})`).evaluate({
           allowInteractive: messageMode !== "blind"
         });
         if (!Number.isFinite(roll.total)) throw new Error("Resultado não numérico");
@@ -300,7 +315,8 @@ export class NexusFormulaEngine {
           costRoll = await evaluateRoll(formula, "Custo");
           amount = costRoll.total;
         } else {
-          amount = evaluateNumeric(formula);
+          const value = evaluateNumeric(formula);
+          amount = value === null ? null : Math.floor(value);
         }
         if (!Number.isInteger(amount) || amount < 0) {
           throw new Error("O custo do golpe precisa resultar em um número inteiro de EA, igual ou maior que zero.");
@@ -344,7 +360,7 @@ export class NexusFormulaEngine {
         if (value === null && /[+*\/^()%-]/u.test(expression) && /^[\d\s.+*\/^()%-]+$/u.test(formula)) {
           throw new Error(`Fórmula inválida em ${title} ${formula}`);
         }
-        rows.push(movementSection(title, escapeHTML(value ?? expression)));
+        rows.push(movementSection(title, escapeHTML(value === null ? expression : Math.floor(value))));
       }
 
       if (!informationalCost && amount > 0) {

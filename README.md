@@ -24,6 +24,7 @@ Para atualizar, use **Check for Updates** na lista de sistemas do Foundry. O lin
 - Ficha de maldição com classificação de Grau 4 a Grau Especial.
 - Ficha reduzida de shikigami com Força, Destreza, Agilidade e Constituição, HP e nível do invocador; abas Movimentos, Técnicas e Anotações.
 - Movimentos com rolagem no chat e custo de Energia Amaldiçoada.
+- Campos dos movimentos expandem ao editar; rolagem, custo e efeitos numéricos arredondam o resultado final para baixo.
 - Movimentos na barra de macros: arraste o botão do dado para um slot; um clique normal no dado continua rolando pela ficha.
 - Talentos, técnicas, conhecimentos, inventário, história e anotações.
 - Imagens de anotações, itens e movimentos pelo seletor nativo do Foundry, com link ou upload.
