@@ -1,4 +1,4 @@
-import { getAttributeMax, getXpTarget, NEXUS_MAX_LEVEL, NEXUS_ORIGINS } from "./config.mjs";
+import { getAttributeMax, getXpTarget, NEXUS_MAX_LEVEL, NEXUS_ORIGINS, NEXUS_TALENTS } from "./config.mjs";
 import { NEXUS_KNOWLEDGE } from "./knowledge.mjs";
 import { getCurseOrigin } from "./curse-config.mjs";
 import { getShikigamiLevel } from "./shikigami.mjs";
@@ -98,11 +98,16 @@ export class NexusCharacterData extends foundry.abstract.TypeDataModel {
     const extraHpPerLevel = (bonuses?.hpMultiplier ?? origin.hpMultiplier) - origin.hpMultiplier;
     const levelsAfterFirst = Math.max(level - 1, 0);
     const eaBase = origin.eaMultiplier === 100 ? 200 : 100;
+    const selectedTalents = new Set(Array.from(
+      this.parent?.type === "character" ? this.parent.items ?? [] : []
+    ).filter(item => item.type === "talent").map(item => item.name));
+    const talentEAPerLevel = NEXUS_TALENTS.reduce((total, talent) =>
+      total + (selectedTalents.has(talent.name) ? talent.eaPerLevel ?? 0 : 0), 0);
 
     this.hp.max = hpBase + (level * origin.hpMultiplier) + (vigor * 10)
       + (bonuses?.hpInitial ?? 0) + (levelsAfterFirst * extraHpPerLevel);
     this.ea.max = origin.hasEA
-      ? eaBase + (level * origin.eaMultiplier) + (jujutsu * 10)
+      ? eaBase + (level * (origin.eaMultiplier + talentEAPerLevel)) + (jujutsu * 10)
       : 0;
 
     this.hp.value = Math.min(Math.max(Number(this.hp.value) || 0, 0), this.hp.max);

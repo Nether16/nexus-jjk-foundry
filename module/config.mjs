@@ -224,8 +224,9 @@ export const NEXUS_TALENTS = Object.freeze([
   {
     name: "Reserva de Energia Amaldiçoada",
     locked: false,
+    eaPerLevel: 10,
     image: "https://images-ext-1.discordapp.net/external/cZFu6XbY84IvbyhAXbkIeMkyBsQxXtgGghaDsRr7vz4/https/c.tenor.com/OQaO8JLeldIAAAAd/tenor.gif",
-    description: "Recebe +10 de Energia Amaldiçoada por nível a partir da obtenção dessa Aptidão Maior."
+    description: "Recebe +10 de Energia Amaldiçoada por nível. O bônus é retroativo e acompanha toda a progressão do personagem."
   },
   {
     name: "Perícia em Ritos Ocultistas",
