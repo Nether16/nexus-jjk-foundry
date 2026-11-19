@@ -28,10 +28,15 @@ class BaseActor {
       items: new Collection(), system: {}, ...data });
     this._source = structuredClone({ type: this.type, system: this.system });
     this.prototypeToken = { _source: {}, texture: {}, updateSource() {} };
+    Object.defineProperty(this.system, "parent", { value: this, configurable: true });
   }
   async _preCreate() { return true; }
   async _preUpdate() { return true; }
   getRollData() { return structuredClone(this.system); }
+  prepareData() {
+    this.prepareCount = (this.prepareCount ?? 0) + 1;
+    this.system.prepareDerivedData?.();
+  }
 }
 
 globalThis.Actor = BaseActor;
@@ -78,12 +83,13 @@ const gm = { id: "gm", isGM: true };
 const player = { id: "player", isGM: false };
 function shikigami(data = {}) {
   const system = new NexusShikigamiData();
-  system.prepareDerivedData();
-  return new NexusActor({ type: "shikigami", system, ...data });
+  const actor = new NexusActor({ type: "shikigami", system, ...data });
+  actor.prepareData();
+  return actor;
 }
-function invoker(id = "master", attributes = {}) {
+function invoker(id = "master", attributes = {}, level = 1) {
   const actor = new NexusActor({ id, uuid: `Actor.${id}`, name: `Invocador ${id}`, type: "character",
-    system: { attributes: { jujutsu: 4, fdv: 3, inteligencia: 2, ...attributes }, ea: { value: 100 } } });
+    system: { level, attributes: { jujutsu: 4, fdv: 3, inteligencia: 2, ...attributes }, ea: { value: 100 } } });
   game.actors.set(id, actor);
   return actor;
 }
@@ -100,41 +106,77 @@ test("shikigami começa sem vínculo e deslocamento, com somente quatro atributo
   assert.deepEqual(Object.keys(actor.system.attributes), ["forca", "destreza", "agilidade", "vigor"]);
   assert.equal(actor.system.invokerId, "");
   assert.equal(actor.system.movement, null);
+  assert.equal(actor.system.level, null, "sem invocador não há nível conhecido");
   for (const key of ["xp", "ea", "origin", "attributePoints", "attributeMax"]) {
     assert.equal(key in actor.system, false, `${key} não pertence às regras do shikigami`);
   }
   const movement = NexusShikigamiData.defineSchema().movement.options;
   assert.equal(movement.nullable, true);
   assert.notEqual(movement.persisted, false, "o deslocamento informado deve sobreviver ao recarregamento");
+  assert.equal(NexusShikigamiData.defineSchema().level.options.persisted, false,
+    "o nível é uma referência calculada, sem valor próprio salvo");
 });
 
-test("HP do shikigami cresce 25 por nível a partir de 50, sem bônus de constituição", () => {
+test("HP do shikigami segue nível do invocador sem bônus de constituição nem cura automática", () => {
   const actor = shikigami();
   assert.equal(actor.system.hp.value, 50);
   assert.equal(actor.system.hp.max, 50);
-  actor.system.level = 2;
+  const master = invoker();
+  actor.system.invokerId = master.id;
+  actor.prepareData();
+  assert.equal(actor.system.level, 1);
+  master.system.level = 2;
   actor.system.attributes.vigor = 99;
-  actor.system.prepareDerivedData();
+  actor.prepareData();
+  assert.equal(actor.system.level, 2);
   assert.equal(actor.system.hp.max, 75);
-  actor.system.level = 5;
+  assert.equal(actor.system.hp.value, 50, "subir o máximo não cura o shikigami");
+  master.system.level = 5;
   actor.system.hp.value = 999;
-  actor.system.prepareDerivedData();
+  actor.prepareData();
+  assert.equal(actor.system.level, 5);
   assert.equal(actor.system.hp.max, 150);
   assert.equal(actor.system.hp.value, 150, "vida atual é limitada ao máximo do novo nível");
-  actor.system.level = 1;
-  actor.system.prepareDerivedData();
+  master.system.level = 1;
+  actor.prepareData();
   assert.equal(actor.system.hp.value, 50);
+});
+
+test("trocar ou remover o invocador recalcula nível e máximo sem aumentar a vida atual", () => {
+  const first = invoker("first", {}, 4);
+  const second = invoker("second", {}, 2);
+  const actor = shikigami();
+  actor.system.hp.value = 35;
+  actor.system.invokerId = first.id;
+  actor.prepareData();
+  assert.equal(actor.system.level, 4);
+  assert.equal(actor.system.hp.max, 125);
+  assert.equal(actor.system.hp.value, 35);
+  actor.system.level = 99;
+  actor.prepareData();
+  assert.equal(actor.system.level, 4, "um nível próprio informado é substituído pelo do invocador");
+  actor.system.invokerId = second.id;
+  actor.prepareData();
+  assert.equal(actor.system.level, 2);
+  assert.equal(actor.system.hp.max, 75);
+  assert.equal(actor.system.hp.value, 35);
+  actor.system.invokerId = "";
+  actor.prepareData();
+  assert.equal(actor.system.level, null);
+  assert.equal(actor.system.hp.max, 50);
+  assert.equal(actor.system.hp.value, 35);
 });
 
 test("deslocamento manual persiste ao recalcular atributos e nível", () => {
   const actor = shikigami();
+  const master = invoker("master", {}, 4);
+  actor.system.invokerId = master.id;
   actor.system.movement = 12.5;
   actor.system.attributes.agilidade = 40;
-  actor.system.level = 4;
-  actor.system.prepareDerivedData();
+  actor.prepareData();
   assert.equal(actor.system.movement, 12.5);
   actor.system.movement = null;
-  actor.system.prepareDerivedData();
+  actor.prepareData();
   assert.equal(actor.system.movement, null, "nenhuma base é aplicada ao campo vazio");
 });
 
@@ -218,6 +260,9 @@ test("referências usam o invocador atual e ficam vazias sem vínculo válido", 
   actor.system.invokerId = first.id;
   assert.equal(getShikigamiInvoker(actor), first);
   assert.deepEqual(getShikigamiReference(actor), { invoker: first, occultism: 9, maxDistance: 4 });
+  Object.assign(actor.system.attributes, { forca: 20, destreza: 15, agilidade: 12, vigor: 18 });
+  assert.equal(getShikigamiReference(actor).occultism, 9,
+    "Perícia Ocultista mostra o total do invocador, sem descontar atributos distribuídos");
   first.system.attributes.jujutsu = 6;
   assert.deepEqual(getShikigamiReference(actor), { invoker: first, occultism: 11, maxDistance: 6 });
   actor.system.invokerId = second.id;
@@ -230,14 +275,17 @@ test("referências usam o invocador atual e ficam vazias sem vínculo válido", 
 
 test("mudanças no invocador atualizam apenas fichas vinculadas abertas, inclusive tokens", async () => {
   const hooks = new Map();
-  globalThis.Hooks = { on: (name, callback) => hooks.set(name, callback) };
+  globalThis.Hooks = { on: (name, callback) => hooks.set(name, callback),
+    once: (name, callback) => hooks.set(name, callback) };
   registerShikigamiReferenceSync();
   const master = invoker();
   const rendered = [];
   const linked = shikigami({ id: "linked" });
   linked.system.invokerId = master.id;
+  linked.system.hp.value = 40;
   linked.apps = {
-    opened: { rendered: true, render: () => rendered.push("world") },
+    opened: { rendered: true, render: () => rendered.push({ id: "world", level: linked.system.level,
+      max: linked.system.hp.max, value: linked.system.hp.value }) },
     closed: { rendered: false, render: () => rendered.push("closed") }
   };
   const unrelated = shikigami({ id: "unrelated" });
@@ -245,16 +293,63 @@ test("mudanças no invocador atualizam apenas fichas vinculadas abertas, inclusi
   unrelated.apps = { opened: { rendered: true, render: () => rendered.push("unrelated") } };
   const synthetic = shikigami({ id: "synthetic", isToken: true });
   synthetic.system.invokerId = master.id;
-  synthetic.apps = { opened: { rendered: true, render: () => rendered.push("token") } };
+  synthetic.system.hp.value = 30;
+  synthetic.apps = { opened: { rendered: true, render: () => rendered.push({ id: "token",
+    level: synthetic.system.level, max: synthetic.system.hp.max, value: synthetic.system.hp.value }) } };
   game.actors.set(linked.id, linked);
   game.actors.set(unrelated.id, unrelated);
   game.scenes = [{ tokens: [{ actor: synthetic }, { actor: linked }] }];
 
-  await hooks.get("updateActor")(master, { "system.attributes.jujutsu": 6 });
-  assert.deepEqual(rendered.sort(), ["token", "world"]);
+  // Foundry pode repor os dados persistidos antes de calcular os derivados.
+  // A vida efetiva anterior precisa sobreviver a essa preparação de referência.
+  const prepareLinked = linked.prepareData.bind(linked);
+  linked.prepareData = () => { linked.system.hp.value = 50; prepareLinked(); };
+
+  linked.prepareCount = synthetic.prepareCount = unrelated.prepareCount = 0;
+  master.system.level = 2;
+  await hooks.get("updateActor")(master, { "system.level": 2 });
+  assert.deepEqual(rendered.sort((a, b) => a.id.localeCompare(b.id)), [
+    { id: "token", level: 2, max: 75, value: 30 }, { id: "world", level: 2, max: 75, value: 40 }
+  ], "os dados devem ser recalculados antes de renderizar");
+  assert.equal(linked.prepareCount, 1, "ator presente no mundo e numa cena é preparado uma vez");
+  assert.equal(synthetic.prepareCount, 1);
+  assert.equal(unrelated.prepareCount, 0);
   rendered.length = 0;
+  game.actors.delete(master.id);
   await hooks.get("deleteActor")(master);
-  assert.deepEqual(rendered.sort(), ["token", "world"]);
+  assert.deepEqual(rendered.sort((a, b) => a.id.localeCompare(b.id)), [
+    { id: "token", level: null, max: 50, value: 30 }, { id: "world", level: null, max: 50, value: 40 }
+  ]);
+});
+
+test("ready calcula vínculo após todos os personagens do mundo serem carregados", async () => {
+  const hooks = new Map();
+  globalThis.Hooks = { on: (name, callback) => hooks.set(name, callback),
+    once: (name, callback) => hooks.set(name, callback) };
+  registerShikigamiReferenceSync();
+  const actor = shikigami({ id: "early" });
+  actor.system.invokerId = "late";
+  actor.prepareData();
+  assert.equal(actor.system.level, null);
+  assert.equal(actor.system.hp.max, 50);
+  game.actors.set(actor.id, actor);
+  const savedSystem = new NexusShikigamiData();
+  savedSystem.invokerId = "late-level5";
+  savedSystem.hp.value = 100;
+  const savedActor = shikigami({ id: "saved", system: savedSystem });
+  game.actors.set(savedActor.id, savedActor);
+  assert.equal(savedActor._source.system.hp.value, 100);
+  assert.equal(savedActor.system.hp.value, 50, "a primeira derivação ainda não encontra o invocador");
+  invoker("late", {}, 6);
+  invoker("late-level5", {}, 5);
+  await hooks.get("ready")();
+  assert.equal(actor.system.level, 6);
+  assert.equal(actor.system.hp.max, 175);
+  assert.equal(actor.system.hp.value, 50, "ready não cura ao aumentar o máximo");
+  assert.equal(savedActor.system.level, 5);
+  assert.equal(savedActor.system.hp.max, 150);
+  assert.equal(savedActor.system.hp.value, 100,
+    "ready recupera o HP salvo que foi limitado temporariamente pela ordem de carga");
 });
 
 test("rolagem do shikigami funciona sem EA e trata qualquer custo como informação", async () => {

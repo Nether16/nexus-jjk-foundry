@@ -198,6 +198,9 @@
           alt=""
         >
 
+        {{#if isShikigami}}
+        <output class="nivel" aria-label="Nível do shikigami" title="Nível do invocador">{{#if shikigamiReference}}{{system.level}}{{else}}?{{/if}}</output>
+        {{else}}
         <input
           class="nivel transparent"
           type="number"
@@ -205,6 +208,7 @@
           value="{{system.level}}"
           aria-label="Nível"
         >
+        {{/if}}
       </div>
 
       {{#unless isShikigami}}
@@ -255,18 +259,21 @@
       <div class="resumo-personagem">
         <div class="resumo-item">
           {{#if isShikigami}}
-          <label class="movimentacao-editavel">
-            <span class="resumo-movimentacao-valor"><input class="resumo-valor" type="number" name="system.movement" value="{{system.movement}}" min="0" step="any" placeholder="?" aria-label="Movimentação em metros" {{#unless editable}}disabled{{/unless}}><span>m</span></span>
-            <span class="resumo-rotulo">Movimentação</span>
-          </label>
+          <output class="resumo-valor" aria-label="Distância máxima" title="JJT do invocador em metros. Ao ultrapassar o limite, retorna para próximo do invocador ou é desfeito, conforme a técnica.">{{#if shikigamiReference}}{{shikigamiReference.maxDistance}} m{{else}}?{{/if}}</output>
+          <span class="resumo-rotulo">Distância Máxima</span>
           {{else}}
           <span class="resumo-valor">{{system.movement}} m</span>
           <span class="resumo-rotulo">Movimentação</span>
           {{/if}}
         </div>
         <div class="resumo-item">
-          <output class="resumo-valor" aria-label="Pontos disponíveis">{{#if isShikigami}}?{{else}}{{system.attributePoints}}{{/if}}</output>
+          {{#if isShikigami}}
+          <output class="resumo-valor" aria-label="Perícia Ocultista" title="Total de pontos para distribuir entre FOR, DEX, AGI e CONS: JJT + FDV + INT do invocador.">{{#if shikigamiReference}}{{shikigamiReference.occultism}}{{else}}?{{/if}}</output>
+          <span class="resumo-rotulo">Perícia Ocultista</span>
+          {{else}}
+          <output class="resumo-valor" aria-label="Pontos disponíveis">{{system.attributePoints}}</output>
           <span class="resumo-rotulo">Pontos disponíveis</span>
+          {{/if}}
         </div>
       </div>
 
@@ -293,6 +300,13 @@
           </div>
         {{/each}}
       </div>
+      {{#if isShikigami}}
+      <section class="shikigami-vinculo" aria-label="Vínculo com o invocador">
+        <span class="resumo-rotulo">Invocador</span>
+        <span class="shikigami-invocador-nome" title="{{#if shikigamiReference}}{{shikigamiReference.invoker.name}}{{else}}Não vinculado{{/if}}">{{#if shikigamiReference}}{{shikigamiReference.invoker.name}}{{else}}Não vinculado{{/if}}</span>
+        {{#if canConfigureShikigami}}<button type="button" class="botao-visual shikigami-vincular" data-action="configureShikigami"><i class="fa-solid fa-link" aria-hidden="true"></i><span>Vincular invocador</span></button>{{/if}}
+      </section>
+      {{/if}}
     </aside>
 
     <div class="coluna-principal">
@@ -347,20 +361,6 @@
         </div>
         {{/unless}}
       </section>
-
-      {{#if isShikigami}}
-      <section class="shikigami-vinculo" aria-label="Vínculo com o invocador">
-        <div class="shikigami-vinculo-cabecalho">
-          <span class="shikigami-invocador-nome">Invocador: {{#if shikigamiReference}}{{shikigamiReference.invoker.name}}{{else}}Não vinculado{{/if}}</span>
-          {{#if canConfigureShikigami}}<button type="button" class="botao-icone" data-action="configureShikigami" aria-label="Configurar shikigami" title="Vincular invocador"><i class="fa-solid fa-link" aria-hidden="true"></i></button>{{/if}}
-        </div>
-        <div class="shikigami-vinculo-valores">
-          <span title="JJT + FDV + INT do invocador">Perícia Ocultista: <output>{{#if shikigamiReference}}{{shikigamiReference.occultism}}{{else}}?{{/if}}</output></span>
-          <span title="JJT do invocador em metros">Distância máxima: <output>{{#if shikigamiReference}}{{shikigamiReference.maxDistance}} m{{else}}?{{/if}}</output></span>
-        </div>
-        <p class="shikigami-distancia-regra">Ao ultrapassar o limite, retorna para próximo do invocador ou é desfeito, conforme a técnica utilizada.</p>
-      </section>
-      {{/if}}
 
       <section class="conteudo-abas">
         {{#if visibleTabs.origin}}

@@ -676,75 +676,44 @@
   line-height: 1.2;
 }
 
-.nexus-jjk .movimentacao-editavel {
-  display: grid;
-  justify-items: center;
-  gap: 3px;
-}
-
-.nexus-jjk .resumo-movimentacao-valor {
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  gap: 4px;
-}
-
-.nexus-jjk .resumo-movimentacao-valor input {
-  width: 64px;
-  height: 26px;
-  min-height: 0;
-  padding: 0 2px;
-  border: 0;
-  border-bottom: 1px solid var(--nexus-cor-borda-painel);
-  background: transparent;
-  color: var(--nexus-cor-texto);
-  text-align: center;
-}
-
 .nexus-jjk .ficha-shikigami .recursos-personagem {
   grid-template-columns: minmax(0, 1fr);
 }
 
 .nexus-jjk .shikigami-vinculo {
-  flex: 0 0 auto;
   display: grid;
-  gap: 6px;
-  margin-top: 12px;
-  padding: 8px 10px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 4px 8px;
+  margin-top: 9px;
+  padding: 8px;
   border: 1px solid var(--nexus-cor-borda-painel);
   border-radius: 6px;
   background: var(--nexus-cor-painel);
   font-size: 12px;
 }
 
-.nexus-jjk .shikigami-vinculo-cabecalho,
-.nexus-jjk .shikigami-vinculo-valores {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
+.nexus-jjk .shikigami-vinculo > .resumo-rotulo {
+  grid-column: 1;
+  grid-row: 1;
 }
 
 .nexus-jjk .shikigami-invocador-nome {
+  grid-column: 1;
+  grid-row: 2;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.nexus-jjk .shikigami-vinculo-valores {
-  flex-wrap: wrap;
-}
-
-.nexus-jjk .shikigami-vinculo output {
-  color: var(--nexus-cor-destaque);
-  font-weight: 700;
-}
-
-.nexus-jjk .shikigami-distancia-regra {
-  margin: 0;
+.nexus-jjk .shikigami-vinculo .shikigami-vincular {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  min-height: 30px;
+  padding: 5px 7px;
   font-size: 11px;
-  line-height: 1.4;
+  white-space: nowrap;
 }
 
 .nexus-jjk .atributos {

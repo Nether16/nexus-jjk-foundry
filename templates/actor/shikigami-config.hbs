@@ -21,12 +21,12 @@
   {{#if reference}}
     <section class="shikigami-vinculo-resumo" aria-label="Vínculo atual">
       <h3>Vínculo atual: {{reference.invoker.name}}</h3>
-      <p>Perícia Ocultista: <strong>{{reference.occultism}}</strong> (JJT + FDV + INT do invocador).</p>
+      <p>Perícia Ocultista: <strong>{{reference.occultism}}</strong> pontos para distribuir nos atributos (JJT + FDV + INT do invocador).</p>
       <p>Distância máxima: <strong>{{reference.maxDistance}} m</strong> (JJT do invocador).</p>
     </section>
   {{/if}}
 
-  <p class="shikigami-configuracao-nota">Os pontos a distribuir continuam definidos pela técnica utilizada.</p>
+  <p class="shikigami-configuracao-nota">A Perícia Ocultista é o total de pontos para distribuir entre FOR, DEX, AGI e CONS. O nível acompanha o invocador.</p>
 
   <footer class="shikigami-configuracao-rodape">
     <button type="button" data-action="cancelShikigami">Cancelar</button>

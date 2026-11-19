@@ -1,6 +1,7 @@
 import { getAttributeMax, getXpTarget, NEXUS_MAX_LEVEL, NEXUS_ORIGINS } from "./config.mjs";
 import { NEXUS_KNOWLEDGE } from "./knowledge.mjs";
 import { getCurseOrigin } from "./curse-config.mjs";
+import { getShikigamiLevel } from "./shikigami.mjs";
 
 const {
   BooleanField,
@@ -133,7 +134,7 @@ export class NexusCharacterData extends foundry.abstract.TypeDataModel {
 export class NexusShikigamiData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {
-      level: numberField(1, { integer: true, min: 1 }),
+      level: numberField(null, { nullable: true, integer: true, min: 0, persisted: false }),
       invokerId: stringField(),
       attributes: new SchemaField({
         forca: numberField(0, { integer: true, min: 0 }),
@@ -153,7 +154,8 @@ export class NexusShikigamiData extends foundry.abstract.TypeDataModel {
 
   prepareDerivedData() {
     super.prepareDerivedData();
-    const level = Number(this.level) || 1;
+    this.level = getShikigamiLevel({ type: "shikigami", system: this });
+    const level = this.level ?? 0;
     const agilidade = Number(this.attributes.agilidade) || 0;
     const vigor = Number(this.attributes.vigor) || 0;
     this.hp.max = 50 + (25 * Math.max(level - 1, 0));
