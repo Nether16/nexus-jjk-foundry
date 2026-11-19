@@ -1,0 +1,12 @@
+{
+  "NEXUS.Title": "Nexus — Jujutsu RPG",
+  "NEXUS.Actor.Character": "Personagem",
+  "NEXUS.Actor.Curse": "Maldição",
+  "TYPES.Actor.character": "Personagem",
+  "TYPES.Actor.curse": "Maldição",
+  "NEXUS.Item.Attack": "Golpe",
+  "NEXUS.Item.Talent": "Talento ou Perícia",
+  "NEXUS.Item.Technique": "Técnica",
+  "NEXUS.Item.Knowledge": "Conhecimento",
+  "NEXUS.Item.Equipment": "Item"
+}

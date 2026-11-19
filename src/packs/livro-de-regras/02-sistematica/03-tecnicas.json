@@ -1,0 +1,90 @@
+{
+  "_id": "ea5994e3e57119d7",
+  "name": "03 - Técnicas",
+  "pages": [
+    {
+      "_id": "fd77bae66ec5bbb3",
+      "name": "01 - Treinamento",
+      "type": "text",
+      "sort": 100000,
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<div class=\"nexus-wiki\">\n  <h1>TREINAMENTO</h1>\n</div>"
+      },
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!ea5994e3e57119d7.fd77bae66ec5bbb3"
+    },
+    {
+      "_id": "c986279c773addaa",
+      "name": "02 - Técnicas",
+      "type": "text",
+      "sort": 200000,
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<div class=\"nexus-wiki\">\n  <h1>TÉCNICAS</h1>\n</div>"
+      },
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!ea5994e3e57119d7.c986279c773addaa"
+    },
+    {
+      "_id": "ac5902c8f131eec0",
+      "name": "03 - Inata",
+      "type": "text",
+      "sort": 300000,
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<div class=\"nexus-wiki\">\n  <h1>INATA</h1>\n</div>"
+      },
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!ea5994e3e57119d7.ac5902c8f131eec0"
+    },
+    {
+      "_id": "6029271a66a7a2ec",
+      "name": "04 - Catálogo",
+      "type": "text",
+      "sort": 400000,
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<div class=\"nexus-wiki\">\n  <h1>CATÁLOGO</h1>\n</div>"
+      },
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!ea5994e3e57119d7.6029271a66a7a2ec"
+    }
+  ],
+  "categories": [],
+  "folder": "fc67c4cfee5ace14",
+  "sort": 300000,
+  "ownership": {
+    "default": 2
+  },
+  "flags": {},
+  "_key": "!journal!ea5994e3e57119d7"
+}

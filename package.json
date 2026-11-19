@@ -1,0 +1,13 @@
+{
+  "name": "nexus-jjk-build",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:packs": "node scripts/build-packs.mjs",
+    "build:release": "node scripts/build-release.mjs"
+  },
+  "devDependencies": {
+    "@foundryvtt/foundryvtt-cli": "3.0.5",
+    "fflate": "0.8.3"
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "_id": "92aad7008cb7950c",
+  "name": "02 - Personagem",
+  "pages": [
+    {
+      "_id": "a7dc1194aa8edc1e",
+      "name": "01 - Status",
+      "type": "text",
+      "sort": 100000,
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<div class=\"nexus-wiki\">\n  <h1>STATUS</h1>\n</div>"
+      },
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!92aad7008cb7950c.a7dc1194aa8edc1e"
+    },
+    {
+      "_id": "b7a6d1e205c717e1",
+      "name": "02 - Atributos",
+      "type": "text",
+      "sort": 200000,
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<div class=\"nexus-wiki\">\n  <h1>ATRIBUTOS</h1>\n</div>"
+      },
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!92aad7008cb7950c.b7a6d1e205c717e1"
+    },
+    {
+      "_id": "2d5bdc39828be3b2",
+      "name": "03 - Origem",
+      "type": "text",
+      "sort": 300000,
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<div class=\"nexus-wiki\">\n  <h1>ORIGEM</h1>\n</div>"
+      },
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!92aad7008cb7950c.2d5bdc39828be3b2"
+    },
+    {
+      "_id": "748d3053c285d3f7",
+      "name": "04 - Talentos",
+      "type": "text",
+      "sort": 400000,
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<div class=\"nexus-wiki\">\n  <h1>TALENTOS</h1>\n</div>"
+      },
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!92aad7008cb7950c.748d3053c285d3f7"
+    },
+    {
+      "_id": "5b6fab9f13f7e6b9",
+      "name": "05 - Level Up",
+      "type": "text",
+      "sort": 500000,
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<div class=\"nexus-wiki\">\n  <h1>LEVEL UP</h1>\n</div>"
+      },
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!92aad7008cb7950c.5b6fab9f13f7e6b9"
+    },
+    {
+      "_id": "564571e9bb3a535e",
+      "name": "06 - Perícias",
+      "type": "text",
+      "sort": 600000,
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<div class=\"nexus-wiki\">\n  <h1>PERÍCIAS</h1>\n</div>"
+      },
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!92aad7008cb7950c.564571e9bb3a535e"
+    },
+    {
+      "_id": "238b2307ccbd25ac",
+      "name": "07 - Itens Amaldiçoados",
+      "type": "text",
+      "sort": 700000,
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<div class=\"nexus-wiki\">\n  <h1>ITENS AMALDIÇOADOS</h1>\n</div>"
+      },
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!92aad7008cb7950c.238b2307ccbd25ac"
+    }
+  ],
+  "categories": [],
+  "folder": "fc67c4cfee5ace14",
+  "sort": 200000,
+  "ownership": {
+    "default": 2
+  },
+  "flags": {},
+  "_key": "!journal!92aad7008cb7950c"
+}

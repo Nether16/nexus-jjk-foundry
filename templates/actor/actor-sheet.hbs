@@ -1,0 +1,615 @@
+{{#*inline "nexusEditorVisual"}}
+  <prose-mirror class="editor-visual" data-nexus-editor value="{{value}}"
+    data-document-uuid="{{#if documentUuid}}{{documentUuid}}{{else}}{{@root.actor.uuid}}{{/if}}"
+    aria-label="{{label}}" placeholder="{{placeholder}}"
+    {{#if itemField}}data-item-field="{{itemField}}"{{/if}}
+    {{#if actorField}}data-actor-field="{{actorField}}"{{/if}}
+    {{#if draftKey}}data-ui-draft="{{draftKey}}"{{/if}}
+    {{#if localCollection}}data-ui-content{{/if}}
+    {{#unless @root.editable}}disabled{{/unless}}>
+  </prose-mirror>
+{{/inline}}
+
+{{#*inline "nexusOrigemVisual"}}
+  <div class="layout-origem">
+    <div class="origem-seletores">
+      <label class="seletor-visual">
+        <span>{{label}}</span>
+        <select aria-label="{{label}}" data-origin-select {{#unless @root.editable}}disabled{{/unless}}>
+          {{#each @root.origins}}
+            <option value="{{key}}" {{#if selected}}selected{{/if}}>{{label}}</option>
+          {{/each}}
+        </select>
+      </label>
+      {{#if @root.origin.hasVariants}}
+        <label class="seletor-visual subopcao-visual">
+          <span>Variação da origem</span>
+          <select aria-label="Variação da origem" data-origin-variant {{#unless @root.editable}}disabled{{/unless}}>
+            <option value="">Selecionar variação</option>
+            {{#each @root.origin.variants}}
+              <option value="{{id}}" {{#if selected}}selected{{/if}}>{{label}}</option>
+            {{/each}}
+          </select>
+        </label>
+      {{/if}}
+    </div>
+    <div class="origem-colunas">
+      <div class="quadro-imagem{{#if @root.origin.image}} origem-com-imagem{{/if}}" aria-label="Imagem da origem">
+        {{#if @root.origin.image}}
+          {{#if @root.origin.isVideo}}
+            <video src="{{@root.origin.image}}" autoplay loop muted playsinline aria-label="{{@root.origin.label}}"></video>
+          {{else}}
+            <img src="{{@root.origin.image}}" alt="{{@root.origin.label}}">
+          {{/if}}
+        {{else}}
+          <i class="fa-regular fa-image" aria-hidden="true"></i>
+          <span>Imagem</span>
+        {{/if}}
+      </div>
+      <section class="quadro-texto" aria-label="Descrição">
+        <div class="texto-origem">{{{@root.origin.description}}}</div>
+      </section>
+    </div>
+    <section class="quadro-sistematica" aria-label="Sistemática">
+      <div class="texto-origem">{{#if @root.origin.effects}}{{{@root.origin.effects}}}{{else}}{{@root.origin.details}}{{/if}}</div>
+      {{#if @root.origin.variantDetails}}
+      <div class="origem-variante-detalhes">{{@root.origin.variantDetails}}</div>{{/if}}
+    </section>
+  </div>
+{{/inline}}
+
+{{#*inline "nexusTalentoVisual"}}
+  <article class="talento-visual talento-horizontal{{#if lockedByLevel}} talento-bloqueado{{/if}}" data-item-id="{{id}}" data-talent-slot="{{slot}}">
+    <div class="talento-imagem" aria-hidden="true">
+      {{#if lockedByLevel}}
+        <i class="fa-solid fa-lock"></i>
+      {{else if img}}
+        <img src="{{img}}" alt="{{name}}" style="object-fit: cover;">
+      {{else}}
+        <i class="fa-regular fa-image" aria-hidden="true"></i>
+      {{/if}}
+    </div>
+    {{#if lockedByLevel}}
+      <div class="talento-requisito">Precisa de nível {{requiredLevel}}</div>
+    {{else}}
+    <div class="talento-conteudo">
+      <label class="seletor-visual">
+        <select aria-label="Selecionar talento" data-item-field="name" {{#unless @root.editable}}disabled{{/unless}}>
+          <option value="" disabled {{#unless hasSelection}}selected{{/unless}}>
+            Selecionar talento
+          </option>
+
+          {{#each choices}}
+            <option value="{{name}}" {{#if selected}}selected{{/if}}>
+              {{name}}
+            </option>
+          {{/each}}
+        </select>
+      </label>
+      <div class="talento-descricao" aria-label="Descrição do talento" title="{{system.description}}">{{system.description}}</div>
+    </div>
+    {{/if}}
+  </article>
+{{/inline}}
+
+{{#*inline "nexusConhecimento"}}
+  <article class="conhecimento-visual" data-knowledge-id="{{id}}">
+    <header class="conhecimento-cabecalho">
+      <span class="conhecimento-nome" title="{{description}}">{{name}}</span>
+      <div class="conhecimento-niveis" role="group" aria-label="Nível de {{name}}">
+        {{#each levels}}
+          <button type="button" data-action="setKnowledgeLevel" data-knowledge-level="{{value}}"
+            id="{{../detailsId}}-level-{{value}}" aria-controls="{{../detailsId}}"
+            aria-pressed="{{#if selected}}true{{else}}false{{/if}}" aria-label="Nível {{value}}"
+            {{#unless @root.editable}}disabled{{/unless}}>{{value}}</button>
+        {{/each}}
+      </div>
+    </header>
+    <div class="conhecimento-texto" id="{{detailsId}}" {{#unless visibleLevels.length}}hidden{{/unless}}>
+      {{#each visibleLevels}}
+        <section class="conhecimento-nivel">
+          <strong class="conhecimento-titulo-nivel">Nível {{value}} · {{title}}</strong>
+          <p class="conhecimento-regras">{{description}}</p>
+        </section>
+      {{/each}}
+    </div>
+  </article>
+{{/inline}}
+
+{{#*inline "nexusEntradaVisual"}}
+  <button class="entrada-visual{{#if selected}} selecionado{{/if}}" type="button" data-ui-entry="{{id}}" aria-label="{{label}}" aria-pressed="{{#if selected}}true{{else}}false{{/if}}" {{#unless @root.editable}}disabled{{/unless}}>
+    <span class="miniatura-visual" data-ui-entry-image aria-hidden="true"><img alt="" hidden><i class="{{icon}}" aria-hidden="true"></i></span>
+    <span class="entrada-linhas" aria-hidden="true"><span class="entrada-nome" hidden></span><span class="entrada-esqueleto"></span><span class="entrada-esqueleto"></span></span>
+  </button>
+{{/inline}}
+
+{{#*inline "nexusColecaoVisual"}}
+  <div class="mestre-detalhe {{classe}}" data-ui-collection="{{tipo}}">
+    <aside class="lista-lateral" aria-label="{{label}}">
+      <button class="botao-visual botao-adicionar" type="button" data-ui-add {{#unless @root.editable}}disabled{{/unless}}><i class="fa-solid fa-plus" aria-hidden="true"></i><span>{{adicionar}}</span></button>
+      <template data-ui-entry-template>{{> nexusEntradaVisual label=selecionar icon=icone}}</template>
+    </aside>
+    <section class="detalhe-visual" aria-label="{{detalhes}}">
+      <div class="detalhe-cabecalho">
+        <button class="botao-imagem detalhe-imagem" type="button" data-ui-image aria-label="{{imagem}}" {{#unless @root.editable}}disabled{{/unless}}><img alt="" hidden><i class="{{icone}}" aria-hidden="true"></i></button>
+        <input class="arquivo-imagem-visual" type="file" accept="image/*" data-ui-image-file hidden {{#unless @root.editable}}disabled{{/unless}}>
+        <input class="titulo-visual" type="text" data-ui-title placeholder="{{titulo}}" aria-label="{{titulo}}" {{#unless @root.editable}}disabled{{/unless}}>
+        <button class="botao-icone" type="button" data-ui-delete aria-label="Excluir anotação" title="Excluir anotação" {{#unless @root.editable}}disabled{{/unless}}><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+      </div>
+      <p data-ui-empty>Selecione ou adicione uma anotação.</p>
+      {{> nexusEditorVisual label=editor placeholder="Escreva aqui..." localCollection=true}}
+    </section>
+  </div>
+{{/inline}}
+
+
+{{#*inline "nexusInventario"}}
+  <div class="mestre-detalhe inventario">
+    <aside class="lista-lateral" aria-label="Itens">
+      <button class="botao-visual botao-adicionar" type="button" data-action="createItem" data-type="equipment" {{#unless @root.editable}}disabled{{/unless}}><i class="fa-solid fa-plus" aria-hidden="true"></i><span>Adicionar item</span></button>
+      {{#each @root.items.equipment}}
+        <button class="entrada-visual{{#if selected}} selected{{/if}}{{#if equipped}} arma-equipada{{/if}}" type="button" data-action="selectItem" data-item-id="{{id}}" data-item-type="equipment" aria-label="Selecionar item: {{name}}" aria-pressed="{{#if selected}}true{{else}}false{{/if}}">
+          <span class="miniatura-visual" aria-hidden="true"><img src="{{img}}" alt=""></span>
+          <span class="entrada-linhas"><span class="entrada-nome">{{name}}</span>{{#if equipped}}<span class="entrada-equipada">Equipada</span>{{/if}}</span>
+        </button>
+      {{/each}}
+    </aside>
+    {{#each @root.items.equipment}}
+      <section class="detalhe-visual inventario-detalhe{{#if selected}} active{{/if}}" aria-label="Detalhes de {{name}}" data-detail-type="equipment" data-detail-item-id="{{id}}" data-item-id="{{id}}" {{#unless selected}}hidden{{/unless}}>
+        <div class="detalhe-cabecalho">
+          <button class="botao-imagem detalhe-imagem" type="button" data-action="editItemImage" aria-label="Alterar imagem do item" {{#unless @root.editable}}disabled{{/unless}}><img src="{{img}}" alt=""></button>
+          <input class="titulo-visual" type="text" data-item-field="name" value="{{name}}" placeholder="Nome do item" aria-label="Nome do item" {{#unless @root.editable}}disabled{{/unless}}>
+          <label class="inventario-tipo-arma">
+            <input type="checkbox" data-item-field="system.isWeapon" {{#if isWeapon}}checked{{/if}} {{#unless @root.editable}}disabled{{/unless}}>
+            <span>É arma</span>
+          </label>
+          <button class="botao-icone inventario-excluir" type="button" data-action="deleteItem" aria-label="Excluir item" title="Excluir item" {{#unless @root.editable}}disabled{{/unless}}><i class="fa-solid fa-trash" aria-hidden="true"></i></button>
+        </div>
+        {{#if isWeapon}}
+          <div class="inventario-arma-controles">
+            <button class="botao-visual botao-equipar{{#if equipped}} equipada{{/if}}" type="button" data-action="toggleEquipWeapon" aria-pressed="{{#if equipped}}true{{else}}false{{/if}}" {{#unless @root.editable}}disabled{{/unless}}><i class="fa-solid {{#if equipped}}fa-check{{else}}fa-hand-fist{{/if}}" aria-hidden="true"></i><span>{{#if equipped}}Desequipar{{else}}Equipar arma{{/if}}</span></button>
+            <label class="inventario-dano"><span>Dano da arma</span>{{#if @root.isGM}}<input type="number" min="0" step="any" data-item-field="system.weaponDamage" value="{{weaponDamage}}" aria-label="Dano da arma" {{#unless @root.editable}}disabled{{/unless}}>{{else}}<output aria-label="Dano da arma">{{weaponDamage}}</output>{{/if}}</label>
+          </div>
+        {{/if}}
+        {{> nexusEditorVisual label="Descrição do item" placeholder="Escreva aqui..." itemField="system.description" value=system.description documentUuid=uuid}}
+      </section>
+    {{/each}}
+    <div class="inventario-vazio" data-empty-detail="equipment" {{#if @root.items.equipment.length}}hidden{{/if}}>Selecione ou adicione um item.</div>
+  </div>
+{{/inline}}
+
+
+<main class="ficha{{#if isCurse}} ficha-maldicao{{/if}}">
+  <header class="banner">
+    <div class="banner-texto">
+      <input
+        class="nome transparent"
+        type="text"
+        name="name"
+        value="{{actor.name}}"
+        placeholder="{{#if isCurse}}Nome da Maldição{{else}}Nome do Personagem{{/if}}"
+      >
+    </div>
+
+    <div class="progressao">
+      <div class="torii-nivel">
+        <img
+          src="systems/nexus-jjk/assets/icons/Tori.png"
+          alt=""
+        >
+
+        <input
+          class="nivel transparent"
+          type="number"
+          name="system.level"
+          value="{{system.level}}"
+          aria-label="Nível"
+        >
+      </div>
+
+      <div class="xp-legenda">
+        <span class="xp-rotulo">XP:</span>
+        <input
+          type="number"
+          name="system.xp.value"
+          value="{{system.xp.value}}"
+          min="0"
+          step="1"
+          aria-label="XP atual"
+          {{#unless editable}}disabled{{/unless}}
+        >
+        <span aria-hidden="true">/</span>
+        <output aria-label="XP necessário">{{system.xp.target}}</output>
+      </div>
+
+      <progress
+        class="barra barra-xp"
+        data-bar="xp"
+        value="{{system.xp.value}}"
+        max="{{system.xp.target}}"
+        aria-label="Experiência"
+      ></progress>
+    </div>
+  </header>
+
+  <section class="conteudo">
+    <aside class="coluna-personagem">
+      <div class="card interative retrato">
+        <img
+          class="characterImage"
+          src="{{actor.img}}"
+          data-action="editImage"
+          data-edit="img"
+          alt="Imagem de {{actor.name}}"
+        >
+      </div>
+
+      <button type="button" class="iconCA" data-action="shareDefense"
+        aria-label="Enviar CA {{system.defense}} ao chat" title="Enviar CA ao chat"
+        {{#unless editable}}disabled{{/unless}}>
+        <span class="labelCA">{{system.defense}}</span>
+      </button>
+
+      <div class="resumo-personagem">
+        <div class="resumo-item">
+          <span class="resumo-valor">{{system.movement}} m</span>
+          <span class="resumo-rotulo">Movimentação</span>
+        </div>
+        <div class="resumo-item">
+          <output class="resumo-valor" aria-label="Pontos disponíveis">{{system.attributePoints}}</output>
+          <span class="resumo-rotulo">Pontos disponíveis</span>
+        </div>
+      </div>
+
+      <div class="atributos" role="group" aria-label="Atributos">
+        {{#each attributes}}
+          <div class="atributo" data-atributo="{{key}}">
+            <div class="atributo-numero">
+              <span class="atributo-kanji" aria-hidden="true"></span>
+              <input
+                type="number"
+                name="system.attributes.{{key}}"
+                value="{{value}}"
+                min="{{inputMin}}"
+                max="{{inputMax}}"
+                step="1"
+                aria-label="{{name}}"
+                title="Máximo neste nível: {{@root.system.attributeMax}}"
+                {{#unless ../editable}}disabled{{/unless}}
+              >
+            </div>
+            <button type="button" class="atributo-rotulo" data-action="rollAttribute"
+              data-attribute="{{key}}" aria-label="Rolar {{name}}" title="Rolar {{name}}"
+              {{#unless ../editable}}disabled{{/unless}}>{{label}}</button>
+          </div>
+        {{/each}}
+      </div>
+    </aside>
+
+    <div class="coluna-principal">
+      <section class="recursos-personagem" aria-label="{{#if isCurse}}Recursos da maldição{{else}}Recursos do personagem{{/if}}">
+        <div class="recurso">
+          <div class="recurso-cabecalho">
+            <span class="recurso-nome">HP</span>
+            <div class="recurso-valores">
+              <input
+                type="number"
+                name="system.hp.value"
+                value="{{system.hp.value}}"
+                aria-label="HP atual"
+                {{#unless editable}}disabled{{/unless}}
+              >
+              <span aria-hidden="true">/</span>
+              <output aria-label="HP máximo">{{system.hp.max}}</output>
+            </div>
+          </div>
+          <progress
+            class="barra barra-recurso"
+            data-bar="hp"
+            value="{{system.hp.value}}"
+            max="{{system.hp.max}}"
+            aria-label="Pontos de vida"
+          ></progress>
+        </div>
+
+        <div class="recurso">
+          <div class="recurso-cabecalho">
+            <span class="recurso-nome">EA</span>
+            <div class="recurso-valores">
+              <input
+                type="number"
+                name="system.ea.value"
+                value="{{system.ea.value}}"
+                aria-label="EA atual"
+                {{#unless editable}}disabled{{/unless}}
+              >
+              <span aria-hidden="true">/</span>
+              <output aria-label="EA máxima">{{system.ea.max}}</output>
+            </div>
+          </div>
+          <progress
+            class="barra barra-recurso"
+            data-bar="ea"
+            value="{{system.ea.value}}"
+            max="{{system.ea.max}}"
+            aria-label="Energia amaldiçoada"
+          ></progress>
+        </div>
+      </section>
+
+      <section class="conteudo-abas">
+        <section
+          class="aba-painel{{#if activeTabs.origin}} active{{/if}}"
+          id="nexus-aba-origin-{{actor.id}}"
+          data-popup-panel="origin"
+          {{#unless activeTabs.origin}}hidden{{/unless}}
+          aria-hidden="{{#if activeTabs.origin}}false{{else}}true{{/if}}"
+        >
+          <header class="cabecalho-aba">
+            <h2>{{#if isCurse}}Classificação{{else}}Origem{{/if}}</h2>
+          </header>
+          <div class="corpo-aba">
+            {{#if isCurse}}
+              {{> nexusOrigemVisual label="Grau da maldição"}}
+            {{else}}
+              {{> nexusOrigemVisual label="Origem"}}
+            {{/if}}
+          </div>
+        </section>
+        <section
+          class="aba-painel{{#if activeTabs.talents}} active{{/if}}"
+          id="nexus-aba-talents-{{actor.id}}"
+          data-popup-panel="talents"
+          {{#unless activeTabs.talents}}hidden{{/unless}}
+          aria-hidden="{{#if activeTabs.talents}}false{{else}}true{{/if}}"
+        >
+          <header class="cabecalho-aba">
+            <h2>Talentos</h2>
+          </header>
+          <div class="corpo-aba">
+            <div class="talentos-dupla">
+              {{#each talentSlots}}
+                {{> nexusTalentoVisual}}
+              {{/each}}
+            </div>
+          </div>
+        </section>
+        <section
+          class="aba-painel{{#if activeTabs.techniques}} active{{/if}}"
+          id="nexus-aba-techniques-{{actor.id}}"
+          data-popup-panel="techniques"
+          {{#unless activeTabs.techniques}}hidden{{/unless}}
+          aria-hidden="{{#if activeTabs.techniques}}false{{else}}true{{/if}}"
+        >
+          <header class="cabecalho-aba">
+            <h2>Técnicas</h2>
+          </header>
+          <div class="corpo-aba">
+            <div class="lista-expansivel">
+              <button class="botao-visual botao-adicionar" type="button" data-action="createItem" data-type="technique" {{#unless editable}}disabled{{/unless}}><i class="fa-solid fa-plus" aria-hidden="true"></i><span>Adicionar técnica</span></button>
+              {{#each items.technique}}
+                <article class="registro-visual" data-item-id="{{id}}">
+                  <details class="registro-expansivel">
+                    <summary class="registro-resumo">
+                      <input class="registro-nome" type="text" data-item-field="name" value="{{name}}" placeholder="Nome da técnica" aria-label="Nome da técnica" {{#unless @root.editable}}disabled{{/unless}}>
+                      <span class="registro-seta" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
+                    </summary>
+                    <div class="registro-conteudo">{{> nexusEditorVisual label="Descrição da técnica" placeholder="Escreva aqui..." itemField="system.description" value=system.description documentUuid=uuid}}</div>
+                  </details>
+                  <button class="botao-icone botao-excluir-visual" type="button" data-action="deleteItem" aria-label="Excluir técnica" title="Excluir técnica" {{#unless @root.editable}}disabled{{/unless}}><i class="fa-regular fa-trash-can" aria-hidden="true"></i></button>
+                </article>
+              {{/each}}
+            </div>
+          </div>
+        </section>
+        <section
+          class="aba-painel{{#if activeTabs.movements}} active{{/if}}"
+          id="nexus-aba-movements-{{actor.id}}"
+          data-popup-panel="movements"
+          {{#unless activeTabs.movements}}hidden{{/unless}}
+          aria-hidden="{{#if activeTabs.movements}}false{{else}}true{{/if}}"
+        >
+          <header class="cabecalho-aba">
+            <h2>Movimentos</h2>
+          </header>
+          <div class="corpo-aba">
+            <div class="movimentos-visual">
+              <button class="botao-visual botao-adicionar" type="button" data-action="createItem" data-type="attack" {{#unless editable}}disabled{{/unless}}><i class="fa-solid fa-plus" aria-hidden="true"></i><span>Adicionar movimento</span></button>
+              <div class="tabela-movimentos-container">
+                <table class="tabela-movimentos">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="coluna-dado"><span class="sr-only">Rolar</span><i class="fa-solid fa-dice-d20" aria-hidden="true"></i></th>
+                      <th scope="col" class="coluna-imagem"><span class="sr-only">Foto</span><i class="fa-regular fa-image" aria-hidden="true"></i></th>
+                      <th scope="col">Nome do movimento</th>
+                      <th scope="col">Rolagem</th>
+                      <th scope="col" class="coluna-custo">Custo</th>
+                      <th scope="col">Efeito</th>
+                      <th scope="col" class="coluna-excluir"><span class="sr-only">Excluir</span></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {{#each items.attack}}
+                      <tr data-item-id="{{id}}">
+                        <td class="coluna-dado"><button class="botao-icone" type="button" data-action="rollAttack" aria-label="Rolar movimento" {{#unless @root.editable}}disabled{{/unless}}><i class="fa-solid fa-dice-d20" aria-hidden="true"></i></button></td>
+                        <td class="coluna-imagem">
+                          <button class="botao-imagem movimento-imagem" type="button" data-action="editItemImage" aria-label="Alterar imagem do movimento" {{#unless @root.editable}}disabled{{/unless}}>
+                            {{#if hasCustomImage}}<img src="{{img}}" alt="">{{else}}<i class="fa-regular fa-image" aria-hidden="true"></i>{{/if}}
+                          </button>
+                        </td>
+                        <td><input type="text" data-item-field="name" value="{{name}}" placeholder="Nome" aria-label="Nome do movimento" {{#unless @root.editable}}disabled{{/unless}}></td>
+                        <td><input type="text" data-item-field="system.attack" value="{{system.attack}}" placeholder="Rolagem" aria-label="Rolagem do movimento" {{#unless @root.editable}}disabled{{/unless}}></td>
+                        <td class="coluna-custo"><input type="text" data-item-field="system.cost" value="{{system.cost}}" placeholder="Custo" aria-label="Custo do movimento" {{#unless @root.editable}}disabled{{/unless}}></td>
+                        <td><input type="text" data-item-field="system.effect" value="{{system.effect}}" placeholder="Efeito" aria-label="Efeito do movimento" {{#unless @root.editable}}disabled{{/unless}}></td>
+                        <td class="coluna-excluir"><button class="botao-icone botao-excluir-visual" type="button" data-action="deleteItem" aria-label="Excluir movimento" title="Excluir movimento" {{#unless @root.editable}}disabled{{/unless}}><span class="icone-lixeira" aria-hidden="true"></span></button></td>
+                      </tr>
+                    {{/each}}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section
+          class="aba-painel{{#if activeTabs.knowledge}} active{{/if}}"
+          id="nexus-aba-knowledge-{{actor.id}}"
+          data-popup-panel="knowledge"
+          {{#unless activeTabs.knowledge}}hidden{{/unless}}
+          aria-hidden="{{#if activeTabs.knowledge}}false{{else}}true{{/if}}"
+        >
+          <header class="cabecalho-aba">
+            <h2>Conhecimentos</h2>
+          </header>
+          <div class="corpo-aba">
+            <div class="lista-conhecimentos">
+              {{#each knowledgeEntries}}
+                {{> nexusConhecimento}}
+              {{/each}}
+            </div>
+          </div>
+        </section>
+        <section
+          class="aba-painel{{#if activeTabs.equipment}} active{{/if}}"
+          id="nexus-aba-equipment-{{actor.id}}"
+          data-popup-panel="equipment"
+          {{#unless activeTabs.equipment}}hidden{{/unless}}
+          aria-hidden="{{#if activeTabs.equipment}}false{{else}}true{{/if}}"
+        >
+          <header class="cabecalho-aba">
+            <h2>Itens</h2>
+          </header>
+          <div class="corpo-aba">
+            {{> nexusInventario}}
+          </div>
+        </section>
+        <section
+          class="aba-painel{{#if activeTabs.history}} active{{/if}}"
+          id="nexus-aba-history-{{actor.id}}"
+          data-popup-panel="history"
+          {{#unless activeTabs.history}}hidden{{/unless}}
+          aria-hidden="{{#if activeTabs.history}}false{{else}}true{{/if}}"
+        >
+          <header class="cabecalho-aba">
+            <h2>História</h2>
+          </header>
+          <div class="corpo-aba">
+            <div class="historia-visual">{{> nexusEditorVisual label="História" placeholder="Escreva aqui..." actorField="system.history" value=system.history}}</div>
+          </div>
+        </section>
+        <section
+          class="aba-painel{{#if activeTabs.notes}} active{{/if}}"
+          id="nexus-aba-notes-{{actor.id}}"
+          data-popup-panel="notes"
+          {{#unless activeTabs.notes}}hidden{{/unless}}
+          aria-hidden="{{#if activeTabs.notes}}false{{else}}true{{/if}}"
+        >
+          <header class="cabecalho-aba">
+            <h2>Notas</h2>
+          </header>
+          <div class="corpo-aba">
+            {{> nexusColecaoVisual tipo="notes" classe="notas-visual" label="Anotações" adicionar="Adicionar anotação" selecionar="Selecionar anotação" icone="fa-solid fa-book-open" detalhes="Conteúdo da anotação" imagem="Alterar imagem da anotação" titulo="Título da anotação" editor="Conteúdo da anotação"}}
+          </div>
+        </section>
+      </section>
+    </div>
+  </section>
+
+  <nav class="navegacao-ficha" aria-label="Seções da ficha">
+    <button
+      class="aba-ficha{{#if activeTabs.movements}} active{{/if}}"
+      type="button"
+      data-action="openPopup"
+      data-popup="movements"
+      aria-expanded="{{#if activeTabs.movements}}true{{else}}false{{/if}}"
+      aria-controls="nexus-aba-movements-{{actor.id}}"
+      aria-label="Movimentos"
+    >
+      <span class="aba-icone" aria-hidden="true"></span>
+      <span class="aba-nome" aria-hidden="true">Movimentos</span>
+    </button>
+    <button
+      class="aba-ficha{{#if activeTabs.origin}} active{{/if}}"
+      type="button"
+      data-action="openPopup"
+      data-popup="origin"
+      aria-expanded="{{#if activeTabs.origin}}true{{else}}false{{/if}}"
+      aria-controls="nexus-aba-origin-{{actor.id}}"
+      aria-label="{{#if isCurse}}Classificação{{else}}Origem{{/if}}"
+    >
+      <span class="aba-icone" aria-hidden="true"></span>
+      <span class="aba-nome" aria-hidden="true">{{#if isCurse}}Classificação{{else}}Origem{{/if}}</span>
+    </button>
+    <button
+      class="aba-ficha{{#if activeTabs.talents}} active{{/if}}"
+      type="button"
+      data-action="openPopup"
+      data-popup="talents"
+      aria-expanded="{{#if activeTabs.talents}}true{{else}}false{{/if}}"
+      aria-controls="nexus-aba-talents-{{actor.id}}"
+      aria-label="Talentos"
+    >
+      <span class="aba-icone" aria-hidden="true"></span>
+      <span class="aba-nome" aria-hidden="true">Talentos</span>
+    </button>
+    <button
+      class="aba-ficha{{#if activeTabs.techniques}} active{{/if}}"
+      type="button"
+      data-action="openPopup"
+      data-popup="techniques"
+      aria-expanded="{{#if activeTabs.techniques}}true{{else}}false{{/if}}"
+      aria-controls="nexus-aba-techniques-{{actor.id}}"
+      aria-label="Técnicas"
+    >
+      <span class="aba-icone" aria-hidden="true"></span>
+      <span class="aba-nome" aria-hidden="true">Técnicas</span>
+    </button>
+    <button
+      class="aba-ficha{{#if activeTabs.knowledge}} active{{/if}}"
+      type="button"
+      data-action="openPopup"
+      data-popup="knowledge"
+      aria-expanded="{{#if activeTabs.knowledge}}true{{else}}false{{/if}}"
+      aria-controls="nexus-aba-knowledge-{{actor.id}}"
+      aria-label="Conhecimentos"
+    >
+      <span class="aba-icone" aria-hidden="true"></span>
+      <span class="aba-nome" aria-hidden="true">Conhecimentos</span>
+    </button>
+    <button
+      class="aba-ficha{{#if activeTabs.equipment}} active{{/if}}"
+      type="button"
+      data-action="openPopup"
+      data-popup="equipment"
+      aria-expanded="{{#if activeTabs.equipment}}true{{else}}false{{/if}}"
+      aria-controls="nexus-aba-equipment-{{actor.id}}"
+      aria-label="Itens"
+    >
+      <span class="aba-icone" aria-hidden="true"></span>
+      <span class="aba-nome" aria-hidden="true">Itens</span>
+    </button>
+    <button
+      class="aba-ficha{{#if activeTabs.notes}} active{{/if}}"
+      type="button"
+      data-action="openPopup"
+      data-popup="notes"
+      aria-expanded="{{#if activeTabs.notes}}true{{else}}false{{/if}}"
+      aria-controls="nexus-aba-notes-{{actor.id}}"
+      aria-label="Notas"
+    >
+      <span class="aba-icone" aria-hidden="true"></span>
+      <span class="aba-nome" aria-hidden="true">Notas</span>
+    </button>
+    <button
+      class="aba-ficha{{#if activeTabs.history}} active{{/if}}"
+      type="button"
+      data-action="openPopup"
+      data-popup="history"
+      aria-expanded="{{#if activeTabs.history}}true{{else}}false{{/if}}"
+      aria-controls="nexus-aba-history-{{actor.id}}"
+      aria-label="História"
+    >
+      <span class="aba-icone" aria-hidden="true"></span>
+      <span class="aba-nome" aria-hidden="true">História</span>
+    </button>
+  </nav>
+</main>

@@ -1,0 +1,43 @@
+<div class="aparencia-configuracao">
+  <p class="aparencia-intro">A cor principal combina bordas e realces automaticamente. Você pode ajustar os tons abaixo. O fundo permanece preto.</p>
+
+  <div class="aparencia-cores">
+    {{#each colors}}
+      <label class="aparencia-cor">
+        <span>{{label}}</span>
+        <span class="aparencia-cor-controle">
+          <input type="color" name="{{key}}" value="{{value}}" data-appearance-color aria-label="{{label}}" {{#unless ../editable}}disabled{{/unless}}>
+          <output data-color-value="{{key}}">{{value}}</output>
+        </span>
+      </label>
+    {{/each}}
+  </div>
+
+  <section class="aparencia-wallpaper">
+    <label for="wallpaper-{{id}}">Wallpaper</label>
+    <div class="aparencia-wallpaper-selecao">
+      <select id="wallpaper-{{id}}" name="wallpaper" data-appearance-wallpaper aria-label="Wallpaper" {{#unless editable}}disabled{{/unless}}>
+        {{#each wallpapers}}
+          <option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>
+        {{/each}}
+      </select>
+      {{#if canBrowse}}
+        <button type="button" data-action="refreshWallpapers" aria-label="Atualizar wallpapers" title="Atualizar wallpapers" {{#unless editable}}disabled{{/unless}}><i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i></button>
+      {{/if}}
+    </div>
+    <button class="aparencia-importar" type="button" data-action="importWallpaper" title="{{#if canImport}}Enviar uma imagem do computador{{else}}É necessária a permissão de enviar arquivos no Foundry{{/if}}" {{#unless editable}}disabled{{/unless}} {{#unless canImport}}disabled{{/unless}}><i class="fa-solid fa-upload" aria-hidden="true"></i> Importar wallpaper</button>
+    <input type="file" accept="image/png,image/jpeg,image/webp,image/avif,image/gif,image/svg+xml" data-wallpaper-upload hidden {{#unless editable}}disabled{{/unless}} {{#unless canImport}}disabled{{/unless}}>
+    <div class="aparencia-wallpaper-preview">
+      <img src="{{wallpaper}}" data-wallpaper-preview alt="Prévia do wallpaper">
+    </div>
+  </section>
+
+  <div class="aparencia-acoes">
+    <button type="button" data-action="resetAppearance" {{#unless editable}}disabled{{/unless}}><i class="fa-solid fa-arrow-rotate-left" aria-hidden="true"></i> Restaurar padrão</button>
+  </div>
+
+  <footer class="aparencia-rodape">
+    <button type="button" data-action="cancelAppearance">Cancelar</button>
+    <button type="submit" class="aparencia-salvar" {{#unless editable}}disabled{{/unless}}><i class="fa-solid fa-check" aria-hidden="true"></i> Salvar</button>
+  </footer>
+</div>

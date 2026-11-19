@@ -1,0 +1,9 @@
+/node_modules/
+/dist/
+/packs/
+*.log
+.DS_Store
+Thumbs.db
+/assets/images/Lulatron_3000.webp
+/assets/icons/tabs/PROMPTS.md
+/assets/icons/tabs/README.md

@@ -1,0 +1,117 @@
+{
+  "id": "nexus-jjk",
+  "title": "Nexus — Jujutsu RPG",
+  "description": "Sistema Nexus convertido da ficha Firecast para Foundry Virtual Tabletop V14.",
+  "version": "0.4.1",
+  "compatibility": {
+    "minimum": 14,
+    "verified": 14,
+    "maximum": 14
+  },
+  "authors": [
+    {
+      "name": "Nyck e Galact"
+    }
+  ],
+  "esmodules": [
+    "nexus.mjs"
+  ],
+  "styles": [
+    "styles/nexus.css",
+    "styles/journal-wiki.css"
+  ],
+  "languages": [
+    {
+      "lang": "pt-BR",
+      "name": "Português (Brasil)",
+      "path": "lang/pt-BR.json"
+    },
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/pt-BR.json"
+    }
+  ],
+  "documentTypes": {
+    "Actor": {
+      "character": {
+        "htmlFields": [
+          "history",
+          "notes",
+          "origin.description",
+          "origin.effects"
+        ],
+        "filePathFields": {
+          "origin.image": [
+            "IMAGE",
+            "VIDEO"
+          ]
+        }
+      },
+      "curse": {
+        "htmlFields": [
+          "history",
+          "notes",
+          "origin.description",
+          "origin.effects"
+        ],
+        "filePathFields": {
+          "origin.image": [
+            "IMAGE",
+            "VIDEO"
+          ]
+        }
+      }
+    },
+    "Item": {
+      "attack": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "talent": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "technique": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "knowledge": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "equipment": {
+        "htmlFields": [
+          "description"
+        ]
+      }
+    }
+  },
+  "primaryTokenAttribute": "hp",
+  "secondaryTokenAttribute": "ea",
+  "initiative": "1d20 + @attributes.agilidade",
+  "grid": {
+    "distance": 1,
+    "units": "m"
+  },
+  "packs": [
+    {
+      "name": "livro-de-regras",
+      "label": "Livro de Regras e Mundo",
+      "path": "packs/livro-de-regras",
+      "type": "JournalEntry",
+      "system": "nexus-jjk",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "TRUSTED": "OBSERVER"
+      }
+    }
+  ],
+  "url": "https://github.com/Nether16/nexus-jjk-foundry",
+  "manifest": "https://github.com/Nether16/nexus-jjk-foundry/releases/latest/download/system.json",
+  "download": "https://github.com/Nether16/nexus-jjk-foundry/releases/download/v0.4.1/nexus-jjk-0.4.1.zip"
+}

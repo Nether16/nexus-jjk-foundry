@@ -1,0 +1,94 @@
+/* Tema do livro Nexus, limitado aos diários que contêm uma página .nexus-wiki. */
+:is(.journal-sheet, .sheet.journal-entry):has(.nexus-wiki) .journal-entry-content,
+:is(.journal-sheet, .sheet.journal-entry-page):has(.nexus-wiki) .journal-page-content,
+.journal-page-content:has(.nexus-wiki),
+.nexus-wiki {
+  background: #000000 !important;
+  color: #FFFFFF;
+}
+
+/* Mantém o título nativo legível, sem modificar as ferramentas do Diário. */
+:is(.journal-sheet, .sheet.journal-entry):has(.nexus-wiki) .journal-entry-content {
+  --background: #000000;
+  --input-text-color: #FFFFFF;
+}
+
+.nexus-wiki {
+  box-sizing: border-box;
+  max-width: 100%;
+  padding: 20px 30px;
+  text-align: center;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+/* Título principal. */
+.nexus-wiki h1 {
+  margin-bottom: 16px;
+  border: none;
+  color: #E51A1A;
+  font-family: inherit;
+  font-size: 26px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  text-align: center;
+}
+
+/* Subtítulos de seção. */
+.nexus-wiki h2 {
+  margin-top: 24px;
+  margin-bottom: 8px;
+  border: none;
+  color: #D91616;
+  font-family: inherit;
+  font-size: 19px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Linha divisória branca. */
+.nexus-wiki hr {
+  width: 50%;
+  margin: 24px auto;
+  border: none;
+  border-top: 1px solid #CCCCCC;
+}
+
+/* Parágrafos e destaques. */
+.nexus-wiki p {
+  margin-bottom: 14px;
+  color: #FFFFFF;
+}
+
+/* GIFs e imagens comuns. */
+.nexus-wiki img {
+  display: block;
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+  margin: 18px auto;
+  border: none;
+  box-shadow: none;
+}
+
+/* Imagens de tabelas aproveitam a largura disponível para preservar a leitura. */
+.nexus-wiki img.tabela-img {
+  width: auto;
+  max-width: 100%;
+}
+
+/* Variações de tamanho e cor para as próximas páginas. */
+.nexus-wiki .txt-maior { font-size: 18px; }
+.nexus-wiki .txt-normal { font-size: 15px; }
+.nexus-wiki .txt-menor { font-size: 13px; }
+.nexus-wiki .txt-nota { font-size: 12px; font-style: italic; color: #CCCCCC; }
+.nexus-wiki .cor-vermelha { color: #E51A1A; }
+.nexus-wiki .cor-branca { color: #FFFFFF; }
+.nexus-wiki .cor-dourada { color: #F5C542; }
+.nexus-wiki .cor-azul { color: #4DA6FF; }
+.nexus-wiki .cor-roxa { color: #B366FF; }
+.nexus-wiki .cor-verde { color: #4CD964; }
+.nexus-wiki .cor-cinza { color: #A0A0A0; }

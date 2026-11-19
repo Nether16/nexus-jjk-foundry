@@ -1,0 +1,128 @@
+{
+  "_id": "6e5b5f54bacde913",
+  "name": "01 - Combate",
+  "pages": [
+    {
+      "_id": "f9adc21ed6687160",
+      "name": "01 - Ações",
+      "type": "text",
+      "sort": 100000,
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<div class=\"nexus-wiki\">\n  <h1>AÇÕES</h1>\n</div>"
+      },
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!6e5b5f54bacde913.f9adc21ed6687160"
+    },
+    {
+      "_id": "e019d07ebd767c98",
+      "name": "01.1 - Tabela de Ações",
+      "type": "text",
+      "sort": 200000,
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<div class=\"nexus-wiki\">\n  <h1>TABELA DE AÇÕES</h1>\n</div>"
+      },
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!6e5b5f54bacde913.e019d07ebd767c98"
+    },
+    {
+      "_id": "34a5265b68649e9c",
+      "name": "02 - Condições",
+      "type": "text",
+      "sort": 300000,
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<div class=\"nexus-wiki\">\n  <h1>CONDIÇÕES</h1>\n</div>"
+      },
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!6e5b5f54bacde913.34a5265b68649e9c"
+    },
+    {
+      "_id": "d220fdff574001c5",
+      "name": "02.1 - Condições Ofensivas",
+      "type": "text",
+      "sort": 400000,
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<div class=\"nexus-wiki\">\n  <h1>CONDIÇÕES OFENSIVAS</h1>\n</div>"
+      },
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!6e5b5f54bacde913.d220fdff574001c5"
+    },
+    {
+      "_id": "db87b703a9c223ff",
+      "name": "03 - Crítico",
+      "type": "text",
+      "sort": 500000,
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<div class=\"nexus-wiki\">\n  <h1>CRÍTICO</h1>\n</div>"
+      },
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!6e5b5f54bacde913.db87b703a9c223ff"
+    },
+    {
+      "_id": "4b825101e6d8e121",
+      "name": "04 - Morte",
+      "type": "text",
+      "sort": 600000,
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<div class=\"nexus-wiki\">\n  <h1>MORTE</h1>\n</div>"
+      },
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!6e5b5f54bacde913.4b825101e6d8e121"
+    }
+  ],
+  "categories": [],
+  "folder": "fc67c4cfee5ace14",
+  "sort": 100000,
+  "ownership": {
+    "default": 2
+  },
+  "flags": {},
+  "_key": "!journal!6e5b5f54bacde913"
+}
