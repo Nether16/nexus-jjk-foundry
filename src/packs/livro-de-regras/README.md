@@ -4,7 +4,7 @@ Este compêndio contém dois grupos de diários: Mundo e Sistemática. Combate i
 
 São duas pastas e oito diários, com trinta e duas páginas: sete de Combate, dezessete de Personagem, duas de Treinamento, cinco de Técnicas e uma de Inata. A numeração de Sistemática segue a sequência de 01 - Combate até 05 - Inata. Talentos não possui página no livro; os talentos da ficha do personagem continuam disponíveis.
 
-As 66 mídias fornecidas estão em `assets/journal/`, associadas às páginas correspondentes. Os nomes originais e os nomes usados no livro estão documentados no README dessa pasta. Ainda faltam as três tabelas de EAR (limite, uso interno e uso externo); seus caminhos continuam reservados nos JSONs. Nas páginas que receberam apenas imagens e títulos, os textos das regras ainda podem ser adicionados posteriormente.
+As 69 mídias fornecidas estão em `assets/journal/`, associadas às páginas correspondentes, incluindo as três tabelas de EAR (limite, uso interno e uso externo). Os nomes originais e os nomes usados no livro estão documentados no README dessa pasta. Não há mídias pendentes nas referências atuais. Nas páginas que receberam apenas imagens e títulos, os textos das regras ainda podem ser adicionados posteriormente.
 
 Os arquivos `_Folder.json` representam pastas. Cada outro JSON representa um `JournalEntry`, com suas `JournalEntryPage` dentro de `pages`. Não crie documentos Item ou Actor para o livro.
 

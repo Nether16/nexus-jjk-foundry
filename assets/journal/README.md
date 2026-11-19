@@ -71,10 +71,10 @@ As 66 mídias abaixo foram fornecidas para o compêndio. Foram copiadas sem conv
 | amaldiçoado.gif | origem-amaldicoado.gif |
 | aberraçãoemcombate.gif | especialidade-aberracao-em-combate.gif |
 
-Ainda não foram fornecidas:
+As três tabelas de EAR foram fornecidas separadamente e também estão incluídas:
 
 - `tabela-ear-limite.png`
 - `tabela-ear-interno.png`
 - `tabela-ear-externo.png`
 
-As referências pendentes são mantidas nas fontes JSON; o build omite imagens ausentes do compêndio compilado. Este README não faz parte do ZIP de execução.
+São 69 mídias no total, todas referenciadas no livro, sem arquivos pendentes. Os PNGs foram copiados sem alteração. O build continua omitindo imagens ausentes caso uma nova referência ainda não tenha sido fornecida. Este README não faz parte do ZIP de execução.
