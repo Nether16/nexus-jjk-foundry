@@ -1,0 +1,63 @@
+<section class="nexus-reader-shell">
+  <aside class="nexus-reader-sidebar" aria-label="Navegação do compêndio">
+    <header class="nexus-reader-brand">
+      <span>Biblioteca Nexus</span>
+      <h2>Sistemática</h2>
+    </header>
+    <div class="nexus-reader-search">
+      <label>
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        <input type="search" data-reader-search placeholder="Buscar páginas…" aria-label="Buscar páginas pelo título" autocomplete="off">
+      </label>
+      <button type="button" data-action="clearSearch" title="Limpar busca" aria-label="Limpar busca"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+    </div>
+    <nav class="nexus-reader-navigation" aria-label="Seções e páginas">
+      {{#each groups}}
+        <details class="nexus-reader-folder" open data-reader-folder="{{id}}">
+          <summary>{{name}}</summary>
+          <div class="nexus-reader-entries">
+            {{#each entries}}
+              <details class="nexus-reader-entry" open data-reader-entry="{{id}}">
+                <summary>{{name}}</summary>
+                <div class="nexus-reader-pages">
+                  {{#each pages}}
+                    <button type="button" data-action="openPage" data-entry-id="{{../id}}" data-page-id="{{id}}" data-reader-page data-reader-label="{{name}}" {{#if active}}aria-current="page"{{/if}}>{{name}}</button>
+                  {{/each}}
+                </div>
+              </details>
+            {{/each}}
+          </div>
+        </details>
+      {{/each}}
+      <p class="nexus-reader-no-results" data-reader-no-results hidden>Nenhuma página encontrada.</p>
+    </nav>
+  </aside>
+  <section class="nexus-reader-main" aria-label="Leitura">
+    <header class="nexus-reader-toolbar">
+      <div class="nexus-reader-location">
+        {{#if current}}
+          <span>{{current.entryName}}</span>
+          <h2>{{current.pageName}}</h2>
+        {{else}}
+          <h2>Sistemática</h2>
+        {{/if}}
+      </div>
+      <div class="nexus-reader-page-controls" aria-label="Trocar página">
+        <button type="button" data-action="previousPage" title="Página anterior" aria-label="Página anterior" {{#unless hasPrevious}}disabled{{/unless}}><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+        {{#if current.total}}<span>{{current.position}} / {{current.total}}</span>{{/if}}
+        <button type="button" data-action="nextPage" title="Próxima página" aria-label="Próxima página" {{#unless hasNext}}disabled{{/unless}}><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+      </div>
+    </header>
+    <article class="nexus-reader-content" tabindex="0" aria-label="Conteúdo da página">
+      {{#if error}}
+        <div class="nexus-reader-empty" role="alert"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i><p>{{error}}</p></div>
+      {{else}}
+        {{#if current}}
+          <div class="journal-page-content">{{{current.html}}}</div>
+        {{else}}
+          <div class="nexus-reader-empty"><i class="fa-solid fa-book-open" aria-hidden="true"></i><p>Escolha uma página no menu para começar a leitura.</p></div>
+        {{/if}}
+      {{/if}}
+    </article>
+  </section>
+</section>

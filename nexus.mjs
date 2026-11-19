@@ -12,6 +12,7 @@ import { registerRichTextAutosave } from "./module/sheets/nexus-rich-text.mjs";
 import { registerTokenPortraitSync } from "./module/token-portraits.mjs";
 import { registerMovementMacros } from "./module/movement-macros.mjs";
 import { registerShikigamiReferenceSync } from "./module/shikigami.mjs";
+import { registerCompendiumReader } from "./module/compendium-reader.mjs";
 
 const NEXUS_LOGO = "systems/nexus-jjk/assets/images/nexus-logo.png";
 
@@ -22,6 +23,7 @@ Hooks.once("init", () => {
   registerTokenPortraitSync();
   registerMovementMacros();
   registerShikigamiReferenceSync();
+  registerCompendiumReader();
 
   CONFIG.NEXUS = {
     attributes: NEXUS_ATTRIBUTES,

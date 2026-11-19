@@ -1,3 +1,5 @@
+@import url("./compendium-reader.css");
+
 /* Tema do livro Nexus, limitado aos diários que contêm uma página .nexus-wiki. */
 :is(.journal-sheet, .sheet.journal-entry):has(.nexus-wiki) .journal-entry-content,
 :is(.journal-sheet, .sheet.journal-entry-page):has(.nexus-wiki) .journal-page-content,
@@ -140,3 +142,19 @@
 .nexus-wiki .cor-roxa { color: #B366FF; }
 .nexus-wiki .cor-verde { color: #4CD964; }
 .nexus-wiki .cor-cinza { color: #A0A0A0; }
+
+/* Guia rápido dos jogadores: texto corrido e fórmulas fáceis de copiar. */
+.nexus-wiki.nexus-player-guide { text-align: left; }
+.nexus-player-guide h1 { font-size: 24px; letter-spacing: 1px; }
+.nexus-player-guide h2 { text-align: left; }
+.nexus-player-guide :is(ol, ul) { padding-left: 24px; }
+.nexus-player-guide li + li { margin-top: 8px; }
+.nexus-player-guide .guide-table { max-width: 100%; margin: 18px 0; overflow-x: auto; }
+.nexus-player-guide table { width: 100%; margin: 0; border-collapse: collapse; background: #0e0c0d; }
+.nexus-player-guide :is(th, td) { padding: 10px 12px; border: 1px solid #3b2a2f; text-align: left; vertical-align: top; }
+.nexus-player-guide th { background: #28141a; color: #fff; }
+.nexus-player-guide tbody tr:nth-child(even) { background: #171013; }
+.nexus-player-guide code { padding: 2px 5px; border-radius: 3px; background: #24171c; color: #ffe1e8; font-family: Consolas, monospace; }
+.nexus-player-guide pre { max-width: 100%; margin: 16px 0; padding: 16px; border: 1px solid #4b2933; border-radius: 5px; background: #160e11; white-space: pre-wrap; }
+.nexus-player-guide pre code { padding: 0; background: none; color: #fff; white-space: pre-wrap; overflow-wrap: anywhere; }
+.nexus-player-guide .guide-note { padding: 12px 16px; border-left: 3px solid #d91616; background: #190e12; }
