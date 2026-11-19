@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "test": "node --test",
     "build:packs": "node scripts/build-packs.mjs",
     "build:release": "node scripts/build-release.mjs"
   },

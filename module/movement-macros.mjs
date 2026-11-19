@@ -4,6 +4,7 @@ export const movementWrites = new WeakMap();
 const rollingActors = new Set();
 const DEFAULT_ICON = "systems/nexus-jjk/assets/icons/d20Icon.png";
 let assignments = Promise.resolve();
+let deletions = Promise.resolve();
 
 function warn(message) {
   ui.notifications.warn(message);
@@ -111,6 +112,34 @@ function findMovementMacro(uuid, command) {
     (!macro.getFlag("nexus-jjk", "movementUuid") || macro.getFlag("nexus-jjk", "movementUuid") === uuid));
 }
 
+function deleteMovementMacros(uuid) {
+  // Relê a coleção na fila para não excluir a mesma macro duas vezes neste cliente.
+  const result = deletions.then(async () => {
+    let ids = game.macros.filter(macro => macro.getFlag("nexus-jjk", "movementUuid") === uuid &&
+      macro.canUserModify(game.user, "delete")).map(macro => macro.id);
+    while (ids.length) {
+      try {
+        await foundry.documents.Macro.implementation.deleteDocuments(ids);
+        return;
+      } catch (error) {
+        // Outro cliente pode ter excluído parte do lote durante a requisição.
+        const remaining = ids.filter(id => game.macros.has(id));
+        if (remaining.length === ids.length) throw error;
+        ids = remaining;
+      }
+    }
+  });
+  deletions = result.catch(() => undefined);
+  return result;
+}
+
+async function removeOrphanedMovementMacros(uuid) {
+  const item = await fromUuid(uuid);
+  if (item && item.parent?.items.get(item.id) === item) return false;
+  await deleteMovementMacros(uuid);
+  return true;
+}
+
 function hotbarLabel(slot) {
   const macroId = game.user.hotbar?.[slot];
   return macroId ? (game.macros.get(macroId)?.name || "Macro indisponível") : "Livre";
@@ -161,8 +190,11 @@ async function assign(itemOrUuid, absoluteSlot, confirmReplace = false) {
       (macro.name !== appearance.name || macro.img !== appearance.img)) {
     await macro.update(appearance);
   }
+  // A exclusão pode chegar enquanto o servidor cria ou atualiza a macro.
+  if (await removeOrphanedMovementMacros(item.uuid)) return;
   if (!macro.canExecute) throw new Error("Você não tem permissão para executar esta macro.");
   await game.user.assignHotbarMacro(macro, slot);
+  if (await removeOrphanedMovementMacros(item.uuid)) return;
   return macro;
 }
 
@@ -224,6 +256,17 @@ export async function promptMovementMacro(itemOrUuid) {
 export function registerMovementMacros() {
   game.nexus ??= {};
   game.nexus.rollMovement = uuid => rollMovement(null, uuid);
+  Hooks.on("deleteItem", (item, _options, userId) => {
+    const actor = item.parent;
+    if (item.type !== "attack" || actor?.documentName !== "Actor" ||
+        !["character", "curse"].includes(actor.type) || actor.pack || actor.compendium) return;
+    // O mestre pode remover também macros de autores desconectados.
+    if ((game.users.activeGM?.id ?? userId) !== game.user.id) return;
+    return deleteMovementMacros(item.uuid).catch(error => {
+      console.error("Nexus JJK | Não foi possível excluir as macros do movimento removido.", error);
+      ui.notifications.error("O movimento foi excluído, mas não foi possível remover suas macros.");
+    });
+  });
   Hooks.on("hotbarDrop", (_hotbar, data, slot) => {
     if (data?.type !== "Item" || data.nexusMovement !== true) return;
     void assignMovementMacro(data.uuid, slot);
