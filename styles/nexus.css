@@ -2429,6 +2429,16 @@
   margin-bottom: 5px;
 }
 
+.nexus-jjk .ficha-shikigami .recurso-valores {
+  align-items: baseline;
+  line-height: 1.35;
+}
+
+.nexus-jjk .ficha-shikigami .recurso-valores input {
+  margin: 0;
+  font: inherit;
+}
+
 .nexus-jjk .ficha-shikigami .recurso-nome {
   font-size: 14px;
 }
