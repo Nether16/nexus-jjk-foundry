@@ -1,4 +1,5 @@
 import { readdir, readFile } from "node:fs/promises";
+import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -7,6 +8,7 @@ const sourcePath = resolve(root, "src/packs/livro-de-regras");
 const packPath = resolve(root, "packs/livro-de-regras");
 const idPattern = /^[A-Za-z0-9]{16}$/u;
 const ids = new Set();
+const missingMedia = new Set();
 
 async function readSources(directory) {
   const sources = [];
@@ -65,5 +67,20 @@ for (const journal of journals) {
 
 // A variável opcional permite usar ferramentas instaladas fora da pasta do sistema.
 const { compilePack } = await import(process.env.NEXUS_FVTT_CLI || "@foundryvtt/foundryvtt-cli");
-await compilePack(sourcePath, packPath, { recursive: true, log: true });
+await compilePack(sourcePath, packPath, {
+  recursive: true,
+  log: true,
+  transformEntry(document) {
+    for (const page of document.pages ?? []) {
+      if (page.type !== "text") continue;
+      // Conserva a referência na fonte sem exibir imagens quebradas no livro.
+      page.text.content = page.text.content.replace(/<img\b[^>]*\bsrc="(systems\/nexus-jjk\/assets\/journal\/[^"<>]+)"[^>]*>/gu, (tag, source) => {
+        if (existsSync(resolve(root, source.slice("systems/nexus-jjk/".length)))) return tag;
+        missingMedia.add(source);
+        return `<!-- Mídia pendente: ${source.replaceAll("--", "—")} -->`;
+      });
+    }
+  }
+});
 console.log(`Livro compilado: ${folders.length} pastas, ${journals.length} diários e ${pageCount} páginas.`);
+if (missingMedia.size) console.log(`Mídias pendentes (referências mantidas no JSON):\n${[...missingMedia].sort().join("\n")}`);

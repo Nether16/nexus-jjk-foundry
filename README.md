@@ -25,7 +25,7 @@ Para atualizar, use **Check for Updates** na lista de sistemas do Foundry. O lin
 - Movimentos com rolagem no chat e custo de Energia Amaldiçoada.
 - Talentos, técnicas, conhecimentos, inventário, história e anotações.
 - Cores personalizadas e importação de wallpaper por personagem.
-- Estrutura de diários **Livro de Regras e Mundo**, pronta para receber o conteúdo.
+- Compêndio **Livro de Regras e Mundo**, com regras de combate, personagem e treinamento; demais seções preparadas para receber conteúdo.
 
 ## Desenvolvimento
 

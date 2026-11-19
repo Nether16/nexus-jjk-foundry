@@ -70,7 +70,7 @@
       },
       "text": {
         "format": 1,
-        "content": "<div class=\"nexus-wiki\">\n  <h1>CONDIÇÕES OFENSIVAS</h1>\n</div>"
+        "content": "<div class=\"nexus-wiki\">\n  <h1 style=\"color: #FFFFFF;\">CONDIÇÕES<br>OFENSIVAS</h1>\n\n  <div style=\"text-align: left;\">\n    <p>\n              Algumas condições ofensivas podem atribuir efeitos diversos, causando Danos Por Turno (DPT)<br>\n         O DPT possui valor proprios e todos são revertidos por Energia Amaldiçoada Reversa (EAR) ou Através de testes medicos como os Primeiros socorros e Tratamento, suas dificuldade de se recuperar dessa condição é atribuida a habilidade causadora, com exceção da condição queimando, que necessita que você utilize de uma ação bonus para apagar o fogo, porém essa condição não é igual a condição de queimadura.\n    </p>\n\n    <p>\n      Por exemplo : <em>Jogo usou uma habilidade de fogo em maki, maki na condição queimando recebeu 30 de dano e em seu turno usou a ação bonus para se apagar;</em><br>\n      <em>Ao se apagar ele entrou na condição queimadura que é causada por niveis altos de tecnicas de fogo e foi curada e estabilizada por Shoko que utilizou de EAR+Conhecimentos medicos para reduzir ao maximo seus impactos.</em>\n    </p>\n\n    <p>\n      Outro exemplo : <em>Um usuario de tecnica de veneno utilizou de sua tecnica em você ao notar o envenenamento e possuir Conhecimentos medicos o individuo pode contornar o veneno diminuindo seus efeitos com um medicamento assim anulando seus efeitos, A CD para contornar ou resistir ao veneno é 10 estando na tecnica do usuario de veneno,</em>\n    </p>\n\n    <p>\n         Em geral, as condições ofensivas são geralmente construidas sistematicamente de acordo com a situação, usuario, item utilizado, tendo assim cada um uma Classe de Dificuldade (CD) diferente, apesar disso ao longo da jornada como feiticeiro se torna algo simples de se lidar, tendo em alguns raros casos usuarios excelentes que acabam adicionando condições por consequencia do uso de sua tecnica ou Extensões de Tecnica.\n    </p>\n  </div>\n\n  <hr style=\"width: 25%;\">\n</div>"
       },
       "ownership": {
         "default": -1
@@ -80,7 +80,7 @@
     },
     {
       "_id": "db87b703a9c223ff",
-      "name": "03 - Crítico",
+      "name": "03 - Críticos",
       "type": "text",
       "sort": 500000,
       "title": {
@@ -89,7 +89,7 @@
       },
       "text": {
         "format": 1,
-        "content": "<div class=\"nexus-wiki\">\n  <h1>CRÍTICO</h1>\n</div>"
+        "content": "<div class=\"nexus-wiki\">\n  <h1>CRÍTICOS</h1>\n\n  <div style=\"text-align: left;\">\n    <p>\n            Um <strong>acerto crítico</strong> ocorre quando o personagem obtém um resultado excepcional em uma rolagem de ataque ou teste relevante ao rolar um <strong>20 natural no dado</strong>. Esse resultado representa uma execução perfeita da ação. Um crítico garante o sucesso absoluto da tentativa, independentemente das circunstâncias normais que poderiam dificultá-la, desde que a ação seja possível dentro da lógica do RPG.\n    </p>\n\n    <p>\n            Além do sucesso absoluto, o crítico garante um bônus que pode assumir várias formas, como maior impacto narrativo, efeitos especiais, vantagens temporárias, ou a imposição de condições ao alvo, a critério das regras de crítico ou da decisão do mestre. Assim, o <strong>crítico</strong> em <strong>d20</strong> funciona como a expressão máxima da competência do personagem naquele momento, transformando um sucesso normal em um feito marcante. Para as ocasiões onde uma <strong>Rolagem Crítica</strong> é atingida durante um cenário combativo, deve-se utilizar a <strong>tabela abaixo</strong> como referência para efeitos críticos, que podem ser escolhidos no momento em que o personagem obtém a rolagem crítica, de acordo com os critérios citados.\n    </p>\n\n    <p>\n            Ao confirmar um <strong>acerto crítico</strong>, Caso o ataque tenha sido realizado <strong>corpo a corpo</strong> utilizando <strong>Reforço</strong>, o jogador deverá <strong>rolar 1d2</strong> para determinar se o golpe despertará um <strong><em>Kokusen</em></strong>; Caso o jogador não tenho utilizado reforço, seu dano causa <strong>130%</strong> do dano original.\n    </p>\n\n    <p>\n            <span class=\"cor-vermelha\"><strong>Importante:</strong></span> Ataques à distância <strong>não podem</strong> desencadear um <em>Kokusen</em>. Nesses casos, um 20 natural sempre resultará apenas em um acerto crítico comum, causando 130% do dano, sem necessidade da rolagem de 1d2.\n    </p>\n  </div>\n\n  <img class=\"tabela-img\" src=\"systems/nexus-jjk/assets/journal/tabela-criticos.png\" alt=\"Tabela de Críticos\">\n\n  <h2>Regras de Críticos:</h2>\n\n  <div style=\"text-align: left;\">\n    <p>\n      <span class=\"cor-vermelha\">|</span> <strong>Sempre</strong> que um personagem utilizar um ataque, é necessário que seja realizada uma Rolagem para o ataque, mesmo que o alvo seja incapaz de evitar o golpe em questão.<br>\n        Esta rolagem serve para determinar interações críticas do golpe.\n    </p>\n\n    <p>\n      <span class=\"cor-vermelha\">|</span> Um Ataque que resulta em uma <strong>Falha Crítica</strong> (01 Natural) irá obrigatoriamente resultar em um ataque falho, mesmo que o alvo esteja imóvel.<br>\n        A ação se caracteriza como uma falha completa, com a falha sendo ocasionada por mau uso ou trapalhada.\n    </p>\n\n    <p>\n      <span class=\"cor-vermelha\">|</span> Caso um personagem alcance um <strong>Crítico</strong> em sua Rolagem de Iniciativa, ele receberá um <strong>Bônus de Vantagem</strong> na rolagem vinculada à sua primeira Ação Principal realizada <strong>OU</strong> poderá utilizar <strong>duas Ações Suplementares em seu primeiro Turno</strong>. Caso um personagem alcance uma <strong>Falha Crítica</strong> em sua Rolagem de Iniciativa, ele irá iniciar a batalha com a <strong>Condição Derrubado</strong>.\n    </p>\n  </div>\n</div>"
       },
       "ownership": {
         "default": -1
@@ -98,8 +98,8 @@
       "_key": "!journal.pages!6e5b5f54bacde913.db87b703a9c223ff"
     },
     {
-      "_id": "4b825101e6d8e121",
-      "name": "04 - Morte",
+      "_id": "6b798a765c24b585",
+      "name": "03.1 - Kokusen",
       "type": "text",
       "sort": 600000,
       "title": {
@@ -108,7 +108,26 @@
       },
       "text": {
         "format": 1,
-        "content": "<div class=\"nexus-wiki\">\n  <h1>MORTE</h1>\n</div>"
+        "content": "<div class=\"nexus-wiki\">\n  <h1>KOKUSEN</h1>\n\n  <img src=\"systems/nexus-jjk/assets/journal/kokusen.gif\" alt=\"Kokusen\">\n\n  <div style=\"text-align: left;\">\n    <p>\n            <strong>Kokusen</strong> é um fenômeno extremamente raro que pode ocorrer quando um personagem realiza um ataque <strong>corpo a corpo</strong> e libera sua <strong>energia amaldiçoada</strong> exatamente no <em>mesmo instante</em> em que o golpe atinge o alvo. Essa sincronia exige uma <strong>precisão extrema</strong>, próxima do <strong>impossível</strong>. A técnica não pode ser ativada deliberadamente, sendo descrito por muitos como pura sorte.\n    </p>\n\n    <p>\n            Quando um personagem obtém um <strong>Acerto Crítico</strong> utilizando do <strong>Reforço Amaldiçoado</strong>, ele desencadeia uma rolagem de <strong>1d2</strong>. Caso o personagem obtenha um resultado <strong>2</strong> nessa rolagem, ele terá conseguido obter uma performance perfeita na infusão de energia amaldiçoada em seu golpe, desencadeando o Kokusen. Esse golpe receberá o efeito visual de Raios Negros, e multiplicará todo o dano causado por <strong>2</strong>.\n    </p>\n\n    <p>\n            Além do dano, o personagem que executa um Kokusen, ele entra temporariamente em um estado de alta afinidade com sua energia amaldiçoada, que os atletas chamando de <em>\"flow\"</em> passando a compreendê-la e controlá-la melhor. Pelas <strong>próximos 3 Rodadas</strong>, o personagem conseguirá utilizar o Efeito Crítico em Rolagens com <strong>um nível reduzido</strong> reduzindo a dificuldade para <strong>19</strong>.\n    </p>\n  </div>\n\n  <p>\n    <strong>Controle energetico</strong>, 20% de diminuição de todos os gastos envolvendo energia amaldiçoada, atributos são temporariamente aumentados em 20%.\n  </p>\n</div>"
+      },
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!6e5b5f54bacde913.6b798a765c24b585"
+    },
+    {
+      "_id": "4b825101e6d8e121",
+      "name": "04 - Morte",
+      "type": "text",
+      "sort": 700000,
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<div class=\"nexus-wiki\">\n<h1>MORTE</h1>\n\n  <img src=\"systems/nexus-jjk/assets/journal/morte.gif\" alt=\"Morte\">\n\n  <div style=\"text-align: left;\">\n    <p>\n            Em campanhas de RPG, é comum que personagens acabem perecendo durante suas jornadas, especialmente em um cenário tão perigoso quanto o mundo jujutsu. Da mesma forma, alguns jogadores podem simplesmente desejar experimentar novas builds, histórias ou estilos de jogo.\n    </p>\n  </div>\n\n  <p>\n    Quando um personagem morre, o jogador pode iniciar a criação de um novo personagem, caso deseje. No entanto, a morte possui consequências para o progresso conquistado.\n  </p>\n\n  <div style=\"text-align: left;\">\n    <p>\n            Ao morrer, o próximo personagem do jogador retornará no mesmo nível em que o personagem anterior se encontrava, porém com a barra de <strong>Experiência (XP) zerada</strong> para aquele nível. Dessa forma, será nescessário acumular novamente toda a experiência exigida para alcançar o próximo nível.<br>\n                  Ex.: se um personagem morrer no <strong>nível 6</strong> com <strong>75/100 de XP</strong>, o novo personagem começará no nível 6, porém com <strong>0/100 de XP</strong>.\n    </p>\n\n    <p>\n      <span class=\"cor-vermelha\">|</span> <em>Caso o jogador decida <strong>trocar de personagem por vontade própria</strong>, sem que ele tenha morrido na campanha,</em><br>\n      <span class=\"cor-vermelha\">|</span> <em>o jogador poderá criar um novo personagem sem sofrer qualquer penalidade de experiência, mantendo normalmente sua progressão de nível.</em>\n    </p>\n  </div>\n</div>"
       },
       "ownership": {
         "default": -1
