@@ -1,7 +1,8 @@
 import { getAttributeMax, getXpTarget, NEXUS_ATTRIBUTES, NEXUS_MAX_LEVEL } from "./config.mjs";
-import { prototypePortraitChanges, usesTokenPortrait } from "./token-portraits.mjs";
 import { SHIKIGAMI_ATTRIBUTE_KEYS } from "./shikigami.mjs";
 import { getWeaponDamageDetails } from "./weapon-damage.mjs";
+
+const DEFAULT_TOKEN_ART = globalThis.CONST?.DEFAULT_TOKEN ?? "icons/svg/mystery-man.svg";
 
 /** Resolve mudanças tanto expandidas quanto em caminhos pontuados. */
 function findChange(changes, path) {
@@ -68,16 +69,26 @@ function validateInvokerChanges(actor, changes, user, { creating = false } = {})
 }
 
 export class NexusActor extends Actor {
+  _initializeSource(data, options) {
+    const tokenImage = findChange(data, "prototypeToken.texture.src")?.value;
+    const source = super._initializeSource(data, options);
+    if (typeof tokenImage !== "string" || !tokenImage.trim()) {
+      source.prototypeToken.texture.src = DEFAULT_TOKEN_ART;
+    }
+    return source;
+  }
+
   async _preCreate(data, options, user) {
     if (this.type === "shikigami") {
       const changes = invokerChanges(data);
       changes.push({ value: this.system.invokerId ?? "" });
       if (!validateInvokerChanges(this, changes, user, { creating: true })) return false;
     }
+    const tokenImage = this.prototypeToken?.texture?.src || DEFAULT_TOKEN_ART;
     const allowed = await super._preCreate(data, options, user);
     if (allowed === false) return false;
-    if (usesTokenPortrait(this) && !this.isToken) {
-      this.prototypeToken.updateSource({ ...prototypePortraitChanges(this), randomImg: false });
+    if (!this.isToken) {
+      this.prototypeToken.updateSource({ "texture.src": tokenImage });
     }
     return allowed;
   }
@@ -124,17 +135,17 @@ export class NexusActor extends Actor {
         }
       }
     }
-    const allowed = await super._preUpdate(changes, options, user);
-    if (allowed === false) return false;
     const image = findChange(changes, "img")?.value;
-    if (usesTokenPortrait(this) && !this.isToken && typeof image === "string" && image.trim()) {
-      setChange(changes, "prototypeToken.texture.src", image);
-      setChange(changes, "prototypeToken.randomImg", false);
-      const ringImage = findChange(changes, "prototypeToken.ring.subject.texture")?.value ??
-        this.prototypeToken._source?.ring?.subject?.texture;
-      if (ringImage) setChange(changes, "prototypeToken.ring.subject.texture", image);
+    const tokenChange = findChange(changes, "prototypeToken.texture.src");
+    if (tokenChange || (typeof image === "string" && image.trim())) {
+      const tokenImage = tokenChange ? tokenChange.value : this.prototypeToken?.texture?.src;
+      // O Foundry copia o retrato para tokens com arte padrão; mantenha a arte independente.
+      // Normalize caminhos mistos antes do hook nativo consultar a textura.
+      if (tokenChange) delete tokenChange.target[tokenChange.key];
+      setChange(changes, "prototypeToken.texture.src",
+        typeof tokenImage === "string" && tokenImage.trim() ? tokenImage : DEFAULT_TOKEN_ART);
     }
-    return allowed;
+    return super._preUpdate(changes, options, user);
   }
 
   get equippedWeapon() {

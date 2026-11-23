@@ -32,7 +32,7 @@ Para atualizar, use **Check for Updates** na lista de sistemas do Foundry. O lin
 - ARMA_ACERTO consulta o acerto da arma afiliada equipada: +1 inicial, chegando a +5 no nível 20. Use `1d20 + DES + ARMA_ACERTO` no campo Rolagem.
 - Imagens de anotações, itens e movimentos pelo seletor nativo do Foundry, com link ou upload.
 - Cores personalizadas e importação de wallpaper por personagem.
-- Arte dos tokens acompanha a foto da ficha, incluindo tokens já colocados nas cenas.
+- Arte dos tokens independente da foto da ficha, configurada pelo token ou pelo token padrão do ator.
 - Compêndio **Sistemática**, com banner animado de Higuruma, regras de combate, personagem, treinamento e técnicas, ilustrado com GIFs e tabelas; demais seções preparadas para receber conteúdo.
 - Sistemática em uma janela grande única: índice por categoria, busca de títulos e leitura das páginas no mesmo painel, com botões de anterior/próxima. Abrir novamente o livro ou seus links reutiliza essa janela.
 - Guia de movimentos e macros no compêndio, com instruções simples para jogadores, opções de fórmulas e exemplos prontos para adaptar à mesa.

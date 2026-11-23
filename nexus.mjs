@@ -9,7 +9,6 @@ import {
   registerAppearanceSettings
 } from "./module/sheets/nexus-appearance.mjs";
 import { registerRichTextAutosave } from "./module/sheets/nexus-rich-text.mjs";
-import { registerTokenPortraitSync } from "./module/token-portraits.mjs";
 import { registerMovementMacros } from "./module/movement-macros.mjs";
 import { registerShikigamiReferenceSync } from "./module/shikigami.mjs";
 import { registerCompendiumReader } from "./module/compendium-reader.mjs";
@@ -20,7 +19,6 @@ Hooks.once("init", () => {
   console.log("Nexus JJK | Inicializando sistema para Foundry VTT V14");
   registerAppearanceSettings();
   registerRichTextAutosave();
-  registerTokenPortraitSync();
   registerMovementMacros();
   registerShikigamiReferenceSync();
   registerCompendiumReader();
