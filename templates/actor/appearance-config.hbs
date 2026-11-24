@@ -25,8 +25,7 @@
         <button type="button" data-action="refreshWallpapers" aria-label="Atualizar wallpapers" title="Atualizar wallpapers" {{#unless editable}}disabled{{/unless}}><i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i></button>
       {{/if}}
     </div>
-    <button class="aparencia-importar" type="button" data-action="importWallpaper" title="{{#if canImport}}Enviar uma imagem do computador{{else}}É necessária a permissão de enviar arquivos no Foundry{{/if}}" {{#unless editable}}disabled{{/unless}} {{#unless canImport}}disabled{{/unless}}><i class="fa-solid fa-upload" aria-hidden="true"></i> Importar wallpaper</button>
-    <input type="file" accept="image/png,image/jpeg,image/webp,image/avif,image/gif,image/svg+xml" data-wallpaper-upload hidden {{#unless editable}}disabled{{/unless}} {{#unless canImport}}disabled{{/unless}}>
+    <button class="aparencia-importar" type="button" data-action="importWallpaper" title="Escolher uma imagem, colar um link ou enviar um arquivo" {{#unless editable}}disabled{{/unless}}><i class="fa-solid fa-upload" aria-hidden="true"></i> Importar wallpaper</button>
     <div class="aparencia-wallpaper-preview">
       <img src="{{wallpaper}}" data-wallpaper-preview alt="Prévia do wallpaper">
     </div>

@@ -6,6 +6,8 @@ import {
   readAppearance,
   applyAppearance,
   getWallpaperChoices,
+  wallpaperPath,
+  wallpaperURL,
   canBrowseWallpapers,
   canImportWallpapers,
   importWallpaper,
@@ -13,11 +15,6 @@ import {
 } from "./nexus-appearance.mjs";
 
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
-
-const wallpaperURL = path => {
-  const encoded = path.split("/").map(encodeURIComponent).join("/");
-  return foundry.utils?.getRoute?.(encoded) ?? `/${encoded}`;
-};
 
 /** Configuração visual por personagem; a prévia não altera os dados da ficha. */
 export class NexusAppearanceConfig extends HandlebarsApplicationMixin(ApplicationV2) {
@@ -62,6 +59,7 @@ export class NexusAppearanceConfig extends HandlebarsApplicationMixin(Applicatio
   #controller = null;
   #closed = false;
   #saving = false;
+  #pickerGeneration = 0;
 
   get #canEdit() {
     return Boolean(this.sheet.isEditable);
@@ -80,7 +78,6 @@ export class NexusAppearanceConfig extends HandlebarsApplicationMixin(Applicatio
       id: this.id,
       editable: this.#canEdit,
       canBrowse: canBrowseWallpapers(),
-      canImport: canImportWallpapers(),
       colors: COLOR_FIELDS.map(field => ({ ...field, value: this.#draft[field.key] })),
       wallpapers: choices.map(choice => ({
         ...choice,
@@ -112,9 +109,6 @@ export class NexusAppearanceConfig extends HandlebarsApplicationMixin(Applicatio
     };
     this.element.addEventListener("input", update, { signal: this.#controller.signal });
     this.element.addEventListener("change", update, { signal: this.#controller.signal });
-    this.element.querySelector("[data-wallpaper-upload]")?.addEventListener("change", event => {
-      void this.#uploadWallpaper(event.currentTarget);
-    }, { signal: this.#controller.signal });
     this.element.addEventListener("keydown", event => {
       if (event.key !== "Escape" || this.#saving) return;
       event.preventDefault();
@@ -126,6 +120,7 @@ export class NexusAppearanceConfig extends HandlebarsApplicationMixin(Applicatio
 
   _onClose(options) {
     this.#closed = true;
+    this.#pickerGeneration++;
     this.#controller?.abort();
     this.#controller = null;
     // Fechar pelo X, Cancelar ou Escape descarta apenas a prévia não salva.
@@ -162,24 +157,40 @@ export class NexusAppearanceConfig extends HandlebarsApplicationMixin(Applicatio
     this.#saving = busy;
     for (const control of this.element.querySelectorAll("button, input, select")) {
       const cancel = control.dataset.action === "cancelAppearance";
-      const importControl = control.dataset.action === "importWallpaper" || control.hasAttribute("data-wallpaper-upload");
-      control.disabled = busy || (!this.#canEdit && !cancel) || (importControl && !canImportWallpapers());
+      control.disabled = busy || (!this.#canEdit && !cancel);
     }
   }
 
-  async #uploadWallpaper(input) {
-    const file = input.files?.[0];
-    input.value = "";
-    if (!file || this.#saving || !this.#canEdit || !canImportWallpapers()) return;
+  #applyWallpaper(path, generation) {
+    if (this.#closed || !this.#canEdit || generation !== this.#pickerGeneration) return;
+    const value = wallpaperPath(path);
+    if (!value) {
+      ui.notifications.error("Escolha uma imagem válida ou informe um link HTTP ou HTTPS.");
+      return;
+    }
+    this.#readForm();
+    this.#draft = normalizeAppearance({ ...this.#draft, wallpaper: value });
+    this.#choices = [...(this.#choices ?? []).filter(entry => entry.value !== value),
+      { value, label: "Wallpaper importado" }];
+    const select = this.element.querySelector("[data-appearance-wallpaper]");
+    if (select && ![...select.options].some(option => option.value === value)) {
+      const option = this.element.ownerDocument.createElement("option");
+      option.value = value;
+      option.textContent = "Wallpaper importado";
+      select.append(option);
+    }
+    this.#updatePresentation({ syncInputs: true });
+    applyAppearance(this.sheet.element, this.#draft);
+  }
+
+  async #uploadWallpaper(file, generation) {
+    if (!file || this.#closed || this.#saving || !this.#canEdit ||
+        !canImportWallpapers() || generation !== this.#pickerGeneration) return;
     this.#readForm();
     this.#setBusy(true);
     try {
       const choice = await importWallpaper(this.actor, file);
-      if (this.#closed) return;
-      this.#draft = normalizeAppearance({ ...this.#draft, wallpaper: choice.value });
-      this.#choices = [...(this.#choices ?? []).filter(entry => entry.value !== choice.value), choice];
-      applyAppearance(this.sheet.element, this.#draft);
-      await this.render({ force: true });
+      await this.#applyWallpaper(choice.value, generation);
     } catch (error) {
       console.error("Nexus JJK | Não foi possível importar o wallpaper.", error);
       if (!this.#closed) ui.notifications.error(error.message || "Não foi possível importar o wallpaper.");
@@ -223,9 +234,50 @@ export class NexusAppearanceConfig extends HandlebarsApplicationMixin(Applicatio
   }
 
   /** @this {NexusAppearanceConfig} */
-  static #chooseWallpaper() {
-    if (!this.#saving && this.#canEdit && canImportWallpapers()) {
-      this.element.querySelector("[data-wallpaper-upload]")?.click();
+  static async #chooseWallpaper() {
+    if (this.#closed || this.#saving || !this.#canEdit) return;
+    this.#readForm();
+    const generation = ++this.#pickerGeneration;
+    try {
+      // O seletor nativo exige FILES_BROWSE até para colar um link.
+      // Sem essa permissão, mantenha link e envio autorizado em um diálogo simples.
+      if (!canBrowseWallpapers()) {
+        let file;
+        const upload = canImportWallpapers()
+          ? '<label>Ou envie uma imagem<input type="file" accept="image/png,image/jpeg,image/webp,image/avif,image/gif,image/svg+xml" data-wallpaper-file></label>'
+          : "";
+        const choice = await foundry.applications.api.DialogV2.input({
+          window: { title: "Importar wallpaper" },
+          content: '<label>Link da imagem<input type="text" name="path" placeholder="https://..." value="' +
+            foundry.utils.escapeHTML(this.#draft.wallpaper) + '"></label>' + upload,
+          ok: { label: "Usar imagem" },
+          modal: true,
+          rejectClose: false,
+          render: (_event, dialog) => {
+            dialog.element.querySelector("[data-wallpaper-file]")?.addEventListener("change", event => {
+              file = event.currentTarget.files?.[0];
+            });
+          }
+        });
+        if (!choice || this.#closed || this.#saving || !this.#canEdit || generation !== this.#pickerGeneration) return;
+        if (file) await this.#uploadWallpaper(file, generation);
+        else await this.#applyWallpaper(choice.path, generation);
+        return;
+      }
+      const picker = new FilePicker.implementation({
+        current: this.#draft.wallpaper,
+        type: "image",
+        document: this.actor,
+        allowUpload: true,
+        callback: path => {
+          if (this.#saving) return;
+          return this.#applyWallpaper(path, generation);
+        }
+      });
+      await picker.browse();
+    } catch (error) {
+      console.error("Nexus JJK | Não foi possível abrir o seletor de wallpaper.", error);
+      if (!this.#closed) ui.notifications.error(error.message || "Não foi possível abrir o seletor de wallpaper.");
     }
   }
 

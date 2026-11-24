@@ -76,28 +76,44 @@ export function deriveAppearancePalette(color, { source = "accent" } = {}) {
   return palette;
 }
 
-/** Accept built-in wallpapers and images uploaded to Foundry's world actor assets. */
-function wallpaperPath(value) {
+/** Accept native image selections and HTTP(S) links without losing signed URL parameters. */
+export function wallpaperPath(value) {
   if (typeof value !== "string") return null;
-  let directory = WALLPAPER_DIRECTORY;
-  if (!value.startsWith(`${directory}/`)) {
-    const uploaded = value.match(/^(worlds\/[a-z0-9_-]+\/assets\/actors)\/[^/]+$/iu);
-    if (!uploaded) return null;
-    directory = uploaded[1];
+  const path = value.trim();
+  if (!path || /[\u0000-\u001f\u007f]/u.test(path)) return null;
+  if (/^https?:\/\//iu.test(path)) {
+    try {
+      const url = new URL(path);
+      return ["http:", "https:"].includes(url.protocol) ? url.href : null;
+    } catch {
+      return null;
+    }
   }
-  const encodedName = value.slice(directory.length + 1);
-  let name;
+
+  // FilePicker paths are relative to Foundry's data directory, never an OS path.
+  if (path.startsWith("/") || /[\\:?#]/u.test(path)) return null;
+  let segments;
   try {
-    name = decodeURIComponent(encodedName);
+    segments = path.split("/").map(segment => decodeURIComponent(segment));
   } catch {
     return null;
   }
-  if (!name || name.startsWith(".") || name !== name.trim()) return null;
-  // Reject paths, URL parameters, nested encodings and syntax intended for CSS/HTML.
-  if (/[\\/:%?#;"'`{}<>\u0000-\u001f\u007f]/u.test(name)) return null;
-  const extension = name.match(/\.([a-z0-9]+)$/iu)?.[1].toLowerCase();
+  if (segments.some(segment => !segment || segment !== segment.trim() ||
+      [".", ".."].includes(segment) || /[\\/:\u0000-\u001f\u007f]|%[a-f0-9]{2}/iu.test(segment))) return null;
+  const extension = segments.at(-1).match(/\.([a-z0-9]+)$/iu)?.[1].toLowerCase();
   if (!IMAGE_EXTENSIONS.includes(extension)) return null;
-  return `${directory}/${name}`;
+  return path;
+}
+
+/** Use the same URL for the sheet background and the appearance dialog preview. */
+export function wallpaperURL(value) {
+  const path = wallpaperPath(value) ?? APPEARANCE_DEFAULTS.wallpaper;
+  if (/^https?:\/\//iu.test(path)) return path;
+  const encoded = path.split("/").map(segment =>
+    encodeURIComponent(decodeURIComponent(segment)).replace(/[!'()*]/gu, character =>
+      `%${character.charCodeAt(0).toString(16).toUpperCase()}`)
+  ).join("/");
+  return globalThis.foundry?.utils?.getRoute?.(encoded) ?? `/${encoded}`;
 }
 
 export function normalizeAppearance(raw) {
@@ -139,12 +155,8 @@ export function applyAppearance(element, raw) {
   for (const { key, css } of COLOR_FIELDS) element.style.setProperty(css, appearance[key]);
   element.style.setProperty("--nexus-cor-fundo", "#000000");
   element.style.setProperty("--nexus-cor-painel", "#08000b");
-  const path = appearance.wallpaper.split("/").map(segment =>
-    encodeURIComponent(segment).replace(/[!'()*]/gu, character =>
-      `%${character.charCodeAt(0).toString(16).toUpperCase()}`)
-  ).join("/");
-  const route = globalThis.foundry?.utils?.getRoute?.(path) ?? `/${path}`;
-  element.style.setProperty("--nexus-wallpaper", `url("${route}")`);
+  const url = wallpaperURL(appearance.wallpaper).replace(/\\/gu, "\\\\").replace(/"/gu, '\\"');
+  element.style.setProperty("--nexus-wallpaper", `url("${url}")`);
   return appearance;
 }
 
@@ -205,7 +217,8 @@ export async function importWallpaper(actor, file) {
 }
 
 function wallpaperLabel(path) {
-  return path.slice(WALLPAPER_DIRECTORY.length + 1).replace(/\.[^.]+$/u, "").replace(/[_-]+/gu, " ").trim();
+  return decodeURIComponent(path.slice(WALLPAPER_DIRECTORY.length + 1))
+    .replace(/\.[^.]+$/u, "").replace(/[_-]+/gu, " ").trim();
 }
 
 function catalogPaths(raw) {
@@ -213,7 +226,8 @@ function catalogPaths(raw) {
   if (Array.isArray(raw)) {
     for (const entry of raw) {
       const path = wallpaperPath(typeof entry === "string" ? entry : entry?.value);
-      if (path?.startsWith(`${WALLPAPER_DIRECTORY}/`)) paths.add(path);
+      if (path?.startsWith(`${WALLPAPER_DIRECTORY}/`) &&
+          !path.slice(WALLPAPER_DIRECTORY.length + 1).includes("/")) paths.add(path);
     }
   }
   return [...paths].sort((a, b) =>
