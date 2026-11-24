@@ -38,7 +38,7 @@ export class NexusCompendiumReader extends HandlebarsApplicationMixin(Applicatio
     id: "nexus-compendium-reader",
     classes: ["nexus-compendium-reader"],
     collection: null,
-    window: { title: "Sistemática — Nexus", icon: "fa-solid fa-book-open", resizable: true },
+    window: { title: "Sistemática", icon: "fa-solid fa-book-open", resizable: true },
     position: {
       width: Math.min(1280, window.innerWidth - 40),
       height: window.innerHeight - 60,

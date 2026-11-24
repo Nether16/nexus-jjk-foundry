@@ -22,6 +22,10 @@ Os arquivos `_Folder.json` representam pastas. Cada outro JSON representa um `Jo
 
 Para preencher uma página, edite seu `text.content`, mantendo o contêiner `<div class="nexus-wiki">`. Imagens locais usam caminhos como `systems/nexus-jjk/assets/journal/nome.gif`; tabelas podem usar a classe `tabela-img`.
 
+Na revisão de legibilidade de 24/11/2026, a apresentação do livro foi padronizada com `.nexus-book-page`: títulos sem duplicação na janela de leitura, texto à esquerda, listas e margens consistentes. Foram removidos parágrafos vazios e medidas de fonte/recuo trazidas do editor original. A prosa foi enxugada preservando regras, valores, mídias e identificadores. Os binários e o manifesto em `src/reference/firecast/` continuam como referência da transcrição original.
+
+As 15 imagens de tabelas usadas no livro foram transcritas para 17 tabelas HTML em nove páginas. Ações, condições, críticos, níveis, atributos, ferramentas, reforços, leitura e EAR usam `.nexus-table-wrap` e `.nexus-rule-table`, com títulos, cabeçalhos e texto selecionável no mesmo tema do guia. Os painéis de progressão foram reunidos na ordem dos níveis 1–20. Valores, fórmulas e regras das células foram preservados; apenas erros evidentes de ortografia foram corrigidos. As imagens originais continuam nos assets como referência e não são mais exibidas nas páginas.
+
 As referências a mídias ainda não fornecidas ficam preservadas nos JSONs. Ao compilar, imagens ausentes em `assets/journal/` são substituídas por comentários no compêndio para evitar imagens quebradas. O comando lista os arquivos pendentes. Adicione os arquivos com os nomes indicados e recompile para incluí-los no livro.
 
 Preserve os IDs de 16 caracteres e os campos `_key`. Eles mantêm os links estáveis e permitem que a ferramenta oficial compile pastas, diários e páginas no formato nativo.
