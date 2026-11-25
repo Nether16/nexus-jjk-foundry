@@ -29,6 +29,7 @@ Para atualizar, use **Check for Updates** na lista de sistemas do Foundry. O lin
 - Campos dos movimentos expandem ao editar; rolagem, custo e efeitos numéricos arredondam o resultado final para baixo.
 - Movimentos na barra de macros: arraste o botão do dado para um slot; um clique normal no dado continua rolando pela ficha.
 - Talentos, técnicas, conhecimentos, inventário, história e anotações.
+- Arraste itens, anotações e técnicas para reordenar. Nos movimentos, arraste pelo espaço vazio da linha; o dado continua criando atalhos na hotbar. A ordem fica salva na ficha.
 - Reserva de Energia Amaldiçoada aumenta automaticamente a EA máxima em 10 por nível, com bônus retroativo.
 - Arma afiliada no inventário recebe +15 de dano nos níveis 5, 10, 15 e 20. Sob Medida aumenta o dano em até 15, limitado ao Grau Especial; armas especiais exibem o lembrete da segunda habilidade. A variável ARMA usa o dano final da arma equipada.
 - ARMA_ACERTO consulta o acerto da arma afiliada equipada: +1 inicial, chegando a +5 no nível 20. Use `1d20 + DES + ARMA_ACERTO` no campo Rolagem.

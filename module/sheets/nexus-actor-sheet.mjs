@@ -13,6 +13,7 @@ import { NexusAppearanceConfig } from "./nexus-appearance-config.mjs";
 import { NexusShikigamiConfig } from "./nexus-shikigami-config.mjs";
 import { getShikigamiReference, SHIKIGAMI_ATTRIBUTE_KEYS } from "../shikigami.mjs";
 import { getWeaponDamageDetails } from "../weapon-damage.mjs";
+import { getOrderedItems, nextItemSort } from "../item-order.mjs";
 
 const { ActorSheetV2 } = foundry.applications.sheets;
 const { HandlebarsApplicationMixin } = foundry.applications.api;
@@ -155,6 +156,11 @@ export class NexusActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
         img: item.img,
         system: item.system
       });
+    }
+
+    for (const type of ["equipment", "technique", "attack"]) {
+      const entries = new Map(grouped[type].map(item => [item.id, item]));
+      grouped[type] = getOrderedItems(this.actor, type).map(item => entries.get(item.id));
     }
 
     const lockedTalents = NEXUS_TALENTS.filter(talent => talent.locked);
@@ -585,6 +591,9 @@ export class NexusActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
         : "icons/svg/item-bag.svg",
       system: type === "equipment" ? { isWeapon: false } : {}
     };
+    if (["equipment", "technique", "attack"].includes(type)) {
+      data.sort = await nextItemSort(this.actor, type);
+    }
 
     if (type === "technique" || type === "knowledge") {
       data.name = `${NEXUS_ITEM_LABELS[type]} ${count + 1}`;

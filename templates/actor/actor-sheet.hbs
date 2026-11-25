@@ -118,15 +118,15 @@
 {{/inline}}
 
 {{#*inline "nexusEntradaVisual"}}
-  <button class="entrada-visual{{#if selected}} selecionado{{/if}}" type="button" data-ui-entry="{{id}}" aria-label="{{label}}" aria-pressed="{{#if selected}}true{{else}}false{{/if}}" {{#unless @root.editable}}disabled{{/unless}}>
-    <span class="miniatura-visual" data-ui-entry-image aria-hidden="true"><img alt="" hidden><i class="{{icon}}" aria-hidden="true"></i></span>
+  <button class="entrada-visual{{#if selected}} selecionado{{/if}}" type="button" data-ui-entry="{{id}}" data-sortable-id="{{id}}" draggable="{{#if @root.editable}}true{{else}}false{{/if}}" title="Arraste para reordenar" aria-label="{{label}}" aria-pressed="{{#if selected}}true{{else}}false{{/if}}" {{#unless @root.editable}}disabled{{/unless}}>
+    <span class="miniatura-visual" data-ui-entry-image aria-hidden="true"><img alt="" draggable="false" hidden><i class="{{icon}}" aria-hidden="true"></i></span>
     <span class="entrada-linhas" aria-hidden="true"><span class="entrada-nome" hidden></span><span class="entrada-esqueleto"></span><span class="entrada-esqueleto"></span></span>
   </button>
 {{/inline}}
 
 {{#*inline "nexusColecaoVisual"}}
   <div class="mestre-detalhe {{classe}}" data-ui-collection="{{tipo}}">
-    <aside class="lista-lateral" aria-label="{{label}}">
+    <aside class="lista-lateral" data-sortable-list="{{tipo}}" aria-label="{{label}}">
       <button class="botao-visual botao-adicionar" type="button" data-ui-add {{#unless @root.editable}}disabled{{/unless}}><i class="fa-solid fa-plus" aria-hidden="true"></i><span>{{adicionar}}</span></button>
       <template data-ui-entry-template>{{> nexusEntradaVisual label=selecionar icon=icone}}</template>
     </aside>
@@ -145,11 +145,11 @@
 
 {{#*inline "nexusInventario"}}
   <div class="mestre-detalhe inventario">
-    <aside class="lista-lateral" aria-label="Itens">
+    <aside class="lista-lateral" data-sortable-list="equipment" aria-label="Itens">
       <button class="botao-visual botao-adicionar" type="button" data-action="createItem" data-type="equipment" {{#unless @root.editable}}disabled{{/unless}}><i class="fa-solid fa-plus" aria-hidden="true"></i><span>Adicionar item</span></button>
       {{#each @root.items.equipment}}
-        <button class="entrada-visual{{#if selected}} selected{{/if}}{{#if equipped}} arma-equipada{{/if}}" type="button" data-action="selectItem" data-item-id="{{id}}" data-item-type="equipment" aria-label="Selecionar item: {{name}}" aria-pressed="{{#if selected}}true{{else}}false{{/if}}">
-          <span class="miniatura-visual" aria-hidden="true"><img src="{{img}}" alt=""></span>
+        <button class="entrada-visual{{#if selected}} selected{{/if}}{{#if equipped}} arma-equipada{{/if}}" type="button" data-action="selectItem" data-item-id="{{id}}" data-item-type="equipment" data-sortable-id="{{id}}" draggable="{{#if @root.editable}}true{{else}}false{{/if}}" title="Arraste para reordenar" aria-label="Selecionar item: {{name}}" aria-pressed="{{#if selected}}true{{else}}false{{/if}}">
+          <span class="miniatura-visual" aria-hidden="true"><img src="{{img}}" alt="" draggable="false"></span>
           <span class="entrada-linhas"><span class="entrada-nome">{{name}}</span>{{#if equipped}}<span class="entrada-equipada">Equipada</span>{{/if}}</span>
         </button>
       {{/each}}
@@ -427,12 +427,12 @@
             <h2>Técnicas</h2>
           </header>
           <div class="corpo-aba">
-            <div class="lista-expansivel">
+            <div class="lista-expansivel" data-sortable-list="technique">
               <button class="botao-visual botao-adicionar" type="button" data-action="createItem" data-type="technique" {{#unless editable}}disabled{{/unless}}><i class="fa-solid fa-plus" aria-hidden="true"></i><span>Adicionar técnica</span></button>
               {{#each items.technique}}
-                <article class="registro-visual" data-item-id="{{id}}">
+                <article class="registro-visual" data-item-id="{{id}}" data-sortable-id="{{id}}" draggable="{{#if @root.editable}}true{{else}}false{{/if}}">
                   <details class="registro-expansivel">
-                    <summary class="registro-resumo">
+                    <summary class="registro-resumo" title="Arraste para reordenar">
                       <input class="registro-nome" type="text" data-item-field="name" value="{{name}}" placeholder="Nome da técnica" aria-label="Nome da técnica" {{#unless @root.editable}}disabled{{/unless}}>
                       <span class="registro-seta" aria-hidden="true"><i class="fa-solid fa-chevron-down"></i></span>
                     </summary>
@@ -470,9 +470,9 @@
                       <th scope="col" class="coluna-excluir"><span class="sr-only">Excluir</span></th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody data-sortable-list="attack">
                     {{#each items.attack}}
-                      <tr data-item-id="{{id}}">
+                      <tr data-item-id="{{id}}" data-sortable-id="{{id}}" draggable="{{#if @root.editable}}true{{else}}false{{/if}}" title="Arraste pelo espaço vazio para reordenar">
                         <td class="coluna-dado"><button class="botao-icone{{#if @root.editable}} draggable{{/if}}" type="button" data-action="rollAttack" data-movement-macro data-item-id="{{id}}" draggable="{{#if @root.editable}}true{{else}}false{{/if}}" aria-label="Rolar {{name}}" title="Clique para rolar ou arraste para um slot da barra de macros" {{#unless @root.editable}}disabled{{/unless}}><i class="fa-solid fa-dice-d20" aria-hidden="true"></i></button></td>
                         <td class="coluna-imagem">
                           <button class="botao-imagem movimento-imagem" type="button" data-action="editItemImage" aria-label="Alterar imagem do movimento" {{#unless @root.editable}}disabled{{/unless}}>

@@ -1,6 +1,6 @@
 # Movimentos, fórmulas e macros — Nexus
 
-Documentação de uso • Nexus 0.4.35 • Foundry VTT 14 • Revisada em 25/11/2026.
+Documentação de uso • Nexus 0.4.36 • Foundry VTT 14 • Revisada em 25/11/2026.
 
 Este manual reúne os recursos implementados para montar movimentos, escrever fórmulas, publicar resultados no chat e executar habilidades pela barra de macros. Os exemplos usam a sintaxe da ficha Nexus. Os comandos de chat e os scripts do Foundry são apresentados separadamente.
 
@@ -33,6 +33,8 @@ Abra a ficha, entre em **Movimentos** e clique em **Adicionar movimento**.
 | Botão de imagem | Escolhe a imagem ou o GIF por link ou pelo seletor de arquivos do Foundry. |
 | Botão de dado | Um clique executa; arrastar cria o atalho na barra. |
 | Lixeira | Exclui o movimento da ficha. |
+
+Para trocar a ordem dos movimentos, arraste pelo **espaço vazio da linha ou do cartão** e solte acima ou abaixo de outro movimento. O dado continua reservado ao arraste para a hotbar. Itens, técnicas e anotações também podem ser arrastados dentro de suas listas; os campos de texto continuam disponíveis para edição. A nova ordem fica salva ao fechar a ficha.
 
 Ao terminar de editar um campo, pressione **Tab** ou clique fora dele. Nas fichas de Personagem e Maldição, o campo de fórmula em edição se amplia suavemente. Na ficha vertical de Shikigami, os campos ficam organizados em cartões.
 
@@ -692,11 +694,11 @@ Os títulos Dano, Cura e Condição não transformam o resultado em uma ação a
 
 ## 21. Referências e versão
 
-Esta documentação foi conferida contra a implementação Nexus **0.4.35** e o núcleo local Foundry **14.370**. Os exemplos matemáticos principais, parâmetros, vantagem/desvantagem e limitações de dados foram verificados no motor da Nexus com o Roll nativo do Foundry.
+Esta documentação foi conferida contra a implementação Nexus **0.4.36** e o núcleo local Foundry **14.370**. Os exemplos matemáticos principais, parâmetros, vantagem/desvantagem e limitações de dados foram verificados no motor da Nexus com o Roll nativo do Foundry.
 
-- [Motor de fórmulas da Nexus, versão 0.4.35](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.35/module/formula-engine.mjs)
-- [Integração de macros da Nexus, versão 0.4.35](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.35/module/movement-macros.mjs)
-- [Dados e arma equipada da Nexus, versão 0.4.35](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.35/module/documents.mjs)
+- [Motor de fórmulas da Nexus, versão 0.4.36](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.36/module/formula-engine.mjs)
+- [Integração de macros da Nexus, versão 0.4.36](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.36/module/movement-macros.mjs)
+- [Dados e arma equipada da Nexus, versão 0.4.36](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.36/module/documents.mjs)
 - [Macros do Foundry](https://foundryvtt.com/article/macros/)
 - [Controles do Foundry](https://foundryvtt.com/article/controls/)
 - [Dados e modos de rolagem](https://foundryvtt.com/article/dice/)

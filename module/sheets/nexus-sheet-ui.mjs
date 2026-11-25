@@ -1,3 +1,8 @@
+import { reorderActorItems } from "../item-order.mjs";
+
+const ORDER_DRAG_TYPE = "application/x-nexus-sheet-order";
+const SORTABLE_TYPES = new Set(["equipment", "technique", "attack", "notes"]);
+
 /**
  * Interações locais da ficha e anotações salvas nas flags do personagem.
  * Uma instância pertence a uma janela; as escritas de anotações são enfileiradas
@@ -19,9 +24,12 @@ export class NexusSheetUI {
   #queuedNotes = null;
   #writingNotes = false;
   #notesWrite = Promise.resolve();
+  #dragOrigin = null;
+  #dragged = null;
 
   attach(root, { editable = true, actor = null } = {}) {
     this.#captureEditors();
+    this.#clearDrag();
     this.#boundEditors.clear();
     this.#controller?.abort();
     this.#root = root;
@@ -36,6 +44,12 @@ export class NexusSheetUI {
     // Captura antes do formulário para não disparar seu submitOnChange.
     root.addEventListener("input", event => this.#onInput(event), { signal, capture: true });
     root.addEventListener("change", event => this.#onChange(event), { signal, capture: true });
+    root.addEventListener("pointerdown", event => { this.#dragOrigin = event.target; }, { signal, capture: true });
+    root.addEventListener("dragstart", event => this.#onDragStart(event), { signal, capture: true });
+    root.addEventListener("dragover", event => this.#onDragOver(event), { signal, capture: true });
+    root.addEventListener("dragleave", event => this.#onDragLeave(event), { signal, capture: true });
+    root.addEventListener("drop", event => { void this.#onDrop(event); }, { signal, capture: true });
+    root.addEventListener("dragend", () => this.#clearDrag(), { signal, capture: true });
 
     for (const details of root.querySelectorAll("details[data-ui-disclosure]")) {
       const key = details.dataset.uiDisclosure;
@@ -59,6 +73,7 @@ export class NexusSheetUI {
 
   destroy() {
     this.#captureEditors();
+    this.#clearDrag();
     this.#controller?.abort();
     this.#controller = null;
     this.#root = null;
@@ -160,9 +175,10 @@ export class NexusSheetUI {
       if (!button) {
         button = template.cloneNode(true);
         button.dataset.uiEntry = id;
-        list.append(button);
       }
       this.#paintEntry(button, entry, state.selected === id, collection.dataset.uiCollection);
+      // Reaproveita os nós ao alterar a ordem, sem recriar a seleção nem o editor.
+      list.append(button);
     }
 
     const currentId = state.selected;
@@ -203,6 +219,8 @@ export class NexusSheetUI {
 
   #paintEntry(button, entry, selected, collectionKey) {
     button.disabled = false;
+    button.dataset.sortableId = button.dataset.uiEntry;
+    button.draggable = collectionKey === "notes" && this.#canReorder();
     button.classList.toggle("selecionado", selected);
     button.setAttribute("aria-pressed", String(selected));
     button.setAttribute("aria-disabled", String(Boolean(button.disabled)));
@@ -356,6 +374,127 @@ export class NexusSheetUI {
     if (!this.#isVisualField(target)) return;
     event.stopPropagation();
     this.#onInput(event);
+  }
+
+  #canReorder() {
+    return this.#editable && this.#actor?.isOwner === true && Boolean(this.#actor.uuid);
+  }
+
+  #sortableEntry(target) {
+    const row = target?.closest?.("[data-sortable-id]");
+    const list = row?.closest("[data-sortable-list]");
+    const type = list?.dataset.sortableList;
+    if (!row || !list || !SORTABLE_TYPES.has(type) || !this.#root?.contains(list)) return null;
+    return { row, list, type, id: row.dataset.sortableId };
+  }
+
+  #onDragStart(event) {
+    const target = event.target;
+    const entry = this.#sortableEntry(target);
+    if (!entry) return;
+    const pointer = this.#dragOrigin;
+    const origin = pointer && entry.row.contains(pointer) ? pointer : target;
+    // O dado conserva seu arraste nativo para a barra de macros.
+    if (origin?.closest?.("[data-movement-macro]")) return;
+    if (!this.#canReorder() || !event.dataTransfer) {
+      event.preventDefault();
+      return;
+    }
+    // O editor mantém suas próprias interações de texto e imagem.
+    if (origin?.closest?.("prose-mirror, [contenteditable]:not([contenteditable='false'])")) return;
+    const interactive = origin?.closest?.("input, textarea, select, button, a");
+    const card = ["equipment", "notes"].includes(entry.type) && interactive === entry.row;
+    if ((interactive && !card) || (entry.type === "attack" && origin?.closest?.("img, video"))) {
+      event.preventDefault();
+      return;
+    }
+    const payload = { actorUuid: this.#actor.uuid, type: entry.type, id: entry.id };
+    this.#clearDrag();
+    this.#dragged = { ...entry, payload };
+    event.dataTransfer.setData(ORDER_DRAG_TYPE, JSON.stringify(payload));
+    event.dataTransfer.effectAllowed = "move";
+    entry.row.classList.add("nexus-sort-dragging");
+    event.stopImmediatePropagation();
+  }
+
+  #dropTarget(event) {
+    const dragged = this.#dragged;
+    if (!dragged || !this.#canReorder() || dragged.payload.actorUuid !== this.#actor.uuid) return null;
+    if (!Array.from(event.dataTransfer?.types ?? []).includes(ORDER_DRAG_TYPE)) return null;
+    const list = event.target?.closest?.("[data-sortable-list]");
+    if (list !== dragged.list || list?.dataset.sortableList !== dragged.type || !this.#root.contains(list)) return null;
+    let entry = this.#sortableEntry(event.target);
+    if (!entry) {
+      if (event.target?.closest?.("button, input, select, textarea, prose-mirror")) return null;
+      const rows = [...list.querySelectorAll("[data-sortable-id]")]
+        .filter(row => row.closest("[data-sortable-list]") === list);
+      if (!rows.length) return null;
+      const row = rows.find(candidate => event.clientY < candidate.getBoundingClientRect().bottom) ?? rows.at(-1);
+      entry = this.#sortableEntry(row);
+    }
+    if (!entry || entry.list !== list) return null;
+    const bounds = entry.row.getBoundingClientRect();
+    return { ...entry, before: event.clientY < bounds.top + (bounds.height / 2) };
+  }
+
+  #clearDropMarkers() {
+    for (const row of this.#root?.querySelectorAll(".nexus-sort-before, .nexus-sort-after") ?? []) {
+      row.classList.remove("nexus-sort-before", "nexus-sort-after");
+    }
+  }
+
+  #clearDrag() {
+    this.#dragged?.row.classList.remove("nexus-sort-dragging");
+    this.#clearDropMarkers();
+    this.#dragged = null;
+    this.#dragOrigin = null;
+  }
+
+  #onDragOver(event) {
+    const entry = this.#dropTarget(event);
+    this.#clearDropMarkers();
+    if (!entry) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    event.dataTransfer.dropEffect = "move";
+    if (entry.id !== this.#dragged.id) entry.row.classList.add(entry.before ? "nexus-sort-before" : "nexus-sort-after");
+  }
+
+  #onDragLeave(event) {
+    if (!this.#dragged?.list.contains(event.relatedTarget)) this.#clearDropMarkers();
+  }
+
+  async #onDrop(event) {
+    const entry = this.#dropTarget(event);
+    const dragged = this.#dragged;
+    if (!entry || !dragged) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    let payload;
+    try { payload = JSON.parse(event.dataTransfer.getData(ORDER_DRAG_TYPE)); } catch { this.#clearDrag(); return; }
+    this.#clearDrag();
+    if (payload?.actorUuid !== this.#actor.uuid || payload.type !== dragged.type || payload.id !== dragged.id ||
+        entry.id === dragged.id) return;
+    this.#captureEditors();
+    try {
+      if (entry.type === "notes") {
+        const state = this.#collections.get("notes");
+        if (!state?.entries.has(dragged.id) || !state.entries.has(entry.id)) return;
+        const order = [...state.entries.keys()].filter(id => id !== dragged.id);
+        order.splice(order.indexOf(entry.id) + (entry.before ? 0 : 1), 0, dragged.id);
+        if (order.every((id, index) => id === [...state.entries.keys()][index])) return;
+        state.entries = new Map(order.map(id => [id, state.entries.get(id)]));
+        const collection = entry.list.closest("[data-ui-collection='notes']");
+        if (collection) this.#renderCollection(collection, state);
+        this.#queueNotes(state);
+        await this.#notesWrite;
+      } else {
+        await reorderActorItems(this.#actor, { type: entry.type, id: dragged.id, targetId: entry.id, before: entry.before });
+      }
+    } catch (error) {
+      console.error("Nexus JJK | Não foi possível reordenar a lista.", error);
+      globalThis.ui?.notifications?.error(error.message || "Não foi possível salvar a nova ordem.");
+    }
   }
 
   #isVisualField(target) {
