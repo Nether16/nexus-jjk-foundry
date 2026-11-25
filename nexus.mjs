@@ -12,6 +12,8 @@ import { registerRichTextAutosave } from "./module/sheets/nexus-rich-text.mjs";
 import { registerMovementMacros } from "./module/movement-macros.mjs";
 import { registerShikigamiReferenceSync } from "./module/shikigami.mjs";
 import { registerCompendiumReader } from "./module/compendium-reader.mjs";
+import { registerSessionXP } from "./module/session-xp.mjs";
+import { registerCriticalEffects } from "./module/critical-effects.mjs";
 
 const NEXUS_LOGO = "systems/nexus-jjk/assets/images/nexus-logo.png";
 
@@ -22,6 +24,8 @@ Hooks.once("init", () => {
   registerMovementMacros();
   registerShikigamiReferenceSync();
   registerCompendiumReader();
+  registerSessionXP();
+  registerCriticalEffects();
 
   CONFIG.NEXUS = {
     attributes: NEXUS_ATTRIBUTES,

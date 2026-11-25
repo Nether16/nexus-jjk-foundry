@@ -1,6 +1,6 @@
 # Movimentos, fórmulas e macros — Nexus
 
-Documentação de uso • Nexus 0.4.30 • Foundry VTT 14 • Revisada em 19/11/2026.
+Documentação de uso • Nexus 0.4.35 • Foundry VTT 14 • Revisada em 25/11/2026.
 
 Este manual reúne os recursos implementados para montar movimentos, escrever fórmulas, publicar resultados no chat e executar habilidades pela barra de macros. Os exemplos usam a sintaxe da ficha Nexus. Os comandos de chat e os scripts do Foundry são apresentados separadamente.
 
@@ -630,6 +630,26 @@ Movimentos de fichas diferentes que gastam a EA do mesmo invocador entram em uma
 
 Essa proteção não é uma transação compartilhada entre vários usuários ou várias abas. Evite que duas pessoas operem a mesma ficha simultaneamente para gastar o mesmo recurso.
 
+### XP da sessão
+
+O mestre escreve `/xp` no chat, informa a quantidade de XP por personagem e marca as fichas que receberão. Também pode usar `/xp 50` para abrir a janela com 50 XP já preenchidos. Confirme em **Distribuir XP**. O sistema soma a experiência, sobe de nível quando necessário e conserva o XP restante.
+
+O chat anuncia **Sessão encerrada**, **XP Recebido:** e a quantidade entregue, com os nomes dos personagens. XP e nível ficam disponíveis para edição apenas para o mestre, inclusive por atualizações de documento. Os jogadores continuam editando os demais campos da ficha.
+
+Em uma macro de Script do mestre, `await game.nexus.promptXP()` abre a mesma janela. Para fichas específicas, use `await game.nexus.awardXP(["ID_DO_PERSONAGEM"], 50)`.
+
+### Efeitos críticos no chat
+
+Um **20 natural em um d20 ativo** abre o cartão **EFEITO CRÍTICO**. O total somado aos atributos não conta: 19 + 1 continua sendo um 19 natural. Dados descartados não contam. Nos movimentos Nexus, apenas o campo Rolagem gera essa escolha; dados de Custo e Efeito não geram críticos.
+
+- **Kokusen:** rola `1d2`. Resultado **2** anuncia **Kokusen!**, com dano ×2; resultado **1** anuncia **Crítico!**, com dano equivalente a **130%** do golpe.
+- **Outro Efeito → Escolhido pelas Faíscas:** anuncia o Kokusen diretamente, usando **Escolhido pelas Faíscas** como título.
+- **Outro Efeito → Efeito Narrativo:** publica **Excelente resultado!**.
+
+O cartão de Kokusen informa os benefícios de 3 rodadas: crítico a partir de 19, custos de EA reduzidos em 20% e atributos aumentados em 20%. **Essas regras são apenas anunciadas:** o sistema não altera atributos, custos, dano, dificuldade ou duração automaticamente. O mestre resolve esses modificadores durante a sessão.
+
+A escolha é feita pelo autor da rolagem ou pelo mestre, com permissão sobre a ficha. Cada cartão permite concluir uma única escolha. As opções e o resultado mantêm a visibilidade da rolagem original, incluindo sussurros e rolagens cegas.
+
 ## 19. Limites da versão atual
 
 | Recurso | Situação |
@@ -637,7 +657,7 @@ Essa proteção não é uma transação compartilhada entre vários usuários ou
 | Aplicar dano ou cura diretamente ao HP | Não automatizado pelos movimentos |
 | Aplicar condições e contar seus turnos | Não automatizado |
 | Comparar ataque com CA de um alvo | Não automatizado |
-| Identificar crítico e multiplicar dano | Não automatizado |
+| Identificar 20 natural e escolher Efeito Crítico | Automático no chat; multiplicadores e bônus são apenas anunciados |
 | Consumir ações ou controlar alcance | Não automatizado |
 | Descontar no invocador o custo do Shikigami | Automático pelo campo Custo, com vínculo e permissão válidos |
 | Reutilizar o resultado de outra linha como variável | Não implementado |
@@ -672,11 +692,11 @@ Os títulos Dano, Cura e Condição não transformam o resultado em uma ação a
 
 ## 21. Referências e versão
 
-Esta documentação foi conferida contra a implementação Nexus **0.4.30** e o núcleo local Foundry **14.370**. Os exemplos matemáticos principais, parâmetros, vantagem/desvantagem e limitações de dados foram verificados no motor da Nexus com o Roll nativo do Foundry.
+Esta documentação foi conferida contra a implementação Nexus **0.4.35** e o núcleo local Foundry **14.370**. Os exemplos matemáticos principais, parâmetros, vantagem/desvantagem e limitações de dados foram verificados no motor da Nexus com o Roll nativo do Foundry.
 
-- [Motor de fórmulas da Nexus, versão 0.4.30](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.30/module/formula-engine.mjs)
-- [Integração de macros da Nexus, versão 0.4.30](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.30/module/movement-macros.mjs)
-- [Dados e arma equipada da Nexus, versão 0.4.30](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.30/module/documents.mjs)
+- [Motor de fórmulas da Nexus, versão 0.4.35](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.35/module/formula-engine.mjs)
+- [Integração de macros da Nexus, versão 0.4.35](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.35/module/movement-macros.mjs)
+- [Dados e arma equipada da Nexus, versão 0.4.35](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.35/module/documents.mjs)
 - [Macros do Foundry](https://foundryvtt.com/article/macros/)
 - [Controles do Foundry](https://foundryvtt.com/article/controls/)
 - [Dados e modos de rolagem](https://foundryvtt.com/article/dice/)

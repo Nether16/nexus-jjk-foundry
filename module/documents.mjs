@@ -1,6 +1,7 @@
 import { getAttributeMax, getXpTarget, NEXUS_ATTRIBUTES, NEXUS_MAX_LEVEL } from "./config.mjs";
 import { SHIKIGAMI_ATTRIBUTE_KEYS } from "./shikigami.mjs";
 import { getWeaponDamageDetails } from "./weapon-damage.mjs";
+import { validateProgressionChanges } from "./progression-permissions.mjs";
 
 const DEFAULT_TOKEN_ART = globalThis.CONST?.DEFAULT_TOKEN ?? "icons/svg/mystery-man.svg";
 
@@ -79,6 +80,7 @@ export class NexusActor extends Actor {
   }
 
   async _preCreate(data, options, user) {
+    if (!validateProgressionChanges(this, data, user, { creating: true })) return false;
     if (this.type === "shikigami") {
       const changes = invokerChanges(data);
       changes.push({ value: this.system.invokerId ?? "" });
@@ -94,6 +96,7 @@ export class NexusActor extends Actor {
   }
 
   async _preUpdate(changes, options, user) {
+    if (!validateProgressionChanges(this, changes, user)) return false;
     const isShikigami = this.type === "shikigami";
     if (isShikigami && !validateInvokerChanges(this, invokerChanges(changes), user)) return false;
     const isCreature = this.type === "character" || this.type === "curse";

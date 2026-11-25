@@ -316,6 +316,7 @@ export class NexusFormulaEngine {
     const messageMode = game.settings.get("core", "messageMode");
     const rows = [];
     const rolls = [];
+    const criticalRollIndexes = [];
     const resolve = formula => resolveFormula(actor, formula, values);
     const evaluateRoll = async (formula, label) => {
       try {
@@ -355,6 +356,7 @@ export class NexusFormulaEngine {
 
       if (attack) {
         const roll = await evaluateRoll(resolve(attack), "Rolagem");
+        criticalRollIndexes.push(rolls.length);
         rolls.push(roll);
         rows.push(movementSection("Rolagem", await renderMovementRoll(roll)));
       }
@@ -400,6 +402,7 @@ export class NexusFormulaEngine {
         author: game.user.id,
         speaker: ChatMessage.getSpeaker({ actor }),
         rolls: rolls.map(roll => JSON.stringify(roll)),
+        flags: { "nexus-jjk": { criticalRollIndexes } },
         content: `<section class="nexus-chat-card"><strong class="nexus-chat-title">${escapeHTML(item.name)}</strong>${image}${rows.join("")}</section>`
       }, { messageMode });
       if (!message) throw new Error("Não foi possível publicar o golpe no chat.");

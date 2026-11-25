@@ -2812,3 +2812,100 @@
 .nexus-chat-card .nexus-chat-value {
   overflow-wrap: anywhere;
 }
+
+.nexus-xp-dialog .nexus-xp-recipients-list {
+  display: grid;
+  gap: 8px;
+  max-height: 300px;
+  overflow: hidden auto;
+  padding: 4px;
+}
+
+.nexus-xp-dialog .nexus-xp-recipient {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 30px;
+  cursor: pointer;
+}
+
+.nexus-xp-dialog .nexus-xp-recipient input {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.nexus-xp-dialog .nexus-xp-recipient span,
+.nexus-session-xp .nexus-xp-recipients {
+  overflow-wrap: anywhere;
+}
+
+.nexus-session-xp {
+  text-align: center;
+}
+
+.nexus-session-xp .nexus-xp-recipients {
+  font-size: .85em;
+  opacity: .8;
+}
+
+.nexus-critical-card {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  padding: 10px 4px;
+}
+
+.nexus-critical-title {
+  font-size: 1.15em;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.nexus-critical-subtitle {
+  margin: 0;
+  text-align: center;
+}
+
+.nexus-critical-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.nexus-critical-actions button {
+  min-width: 0;
+  min-height: 38px;
+  height: auto;
+  margin: 0;
+  padding: 7px;
+  border: 1px solid #74408c;
+  border-radius: 5px;
+  background: #160c20;
+  color: #fff;
+  font: 700 12px/1.35 Arial, sans-serif;
+  white-space: normal;
+  cursor: pointer;
+}
+
+.nexus-critical-actions button:not(:disabled):hover {
+  border-color: #d979ff;
+  background: #392049;
+}
+
+.nexus-critical-actions button:focus-visible {
+  outline: 2px solid #d979ff;
+  outline-offset: 2px;
+}
+
+.nexus-critical-actions button:disabled {
+  opacity: .55;
+  cursor: default;
+}
+
+.nexus-critical-rules {
+  margin: 0;
+  padding-top: 8px;
+  border-top: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}

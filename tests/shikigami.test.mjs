@@ -550,7 +550,8 @@ test("personagem mantém HP, EA, teto de atributos, progressão por XP e gasto d
   const actor = new NexusActor({ type: "character", system });
   assert.equal(await actor._preUpdate({ "system.attributes.forca": 40 }, {}, player), false);
   const changes = { "system.xp.value": system.xp.target };
-  assert.notEqual(await actor._preUpdate(changes, {}, player), false);
+  assert.equal(await actor._preUpdate(changes, {}, player), false, "jogador não altera XP para subir de nível");
+  assert.notEqual(await actor._preUpdate(changes, {}, gm), false);
   assert.equal(changes.system?.level ?? changes["system.level"], 2);
   assert.equal(changes["system.xp.value"], 0);
   trackedUpdate(actor);

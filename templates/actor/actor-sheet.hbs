@@ -220,6 +220,7 @@
           name="system.level"
           value="{{system.level}}"
           aria-label="Nível"
+          {{#unless isGM}}readonly{{/unless}}
         >
       </div>
 
@@ -232,6 +233,7 @@
           min="0"
           step="1"
           aria-label="XP atual"
+          {{#unless isGM}}readonly{{/unless}}
           {{#unless editable}}disabled{{/unless}}
         >
         <span aria-hidden="true">/</span>
