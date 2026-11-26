@@ -1,3 +1,5 @@
+import { calculateCriticalDamage, hasMovementDamage, readMovementEffects } from "./critical-damage.mjs";
+
 const NAMESPACE = "nexus-jjk";
 const FLAG = "criticalEffect";
 const offering = new Set();
@@ -70,17 +72,35 @@ function button(action, text) {
   return `<button type="button" data-nexus-critical-action="${action}">${escapeHTML(text)}</button>`;
 }
 
-function offerContent(alternatives = false) {
+function offerContent(alternatives = false, effects = [], manualDamage = "") {
   const buttons = alternatives
     ? button("sparks", "Escolhido pelas Faíscas") + button("narrative", "Efeito Narrativo")
     : button("kokusen", "Kokusen") + button("other", "Outro Efeito");
   return '<section class="nexus-critical-card">' +
     '<strong class="nexus-critical-title">EFEITO CRÍTICO</strong>' +
     '<p class="nexus-critical-subtitle">Escolha seu efeito</p>' +
+    (hasMovementDamage(effects)
+      ? `<p class="nexus-critical-subtitle">Dano original: <strong>${calculateCriticalDamage(effects, false).base}</strong></p>`
+      : '<label class="nexus-critical-manual">Dano base (opcional)' +
+        `<input type="number" min="0" step="1" data-nexus-critical-damage value="${escapeHTML(manualDamage ?? "")}" placeholder="Dano do golpe"></label>`) +
     `<div class="nexus-critical-actions">${buttons}</div></section>`;
 }
 
-function resultContent(choice, success, rollHTML = "") {
+function damageContent(damage) {
+  if (!damage) return "";
+  const components = damage.components.length > 1
+    ? '<div class="nexus-critical-components">' + damage.components.map(entry =>
+      `<div>${escapeHTML(entry.label)} <strong>${entry.value}</strong></div>`).join("") + '</div>' : "";
+  const otherEffects = damage.otherEffects.length
+    ? '<div class="nexus-critical-other-effects">' + damage.otherEffects.map(entry =>
+      `<div><strong>${escapeHTML(entry.label)}</strong> ${escapeHTML(entry.value)}</div>`).join("") + '</div>' : "";
+  return '<section class="nexus-critical-damage">' +
+    `<div>Dano original <strong>${damage.base}</strong></div>` + components +
+    `<div class="nexus-critical-damage-total">Dano final <strong>${damage.total}</strong></div>` +
+    `<small>${damage.base} × ${String(damage.multiplier).replace(".", ",")}</small></section>` + otherEffects;
+}
+
+function resultContent(choice, success, rollHTML = "", damage = null) {
   let title;
   let text;
   if (choice === "narrative") {
@@ -98,7 +118,7 @@ function resultContent(choice, success, rollHTML = "") {
   }
   return '<section class="nexus-critical-card nexus-critical-result">' +
     `<strong class="nexus-critical-title">${escapeHTML(title)}</strong>` +
-    (text ? `<p class="nexus-critical-rules">${escapeHTML(text)}</p>` : "") + rollHTML + '</section>';
+    damageContent(damage) + (text ? `<p class="nexus-critical-rules">${escapeHTML(text)}</p>` : "") + rollHTML + '</section>';
 }
 
 function resolvedContent(choice) {
@@ -122,12 +142,14 @@ export async function createCriticalOffer(message) {
   offering.add(key);
   try {
     const actor = speakerActor(message);
-    const data = { kind: "offer", state: "pending", sourceMessage: key, actorUuid: actor?.uuid ?? null };
+    const movementEffects = readMovementEffects(message.getFlag?.(NAMESPACE, "movementEffects") ??
+      message.flags?.[NAMESPACE]?.movementEffects);
+    const data = { kind: "offer", state: "pending", sourceMessage: key, actorUuid: actor?.uuid ?? null, movementEffects };
     const offer = await ChatMessage.create({
       author: game.user.id,
       speaker: { ...(message.speaker ?? {}) },
       ...visibilityOf(message),
-      content: offerContent(),
+      content: offerContent(false, movementEffects),
       flags: { [NAMESPACE]: { [FLAG]: data } }
     });
     if (!offer) throw new Error("Não foi possível publicar as opções de Efeito Crítico.");
@@ -167,7 +189,7 @@ function resultFor(message) {
 }
 
 /** A choice is stored on the chat document and cannot be rolled again after resolution. */
-export async function chooseCriticalEffect(messageId, choice) {
+export async function chooseCriticalEffect(messageId, choice, { baseDamage } = {}) {
   if (!["kokusen", "other", "sparks", "narrative"].includes(choice) || choosing.has(messageId)) return;
   choosing.add(messageId);
   let message;
@@ -182,27 +204,33 @@ export async function chooseCriticalEffect(messageId, choice) {
       return;
     }
     if ((previous.state === "pending") !== ["kokusen", "other"].includes(choice)) return;
+    const manualDamage = baseDamage === undefined ? previous.manualDamage : baseDamage;
     if (choice === "other") {
-      await message.update({ content: offerContent(true),
-        [`flags.${NAMESPACE}.${FLAG}`]: { ...previous, state: "alternatives" } });
+      await message.update({ content: offerContent(true, previous.movementEffects, manualDamage),
+        [`flags.${NAMESPACE}.${FLAG}`]: { ...previous, state: "alternatives", manualDamage: manualDamage ?? "" } });
       return message;
     }
-    await message.update({ [`flags.${NAMESPACE}.${FLAG}`]: { ...previous, state: "resolving", choice } });
+    // Valida o dano manual antes de consumir o teste de Kokusen.
+    if (choice !== "narrative") calculateCriticalDamage(previous.movementEffects, false, manualDamage);
+    previous.manualDamage = manualDamage ?? "";
+    await message.update({ content: offerContent(previous.state === "alternatives", previous.movementEffects, manualDamage),
+      [`flags.${NAMESPACE}.${FLAG}`]: { ...previous, state: "resolving", choice } });
     let roll;
     if (choice === "kokusen") {
       roll = await new Roll("1d2").evaluate({ allowInteractive: !message.blind });
       if (![1, 2].includes(roll.total)) throw new Error("O teste de Kokusen precisa resultar em 1 ou 2.");
     }
     const success = choice === "sparks" || roll?.total === 2;
+    const damage = choice === "narrative" ? null : calculateCriticalDamage(previous.movementEffects, success, manualDamage);
     const rollHTML = roll ? await roll.render() : "";
     result = await ChatMessage.create({
       author: game.user.id,
       speaker: { ...(message.speaker ?? {}) },
       ...visibilityOf(message),
       rolls: roll ? [JSON.stringify(roll)] : [],
-      content: resultContent(choice, success, rollHTML),
+      content: resultContent(choice, success, rollHTML, damage),
       flags: { [NAMESPACE]: { [FLAG]: {
-        kind: "result", offerMessage: messageKey(message), choice, success
+        kind: "result", offerMessage: messageKey(message), choice, success, damage
       } } }
     });
     if (!result) throw new Error("Não foi possível publicar o efeito crítico.");
@@ -227,17 +255,18 @@ export function registerCriticalEffects() {
     const state = stateOf(message);
     if (state?.kind !== "offer") return;
     const own = game.user.isGM || authorId(message) === game.user.id;
-    for (const button of html.querySelectorAll("[data-nexus-critical-action]")) {
+    for (const button of html.querySelectorAll("[data-nexus-critical-action], [data-nexus-critical-damage]")) {
       button.disabled = !own || message.isContentVisible === false || !["pending", "alternatives"].includes(state.state);
     }
     html.addEventListener("click", event => {
       const button = event.target?.closest?.("[data-nexus-critical-action]");
       if (!button || button.disabled || !html.contains(button)) return;
       event.preventDefault();
-      for (const control of html.querySelectorAll("[data-nexus-critical-action]")) control.disabled = true;
-      void chooseCriticalEffect(message.id, button.dataset.nexusCriticalAction).finally(() => {
+      for (const control of html.querySelectorAll("[data-nexus-critical-action], [data-nexus-critical-damage]")) control.disabled = true;
+      const baseDamage = html.querySelector("[data-nexus-critical-damage]")?.value;
+      void chooseCriticalEffect(message.id, button.dataset.nexusCriticalAction, { baseDamage }).finally(() => {
         const current = stateOf(game.messages.get(message.id));
-        for (const control of html.querySelectorAll("[data-nexus-critical-action]")) {
+        for (const control of html.querySelectorAll("[data-nexus-critical-action], [data-nexus-critical-damage]")) {
           control.disabled = !own || message.isContentVisible === false || !["pending", "alternatives"].includes(current?.state);
         }
       });

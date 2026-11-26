@@ -90,6 +90,59 @@ test("dados serializados e termos aninhados reconhecem o d20 e ignoram cartas de
   assert.equal(hasCriticalD20({ rolls: ["invalid json"] }), false);
 });
 
+test("crítico calcula o dano a partir do snapshot, sem consultar a ficha novamente", async () => {
+  const effects = [{ label: "Dano:", kind: "damage", value: 100 },
+    { label: "Cura:", kind: "number", value: 20 }];
+  const source = message({ rolls: [d20Roll()], flags: { "nexus-jjk": { movementEffects: effects } } });
+  const offer = await createCriticalOffer(source);
+  assert.match(offer.content, /Dano original: <strong>100/u);
+  effects[0].value = 900;
+  environment.outcome = 1;
+  const result = await chooseCriticalEffect(offer.id, "kokusen");
+  assert.deepEqual(critical(result).damage, { base: 100, total: 130, multiplier: 1.3,
+    components: [{ label: "Dano:", kind: "damage", value: 100 }],
+    otherEffects: [{ label: "Cura:", kind: "number", value: 20 }] });
+  assert.match(result.content, /Dano final <strong>130/u);
+  assert.match(result.content, /Cura:<\/strong> 20/u);
+  assert.equal(environment.rolls.length, 1, "apenas o d2 de Kokusen é rolado");
+});
+
+test("Kokusen e Faíscas calculam 2x; efeito narrativo continua publicando apenas texto", async () => {
+  for (const choice of ["kokusen", "sparks", "narrative"]) {
+    const offer = await createCriticalOffer(message({ rolls: [d20Roll()], flags: { "nexus-jjk": {
+      movementEffects: [{ label: "Dano:", kind: "damage", value: 40 }]
+    } } }));
+    if (choice !== "kokusen") await chooseCriticalEffect(offer.id, "other");
+    const result = await chooseCriticalEffect(offer.id, choice);
+    if (choice === "narrative") {
+      assert.equal(result.content.replace(/<[^>]+>/gu, ""), "Excelente resultado!");
+      assert.equal(critical(result).damage, null);
+    } else {
+      assert.equal(critical(result).damage.total, 80);
+      assert.match(result.content, /Dano final <strong>80/u);
+    }
+  }
+  assert.equal(environment.rolls.length, 1);
+});
+
+test("dano manual de rolagens sem movimento sobrevive a Outro Efeito", async () => {
+  const offer = await createCriticalOffer(message({ rolls: [d20Roll()] }));
+  assert.match(offer.content, /data-nexus-critical-damage/u);
+  await chooseCriticalEffect(offer.id, "other", { baseDamage: "100" });
+  assert.match(offer.content, /value="100"/u);
+  const result = await chooseCriticalEffect(offer.id, "sparks");
+  assert.equal(critical(result).damage.total, 200);
+  assert.deepEqual(environment.rolls, []);
+});
+
+test("dano manual inválido não consome o d2 nem fecha a escolha", async t => {
+  t.mock.method(console, "error", () => {});
+  const offer = await createCriticalOffer(message({ rolls: [d20Roll()] }));
+  assert.equal(await chooseCriticalEffect(offer.id, "kokusen", { baseDamage: "-10" }), undefined);
+  assert.equal(critical(offer).state, "pending");
+  assert.deepEqual(environment.rolls, []);
+});
+
 test("oferta aparece uma vez no cliente autor e conserva a privacidade da rolagem", async () => {
   const source = message({ author: { id: "player" }, rolls: [d20Roll()], whisper: ["gm", "ally"], blind: true });
   const offer = await createCriticalOffer(source);

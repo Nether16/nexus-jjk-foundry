@@ -1,4 +1,5 @@
 import { getShikigamiInvoker } from "./shikigami.mjs";
+import { movementEffectResult } from "./critical-damage.mjs";
 
 const ATTRIBUTE_ALIASES = Object.freeze({
   for: "attributes.forca",
@@ -317,6 +318,7 @@ export class NexusFormulaEngine {
     const rows = [];
     const rolls = [];
     const criticalRollIndexes = [];
+    const movementEffects = [];
     const resolve = formula => resolveFormula(actor, formula, values);
     const evaluateRoll = async (formula, label) => {
       try {
@@ -370,6 +372,7 @@ export class NexusFormulaEngine {
         const title = label.trim() || "Efeito";
         const literal = literalText(expression);
         if (literal !== null) {
+          movementEffects.push(movementEffectResult(title, literal));
           rows.push(movementSection(title, escapeHTML(literal)));
           continue;
         }
@@ -377,6 +380,7 @@ export class NexusFormulaEngine {
         const formula = resolve(expression);
         if (isDiceFormula(formula)) {
           const roll = await evaluateRoll(formula, title);
+          movementEffects.push(movementEffectResult(title, roll.total, { unlabeled: !label.trim() }));
           rolls.push(roll);
           rows.push(movementSection(title, await renderMovementRoll(roll)));
           continue;
@@ -386,7 +390,9 @@ export class NexusFormulaEngine {
         if (value === null && /[+*\/^()%-]/u.test(expression) && /^[\d\s.+*\/^()%-]+$/u.test(formula)) {
           throw new Error(`Fórmula inválida em ${title} ${formula}`);
         }
-        rows.push(movementSection(title, escapeHTML(value === null ? expression : Math.floor(value))));
+        const result = value === null ? expression : Math.floor(value);
+        movementEffects.push(movementEffectResult(title, result, { unlabeled: !label.trim() }));
+        rows.push(movementSection(title, escapeHTML(result)));
       }
 
       if (amount > 0) {
@@ -402,7 +408,7 @@ export class NexusFormulaEngine {
         author: game.user.id,
         speaker: ChatMessage.getSpeaker({ actor }),
         rolls: rolls.map(roll => JSON.stringify(roll)),
-        flags: { "nexus-jjk": { criticalRollIndexes } },
+        flags: { "nexus-jjk": { criticalRollIndexes, movementEffects } },
         content: `<section class="nexus-chat-card"><strong class="nexus-chat-title">${escapeHTML(item.name)}</strong>${image}${rows.join("")}</section>`
       }, { messageMode });
       if (!message) throw new Error("Não foi possível publicar o golpe no chat.");

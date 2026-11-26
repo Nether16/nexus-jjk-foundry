@@ -2945,3 +2945,50 @@
   line-height: 1.5;
   overflow-wrap: anywhere;
 }
+
+.nexus-critical-manual {
+  display: grid;
+  gap: 5px;
+  font-size: .9em;
+}
+
+.nexus-critical-manual input {
+  width: 100%;
+  min-height: 32px;
+}
+
+.nexus-critical-damage {
+  display: grid;
+  gap: 6px;
+  padding: 10px;
+  border: 1px solid #74408c;
+  border-radius: 6px;
+}
+
+.nexus-critical-damage > div,
+.nexus-critical-components > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.nexus-critical-damage > .nexus-critical-components {
+  display: grid;
+  font-size: .85em;
+}
+
+.nexus-critical-damage-total {
+  font-size: 1.2em;
+  font-weight: 700;
+}
+
+.nexus-critical-damage small {
+  text-align: right;
+  opacity: .8;
+}
+
+.nexus-critical-other-effects {
+  display: grid;
+  gap: 4px;
+  overflow-wrap: anywhere;
+}

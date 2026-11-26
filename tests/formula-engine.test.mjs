@@ -238,6 +238,26 @@ for (const cost of ["-0.2", "1 / 0", "1d0", "texto"]) {
   });
 }
 
+test("snapshot dos efeitos guarda os danos já resolvidos e diferencia cura, custo e texto", async () => {
+  const message = await NexusFormulaEngine.rollItem(actor(), item({ attack: "1d20 + DES", cost: "5",
+    effect: 'Dano: 2d6 + FOR | Dano extra: 2 | Cura: 12 | Custo: 3 | Nota: "Derruba"' }));
+  assert.deepEqual(message.flags["nexus-jjk"].movementEffects, [
+    { label: "Dano:", kind: "damage", value: 15 },
+    { label: "Dano extra:", kind: "damage", value: 2 },
+    { label: "Cura:", kind: "number", value: 12 },
+    { label: "Custo:", kind: "number", value: 3 },
+    { label: "Nota:", kind: "text", value: "Derruba" }
+  ]);
+  assert.deepEqual(message.flags["nexus-jjk"].criticalRollIndexes, [0]);
+});
+
+test("efeito sem rótulo numérico é dano; literal numérico continua texto", async () => {
+  const numeric = await NexusFormulaEngine.rollItem(actor(), item({ effect: "FOR * 5" }));
+  assert.deepEqual(numeric.flags["nexus-jjk"].movementEffects, [{ label: "Efeito", kind: "damage", value: 15 }]);
+  const text = await NexusFormulaEngine.rollItem(actor(), item({ effect: 'Dano: "40"' }));
+  assert.deepEqual(text.flags["nexus-jjk"].movementEffects, [{ label: "Dano:", kind: "text", value: "40" }]);
+});
+
 test("EA insuficiente usa o custo inteiro e impede rolar o ataque", async () => {
   const current = actor({ ea: 2 });
   assert.equal(await NexusFormulaEngine.rollItem(current, item({ attack: "1d20", cost: "3.9" })), undefined);

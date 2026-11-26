@@ -1,6 +1,6 @@
 # Movimentos, fórmulas e macros — Nexus
 
-Documentação de uso • Nexus 0.4.36 • Foundry VTT 14 • Revisada em 25/11/2026.
+Documentação de uso • Nexus 0.4.37 • Foundry VTT 14 • Revisada em 25/11/2026.
 
 Este manual reúne os recursos implementados para montar movimentos, escrever fórmulas, publicar resultados no chat e executar habilidades pela barra de macros. Os exemplos usam a sintaxe da ficha Nexus. Os comandos de chat e os scripts do Foundry são apresentados separadamente.
 
@@ -648,7 +648,13 @@ Um **20 natural em um d20 ativo** abre o cartão **EFEITO CRÍTICO**. O total so
 - **Outro Efeito → Escolhido pelas Faíscas:** anuncia o Kokusen diretamente, usando **Escolhido pelas Faíscas** como título.
 - **Outro Efeito → Efeito Narrativo:** publica **Excelente resultado!**.
 
-O cartão de Kokusen informa os benefícios de 3 rodadas: crítico a partir de 19, custos de EA reduzidos em 20% e atributos aumentados em 20%. **Essas regras são apenas anunciadas:** o sistema não altera atributos, custos, dano, dificuldade ou duração automaticamente. O mestre resolve esses modificadores durante a sessão.
+O cartão de Kokusen informa os benefícios de 3 rodadas: crítico a partir de 19, custos de EA reduzidos em 20% e atributos aumentados em 20%. **Esses bônus temporários são apenas anunciados:** o sistema não altera atributos, custos, dificuldade ou duração automaticamente. O mestre resolve esses modificadores durante a sessão.
+
+O cartão mostra **Dano original** e **Dano final**: 100 vira **130** no crítico normal, ou **200** em Kokusen e Escolhido pelas Faíscas. Ele usa os resultados já calculados na rolagem original, sem repetir os dados de dano nem consultar novos atributos. A soma das parcelas de dano recebe o multiplicador e o total final é arredondado para baixo.
+
+Use `Dano:`, `Dano físico:` ou `Dano extra:` para identificar parcelas de dano numérico. Um efeito numérico sem rótulo também é tratado como dano. Cura, custo, alcance e textos mantêm seus valores; o efeito narrativo continua publicando apenas **Excelente resultado!**. Não há aplicação automática ao HP de um alvo.
+
+Em rolagens avulsas ou mensagens antigas sem dano registrado, preencha **Dano base (opcional)** para calcular o total. Sem esse valor, o cartão apresenta as regras do crítico.
 
 A escolha é feita pelo autor da rolagem ou pelo mestre, com permissão sobre a ficha. Cada cartão permite concluir uma única escolha. As opções e o resultado mantêm a visibilidade da rolagem original, incluindo sussurros e rolagens cegas.
 
@@ -659,7 +665,7 @@ A escolha é feita pelo autor da rolagem ou pelo mestre, com permissão sobre a 
 | Aplicar dano ou cura diretamente ao HP | Não automatizado pelos movimentos |
 | Aplicar condições e contar seus turnos | Não automatizado |
 | Comparar ataque com CA de um alvo | Não automatizado |
-| Identificar 20 natural e escolher Efeito Crítico | Automático no chat; multiplicadores e bônus são apenas anunciados |
+| Identificar 20 natural e escolher Efeito Crítico | Automático no chat, incluindo cálculo do dano final; bônus temporários são apenas anunciados |
 | Consumir ações ou controlar alcance | Não automatizado |
 | Descontar no invocador o custo do Shikigami | Automático pelo campo Custo, com vínculo e permissão válidos |
 | Reutilizar o resultado de outra linha como variável | Não implementado |
@@ -694,11 +700,11 @@ Os títulos Dano, Cura e Condição não transformam o resultado em uma ação a
 
 ## 21. Referências e versão
 
-Esta documentação foi conferida contra a implementação Nexus **0.4.36** e o núcleo local Foundry **14.370**. Os exemplos matemáticos principais, parâmetros, vantagem/desvantagem e limitações de dados foram verificados no motor da Nexus com o Roll nativo do Foundry.
+Esta documentação foi conferida contra a implementação Nexus **0.4.37** e o núcleo local Foundry **14.370**. Os exemplos matemáticos principais, parâmetros, vantagem/desvantagem e limitações de dados foram verificados no motor da Nexus com o Roll nativo do Foundry.
 
-- [Motor de fórmulas da Nexus, versão 0.4.36](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.36/module/formula-engine.mjs)
-- [Integração de macros da Nexus, versão 0.4.36](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.36/module/movement-macros.mjs)
-- [Dados e arma equipada da Nexus, versão 0.4.36](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.36/module/documents.mjs)
+- [Motor de fórmulas da Nexus, versão 0.4.37](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.37/module/formula-engine.mjs)
+- [Integração de macros da Nexus, versão 0.4.37](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.37/module/movement-macros.mjs)
+- [Dados e arma equipada da Nexus, versão 0.4.37](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.37/module/documents.mjs)
 - [Macros do Foundry](https://foundryvtt.com/article/macros/)
 - [Controles do Foundry](https://foundryvtt.com/article/controls/)
 - [Dados e modos de rolagem](https://foundryvtt.com/article/dice/)
