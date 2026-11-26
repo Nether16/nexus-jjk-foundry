@@ -1,3 +1,5 @@
+import { catalogPageKind, loadCatalogContent } from "./catalog-content.mjs";
+
 const PACK_ID = "nexus-jjk.livro-de-regras";
 const UUID_PREFIX = `Compendium.${PACK_ID}.`;
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
@@ -38,6 +40,7 @@ export class NexusCompendiumReader extends HandlebarsApplicationMixin(Applicatio
     id: "nexus-compendium-reader",
     classes: ["nexus-compendium-reader"],
     collection: null,
+    catalogLoader: null,
     window: { title: "Sistemática", icon: "fa-solid fa-book-open", resizable: true },
     position: {
       width: Math.min(1280, window.innerWidth - 40),
@@ -49,6 +52,7 @@ export class NexusCompendiumReader extends HandlebarsApplicationMixin(Applicatio
       openPage: function(_event, target) { return this.openPage(target.dataset.entryId, target.dataset.pageId); },
       previousPage: function() { return this.#step(-1); },
       nextPage: function() { return this.#step(1); },
+      refreshCatalog: function() { return this.refreshCatalog(); },
       clearSearch: function() { this.#query = ""; this.#filterIndex(); this.element.querySelector("[data-reader-search]")?.focus(); }
     }
   };
@@ -69,6 +73,10 @@ export class NexusCompendiumReader extends HandlebarsApplicationMixin(Applicatio
   #scrollTop = 0;
   #collapsed = new Set();
   #initializedIndex = false;
+  #selectionRevision = 0;
+  #closeGeneration = 0;
+  #catalogRefresh = null;
+  #refreshRequested = null;
 
   get collection() { return this.options.collection; }
 
@@ -82,12 +90,16 @@ export class NexusCompendiumReader extends HandlebarsApplicationMixin(Applicatio
 
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
+    const revision = this.#selectionRevision;
+    const generation = this.#closeGeneration;
     let error = "";
     let current = null;
     try {
       // Keep data cached, but insert only the selected page's HTML and media in the DOM.
       this.#documents ??= this.collection.getDocuments().catch(error => { this.#documents = null; throw error; });
       const documents = await this.#documents;
+      if (generation !== this.#closeGeneration) return this.#closedContext(context);
+      if (revision !== this.#selectionRevision) return this._prepareContext(options);
       this.#groups = buildReaderGroups(documents, this.collection.folders, game.user);
       this.#sequence = this.#groups.flatMap(group => group.entries.flatMap(entry =>
         entry.pages.map(page => ({ entryId: entry.id, pageId: page.id }))));
@@ -106,12 +118,37 @@ export class NexusCompendiumReader extends HandlebarsApplicationMixin(Applicatio
         }
         const entry = documents.find(document => document.id === selected.entryId);
         const page = entry.pages.get(selected.pageId);
-        const html = page.type === "text"
+        let html = page.type === "text"
           ? await foundry.applications.ux.TextEditor.implementation.enrichHTML(page.text.content ?? "", {
             relativeTo: page, secrets: page.isOwner
           })
           : "<p>Esta página não possui conteúdo de texto.</p>";
+        if (generation !== this.#closeGeneration) return this.#closedContext(context);
+        if (revision !== this.#selectionRevision) return this._prepareContext(options);
+        const kind = catalogPageKind(entry.id, page.id);
+        let catalogStatus = "";
+        let catalogStale = false;
+        let catalogUpdatedAt = null;
+        if (kind) {
+          const refresh = this.#refreshRequested?.entryId === entry.id && this.#refreshRequested.pageId === page.id;
+          this.#refreshRequested = null;
+          try {
+            const remote = await (this.options.catalogLoader ?? loadCatalogContent)(kind, { refresh });
+            if (typeof remote?.html !== "string") throw new Error("O catálogo recebido está em um formato inválido.");
+            html = remote.html;
+            catalogStatus = typeof remote.status === "string" ? remote.status : "Catálogo online";
+            catalogStale = Boolean(remote.stale);
+            catalogUpdatedAt = remote.updatedAt ?? null;
+          } catch (cause) {
+            // A failed request must leave the packaged page readable.
+            catalogStatus = `Catálogo local · ${cause instanceof Error ? cause.message : "Não foi possível consultar o catálogo online."}`;
+            catalogStale = true;
+          }
+          if (generation !== this.#closeGeneration) return this.#closedContext(context);
+          if (revision !== this.#selectionRevision) return this._prepareContext(options);
+        }
         current = { ...selected, entryName: entry.name, pageName: page.name, html,
+          isCatalog: Boolean(kind), catalogStatus, catalogStale, catalogUpdatedAt,
           position: this.#sequence.indexOf(selected) + 1, total: this.#sequence.length };
       }
     } catch (cause) {
@@ -129,6 +166,8 @@ export class NexusCompendiumReader extends HandlebarsApplicationMixin(Applicatio
   }
 
   async openPage(entryId, pageId = null, anchor = null) {
+    this.#selectionRevision++;
+    this.#refreshRequested = null;
     this.#entryId = entryId;
     this.#pageId = pageId;
     this.#anchor = anchor;
@@ -137,6 +176,29 @@ export class NexusCompendiumReader extends HandlebarsApplicationMixin(Applicatio
     if (group) this.#collapsed.delete(`folder:${group.id}`);
     await this.render({ force: true });
     this.bringToFront();
+  }
+
+  async refreshCatalog() {
+    if (this.#catalogRefresh) return this.#catalogRefresh;
+    if (!catalogPageKind(this.#entryId, this.#pageId) || !this.collection?.visible) return this;
+    this.#refreshRequested = { entryId: this.#entryId, pageId: this.#pageId };
+    const button = this.element?.querySelector('[data-action="refreshCatalog"]');
+    if (button) button.disabled = true;
+    const work = this.render({ force: true });
+    this.#catalogRefresh = work;
+    try {
+      return await work;
+    } finally {
+      if (this.#catalogRefresh === work) {
+        this.#catalogRefresh = null;
+        const currentButton = this.element?.querySelector('[data-action="refreshCatalog"]');
+        if (currentButton) currentButton.disabled = false;
+      }
+    }
+  }
+
+  #closedContext(context) {
+    return { ...context, current: null, error: "", groups: [], hasPrevious: false, hasNext: false };
   }
 
   async #step(offset) {
@@ -221,6 +283,9 @@ export class NexusCompendiumReader extends HandlebarsApplicationMixin(Applicatio
   }
 
   _onClose(options) {
+    this.#closeGeneration++;
+    this.#refreshRequested = null;
+    this.#catalogRefresh = null;
     this.#controller?.abort();
     this.element?.querySelectorAll("video, audio").forEach(media => media.pause());
     // Refetch on reopen so edits made to an unlocked book appear immediately.

@@ -1,6 +1,6 @@
 # Movimentos, fórmulas e macros — Nexus
 
-Documentação de uso • Nexus 0.4.37 • Foundry VTT 14 • Revisada em 25/11/2026.
+Documentação de uso • Nexus 0.4.38 • Foundry VTT 14 • Revisada em 25/11/2026.
 
 Este manual reúne os recursos implementados para montar movimentos, escrever fórmulas, publicar resultados no chat e executar habilidades pela barra de macros. Os exemplos usam a sintaxe da ficha Nexus. Os comandos de chat e os scripts do Foundry são apresentados separadamente.
 
@@ -658,6 +658,14 @@ Em rolagens avulsas ou mensagens antigas sem dano registrado, preencha **Dano ba
 
 A escolha é feita pelo autor da rolagem ou pelo mestre, com permissão sobre a ficha. Cada cartão permite concluir uma única escolha. As opções e o resultado mantêm a visibilidade da rolagem original, incluindo sussurros e rolagens cegas.
 
+### Catálogo online
+
+Abra **Compêndios → Sistemática → Catálogo**. As páginas **Técnicas da Obra**, **Técnicas de Clã** e **Origens** leem os nomes, as imagens, as vagas e os preços do Supabase. O botão **Atualizar** consulta as três tabelas novamente; ao navegar, a cópia recente é reutilizada por até um minuto. Alterar os registros no Supabase atualiza o catálogo sem precisar publicar outra versão do sistema.
+
+Na tabela `Clas`, use `id`, `nome` e `imagem`. Em `Tecnicas`, use `id`, `nome`, `imagem`, `vagas`, `vagas_maxima`, `valor` e `clan`: deixe `clan` vazio para Técnicas da Obra ou informe o ID do clã. Em `Origens`, o máximo usa o campo `vagas_max`. `imagem` aceita um link HTTPS de imagem, GIF ou vídeo; vazio mantém a mídia original dos registros já incluídos. Novos registros sem imagem mostram um espaço reservado.
+
+As vagas são mostradas como **vagas / máximo**, exatamente conforme os valores cadastrados. O catálogo permite consultar; reservas, pagamentos e alterações das vagas são feitos pelo administrador no Supabase. Ele não muda as origens ou habilidades das fichas e conserva os textos de regras do livro. Se a conexão falhar, o leitor mostra a última cópia salva ou a página distribuída com o sistema, com aviso da fonte. A chave publicável depende das permissões SELECT/RLS do banco; o cliente não usa chave secreta nem envia alterações.
+
 ## 19. Limites da versão atual
 
 | Recurso | Situação |
@@ -700,11 +708,11 @@ Os títulos Dano, Cura e Condição não transformam o resultado em uma ação a
 
 ## 21. Referências e versão
 
-Esta documentação foi conferida contra a implementação Nexus **0.4.37** e o núcleo local Foundry **14.370**. Os exemplos matemáticos principais, parâmetros, vantagem/desvantagem e limitações de dados foram verificados no motor da Nexus com o Roll nativo do Foundry.
+Esta documentação foi conferida contra a implementação Nexus **0.4.38** e o núcleo local Foundry **14.370**. Os exemplos matemáticos principais, parâmetros, vantagem/desvantagem e limitações de dados foram verificados no motor da Nexus com o Roll nativo do Foundry.
 
-- [Motor de fórmulas da Nexus, versão 0.4.37](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.37/module/formula-engine.mjs)
-- [Integração de macros da Nexus, versão 0.4.37](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.37/module/movement-macros.mjs)
-- [Dados e arma equipada da Nexus, versão 0.4.37](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.37/module/documents.mjs)
+- [Motor de fórmulas da Nexus, versão 0.4.38](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.38/module/formula-engine.mjs)
+- [Integração de macros da Nexus, versão 0.4.38](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.38/module/movement-macros.mjs)
+- [Dados e arma equipada da Nexus, versão 0.4.38](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.38/module/documents.mjs)
 - [Macros do Foundry](https://foundryvtt.com/article/macros/)
 - [Controles do Foundry](https://foundryvtt.com/article/controls/)
 - [Dados e modos de rolagem](https://foundryvtt.com/article/dice/)

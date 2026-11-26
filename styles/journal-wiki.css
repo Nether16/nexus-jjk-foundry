@@ -134,6 +134,43 @@
   max-width: 100%;
 }
 
+.nexus-catalogo-online .catalogo-item :is(img, video) {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border: 0;
+  border-radius: 3px;
+  background: #130f11;
+}
+.nexus-catalogo-online .catalogo-item .catalogo-disponibilidade {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 2px;
+  font-variant-numeric: tabular-nums;
+}
+.nexus-catalogo-online .catalogo-nome-cla { text-align: left; }
+.nexus-catalogo-online img.catalogo-banner {
+  max-height: 210px;
+  object-fit: cover;
+  border: 0;
+  border-radius: 4px;
+}
+.nexus-catalogo-online .catalogo-sem-imagem {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  aspect-ratio: 16 / 9;
+  gap: 8px;
+  margin-bottom: 12px;
+  border: 1px dashed #493a40;
+  border-radius: 3px;
+  color: #a99ba1;
+  font-size: 12px;
+}
+.nexus-catalogo-online .catalogo-sem-imagem i { font-size: 28px; }
+.nexus-catalogo-online .catalogo-vazio { color: #b8acaf; text-align: left; }
+
 /* Fórmulas do livro podem quebrar linha em janelas estreitas. */
 .nexus-wiki code {
   white-space: normal;

@@ -2,6 +2,10 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 const PACK_ID = "nexus-jjk.livro-de-regras";
+const CATALOG_ID = "721519fc8756e498";
+const STANDARD_ID = "6029271a66a7a2ec";
+const CLANS_ID = "d85ffedeb94ae7d7";
+const ORIGINS_ID = "ecf1b8a7d9406523";
 let importId = 0;
 
 class Collection extends Map {
@@ -222,4 +226,152 @@ test("links e resultados da busca abrem a mesma janela e preservam cliques em ou
   assert.equal(unrelated.prevented || unrelated.stopped, false);
   assert.equal(rightClick.prevented || rightClick.stopped, false);
   assert.equal(calls.length, 2);
+});
+
+function catalogBook({ readable = true } = {}) {
+  return book([
+    entry(CATALOG_ID, "Catálogo", [
+      page(STANDARD_ID, "Técnicas da Obra", { content: "catálogo local", readable }),
+      page(CLANS_ID, "Técnicas de Clã", { sort: 10 }),
+      page(ORIGINS_ID, "Origens", { sort: 20 })
+    ]),
+    entry("rules", "Regras", [page("ordinary", "Combate")], { sort: 20 })
+  ]);
+}
+
+test("apenas as páginas legíveis do catálogo consultam a fonte remota", async t => {
+  const env = await setup(t);
+  const requests = [];
+  const reader = new env.api.NexusCompendiumReader({ collection: catalogBook(), catalogLoader: async (...args) => {
+    requests.push(args);
+    return { html: "<p>Catálogo atualizado</p>", status: "Online", stale: false, updatedAt: 1234 };
+  } });
+  await reader.openPage("rules", "ordinary");
+  assert.equal(requests.length, 0);
+  assert.equal(reader.contexts.at(-1).current.isCatalog, false);
+  await reader.openPage(CATALOG_ID, STANDARD_ID);
+  assert.deepEqual(requests, [["standard", { refresh: false }]]);
+  assert.equal(reader.contexts.at(-1).current.html, "<p>Catálogo atualizado</p>");
+  assert.equal(reader.contexts.at(-1).current.catalogStatus, "Online");
+  assert.equal(reader.contexts.at(-1).current.catalogUpdatedAt, 1234);
+  assert.equal(reader.contexts.at(-1).current.catalogStale, false);
+  assert.equal(reader.contexts.at(-1).current.isCatalog, true);
+  await reader.openPage(CATALOG_ID, CLANS_ID);
+  assert.deepEqual(requests.at(-1), ["clans", { refresh: false }]);
+  await reader.openPage(CATALOG_ID, ORIGINS_ID);
+  assert.deepEqual(requests.at(-1), ["origins", { refresh: false }]);
+  assert.equal(reader.collection.loads, 1);
+});
+
+test("falha remota mantém o catálogo local e mostra a causa sem quebrar o livro", async t => {
+  const env = await setup(t);
+  const reader = new env.api.NexusCompendiumReader({ collection: catalogBook(), catalogLoader: async () => {
+    throw new Error("Leitura pública indisponível.");
+  } });
+  await reader.openPage(CATALOG_ID, STANDARD_ID);
+  const context = reader.contexts.at(-1);
+  assert.equal(context.error, "");
+  assert.equal(context.current.html, "enriched:catálogo local");
+  assert.equal(context.current.catalogStale, true);
+  assert.match(context.current.catalogStatus, /Catálogo local.*Leitura pública indisponível/);
+  assert.equal(context.hasNext, true);
+  await reader.openPage("rules", "ordinary");
+  assert.equal(reader.contexts.at(-1).current.html, "enriched:<p>Combate</p>");
+});
+
+test("resposta em cache informa estado e resposta inválida usa o conteúdo local", async t => {
+  const env = await setup(t);
+  let invalid = false;
+  const reader = new env.api.NexusCompendiumReader({ collection: catalogBook(), catalogLoader: async () =>
+    invalid ? { html: null } : { html: "<p>Última cópia</p>", status: "Cópia salva · sem conexão", stale: true }
+  });
+  await reader.openPage(CATALOG_ID, STANDARD_ID);
+  assert.equal(reader.contexts.at(-1).current.catalogStale, true);
+  assert.equal(reader.contexts.at(-1).current.catalogStatus, "Cópia salva · sem conexão");
+  invalid = true;
+  await reader.openPage(CATALOG_ID, STANDARD_ID);
+  assert.equal(reader.contexts.at(-1).current.html, "enriched:catálogo local");
+  assert.match(reader.contexts.at(-1).current.catalogStatus, /formato inválido/);
+});
+
+test("Atualizar ignora cliques repetidos e força apenas uma consulta", async t => {
+  const env = await setup(t);
+  const requests = [];
+  let finish;
+  const reader = new env.api.NexusCompendiumReader({ collection: catalogBook(), catalogLoader: async (kind, options) => {
+    requests.push({ kind, ...options });
+    if (options.refresh) await new Promise(resolve => { finish = resolve; });
+    return { html: "<p>Atualizado</p>", status: "Online" };
+  } });
+  const button = { disabled: false };
+  reader.element = { querySelector: () => button };
+  await reader.openPage(CATALOG_ID, STANDARD_ID);
+  const refresh = reader.refreshCatalog();
+  const duplicate = reader.refreshCatalog();
+  assert.equal(button.disabled, true);
+  while (!finish) await new Promise(resolve => setImmediate(resolve));
+  assert.deepEqual(requests, [{ kind: "standard", refresh: false }, { kind: "standard", refresh: true }]);
+  finish();
+  await Promise.all([refresh, duplicate]);
+  assert.equal(button.disabled, false);
+  assert.equal(reader.contexts.at(-1).current.html, "<p>Atualizado</p>");
+  await reader.openPage("rules", "ordinary");
+  await reader.refreshCatalog();
+  assert.equal(requests.length, 2);
+});
+
+test("permissões do compêndio impedem consultas remotas de páginas ocultas", async t => {
+  const env = await setup(t);
+  const requests = [];
+  const reader = new env.api.NexusCompendiumReader({ collection: catalogBook({ readable: false }), catalogLoader: async kind => {
+    requests.push(kind);
+    return { html: "<p>Clãs</p>" };
+  } });
+  await reader.openPage(CATALOG_ID, STANDARD_ID);
+  assert.equal(reader.contexts.at(-1).current.pageId, CLANS_ID);
+  assert.deepEqual(requests, ["clans"]);
+  reader.collection.visible = false;
+  await reader.refreshCatalog();
+  assert.equal(requests.length, 1);
+});
+
+test("uma consulta lenta do catálogo não recoloca a página anterior após navegar", async t => {
+  const env = await setup(t);
+  let finish;
+  const reader = new env.api.NexusCompendiumReader({ collection: catalogBook(), catalogLoader: async () => {
+    await new Promise(resolve => { finish = resolve; });
+    return { html: "<p>Catálogo antigo</p>" };
+  } });
+  const first = reader.openPage(CATALOG_ID, STANDARD_ID);
+  while (!finish) await new Promise(resolve => setImmediate(resolve));
+  const next = reader.openPage("rules", "ordinary");
+  finish();
+  await Promise.all([first, next]);
+  assert.equal(reader.contexts.at(-1).current.pageId, "ordinary");
+  assert.ok(reader.contexts.every(context => context.current?.html !== "<p>Catálogo antigo</p>"));
+});
+
+test("fechar descarta consulta pendente e reabrir permite atualizar de novo", async t => {
+  const env = await setup(t);
+  let finish;
+  let delayed = false;
+  const requests = [];
+  const reader = new env.api.NexusCompendiumReader({ collection: catalogBook(), catalogLoader: async (kind, options) => {
+    requests.push({ kind, ...options });
+    if (delayed) await new Promise(resolve => { finish = resolve; });
+    return { html: "<p>Catálogo</p>" };
+  } });
+  await reader.openPage(CATALOG_ID, STANDARD_ID);
+  delayed = true;
+  const refresh = reader.refreshCatalog();
+  while (!finish) await new Promise(resolve => setImmediate(resolve));
+  reader._onClose({});
+  finish();
+  await refresh;
+  assert.equal(reader.contexts.at(-1).current, null);
+  delayed = false;
+  await reader.openPage(CATALOG_ID, STANDARD_ID);
+  await reader.refreshCatalog();
+  assert.equal(requests.at(-1).refresh, true);
+  assert.equal(reader.collection.loads, 2);
 });

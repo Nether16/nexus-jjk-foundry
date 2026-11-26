@@ -41,12 +41,20 @@
           <h2>Sistemática</h2>
         {{/if}}
       </div>
-      <div class="nexus-reader-page-controls" aria-label="Trocar página">
-        <button type="button" data-action="previousPage" title="Página anterior" aria-label="Página anterior" {{#unless hasPrevious}}disabled{{/unless}}><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
-        {{#if current.total}}<span>{{current.position}} / {{current.total}}</span>{{/if}}
-        <button type="button" data-action="nextPage" title="Próxima página" aria-label="Próxima página" {{#unless hasNext}}disabled{{/unless}}><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+      <div class="nexus-reader-toolbar-actions">
+        {{#if current.isCatalog}}
+          <button class="nexus-reader-catalog-refresh" type="button" data-action="refreshCatalog" title="Consultar as atualizações do catálogo"><i class="fa-solid fa-arrows-rotate" aria-hidden="true"></i> Atualizar</button>
+        {{/if}}
+        <div class="nexus-reader-page-controls" aria-label="Trocar página">
+          <button type="button" data-action="previousPage" title="Página anterior" aria-label="Página anterior" {{#unless hasPrevious}}disabled{{/unless}}><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+          {{#if current.total}}<span>{{current.position}} / {{current.total}}</span>{{/if}}
+          <button type="button" data-action="nextPage" title="Próxima página" aria-label="Próxima página" {{#unless hasNext}}disabled{{/unless}}><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+        </div>
       </div>
     </header>
+    {{#if current.isCatalog}}
+      <p class="nexus-reader-catalog-status {{#if current.catalogStale}}is-stale{{/if}}" role="status">{{current.catalogStatus}}</p>
+    {{/if}}
     <article class="nexus-reader-content" tabindex="0" aria-label="Conteúdo da página">
       {{#if error}}
         <div class="nexus-reader-empty" role="alert"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i><p>{{error}}</p></div>
