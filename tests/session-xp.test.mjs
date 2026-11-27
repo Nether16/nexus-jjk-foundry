@@ -14,9 +14,11 @@ globalThis.Item = class {};
 const { NexusActor } = await import("../module/documents.mjs");
 
 beforeEach(() => {
+  hooks.clear();
   environment = { dialogs: [], messages: [], errors: [], warnings: [], updates: [], answer: null,
     chatFailure: false };
   globalThis.game = { user: { id: "gm", isGM: true }, actors: new Map() };
+  globalThis.CONFIG = { ui: {} };
   globalThis.Hooks = { on: (name, callback) => hooks.set(name, callback) };
   globalThis.ui = { notifications: { error: value => environment.errors.push(value),
     warn: value => environment.warnings.push(value) } };
@@ -179,7 +181,7 @@ test("falha no chat avisa que o XP já foi aplicado, sem reverter ou repetir a p
   assert.match(environment.errors[0], /XP foi aplicado.*Não repita/u);
 });
 
-test("/xp e /adicionarxp interceptam o comando antes do parser e abrem a janela", async () => {
+test("fallback de chat antigo intercepta /xp e /adicionarxp sem afetar outros comandos", async () => {
   character();
   registerSessionXP();
   const command = hooks.get("chatMessage");
@@ -194,6 +196,51 @@ test("/xp e /adicionarxp interceptam o comando antes do parser e abrem a janela"
   assert.equal(command({}, "/r 1d20"), undefined);
   assert.equal(command({}, "/xp -1"), false);
   assert.equal(environment.warnings.length, 1);
+});
+
+test("Foundry 14 registra o comando no chat nativo e no chat customizado sem duplicar o hook", async () => {
+  character();
+  const rollCommand = { rgx: /^\/r /u, fn() {} };
+  const nativeCommands = { roll: rollCommand };
+  const customCommands = { roll: rollCommand };
+  foundry.applications.sidebar = { tabs: { ChatLog: { CHAT_COMMANDS: nativeCommands } } };
+  CONFIG.ui.chat = { CHAT_COMMANDS: customCommands };
+  registerSessionXP();
+  registerSessionXP();
+  assert.equal(hooks.has("chatMessage"), false);
+  assert.equal(nativeCommands.roll, rollCommand);
+  assert.equal(customCommands.roll, rollCommand);
+  assert.equal(Object.keys(nativeCommands).filter(key => key === "nexusSessionXP").length, 1);
+  const command = customCommands.nexusSessionXP;
+  assert.equal(command.fn("nexusSessionXP", "/xp 50".match(command.rgx)), false);
+  await nextTick();
+  assert.equal(environment.dialogs.length, 1);
+  assert.match(environment.dialogs[0].content, /name="amount"[^>]*value="50"/u);
+  assert.equal(command.rgx.test("/r 1d20"), false);
+  assert.equal(command.rgx.test("/xpextra"), false);
+});
+
+test("o comando nativo valida argumentos, mantém o alias e bloqueia jogadores", async t => {
+  silence(t);
+  character();
+  const commands = {};
+  foundry.applications.sidebar = { tabs: { ChatLog: { CHAT_COMMANDS: commands } } };
+  registerSessionXP();
+  const command = commands.nexusSessionXP;
+  for (const text of ["/xp -1", "/xp abc", "/xp 5.5"]) {
+    assert.equal(command.fn("nexusSessionXP", text.match(command.rgx)), false);
+  }
+  assert.equal(environment.warnings.length, 3);
+  assert.equal(environment.dialogs.length, 0);
+  assert.equal(command.fn("nexusSessionXP", "/adicionarxp 25".match(command.rgx)), false);
+  await nextTick();
+  assert.equal(environment.dialogs.length, 1);
+  game.user = { id: "player", isGM: false };
+  assert.equal(command.fn("nexusSessionXP", "/xp 25".match(command.rgx)), false);
+  await nextTick();
+  assert.equal(environment.dialogs.length, 1);
+  assert.match(environment.errors.at(-1), /Apenas o mestre/u);
+  assert.equal(environment.updates.length, 0);
 });
 
 test("a janela premia somente as fichas marcadas e cancelar não altera nada", async () => {

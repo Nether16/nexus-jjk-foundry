@@ -135,19 +135,36 @@ export function promptXP(initialAmount) {
   return pendingDialog;
 }
 
+function handleXPCommand(message) {
+  const text = String(message ?? "").trim();
+  if (!/^\/(?:xp|adicionarxp)(?:\s|$)/iu.test(text)) return;
+  const match = text.match(/^\/(?:xp|adicionarxp)(?:\s+(\d+))?\s*$/iu);
+  if (!match) {
+    ui.notifications.warn("Use /xp para escolher a quantidade e os personagens, ou /xp 50 para preencher a quantidade.");
+    return false;
+  }
+  void promptXP(match[1]).catch(reportError);
+  return false;
+}
+
 export function registerSessionXP() {
   game.nexus ??= {};
   game.nexus.awardXP = awardXP;
   game.nexus.promptXP = promptXP;
-  Hooks.on("chatMessage", (_chat, message) => {
-    const text = String(message ?? "").trim();
-    if (!/^\/(?:xp|adicionarxp)(?:\s|$)/iu.test(text)) return;
-    const match = text.match(/^\/(?:xp|adicionarxp)(?:\s+(\d+))?\s*$/iu);
-    if (!match) {
-      ui.notifications.warn("Use /xp para escolher a quantidade e os personagens, ou /xp 50 para preencher a quantidade.");
-      return false;
+  const registries = new Set([
+    globalThis.foundry?.applications?.sidebar?.tabs?.ChatLog?.CHAT_COMMANDS,
+    globalThis.CONFIG?.ui?.chat?.CHAT_COMMANDS
+  ].filter(registry => registry && typeof registry === "object"));
+  if (registries.size) {
+    // O parser nativo remove o <p> do chat rico antes de procurar o comando.
+    // O hook chatMessage recebe o HTML bruto e não deve interpretar esse formato.
+    for (const registry of registries) {
+      registry.nexusSessionXP = {
+        rgx: /^\/(?:xp|adicionarxp)(?:\s|$)[\s\S]*$/iu,
+        fn(_command, match) { return handleXPCommand(match[0]); }
+      };
     }
-    void promptXP(match[1]).catch(reportError);
-    return false;
-  });
+    return;
+  }
+  Hooks.on("chatMessage", (_chat, message) => handleXPCommand(message));
 }
