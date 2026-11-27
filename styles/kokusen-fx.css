@@ -1,11 +1,16 @@
 /* Raios negros: decoração isolada das rolagens e dos controles do cartão. */
+.chat-message .message-content:has(.nexus-kokusen-result, .nexus-kokusen-trigger) {
+  overflow: visible;
+  padding-block: 10px;
+}
+
 .nexus-kokusen-fx {
   position: absolute;
-  inset: 0;
+  /* O recorte limita o efeito a 16px além da caixa, sem cortar na borda dela. */
+  inset: -16px;
   z-index: 0;
   opacity: 0;
   overflow: hidden;
-  border-radius: inherit;
   pointer-events: none;
   user-select: none;
   contain: paint;
@@ -13,21 +18,37 @@
 
 .nexus-kokusen-fx::before {
   position: absolute;
-  inset: -35%;
-  background: radial-gradient(ellipse at 24% 40%, #c900343b, transparent 44%),
-    radial-gradient(ellipse at 82% 62%, #ff21422e, transparent 46%);
+  inset: 13px;
+  border: 1px solid #e21c3a2e;
+  border-radius: 8px;
+  box-shadow: 0 0 12px #ed184338, inset 0 0 10px #ed184322;
   content: "";
 }
 
 .nexus-kokusen-lightning {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
   overflow: visible;
   fill: none;
   pointer-events: none;
 }
+
+/* Faixas estreitas mantêm os raios nas bordas mesmo em cartões altos. */
+.nexus-kokusen-edge-top,
+.nexus-kokusen-edge-bottom {
+  left: 8px;
+  width: calc(100% - 16px);
+  height: 24px;
+}
+.nexus-kokusen-edge-top { top: 4px; }
+.nexus-kokusen-edge-bottom { bottom: 4px; }
+.nexus-kokusen-edge-left,
+.nexus-kokusen-edge-right {
+  top: 8px;
+  width: 24px;
+  height: calc(100% - 16px);
+}
+.nexus-kokusen-edge-left { left: 4px; }
+.nexus-kokusen-edge-right { right: 4px; }
 
 .nexus-kokusen-lightning :is(.nexus-kokusen-bolt-aura, .nexus-kokusen-bolt-core) {
   fill: none;
@@ -38,13 +59,13 @@
 
 .nexus-kokusen-bolt-aura {
   stroke: #f01943;
-  stroke-width: 7px;
-  filter: drop-shadow(0 0 4px #ff1644);
+  stroke-width: 6px;
+  filter: drop-shadow(0 0 3px #ff1644);
 }
 
 .nexus-kokusen-bolt-core {
   stroke: #050104;
-  stroke-width: 3px;
+  stroke-width: 3.5px;
 }
 
 .nexus-kokusen-bolt {
@@ -52,10 +73,15 @@
 }
 
 /* A caixa mantém as mesmas medidas quando o jogador passa o mouse. */
+.nexus-critical-actions:has(.nexus-kokusen-trigger) {
+  gap: 16px;
+  margin: 6px 4px;
+}
+
 .nexus-critical-actions .nexus-kokusen-trigger {
   position: relative;
   isolation: isolate;
-  overflow: hidden;
+  overflow: visible;
   border-color: #743046;
   background: linear-gradient(135deg, #190b15, #11080e);
   transition: border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
@@ -63,7 +89,6 @@
 
 .nexus-kokusen-trigger .nexus-kokusen-fx {
   opacity: 0;
-  mask-image: radial-gradient(ellipse at center, #0004 12%, #000 72%);
   transition: opacity 70ms ease;
 }
 
@@ -75,6 +100,7 @@
 }
 
 .nexus-critical-actions .nexus-kokusen-trigger:not(:disabled):is(:hover, :focus-visible) {
+  z-index: 1;
   border-color: #f43153;
   background: linear-gradient(135deg, #190309, #310411 65%, #100307);
   color: #fff;
@@ -111,6 +137,8 @@
 .nexus-critical-card.nexus-kokusen-result {
   position: relative;
   isolation: isolate;
+  overflow: visible;
+  margin: 8px 10px;
   padding: 16px 12px;
   border: 1px solid #a41f3e;
   border-radius: 8px;
@@ -126,8 +154,7 @@
 }
 
 .nexus-kokusen-result > .nexus-kokusen-fx {
-  opacity: .65;
-  mask-image: radial-gradient(ellipse at center, transparent 22%, #0007 58%, #000 90%);
+  opacity: .8;
 }
 
 .nexus-kokusen-result .nexus-kokusen-fx::before {
@@ -143,8 +170,8 @@
 .nexus-kokusen-result :is(.bolt-2, .nexus-kokusen-bolt-2) { animation-delay: -.3s; }
 .nexus-kokusen-result :is(.bolt-3, .nexus-kokusen-bolt-3) { animation-delay: -.6s; }
 .nexus-kokusen-result :is(.bolt-4, .nexus-kokusen-bolt-4) { animation-delay: -.9s; }
-.nexus-kokusen-result .nexus-kokusen-bolt-aura { stroke-width: 9px; }
-.nexus-kokusen-result .nexus-kokusen-bolt-core { stroke-width: 4px; }
+.nexus-kokusen-result .nexus-kokusen-bolt-aura { stroke-width: 7px; }
+.nexus-kokusen-result .nexus-kokusen-bolt-core { stroke-width: 4.5px; }
 
 .nexus-kokusen-result .nexus-critical-title {
   color: #fff4f6;
