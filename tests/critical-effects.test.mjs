@@ -103,6 +103,7 @@ test("crítico calcula o dano a partir do snapshot, sem consultar a ficha novame
     components: [{ label: "Dano:", kind: "damage", value: 100 }],
     otherEffects: [{ label: "Cura:", kind: "number", value: 20 }] });
   assert.match(result.content, /Dano final <strong>130/u);
+  assert.doesNotMatch(result.content, /nexus-kokusen-result|nexus-kokusen-fx/u);
   assert.match(result.content, /Cura:<\/strong> 20/u);
   assert.equal(environment.rolls.length, 1, "apenas o d2 de Kokusen é rolado");
 });
@@ -117,9 +118,13 @@ test("Kokusen e Faíscas calculam 2x; efeito narrativo continua publicando apena
     if (choice === "narrative") {
       assert.equal(result.content.replace(/<[^>]+>/gu, ""), "Excelente resultado!");
       assert.equal(critical(result).damage, null);
+      assert.doesNotMatch(result.content, /nexus-kokusen-result|nexus-kokusen-fx/u);
     } else {
       assert.equal(critical(result).damage.total, 80);
       assert.match(result.content, /Dano final <strong>80/u);
+      assert.match(result.content, /nexus-kokusen-result/u);
+      assert.match(result.content, /class="nexus-kokusen-fx" aria-hidden="true"/u);
+      assert.doesNotMatch(result.content, /<svg/u, "SVG só é criado depois da sanitização do chat");
     }
   }
   assert.equal(environment.rolls.length, 1);

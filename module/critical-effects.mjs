@@ -4,6 +4,51 @@ const NAMESPACE = "nexus-jjk";
 const FLAG = "criticalEffect";
 const offering = new Set();
 const choosing = new Set();
+const KOKUSEN_BOLTS = [
+  "M-16 6 60 43 37 63 111 86 86 108 161 133 M60 43 95 30 82 56",
+  "M337 17 267 52 291 69 222 91 245 112 178 139 M267 52 250 26 233 55",
+  "M-13 192 67 157 43 137 112 115 91 95 149 68 M67 157 90 183 110 147",
+  "M333 191 262 156 281 137 218 114 242 94 181 64 M262 156 236 183 225 145"
+];
+
+const kokusenLayer = () => '<span class="nexus-kokusen-fx" aria-hidden="true"></span>';
+
+/** SVG é criado apenas no cliente, depois da sanitização do HTML do chat. */
+function decorateKokusenVisuals(state, html) {
+  if (!["offer", "result"].includes(state?.kind)) return;
+  const document = html?.ownerDocument;
+  if (!document?.createElement) return;
+  const addLightning = target => {
+    let layer = [...target.children].find(child => child.classList.contains("nexus-kokusen-fx"));
+    if (!layer) {
+      layer = document.createElement("span");
+      layer.className = "nexus-kokusen-fx";
+      target.prepend(layer);
+    }
+    layer.setAttribute("aria-hidden", "true");
+    if (layer.querySelector("svg")) return;
+    layer.innerHTML = '<svg class="nexus-kokusen-lightning" viewBox="0 0 320 200" preserveAspectRatio="none" aria-hidden="true" focusable="false">' +
+      KOKUSEN_BOLTS.map((path, index) => `<g class="nexus-kokusen-bolt bolt-${index + 1}">` +
+        `<path class="nexus-kokusen-bolt-aura" d="${path}" pathLength="100"/>` +
+        `<path class="nexus-kokusen-bolt-core" d="${path}" pathLength="100"/></g>`).join("") + '</svg>';
+  };
+  for (const button of html.querySelectorAll('[data-nexus-critical-action="kokusen"], [data-nexus-critical-action="sparks"]')) {
+    button.classList.add("nexus-kokusen-trigger");
+    if (![...button.children].some(child => child.classList.contains("nexus-kokusen-label"))) {
+      const label = document.createElement("span");
+      label.className = "nexus-kokusen-label";
+      label.append(...[...button.childNodes].filter(node => !node.classList?.contains("nexus-kokusen-fx")));
+      button.append(label);
+    }
+    addLightning(button);
+  }
+  if (state?.kind === "result" && state.success === true && ["kokusen", "sparks"].includes(state.choice)) {
+    for (const card of html.querySelectorAll(".nexus-critical-result")) {
+      card.classList.add("nexus-kokusen-result");
+      addLightning(card);
+    }
+  }
+}
 
 function escapeHTML(value) {
   const entities = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
@@ -69,6 +114,10 @@ function visibilityOf(message) {
 }
 
 function button(action, text) {
+  if (["kokusen", "sparks"].includes(action)) {
+    return `<button type="button" data-nexus-critical-action="${action}" class="nexus-kokusen-trigger">` +
+      kokusenLayer() + `<span class="nexus-kokusen-label">${escapeHTML(text)}</span></button>`;
+  }
   return `<button type="button" data-nexus-critical-action="${action}">${escapeHTML(text)}</button>`;
 }
 
@@ -116,7 +165,9 @@ function resultContent(choice, success, rollHTML = "", damage = null) {
     title = "Crítico!";
     text = "Multiplica o dano causado para 130% neste golpe.";
   }
-  return '<section class="nexus-critical-card nexus-critical-result">' +
+  const kokusen = success && ["kokusen", "sparks"].includes(choice);
+  return `<section class="nexus-critical-card nexus-critical-result${kokusen ? " nexus-kokusen-result" : ""}">` +
+    (kokusen ? kokusenLayer() : "") +
     `<strong class="nexus-critical-title">${escapeHTML(title)}</strong>` +
     damageContent(damage) + (text ? `<p class="nexus-critical-rules">${escapeHTML(text)}</p>` : "") + rollHTML + '</section>';
 }
@@ -253,6 +304,11 @@ export function registerCriticalEffects() {
   Hooks.on("createChatMessage", message => { void createCriticalOffer(message); });
   Hooks.on("renderChatMessageHTML", (message, html) => {
     const state = stateOf(message);
+    if (message.isContentVisible !== false) decorateKokusenVisuals(state, html);
+    else if (["offer", "result"].includes(state?.kind)) {
+      for (const card of html.querySelectorAll(".nexus-kokusen-result")) card.classList?.remove("nexus-kokusen-result");
+      for (const layer of html.querySelectorAll(".nexus-kokusen-fx")) layer.remove?.();
+    }
     if (state?.kind !== "offer") return;
     const own = game.user.isGM || authorId(message) === game.user.id;
     for (const button of html.querySelectorAll("[data-nexus-critical-action], [data-nexus-critical-damage]")) {

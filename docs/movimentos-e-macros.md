@@ -1,6 +1,6 @@
 # Movimentos, fórmulas e macros — Nexus
 
-Documentação de uso • Nexus 0.4.40 • Foundry VTT 14 • Revisada em 27/11/2026.
+Documentação de uso • Nexus 0.4.41 • Foundry VTT 14 • Revisada em 27/11/2026.
 
 Este manual reúne os recursos implementados para montar movimentos, escrever fórmulas, publicar resultados no chat e executar habilidades pela barra de macros. Os exemplos usam a sintaxe da ficha Nexus. Os comandos de chat e os scripts do Foundry são apresentados separadamente.
 
@@ -660,6 +660,8 @@ Em rolagens avulsas ou mensagens antigas sem dano registrado, preencha **Dano ba
 
 A escolha é feita pelo autor da rolagem ou pelo mestre, com permissão sobre a ficha. Cada cartão permite concluir uma única escolha. As opções e o resultado mantêm a visibilidade da rolagem original, incluindo sussurros e rolagens cegas.
 
+O botão Kokusen e a opção Escolhido pelas Faíscas mostram energia vermelha e raios negros ao passar o mouse ou usar o foco do teclado. Os cartões de Kokusen recebem o mesmo efeito, com uma breve animação de impacto; o crítico normal e o resultado narrativo mantêm sua aparência. A preferência do dispositivo por movimento reduzido é respeitada.
+
 ### Catálogo online
 
 Abra **Compêndios → Sistemática → Catálogo**. As páginas **Técnicas da Obra**, **Técnicas de Clã** e **Origens** leem os nomes, as imagens, as vagas e os preços do Supabase. O botão **Atualizar** consulta as três tabelas novamente; ao navegar, a cópia recente é reutilizada por até um minuto. Alterar os registros no Supabase atualiza o catálogo sem precisar publicar outra versão do sistema.
@@ -716,11 +718,11 @@ Os títulos Dano, Cura e Condição não transformam o resultado em uma ação a
 
 ## 21. Referências e versão
 
-Esta documentação foi conferida contra a implementação Nexus **0.4.40** e o núcleo local Foundry **14.370**. Os exemplos matemáticos principais, parâmetros, vantagem/desvantagem e limitações de dados foram verificados no motor da Nexus com o Roll nativo do Foundry.
+Esta documentação foi conferida contra a implementação Nexus **0.4.41** e o núcleo local Foundry **14.370**. Os exemplos matemáticos principais, parâmetros, vantagem/desvantagem e limitações de dados foram verificados no motor da Nexus com o Roll nativo do Foundry.
 
-- [Motor de fórmulas da Nexus, versão 0.4.40](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.40/module/formula-engine.mjs)
-- [Integração de macros da Nexus, versão 0.4.40](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.40/module/movement-macros.mjs)
-- [Dados e arma equipada da Nexus, versão 0.4.40](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.40/module/documents.mjs)
+- [Motor de fórmulas da Nexus, versão 0.4.41](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.41/module/formula-engine.mjs)
+- [Integração de macros da Nexus, versão 0.4.41](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.41/module/movement-macros.mjs)
+- [Dados e arma equipada da Nexus, versão 0.4.41](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.41/module/documents.mjs)
 - [Macros do Foundry](https://foundryvtt.com/article/macros/)
 - [Controles do Foundry](https://foundryvtt.com/article/controls/)
 - [Dados e modos de rolagem](https://foundryvtt.com/article/dice/)
