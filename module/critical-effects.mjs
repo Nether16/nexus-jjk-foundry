@@ -1,67 +1,11 @@
 import { calculateCriticalDamage, hasMovementDamage, readMovementEffects } from "./critical-damage.mjs";
+import { clearKokusenVisuals, decorateKokusenVisuals } from "./kokusen-visuals.mjs";
 
 const NAMESPACE = "nexus-jjk";
 const FLAG = "criticalEffect";
 const offering = new Set();
 const choosing = new Set();
-const KOKUSEN_BOLTS = [
-  {
-    edge: "top", viewBox: "0 0 320 24",
-    path: "M-4 12 24 8 16 15 48 11 38 19 80 9 68 15 108 7 99 12 139 11 125 18 171 7 158 13 200 8 190 16 227 11 216 17 254 9 245 14 289 10 279 17 324 12 M80 9 88 2 104 5 M200 8 212 0 225 3 M254 9 268 22 286 24"
-  },
-  {
-    edge: "right", viewBox: "0 0 24 200",
-    path: "M12-4 18 18 10 12 14 40 6 30 13 62 18 52 10 87 15 78 12 111 20 99 11 139 16 130 9 163 17 153 12 181 16 174 12 204 M14 40 22 46 24 58 M10 87 2 97 4 111 M9 163 0 173 3 185"
-  },
-  {
-    edge: "bottom", viewBox: "0 0 320 24",
-    path: "M-4 13 32 17 21 9 66 14 55 5 98 15 87 8 129 16 119 10 154 13 144 5 183 15 172 9 217 16 203 8 246 14 235 6 276 15 264 9 300 16 290 10 324 12 M66 14 80 23 100 20 M154 13 169 0 185 3 M246 14 260 24 277 20"
-  },
-  {
-    edge: "left", viewBox: "0 0 24 200",
-    path: "M12-4 6 22 14 14 10 47 18 37 11 68 6 59 14 96 9 85 12 118 4 109 13 143 8 134 16 165 7 157 12 186 8 177 12 204 M10 47 1 55 3 66 M14 96 23 106 21 120 M16 165 24 175 20 186"
-  }
-];
-
 const kokusenLayer = () => '<span class="nexus-kokusen-fx" aria-hidden="true"></span>';
-
-/** SVG é criado apenas no cliente, depois da sanitização do HTML do chat. */
-function decorateKokusenVisuals(state, html) {
-  if (!["offer", "result"].includes(state?.kind)) return;
-  const document = html?.ownerDocument;
-  if (!document?.createElement) return;
-  const addLightning = target => {
-    let layer = [...target.children].find(child => child.classList.contains("nexus-kokusen-fx"));
-    if (!layer) {
-      layer = document.createElement("span");
-      layer.className = "nexus-kokusen-fx";
-      target.prepend(layer);
-    }
-    layer.setAttribute("aria-hidden", "true");
-    if (layer.querySelector("svg")) return;
-    layer.innerHTML = KOKUSEN_BOLTS.map(({ edge, viewBox, path }, index) =>
-      `<svg class="nexus-kokusen-lightning nexus-kokusen-edge-${edge}" viewBox="${viewBox}" preserveAspectRatio="none" aria-hidden="true" focusable="false">` +
-      `<g class="nexus-kokusen-bolt bolt-${index + 1}">` +
-      `<path class="nexus-kokusen-bolt-aura" d="${path}" pathLength="100"/>` +
-      `<path class="nexus-kokusen-bolt-core" d="${path}" pathLength="100"/></g></svg>`).join("");
-  };
-  for (const button of html.querySelectorAll('[data-nexus-critical-action="kokusen"], [data-nexus-critical-action="sparks"]')) {
-    button.classList.add("nexus-kokusen-trigger");
-    if (![...button.children].some(child => child.classList.contains("nexus-kokusen-label"))) {
-      const label = document.createElement("span");
-      label.className = "nexus-kokusen-label";
-      label.append(...[...button.childNodes].filter(node => !node.classList?.contains("nexus-kokusen-fx")));
-      button.append(label);
-    }
-    addLightning(button);
-  }
-  if (state?.kind === "result" && state.success === true && ["kokusen", "sparks"].includes(state.choice)) {
-    for (const card of html.querySelectorAll(".nexus-critical-result")) {
-      card.classList.add("nexus-kokusen-result");
-      addLightning(card);
-    }
-  }
-}
 
 function escapeHTML(value) {
   const entities = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
@@ -319,8 +263,7 @@ export function registerCriticalEffects() {
     const state = stateOf(message);
     if (message.isContentVisible !== false) decorateKokusenVisuals(state, html);
     else if (["offer", "result"].includes(state?.kind)) {
-      for (const card of html.querySelectorAll(".nexus-kokusen-result")) card.classList?.remove("nexus-kokusen-result");
-      for (const layer of html.querySelectorAll(".nexus-kokusen-fx")) layer.remove?.();
+      clearKokusenVisuals(html);
     }
     if (state?.kind !== "offer") return;
     const own = game.user.isGM || authorId(message) === game.user.id;

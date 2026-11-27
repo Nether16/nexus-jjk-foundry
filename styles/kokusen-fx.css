@@ -32,23 +32,25 @@
   pointer-events: none;
 }
 
-/* Faixas estreitas mantêm os raios nas bordas mesmo em cartões altos. */
+/* Segmentos curtos mudam de posição a cada rajada, sem contornar a caixa. */
 .nexus-kokusen-edge-top,
 .nexus-kokusen-edge-bottom {
-  left: 8px;
-  width: calc(100% - 16px);
+  --nexus-kokusen-size: clamp(28px, calc((100% - 32px) * var(--nexus-kokusen-length, .46)), 160px);
+  left: calc(16px + (100% - 32px - var(--nexus-kokusen-size)) * var(--nexus-kokusen-start, .3));
+  width: var(--nexus-kokusen-size);
   height: 24px;
 }
-.nexus-kokusen-edge-top { top: 4px; }
-.nexus-kokusen-edge-bottom { bottom: 4px; }
+.nexus-kokusen-edge-top { top: calc(4px + var(--nexus-kokusen-offset, 0px)); }
+.nexus-kokusen-edge-bottom { bottom: calc(4px + var(--nexus-kokusen-offset, 0px)); }
 .nexus-kokusen-edge-left,
 .nexus-kokusen-edge-right {
-  top: 8px;
+  --nexus-kokusen-size: clamp(22px, calc((100% - 32px) * var(--nexus-kokusen-length, .46)), 150px);
+  top: calc(16px + (100% - 32px - var(--nexus-kokusen-size)) * var(--nexus-kokusen-start, .3));
   width: 24px;
-  height: calc(100% - 16px);
+  height: var(--nexus-kokusen-size);
 }
-.nexus-kokusen-edge-left { left: 4px; }
-.nexus-kokusen-edge-right { right: 4px; }
+.nexus-kokusen-edge-left { left: calc(4px + var(--nexus-kokusen-offset, 0px)); }
+.nexus-kokusen-edge-right { right: calc(4px + var(--nexus-kokusen-offset, 0px)); }
 
 .nexus-kokusen-lightning :is(.nexus-kokusen-bolt-aura, .nexus-kokusen-bolt-core) {
   fill: none;
@@ -69,7 +71,7 @@
 }
 
 .nexus-kokusen-bolt {
-  opacity: .8;
+  opacity: 0;
 }
 
 /* A caixa mantém as mesmas medidas quando o jogador passa o mouse. */
@@ -116,19 +118,9 @@
   opacity: 1;
 }
 
-.nexus-kokusen-trigger:not(:disabled):is(:hover, :focus-visible) .nexus-kokusen-fx::before {
+.nexus-kokusen-trigger:not(:disabled):is(:hover, :focus-visible) .nexus-kokusen-fx[data-nexus-kokusen-running]::before {
   animation: nexus-kokusen-aura 3.2s ease-in-out infinite;
 }
-
-.nexus-kokusen-trigger:not(:disabled):is(:hover, :focus-visible) .nexus-kokusen-bolt {
-  animation: nexus-kokusen-current .8s step-end infinite;
-  stroke-dasharray: 100;
-  stroke-dashoffset: 100;
-}
-
-.nexus-kokusen-trigger:not(:disabled):is(:hover, :focus-visible) :is(.bolt-2, .nexus-kokusen-bolt-2) { animation-delay: -.2s; }
-.nexus-kokusen-trigger:not(:disabled):is(:hover, :focus-visible) :is(.bolt-3, .nexus-kokusen-bolt-3) { animation-delay: -.4s; }
-.nexus-kokusen-trigger:not(:disabled):is(:hover, :focus-visible) :is(.bolt-4, .nexus-kokusen-bolt-4) { animation-delay: -.6s; }
 
 .nexus-critical-actions .nexus-kokusen-trigger:disabled { box-shadow: none; }
 .nexus-kokusen-trigger:disabled .nexus-kokusen-fx { opacity: 0; }
@@ -157,19 +149,10 @@
   opacity: .8;
 }
 
-.nexus-kokusen-result .nexus-kokusen-fx::before {
+.nexus-kokusen-result .nexus-kokusen-fx[data-nexus-kokusen-running]::before {
   animation: nexus-kokusen-aura 4.2s ease-in-out infinite;
 }
 
-.nexus-kokusen-result .nexus-kokusen-bolt {
-  stroke-dasharray: 100;
-  stroke-dashoffset: 100;
-  animation: nexus-kokusen-current 1.2s step-end infinite;
-}
-
-.nexus-kokusen-result :is(.bolt-2, .nexus-kokusen-bolt-2) { animation-delay: -.3s; }
-.nexus-kokusen-result :is(.bolt-3, .nexus-kokusen-bolt-3) { animation-delay: -.6s; }
-.nexus-kokusen-result :is(.bolt-4, .nexus-kokusen-bolt-4) { animation-delay: -.9s; }
 .nexus-kokusen-result .nexus-kokusen-bolt-aura { stroke-width: 7px; }
 .nexus-kokusen-result .nexus-kokusen-bolt-core { stroke-width: 4.5px; }
 
@@ -196,18 +179,9 @@
   text-shadow: none;
 }
 
-@keyframes nexus-kokusen-current {
-  0% { opacity: 0; stroke-dashoffset: 100; }
-  3% { opacity: 1; stroke-dashoffset: 0; }
-  12% { opacity: .95; stroke-dashoffset: 0; }
-  16% { opacity: .12; stroke-dashoffset: -4; }
-  20% { opacity: .85; stroke-dashoffset: 0; }
-  25%, 100% { opacity: 0; stroke-dashoffset: -100; }
-}
-
 @keyframes nexus-kokusen-aura {
-  0%, 100% { opacity: .45; transform: scale(.96) rotate(-3deg); }
-  50% { opacity: .9; transform: scale(1.04) rotate(3deg); }
+  0%, 100% { opacity: .45; }
+  50% { opacity: .9; }
 }
 
 @keyframes nexus-kokusen-impact {
@@ -225,9 +199,5 @@
     animation: none !important;
     transition: none !important;
   }
-  .nexus-kokusen-fx .nexus-kokusen-bolt {
-    opacity: .65;
-    stroke-dasharray: none;
-    stroke-dashoffset: 0;
-  }
+  .nexus-kokusen-fx :is(.bolt-1, .bolt-3) { opacity: .65; }
 }
