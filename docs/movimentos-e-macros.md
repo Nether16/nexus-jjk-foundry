@@ -1,6 +1,6 @@
 # Movimentos, fórmulas e macros — Nexus
 
-Documentação de uso • Nexus 0.4.41 • Foundry VTT 14 • Revisada em 27/11/2026.
+Documentação de uso • Nexus 0.4.42 • Foundry VTT 14 • Revisada em 27/11/2026.
 
 Este manual reúne os recursos implementados para montar movimentos, escrever fórmulas, publicar resultados no chat e executar habilidades pela barra de macros. Os exemplos usam a sintaxe da ficha Nexus. Os comandos de chat e os scripts do Foundry são apresentados separadamente.
 
@@ -718,11 +718,11 @@ Os títulos Dano, Cura e Condição não transformam o resultado em uma ação a
 
 ## 21. Referências e versão
 
-Esta documentação foi conferida contra a implementação Nexus **0.4.41** e o núcleo local Foundry **14.370**. Os exemplos matemáticos principais, parâmetros, vantagem/desvantagem e limitações de dados foram verificados no motor da Nexus com o Roll nativo do Foundry.
+Esta documentação foi conferida contra a implementação Nexus **0.4.42** e o núcleo local Foundry **14.370**. Os exemplos matemáticos principais, parâmetros, vantagem/desvantagem e limitações de dados foram verificados no motor da Nexus com o Roll nativo do Foundry.
 
-- [Motor de fórmulas da Nexus, versão 0.4.41](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.41/module/formula-engine.mjs)
-- [Integração de macros da Nexus, versão 0.4.41](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.41/module/movement-macros.mjs)
-- [Dados e arma equipada da Nexus, versão 0.4.41](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.41/module/documents.mjs)
+- [Motor de fórmulas da Nexus, versão 0.4.42](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.42/module/formula-engine.mjs)
+- [Integração de macros da Nexus, versão 0.4.42](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.42/module/movement-macros.mjs)
+- [Dados e arma equipada da Nexus, versão 0.4.42](https://github.com/Nether16/nexus-jjk-foundry/blob/v0.4.42/module/documents.mjs)
 - [Macros do Foundry](https://foundryvtt.com/article/macros/)
 - [Controles do Foundry](https://foundryvtt.com/article/controls/)
 - [Dados e modos de rolagem](https://foundryvtt.com/article/dice/)
