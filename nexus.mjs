@@ -1,6 +1,7 @@
-import { NexusCharacterData, NexusCurseData, NexusShikigamiData, NexusItemData } from "./module/data-models.mjs";
+import { NexusCharacterData, NexusCurseData, NexusShikigamiData, NexusTokenData, NexusItemData } from "./module/data-models.mjs";
 import { NexusActor, NexusItem } from "./module/documents.mjs";
 import { NexusActorSheet } from "./module/sheets/nexus-actor-sheet.mjs";
+import { NexusTokenSheet } from "./module/sheets/nexus-token-sheet.mjs";
 import { NEXUS_ATTRIBUTES, NEXUS_ORIGINS } from "./module/config.mjs";
 import {
   applyAppearance,
@@ -37,14 +38,16 @@ Hooks.once("init", () => {
   CONFIG.Actor.dataModels = {
     character: NexusCharacterData,
     curse: NexusCurseData,
-    shikigami: NexusShikigamiData
+    shikigami: NexusShikigamiData,
+    token: NexusTokenData
   };
   CONFIG.Actor.defaultType = "character";
   CONFIG.Actor.typeLabels = {
     ...CONFIG.Actor.typeLabels,
     character: "TYPES.Actor.character",
     curse: "TYPES.Actor.curse",
-    shikigami: "TYPES.Actor.shikigami"
+    shikigami: "TYPES.Actor.shikigami",
+    token: "TYPES.Actor.token"
   };
   CONFIG.Item.dataModels = {
     attack: NexusItemData,
@@ -66,7 +69,8 @@ Hooks.once("init", () => {
     shikigami: {
       bar: ["hp"],
       value: ["level", "defense"]
-    }
+    },
+    token: { bar: [], value: [] }
   };
 
   const DocumentSheetConfig = foundry.applications.apps.DocumentSheetConfig;
@@ -78,6 +82,16 @@ Hooks.once("init", () => {
       types: ["character", "curse", "shikigami"],
       makeDefault: true,
       label: "Nexus"
+    }
+  );
+  DocumentSheetConfig.registerSheet(
+    foundry.documents.Actor,
+    game.system.id,
+    NexusTokenSheet,
+    {
+      types: ["token"],
+      makeDefault: true,
+      label: "NEXUS.Actor.Token"
     }
   );
 });

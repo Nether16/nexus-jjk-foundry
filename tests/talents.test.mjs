@@ -47,6 +47,23 @@ function creature({ type = "character", level = 5, origin, items = [] } = {}) {
   return actor;
 }
 
+test("Constituição concede 25 HP por ponto em personagens e maldições sem alterar EA nem curar", () => {
+  for (const type of ["character", "curse"]) {
+    const actor = creature({ type });
+    const hpBase = actor.system.hp.max;
+    const eaBase = actor.system.ea.max;
+    const currentHP = actor.system.hp.value;
+    actor.system.attributes.vigor = 2;
+    actor.prepareData();
+    assert.equal(actor.system.hp.max, hpBase + 50, type);
+    assert.equal(actor.system.ea.max, eaBase, type);
+    assert.equal(actor.system.hp.value, currentHP, type);
+    actor.system.attributes.vigor = 3;
+    actor.prepareData();
+    assert.equal(actor.system.hp.max, hpBase + 75, type);
+  }
+});
+
 test("Reserva concede +50 EA retroativos no nível 5 e acompanha o nível 6 sem aumentar HP", () => {
   const actor = creature();
   assert.equal(actor.system.ea.max, 350);

@@ -4,6 +4,9 @@ import { getWeaponDamageDetails } from "./weapon-damage.mjs";
 import { validateProgressionChanges } from "./progression-permissions.mjs";
 
 const DEFAULT_TOKEN_ART = globalThis.CONST?.DEFAULT_TOKEN ?? "icons/svg/mystery-man.svg";
+const tokenArt = value => typeof value === "string" && value.trim() ? value.trim() : DEFAULT_TOKEN_ART;
+const videoArt = value => /^data:video\//iu.test(value) || /\.(?:mp4|webm|m4v|ogv|ogg)(?:$|[?#])/iu.test(value);
+const tokenOnlyArt = value => videoArt(value) || value.includes("*") || value.startsWith("#");
 
 /** Resolve mudanças tanto expandidas quanto em caminhos pontuados. */
 function findChange(changes, path) {
@@ -72,7 +75,23 @@ function validateInvokerChanges(actor, changes, user, { creating = false } = {})
 export class NexusActor extends Actor {
   _initializeSource(data, options) {
     const tokenImage = findChange(data, "prototypeToken.texture.src")?.value;
+    const portrait = data.img;
+    const defaults = ["displayName", "displayBars", "bar1.attribute", "bar2.attribute", "name"]
+      .filter(key => !findChange(data, `prototypeToken.${key}`));
     const source = super._initializeSource(data, options);
+    if (source.type === "token") {
+      const art = tokenArt(typeof tokenImage === "string" && tokenImage.trim() ? tokenImage : portrait);
+      source.prototypeToken.texture.src = art;
+      // Actor.img aceita imagens; vídeos continuam na textura do token nativo.
+      source.img = tokenOnlyArt(art) ? tokenArt(portrait) : art;
+      if (defaults.includes("displayName")) source.prototypeToken.displayName = globalThis.CONST?.TOKEN_DISPLAY_MODES?.HOVER ?? 30;
+      if (defaults.includes("displayBars")) source.prototypeToken.displayBars = globalThis.CONST?.TOKEN_DISPLAY_MODES?.NONE ?? 0;
+      for (const bar of ["bar1", "bar2"]) {
+        if (defaults.includes(`${bar}.attribute`)) (source.prototypeToken[bar] ??= {}).attribute = null;
+      }
+      if (defaults.includes("name")) source.prototypeToken.name = source.name;
+      return source;
+    }
     if (typeof tokenImage !== "string" || !tokenImage.trim()) {
       source.prototypeToken.texture.src = DEFAULT_TOKEN_ART;
     }
@@ -138,9 +157,19 @@ export class NexusActor extends Actor {
         }
       }
     }
-    const image = findChange(changes, "img")?.value;
+    const imageChange = findChange(changes, "img");
+    const image = imageChange?.value;
     const tokenChange = findChange(changes, "prototypeToken.texture.src");
-    if (tokenChange || (typeof image === "string" && image.trim())) {
+    if (this.type === "token") {
+      if (tokenChange || imageChange) {
+        const art = tokenArt(tokenChange ? tokenChange.value : image);
+        if (tokenChange) delete tokenChange.target[tokenChange.key];
+        setChange(changes, "prototypeToken.texture.src", art);
+        setChange(changes, "img", tokenOnlyArt(art) ? tokenArt(this.img) : art);
+      }
+      const nameChange = findChange(changes, "name");
+      if (nameChange && typeof nameChange.value === "string") setChange(changes, "prototypeToken.name", nameChange.value);
+    } else if (tokenChange || (typeof image === "string" && image.trim())) {
       const tokenImage = tokenChange ? tokenChange.value : this.prototypeToken?.texture?.src;
       // O Foundry copia o retrato para tokens com arte padrão; mantenha a arte independente.
       // Normalize caminhos mistos antes do hook nativo consultar a textura.
@@ -152,7 +181,7 @@ export class NexusActor extends Actor {
   }
 
   get equippedWeapon() {
-    if (this.type === "shikigami") return null;
+    if (this.type === "shikigami" || this.type === "token") return null;
     const item = this.items.get(this.system.equippedWeaponId);
     return item?.isWeapon ? item : null;
   }
@@ -166,6 +195,7 @@ export class NexusActor extends Actor {
   }
 
   async equipWeapon(id = "") {
+    if (this.type === "token") throw new Error("Fichas de token não possuem inventário de armas.");
     if (this.type === "shikigami") throw new Error("Shikigamis não possuem inventário de armas.");
     if (!this.isOwner) throw new Error("Você não pode alterar o equipamento deste personagem.");
     if (typeof id !== "string") throw new Error("Arma inválida.");
@@ -178,6 +208,7 @@ export class NexusActor extends Actor {
 
   getRollData() {
     const data = super.getRollData();
+    if (this.type === "token") return data;
     const attributes = this.system.attributes;
 
     const physical = {
@@ -209,6 +240,7 @@ export class NexusActor extends Actor {
   }
 
   async rollAttribute(key) {
+    if (this.type === "token") return;
     if (this.type === "shikigami" && !SHIKIGAMI_ATTRIBUTE_KEYS.includes(key)) return;
     const attribute = NEXUS_ATTRIBUTES[key];
     if (!attribute) return;
@@ -226,6 +258,7 @@ export class NexusActor extends Actor {
   }
 
   async shareDefense() {
+    if (this.type === "token") return;
     const image = foundry.utils.getRoute("systems/nexus-jjk/assets/images/ca-defense.gif");
     return ChatMessage.create({
       speaker: ChatMessage.getSpeaker({ actor: this }),

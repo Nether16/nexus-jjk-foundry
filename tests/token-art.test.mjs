@@ -78,6 +78,7 @@ class ActorFixture {
     return { name: this.name, img: this.img, type: this.type, system: structuredClone(this.system),
       prototypeToken: this.prototypeToken.toObject() };
   }
+  getRollData() { return structuredClone(this.system); }
   async _preCreate(...args) {
     if (this.denyCreate) return false;
     const allowed = await NativeActor?.prototype._preCreate.call(this, ...args);
@@ -171,4 +172,95 @@ test("cancelamento pelo hook pai continua impedindo criação e atualização", 
   assert.equal(await actor._preCreate({ img: "portrait.webp" }, {}, gm), false);
   assert.equal(await actor._preUpdate({ img: "new-portrait.webp" }, {}, gm), false);
   assert.deepEqual(actor.prototypeToken.toObject(), before);
+});
+
+test("tipo token inicia com a própria arte, nome no hover e barras sem atributos", async () => {
+  const data = { type: "token", name: "Mercador", img: "merchant.webp", system: {} };
+  const actor = new NexusActor(data);
+  const proto = actor.prototypeToken.toObject();
+  assert.equal(actor.img, "merchant.webp");
+  assert.equal(proto.texture.src, "merchant.webp");
+  assert.equal(proto.name, "Mercador");
+  assert.equal(proto.displayName, CONST.TOKEN_DISPLAY_MODES.HOVER);
+  assert.equal(proto.displayBars, CONST.TOKEN_DISPLAY_MODES.NONE);
+  assert.equal(proto.bar1.attribute, null);
+  assert.equal(proto.bar2.attribute, null);
+  assert.notEqual(await actor._preCreate(data, {}, gm), false);
+  assert.deepEqual(actor.prototypeToken.toObject(), proto);
+});
+
+test("tipo token usa arte explícita do protótipo e preserva configuração manual", async () => {
+  const proto = tokenSource({ name: "Nome manual", texture: { src: "manual-token.webp" },
+    displayName: CONST.TOKEN_DISPLAY_MODES.ALWAYS, displayBars: CONST.TOKEN_DISPLAY_MODES.OWNER,
+    bar1: { attribute: "recurso" }, bar2: { attribute: "outro" } });
+  const data = { type: "token", name: "Mercador", img: "portrait.webp", prototypeToken: proto };
+  const actor = new NexusActor(data);
+  assert.equal(actor.img, "manual-token.webp");
+  assert.deepEqual(actor.prototypeToken.toObject(), proto);
+  assert.notEqual(await actor._preCreate(data, {}, gm), false);
+  assert.deepEqual(actor.prototypeToken.toObject(), proto);
+});
+
+test("tipo token aceita apenas a arte do protótipo e também usa ícone neutro sem arte", async () => {
+  const actor = new NexusActor({ type: "token", prototypeToken: { texture: { src: "token.webp" } } });
+  assert.equal(actor.img, "token.webp");
+  assert.equal(actor.prototypeToken.texture.src, "token.webp");
+  const empty = new NexusActor({ type: "token", img: "", prototypeToken: { texture: { src: "" } } });
+  assert.equal(empty.img, DEFAULT_TOKEN);
+  assert.equal(empty.prototypeToken.texture.src, DEFAULT_TOKEN);
+});
+
+for (const form of ["aninhado", "pontuado", "misto"]) {
+  test(`tipo token sincroniza foto e textura pelo caminho ${form}, preservando escala e visão`, async () => {
+    const actor = new NexusActor({ type: "token", img: "old-token.webp" });
+    const before = actor.prototypeToken.toObject();
+    const fromPortrait = { img: "new-token.webp" };
+    assert.notEqual(await actor._preUpdate(fromPortrait, {}, gm), false);
+    assert.equal(getProperty(fromPortrait, "prototypeToken.texture.src"), "new-token.webp");
+    const changes = { img: "ignored-portrait.webp" };
+    if (form === "aninhado") changes.prototypeToken = { texture: { src: "configured-token.webp" } };
+    if (form === "pontuado") changes["prototypeToken.texture.src"] = "configured-token.webp";
+    if (form === "misto") changes.prototypeToken = { "texture.src": "configured-token.webp" };
+    assert.notEqual(await actor._preUpdate(changes, {}, gm), false);
+    const after = merge(actor.toObject(), changes);
+    assert.equal(after.img, "configured-token.webp");
+    assert.deepEqual(after.prototypeToken, merge(before, { texture: { src: "configured-token.webp" } }));
+  });
+}
+
+test("tipo token acompanha o nome editado e limpar a imagem retorna ao ícone neutro", async () => {
+  const actor = new NexusActor({ type: "token", name: "Antigo", img: "token.webp" });
+  const changes = { name: "Mercador", img: "" };
+  assert.notEqual(await actor._preUpdate(changes, {}, gm), false);
+  const after = merge(actor.toObject(), changes);
+  assert.equal(after.name, "Mercador");
+  assert.equal(after.prototypeToken.name, "Mercador");
+  assert.equal(after.img, DEFAULT_TOKEN);
+  assert.equal(after.prototypeToken.texture.src, DEFAULT_TOKEN);
+});
+
+test("tipo token preserva vídeos e wildcards do configurador sem torná-los retratos inválidos", async () => {
+  for (const art of ["tokens/merchant.webm", "tokens/merchant.mp4?x=1", "tokens/*.webp", "tokens/*"]) {
+    const actor = new NexusActor({ type: "token", img: "portrait.webp", prototypeToken: { texture: { src: art } } });
+    assert.equal(actor.img, "portrait.webp");
+    assert.equal(actor.prototypeToken.texture.src, art);
+    const changes = { prototypeToken: { texture: { src: art }, width: 3 } };
+    assert.notEqual(await actor._preUpdate(changes, {}, gm), false);
+    const after = merge(actor.toObject(), changes);
+    assert.equal(after.img, "portrait.webp");
+    assert.equal(after.prototypeToken.texture.src, art);
+    assert.equal(after.prototypeToken.width, 3);
+  }
+});
+
+test("tipo token funciona com system vazio sem rolagens, CA ou inventário", async () => {
+  const actor = new NexusActor({ type: "token", img: "token.webp" });
+  actor.system = {};
+  assert.deepEqual(actor.getRollData(), {});
+  assert.equal(actor.equippedWeapon, null);
+  assert.equal(actor.weaponDamage, 0);
+  assert.equal(actor.weaponAccuracy, 0);
+  await assert.rejects(actor.equipWeapon(), /token não possuem inventário/u);
+  assert.equal(await actor.rollAttribute("forca"), undefined);
+  assert.equal(await actor.shareDefense(), undefined);
 });

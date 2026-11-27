@@ -1,0 +1,25 @@
+<section class="token-ficha">
+  <label class="token-campo" for="{{rootId}}-nome">
+    <span>Nome</span>
+    <input id="{{rootId}}-nome" type="text" name="name" value="{{name}}" placeholder="Nome do token" {{#unless editable}}readonly{{/unless}}>
+  </label>
+
+  <button class="token-arte" type="button" data-action="chooseTokenImage" title="Escolher imagem do token" aria-label="Escolher imagem do token" {{#unless editable}}disabled{{/unless}}>
+    {{#if isVideo}}
+      <video src="{{preview}}" aria-label="{{name}}" autoplay muted loop playsinline></video>
+    {{else}}
+      <img src="{{preview}}" alt="{{name}}" draggable="false">
+    {{/if}}
+    {{#if editable}}<span class="token-arte-editar"><i class="fa-solid fa-image" aria-hidden="true"></i> Alterar imagem</span>{{/if}}
+  </button>
+
+  <label class="token-campo" for="{{rootId}}-imagem">
+    <span>Imagem</span>
+    <input id="{{rootId}}-imagem" type="text" name="prototypeToken.texture.src" value="{{image}}" placeholder="Cole um link ou escolha a imagem acima" {{#unless editable}}readonly{{/unless}}>
+  </label>
+
+  <button class="token-configurar" type="button" data-action="configureTokenSettings" {{#unless editable}}disabled{{/unless}}>
+    <i class="fa-solid fa-gear" aria-hidden="true"></i> Configurar token
+  </button>
+  <p class="token-orientacao">Arraste este token da lista de personagens para o mapa.</p>
+</section>
